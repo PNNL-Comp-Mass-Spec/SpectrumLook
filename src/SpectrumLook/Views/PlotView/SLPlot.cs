@@ -1,0 +1,495 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
+using System.Linq;
+using System.Runtime.InteropServices;
+using System.Text;
+using System.Windows.Forms;
+using ZedGraph;
+using SpectrumLook;
+using SpectrumLook.Builders;
+
+namespace SpectrumLook.Views
+{
+    public partial class SLPlot : Form, IObserver
+    {
+        private Manager m_manager;
+        public PlotOptions m_options
+        {
+            get
+            {
+                return msPlot.m_options;
+            }
+            set
+            {
+                msPlot.m_options = value;
+            }
+        }
+
+        #region Initialization
+        /// <summary>
+        /// The constructor for the form
+        /// </summary>
+        public SLPlot(Manager manager)
+        {
+            InitializeComponent();
+            m_manager = manager;
+            msPlot.m_manager = manager;
+
+            m_options = new PlotOptions();
+
+            //Setup the parts of the form not involving zedgraph
+            msPlot.m_updateCursorCallback = UpdateSnapPoint;
+            trackBarAnnotationPercent.Value = msPlot.m_options.annotationPercent;
+            
+            //set this true so that all keyboard events in any child control get processed by SLPlot first
+            KeyPreview = true;
+        }
+        
+        /// <summary>
+        /// The form Load event, initializes the graph and sets it's initial size
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            msPlot.SetSize(new Point(10, 10), ClientRectangle.Width - 20, ClientRectangle.Height - 20);
+        }
+        #endregion
+
+        #region Keyboard Shortcuts
+        protected override void OnKeyDown(KeyEventArgs e)
+        {
+            base.OnKeyDown(e);
+
+            if (!e.Handled)
+            {
+                m_manager.HandleKeyboardShortcuts(e);
+            }
+        }
+        #endregion
+
+        #region Form Sizing
+        /// <summary>
+        /// The resize event for the form, resizes the graph at the same time
+        /// </summary>
+        private void Form1_Resize(object sender, EventArgs e)
+        {
+            ResizeForm();
+        }
+
+        /// <summary>
+        /// The resize event for the form, resizes the graph at the same time
+        /// </summary>
+        private void ResizeForm()
+        {
+            bool setSnapBoxVisible = true;
+            bool setAnnotationSliderVisible = true;
+
+            ////check what can we show given the space we have
+
+            //check horizontal size constraints
+            if (this.Size.Width < (20 + groupBoxAnnotationCoverage.Size.Width + groupBoxClosestPoint.Size.Width))
+            {
+                setAnnotationSliderVisible = false;
+                if (this.Size.Width < (12 + groupBoxClosestPoint.Width + (.5 * groupBoxAnnotationCoverage.Size.Width)))
+                {
+                    setSnapBoxVisible = false;
+                }
+            }
+            //check vertical size constraints
+            if (this.Size.Height < 30 + (4 * (groupBoxClosestPoint.Size.Height)))
+            {
+                setAnnotationSliderVisible = false;
+                setSnapBoxVisible = false;
+            }
+
+            ////Check the user options for if we need to hide something we have room for
+            if (msPlot.m_options.hidePlotTools)
+            {
+                setSnapBoxVisible = false;
+                setAnnotationSliderVisible = false;
+                buttonHidePlotOptions.Text = "^";
+            }
+            else
+            {
+                buttonHidePlotOptions.Text = "v";
+            }
+
+            //now resize the form
+            groupBoxClosestPoint.Visible = setSnapBoxVisible;
+            groupBoxAnnotationCoverage.Visible = setAnnotationSliderVisible;
+            if (setSnapBoxVisible || setAnnotationSliderVisible)
+            {
+                msPlot.SetSize(new Point(10, 10), ClientRectangle.Width - 20, ClientRectangle.Height - (30 + groupBoxClosestPoint.Height));
+            }
+            else
+            {
+                msPlot.SetSize(new Point(10, 10), ClientRectangle.Width - 20, ClientRectangle.Height - (30 + buttonHidePlotOptions.Height));
+            }
+        }
+
+        private void buttonHidePlotOptions_Click(object sender, EventArgs e)
+        {
+            ToggleHidePlotTools();
+        }
+
+        private void ToggleHidePlotTools()
+        {
+            if (m_options.hidePlotTools)
+            {
+                m_options.hidePlotTools = false;
+            }
+            else
+            {
+                m_options.hidePlotTools = true;
+            }
+        }
+        #endregion
+
+        #region Annotation Editing
+
+        /// <summary>
+        /// Handles selecting the nearest peptide to edit the annotation for, and showing the editAnnotation form
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void msPlot_DoubleClick(object sender, EventArgs e)
+        {
+            bool usingCustomAnnotation = false;
+            MouseEventArgs mouseArgs = (MouseEventArgs)e;
+            Graphics g = msPlot.CreateGraphics();
+            GraphPane closestPane;
+            PointPair closestPoint;
+            PointF mousePt = new PointF(mouseArgs.X, mouseArgs.Y);
+            TextObj selectedTextObj = null;
+
+            //retrieve the text object that the user may have selected
+            if (msPlot.FindClosestPoint(mousePt, out closestPoint, out closestPane))
+            {
+                foreach (GraphObj textObject in closestPane.GraphObjList)
+                {
+                    if (textObject.Tag == closestPoint)
+                    {
+                        //zed graph found the annotation object, use that text object
+                        selectedTextObj = textObject as TextObj;
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                //couldn't find the annotation from where the user clicked
+                return;
+            }
+
+            if (selectedTextObj == null)
+                return; //no obj, so don't do anything
+
+            //see if we have a custom annotation for this annotation we selected
+            LadderInstance currentInstance = m_manager.GetCurrentInstance();
+            Annotation selectedAnnotation = new Annotation();
+            foreach (Annotation annotation in currentInstance.annotations)
+            {
+                if (annotation.m_point == (PointPair)selectedTextObj.Tag)
+                {
+                    usingCustomAnnotation = true;
+                    selectedAnnotation = annotation;
+                    currentInstance.annotations.Remove(annotation);
+                    break;
+                }
+            }
+            if (selectedAnnotation.m_point == null && selectedAnnotation.m_text == null)
+            {
+                selectedAnnotation.m_showHideAuto = 0;
+                selectedAnnotation.m_text = selectedTextObj.Text;
+                selectedAnnotation.m_point = (PointPair)selectedTextObj.Tag;
+            }
+
+            // Open the AnnotationEdit form
+            PlotView.AnnotationEdit editForm = new PlotView.AnnotationEdit(selectedAnnotation);
+            if (editForm.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                if (editForm.m_annotation.m_showHideAuto < 0)
+                {
+                    selectedTextObj.IsVisible = false;
+                }
+                else if (editForm.m_annotation.m_showHideAuto > 0)
+                {
+                    selectedTextObj.IsVisible = true;
+                }
+                selectedTextObj.Text = editForm.m_annotation.m_text;
+
+                currentInstance.annotations.Add(editForm.m_annotation);
+            }
+            else if (usingCustomAnnotation)
+            {
+                //recreate the annotation we thought we were replacing
+                currentInstance.annotations.Add(selectedAnnotation);
+            }
+
+            msPlot.ReevaluateAnnotations();
+            msPlot.Invalidate();
+            return;
+        }
+        #endregion
+
+        #region Batch Save
+
+        ///The following is copied from ZedGraph... use this to figure out how to save an image File
+
+        /// <summary>
+        /// Copies the current image to the selected file in  
+        /// Emf (vector), or a variety of Bitmap formats.
+        /// </summary>
+        /// <param name="DefaultFileName">
+        /// Accepts a default file name for the file dialog (if "" or null, default is not used)
+        /// </param>
+        /// <returns>
+        /// The file name saved, or "" if cancelled.
+        /// </returns>
+        /// <remarks>
+        /// Note that <see cref="SaveAsBitmap" /> and <see cref="SaveAsEmf" /> methods are provided
+        /// which allow for Bitmap-only or Emf-only handling of the "Save As" context menu item.
+        /// </remarks>
+        public String MySaveAs(String DefaultFileName)
+        {
+            SaveFileDialog saveDialog = new SaveFileDialog();
+
+            if (msPlot.MasterPane != null)
+            {
+                saveDialog.Filter =
+                    "Emf Format (*.emf)|*.emf|" +
+                    "PNG Format (*.png)|*.png|" +
+                    "Gif Format (*.gif)|*.gif|" +
+                    "Jpeg Format (*.jpg)|*.jpg|" +
+                    "Tiff Format (*.tif)|*.tif|" +
+                    "Bmp Format (*.bmp)|*.bmp";
+
+                if (DefaultFileName != null && DefaultFileName.Length > 0)
+                {
+                    String ext = System.IO.Path.GetExtension(DefaultFileName).ToLower();
+                    switch (ext)
+                    {
+                        case ".emf": saveDialog.FilterIndex = 1; break;
+                        case ".png": saveDialog.FilterIndex = 2; break;
+                        case ".gif": saveDialog.FilterIndex = 3; break;
+                        case ".jpeg":
+                        case ".jpg": saveDialog.FilterIndex = 4; break;
+                        case ".tiff":
+                        case ".tif": saveDialog.FilterIndex = 5; break;
+                        case ".bmp": saveDialog.FilterIndex = 6; break;
+                    }
+                    //If we were passed a file name, not just an extension, use it
+                    if (DefaultFileName.Length > ext.Length)
+                    {
+                        saveDialog.FileName = DefaultFileName;
+                    }
+                }
+
+                if (saveDialog.ShowDialog() == DialogResult.OK)
+                {
+                    Stream myStream = saveDialog.OpenFile();
+                    if (myStream != null)
+                    {
+                        if (saveDialog.FilterIndex == 1)
+                        {
+                            myStream.Close();
+                            SaveEmfFile(saveDialog.FileName);
+                        }
+                        else
+                        {
+                            ImageFormat format = ImageFormat.Png;
+                            switch (saveDialog.FilterIndex)
+                            {
+                                case 2: format = ImageFormat.Png; break;
+                                case 3: format = ImageFormat.Gif; break;
+                                case 4: format = ImageFormat.Jpeg; break;
+                                case 5: format = ImageFormat.Tiff; break;
+                                case 6: format = ImageFormat.Bmp; break;
+                            }
+
+                            msPlot.MasterPane.GetImage(msPlot.MasterPane.IsAntiAlias).Save(myStream, format);
+                            //_masterPane.GetImage().Save( myStream, format );
+                            myStream.Close();
+                        }
+                        return saveDialog.FileName;
+                    }
+                }
+            }
+            return "";
+        }
+
+
+
+        /// Dlls needed to save an EmfFile
+        [DllImport("gdi32.dll")]
+        static extern IntPtr CopyEnhMetaFile(IntPtr hemfSrc, System.Text.StringBuilder hNULL);
+        [DllImport("gdi32.dll")]
+        static extern bool DeleteEnhMetaFile(IntPtr hemf);
+
+        /// <summary>
+        /// Save the current Graph to the specified filename in EMF (vector) format.
+        /// See <see cref="SaveAsEmf()" /> for public access.
+        /// </summary>
+        /// <remarks>
+        /// Note that this handler saves as an Emf format only.  The default handler is
+        /// <see cref="SaveAs()" />, which allows for Bitmap or EMF formats.
+        /// </remarks>
+        internal void SaveEmfFile(string fileName)
+        {
+            using (Graphics g = this.CreateGraphics())
+            {
+                IntPtr hdc = g.GetHdc();
+                Metafile metaFile = new Metafile(hdc, EmfType.EmfPlusOnly);
+                using (Graphics gMeta = Graphics.FromImage(metaFile))
+                {
+                    //PaneBase.SetAntiAliasMode( gMeta, IsAntiAlias );
+                    //gMeta.CompositingMode = CompositingMode.SourceCopy; 
+                    //gMeta.CompositingQuality = CompositingQuality.HighQuality;
+                    //gMeta.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                    //gMeta.SmoothingMode = SmoothingMode.AntiAlias;
+                    //gMeta.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality; 
+                    msPlot.MasterPane.Draw(gMeta);
+                    //gMeta.Dispose();
+                }
+
+                IntPtr hEMF;
+                hEMF = metaFile.GetHenhmetafile(); // invalidates mf 
+                if (!hEMF.Equals(new IntPtr(0)))
+                {
+                    StringBuilder tempName = new StringBuilder(fileName);
+                    CopyEnhMetaFile(hEMF, tempName);
+                    DeleteEnhMetaFile(hEMF);
+                }
+
+                g.ReleaseHdc(hdc);
+                //g.Dispose();
+            }
+
+        }
+
+
+        #endregion
+
+        #region Options
+        /// <summary>
+        /// Extra event for the closing of the options form so that we can update the plot to the user's new options
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public void UpdateObserver()
+        {
+            ResizeForm();
+            msPlot.UpdateOptions();
+            msPlot.IsEnableVZoom = !msPlot.m_options.zoomHorizontal;
+            msPlot.IsShowContextMenu = !msPlot.m_options.rightClickUnzoom;
+            trackBarAnnotationPercent.Value = msPlot.m_options.annotationPercent;
+            if (!msPlot.m_options.showSnappingCursor)
+            {
+                mzTextBox.Text = string.Empty;
+                relativeIntensityTextBox.Text = string.Empty;
+            }
+            //msPlot.ReevaluateAnnotations();
+            msPlot.Invalidate();
+            this.Invalidate();
+        }
+
+        /// <summary>
+        /// Fires when the user scrolls the Annotation Percent Slider
+        /// This will fire an event in the plot to replot with a different level of annotations
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void trackBarAnnotationPercent_Scroll(object sender, EventArgs e)
+        {
+            msPlot.m_options.annotationPercent = trackBarAnnotationPercent.Value;
+            msPlot.ReevaluateAnnotations();
+            msPlot.Invalidate();
+        }
+        #endregion
+
+        #region Public Methods
+        /// <summary>
+        /// Updates information on the form about the Snapping Point's Position.  This is used as a callback in the myZedGraph plotter.
+        /// </summary>
+        /// <param name="newPosition"></param>
+        public void UpdateSnapPoint(PointF newPosition)
+        {
+            mzTextBox.Text = newPosition.X.ToString();
+            relativeIntensityTextBox.Text = newPosition.Y.ToString();
+        }
+
+        /// <summary>
+        /// Handles unzooming zedgraph by calling the myZedGraph HandleZoomOut method
+        /// </summary>
+        public void HandleZoomOut()
+        {
+            msPlot.HandleZoomOut();
+        }
+
+        /// <summary>
+        /// Focuses the plot on a specific point.  This is used for when the user clicks the fragment ladder and we want to hilight that point
+        /// </summary>
+        /// <param name="focusValue">The x value to focus on in the plot</param>
+        public void FocusPlotOnPoint(double focusValue)
+        {
+            if (msPlot.m_arrowShowing && (float)focusValue == msPlot.m_arrowPoint.X)
+            {
+                msPlot.m_arrowShowing = false;
+            }
+            else
+            {
+                int offset = msPlot.m_options.focusOffset;
+
+                //change the zoom of the graph
+                ZoomState oldZoom = new ZoomState(msPlot.GraphPane, ZoomState.StateType.Zoom);
+                msPlot.GraphPane.XAxis.Scale.Min = focusValue - offset;
+                msPlot.GraphPane.XAxis.Scale.Max = focusValue + offset;
+                msPlot.GraphPane.YAxis.Scale.MinAuto = true;
+                msPlot.GraphPane.YAxis.Scale.MaxAuto = true;
+                msPlot.GraphPane.ZoomStack.Add(oldZoom);
+
+                //place a cursor below the axis
+                PointF graphPoint = new PointF((float)focusValue, (float)msPlot.GraphPane.YAxis.Scale.Min);
+                msPlot.PaintArrow(graphPoint);
+            }
+            msPlot.Invalidate();
+        }
+
+        /// <summary>
+        /// Takes a list of compared elements and splits them into matched and unmatched elements, 
+        /// then passes the information to msPlot to plot the actual graph
+        /// </summary>
+        /// <param name="Points"></param>
+        /// <param name="scanNumber"></param>
+        public void PlotData(List<Element> Points, string scanNumber, string peptide)
+        {
+            List<Element> matchedPoints = new List<Element>();
+            List<Element> unmatchedPoints = new List<Element>();
+
+            foreach (Element point in Points)
+            {
+                if (point.matched == true)
+                {
+                    matchedPoints.Add(point);
+                }
+                else
+                {
+                    unmatchedPoints.Add(point);
+                }
+            }
+
+            msPlot.PlotGraph(peptide, scanNumber, unmatchedPoints, matchedPoints);
+            msPlot.m_arrowShowing = false;
+            msPlot.ReevaluateAnnotations();
+            msPlot.Invalidate();
+            msPlot.Update();
+        }
+        #endregion
+    }
+}

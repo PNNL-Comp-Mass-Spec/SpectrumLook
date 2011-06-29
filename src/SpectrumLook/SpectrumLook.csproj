@@ -1,0 +1,216 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{AF37BC26-D110-44A1-B582-F9F3B2DD004B}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SpectrumLook</RootNamespace>
+    <AssemblyName>SpectrumLook</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>
+    </StartupObject>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="MSDataFileReader">
+      <HintPath>..\ReferencedAssemblies\MSDataFileReader.dll</HintPath>
+    </Reference>
+    <Reference Include="MwtWinDll">
+      <HintPath>..\ReferencedAssemblies\MwtWinDll.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="ZedGraph">
+      <HintPath>..\ReferencedAssemblies\ZedGraph.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Builders\ActualListBuilder.cs" />
+    <Compile Include="Builders\BuilderDirector.cs" />
+    <Compile Include="Builders\ComparedListBuilder.cs" />
+    <Compile Include="Builders\DataBuilder.cs" />
+    <Compile Include="Builders\Element.cs" />
+    <Compile Include="Builders\ElementListBuilder.cs" />
+    <Compile Include="Builders\MolecularWeightCalculator.cs" />
+    <Compile Include="HashtableXmlSerializer.cs" />
+    <Compile Include="LadderInstance.cs" />
+    <Compile Include="Builders\TheoryListBuilder.cs" />
+    <Compile Include="Manager.cs" />
+    <Compile Include="SLOpenFileDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SLOpenFileDialog.Designer.cs">
+      <DependentUpon>SLOpenFileDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Builders\IExperimentParser.cs" />
+    <Compile Include="Builders\ISynopsysParser.cs" />
+    <Compile Include="Builders\ITheoryCalculator.cs" />
+    <Compile Include="Builders\MzParser.cs" />
+    <Compile Include="Builders\SequestParser.cs" />
+    <Compile Include="Views\DataView\DataView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\DataView\DataView.designer.cs">
+      <DependentUpon>DataView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DataView\DataViewAdvance.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\DataView\DataViewAdvance.designer.cs">
+      <DependentUpon>DataViewAdvance.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EditAddModification.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\EditAddModification.Designer.cs">
+      <DependentUpon>EditAddModification.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FragmentLadderView\FragmentLadderView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\FragmentLadderView\FragmentLadderView.designer.cs">
+      <DependentUpon>FragmentLadderView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FragmentLadderView\LadderInstanceBuilder.cs" />
+    <Compile Include="Views\FragmentLadderView\LadderTab.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\FragmentLadderView\LadderTab.Designer.cs">
+      <DependentUpon>LadderTab.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\MainForm.designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Observer.cs" />
+    <Compile Include="Views\OptionsViewController.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\OptionsViewController.Designer.cs">
+      <DependentUpon>OptionsViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Options\FragmentLadderOptions.cs" />
+    <Compile Include="Views\Options\MainFormOptions.cs" />
+    <Compile Include="Views\Options\SLPlotOptions.cs" />
+    <Compile Include="Views\PlotView\AnnotationEdit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\PlotView\AnnotationEdit.Designer.cs">
+      <DependentUpon>AnnotationEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PlotView\MyZedGraph.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\PlotView\SLPlot.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\PlotView\SLPlot.designer.cs">
+      <DependentUpon>SLPlot.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Subject.cs" />
+    <EmbeddedResource Include="SLOpenFileDialog.resx">
+      <DependentUpon>SLOpenFileDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Views\DataView\DataView.resx">
+      <DependentUpon>DataView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\DataView\DataViewAdvance.resx">
+      <DependentUpon>DataViewAdvance.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\EditAddModification.resx">
+      <DependentUpon>EditAddModification.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\FragmentLadderView\FragmentLadderView.resx">
+      <DependentUpon>FragmentLadderView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\FragmentLadderView\LadderTab.resx">
+      <DependentUpon>LadderTab.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\OptionsViewController.resx">
+      <DependentUpon>OptionsViewController.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\PlotView\AnnotationEdit.resx">
+      <DependentUpon>AnnotationEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\PlotView\MyZedGraph.resx">
+      <DependentUpon>MyZedGraph.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\PlotView\SLPlot.resx">
+      <DependentUpon>SLPlot.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="SpectrumLookIcon.ico" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
