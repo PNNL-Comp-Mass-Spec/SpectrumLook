@@ -52,10 +52,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="MSDataFileReader">
-      <HintPath>..\ReferencedAssemblies\MSDataFileReader.dll</HintPath>
+      <HintPath>..\..\lib\MSDataFileReader.dll</HintPath>
     </Reference>
     <Reference Include="MwtWinDll">
-      <HintPath>..\ReferencedAssemblies\MwtWinDll.dll</HintPath>
+      <HintPath>..\..\lib\MwtWinDll.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -69,10 +69,10 @@
     <Reference Include="System.Xml" />
     <Reference Include="ThermoRawFileReaderDLL, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>ReferencedAssemblies\ThermoRawFileReaderDLL.dll</HintPath>
+      <HintPath>..\..\lib\ThermoRawFileReaderDLL.dll</HintPath>
     </Reference>
     <Reference Include="ZedGraph">
-      <HintPath>..\ReferencedAssemblies\ZedGraph.dll</HintPath>
+      <HintPath>..\..\lib\ZedGraph.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
