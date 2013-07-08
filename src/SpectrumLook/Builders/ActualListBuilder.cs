@@ -69,31 +69,23 @@ namespace SpectrumLook.Builders
         /// derived List of Elements.
         /// </summary>
         public override void BuildList()
+        {            
+            List<Element> listToStore       = new List<Element>();
+            Element tempElement             = new Element();
+            List<Element> experimentDataStringArray = m_fileParser.GetExperimentDataByScanNumber(m_scanNumber);
+            experimentDataStringArray.ForEach(x => x.matched = false);            
+            ElementList = experimentDataStringArray;
+        }
+
+        public bool SetScanNumber(int newScanNum)
         {
-            int currentExperimentDataPair = 0;
-            string[] experimentDataStringArray;
-            double tempDoubleValue;
-            List<Element> listToStore = new List<Element>();
-            Element tempElement = new Element();
-
-            experimentDataStringArray = m_fileParser.GetExperimentDataByScanNumber(m_scanNumber);
-
-            while (currentExperimentDataPair < experimentDataStringArray.Length)
+            bool success = false;
+            if (newScanNum >= 0)
             {
-                tempElement = new Element();
-                double.TryParse(experimentDataStringArray[currentExperimentDataPair], out tempDoubleValue);
-                tempElement.mzValue = tempDoubleValue;
-                ++currentExperimentDataPair;
-                double.TryParse(experimentDataStringArray[currentExperimentDataPair], out tempDoubleValue);
-                tempElement.intensity = tempDoubleValue;
-                ++currentExperimentDataPair;
-                tempElement.matched = false;
-                tempElement.annotation = "";
-
-                listToStore.Add(tempElement);
+                m_scanNumber = newScanNum;
+                success = true;
             }
-
-            ElementList = listToStore;
+            return success;
         }
         #endregion
 

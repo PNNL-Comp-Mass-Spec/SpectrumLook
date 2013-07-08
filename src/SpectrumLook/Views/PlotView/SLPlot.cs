@@ -89,6 +89,9 @@ namespace SpectrumLook.Views
         {
             bool setSnapBoxVisible = true;
             bool setAnnotationSliderVisible = true;
+            bool setButtonDetachPlot = true;
+            bool setButtonPlotOptionsVisible = true;
+            bool setNumPlotsGroupVisible = true;
 
             ////check what can we show given the space we have
 
@@ -96,6 +99,9 @@ namespace SpectrumLook.Views
             if (this.Size.Width < (20 + groupBoxAnnotationCoverage.Size.Width + groupBoxClosestPoint.Size.Width))
             {
                 setAnnotationSliderVisible = false;
+                setButtonDetachPlot = false;
+                setButtonPlotOptionsVisible = false;
+                setNumPlotsGroupVisible = false;
                 if (this.Size.Width < (12 + groupBoxClosestPoint.Width + (.5 * groupBoxAnnotationCoverage.Size.Width)))
                 {
                     setSnapBoxVisible = false;
@@ -106,6 +112,9 @@ namespace SpectrumLook.Views
             {
                 setAnnotationSliderVisible = false;
                 setSnapBoxVisible = false;
+                setButtonDetachPlot = false;
+                setButtonPlotOptionsVisible = false;
+                setNumPlotsGroupVisible = false;
             }
 
             ////Check the user options for if we need to hide something we have room for
@@ -113,16 +122,23 @@ namespace SpectrumLook.Views
             {
                 setSnapBoxVisible = false;
                 setAnnotationSliderVisible = false;
-                buttonHidePlotOptions.Text = "^";
+                setButtonDetachPlot = false;
+                setButtonPlotOptionsVisible = false;
+                setNumPlotsGroupVisible = false;
+                buttonHidePlotOptions.Text = "▲";
             }
             else
             {
-                buttonHidePlotOptions.Text = "v";
+                buttonHidePlotOptions.Text = "▼";
             }
 
             //now resize the form
             groupBoxClosestPoint.Visible = setSnapBoxVisible;
             groupBoxAnnotationCoverage.Visible = setAnnotationSliderVisible;
+            buttonDetachPlot.Visible = setButtonDetachPlot;
+            buttonPlotOptions.Visible = setButtonPlotOptionsVisible;
+            numberOfPlots.Visible = setNumPlotsGroupVisible;
+            label1.Visible = setNumPlotsGroupVisible;
             if (setSnapBoxVisible || setAnnotationSliderVisible)
             {
                 msPlot.SetSize(new Point(10, 10), ClientRectangle.Width - 20, ClientRectangle.Height - (30 + groupBoxClosestPoint.Height));
@@ -242,89 +258,61 @@ namespace SpectrumLook.Views
 
         ///The following is copied from ZedGraph... use this to figure out how to save an image File
 
+        public readonly List<string> SaveAsImageTypes = new List<string>() { ".emf", ".png", ".gif", ".jpg", ".tif", ".bmp" };
+
         /// <summary>
-        /// Copies the current image to the selected file in  
-        /// Emf (vector), or a variety of Bitmap formats.
+        /// Saves the Current Plot image as the file specified by the filename
         /// </summary>
-        /// <param name="DefaultFileName">
-        /// Accepts a default file name for the file dialog (if "" or null, default is not used)
-        /// </param>
-        /// <returns>
-        /// The file name saved, or "" if cancelled.
-        /// </returns>
-        /// <remarks>
-        /// Note that <see cref="SaveAsBitmap" /> and <see cref="SaveAsEmf" /> methods are provided
-        /// which allow for Bitmap-only or Emf-only handling of the "Save As" context menu item.
-        /// </remarks>
-        public String MySaveAs(String DefaultFileName)
+        /// <param name="fileName">The name of the output file that we will make.  If there is no Extension then it will be assumed as .png</param>
+        /// <returns>true if the save was successful, false otherwise</returns>
+        public bool SavePlotImageAs(string fileName)
         {
-            SaveFileDialog saveDialog = new SaveFileDialog();
+            bool success = true;
 
-            if (msPlot.MasterPane != null)
+            try
             {
-                saveDialog.Filter =
-                    "Emf Format (*.emf)|*.emf|" +
-                    "PNG Format (*.png)|*.png|" +
-                    "Gif Format (*.gif)|*.gif|" +
-                    "Jpeg Format (*.jpg)|*.jpg|" +
-                    "Tiff Format (*.tif)|*.tif|" +
-                    "Bmp Format (*.bmp)|*.bmp";
-
-                if (DefaultFileName != null && DefaultFileName.Length > 0)
+                if (msPlot.MasterPane != null && !string.IsNullOrEmpty(fileName))
                 {
-                    String ext = System.IO.Path.GetExtension(DefaultFileName).ToLower();
-                    switch (ext)
-                    {
-                        case ".emf": saveDialog.FilterIndex = 1; break;
-                        case ".png": saveDialog.FilterIndex = 2; break;
-                        case ".gif": saveDialog.FilterIndex = 3; break;
-                        case ".jpeg":
-                        case ".jpg": saveDialog.FilterIndex = 4; break;
-                        case ".tiff":
-                        case ".tif": saveDialog.FilterIndex = 5; break;
-                        case ".bmp": saveDialog.FilterIndex = 6; break;
-                    }
-                    //If we were passed a file name, not just an extension, use it
-                    if (DefaultFileName.Length > ext.Length)
-                    {
-                        saveDialog.FileName = DefaultFileName;
-                    }
-                }
+                    String ext = System.IO.Path.GetExtension(fileName).ToLower();
 
-                if (saveDialog.ShowDialog() == DialogResult.OK)
-                {
-                    Stream myStream = saveDialog.OpenFile();
-                    if (myStream != null)
+                    using (Stream myStream = new FileStream(fileName, FileMode.Create))
                     {
-                        if (saveDialog.FilterIndex == 1)
+                        if (myStream != null)
                         {
-                            myStream.Close();
-                            SaveEmfFile(saveDialog.FileName);
-                        }
-                        else
-                        {
-                            ImageFormat format = ImageFormat.Png;
-                            switch (saveDialog.FilterIndex)
+                            if (ext.EndsWith("emf"))
                             {
-                                case 2: format = ImageFormat.Png; break;
-                                case 3: format = ImageFormat.Gif; break;
-                                case 4: format = ImageFormat.Jpeg; break;
-                                case 5: format = ImageFormat.Tiff; break;
-                                case 6: format = ImageFormat.Bmp; break;
+                                myStream.Close();
+                                SaveEmfFile(fileName);
                             }
+                            else
+                            {
+                                ImageFormat format = ImageFormat.Png;
+                                switch (ext)
+                                {
+                                    case ("png"): format = ImageFormat.Png; break;
+                                    case ("gif"): format = ImageFormat.Gif; break;
+                                    case ("jpg"):
+                                    case ("jpeg"): format = ImageFormat.Jpeg; break;
+                                    case ("tiff"):
+                                    case ("tif"): format = ImageFormat.Tiff; break;
+                                    case ("bmp"): format = ImageFormat.Bmp; break;
+                                    default: format = ImageFormat.Png; break;
+                                }
 
-                            msPlot.MasterPane.GetImage(msPlot.MasterPane.IsAntiAlias).Save(myStream, format);
-                            //_masterPane.GetImage().Save( myStream, format );
-                            myStream.Close();
+                                msPlot.MasterPane.GetImage(msPlot.MasterPane.IsAntiAlias).Save(myStream, format);
+                                myStream.Close();
+                            }
                         }
-                        return saveDialog.FileName;
                     }
                 }
             }
-            return "";
+            catch
+            {
+                success = false;
+            }
+
+            return success;
         }
-
-
 
         /// Dlls needed to save an EmfFile
         [DllImport("gdi32.dll")]
@@ -334,7 +322,6 @@ namespace SpectrumLook.Views
 
         /// <summary>
         /// Save the current Graph to the specified filename in EMF (vector) format.
-        /// See <see cref="SaveAsEmf()" /> for public access.
         /// </summary>
         /// <remarks>
         /// Note that this handler saves as an Emf format only.  The default handler is
@@ -348,14 +335,7 @@ namespace SpectrumLook.Views
                 Metafile metaFile = new Metafile(hdc, EmfType.EmfPlusOnly);
                 using (Graphics gMeta = Graphics.FromImage(metaFile))
                 {
-                    //PaneBase.SetAntiAliasMode( gMeta, IsAntiAlias );
-                    //gMeta.CompositingMode = CompositingMode.SourceCopy; 
-                    //gMeta.CompositingQuality = CompositingQuality.HighQuality;
-                    //gMeta.InterpolationMode = InterpolationMode.HighQualityBicubic;
-                    //gMeta.SmoothingMode = SmoothingMode.AntiAlias;
-                    //gMeta.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality; 
                     msPlot.MasterPane.Draw(gMeta);
-                    //gMeta.Dispose();
                 }
 
                 IntPtr hEMF;
@@ -368,7 +348,6 @@ namespace SpectrumLook.Views
                 }
 
                 g.ReleaseHdc(hdc);
-                //g.Dispose();
             }
 
         }
@@ -490,6 +469,38 @@ namespace SpectrumLook.Views
             msPlot.Invalidate();
             msPlot.Update();
         }
+
+        public void buttonDetachPlot_Click(object sender, EventArgs e)
+        {
+            if (m_manager.m_mainForm.m_currentOptions.isPlotInMainForm)             //If plot is attached.
+            {
+                m_manager.m_mainForm.m_currentOptions.isPlotInMainForm = false;     //Set to not be attached.
+                buttonDetachPlot.Text = "Attach Plot";
+            }
+            else
+            {
+                m_manager.m_mainForm.m_currentOptions.isPlotInMainForm = true;
+                buttonDetachPlot.Text = "Detach Plot";
+            }
+        }
+
         #endregion
+
+        private void buttonPlotOptions_Click(object sender, EventArgs e)
+        {
+            m_manager.OpenOptionsMenu("Plot Options");
+        }
+
+        private void numberOfPlots_TextChanged(object sender, EventArgs e)
+        {
+            int numPlots = 0;
+            String str = numberOfPlots.Text.Trim();
+            if (int.TryParse(str, out numPlots))
+            {
+                //m_manager.m_mainForm.m_currentOptions.numberOfPlotsChangedOnForm = numPlots;
+            }
+            msPlot.Invalidate();
+            msPlot.Update();
+        }
     }
 }

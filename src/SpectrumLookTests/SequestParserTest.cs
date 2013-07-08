@@ -43,7 +43,7 @@ namespace SpectrumLookTests
             {
                 target = new SequestParser(fileLocation);
             }
-            catch (Exception e1)
+            catch (Exception)
             {
                 Assert.Inconclusive("Opening file exception! Did the test data move?");
             }
@@ -52,7 +52,7 @@ namespace SpectrumLookTests
             {
                 target = new SequestParser("");
             }
-            catch (Exception e2)
+            catch (Exception)
             {
                 target = null;
             }

@@ -40,10 +40,11 @@ namespace SpectrumLook
 
         private void buttonData_Click(object sender, EventArgs e)
         {
-            openFileDialog.Filter = "mzXml Files (*.mzxml)|*.mzxml|All Files (*.*)|*.*";
+            openFileDialog.Filter = "mzXml Files or raw Files (*.mzxml *.raw)|*.mzxml;*.raw|All Files (*.*)|*.*";
             try
             {
                 openFileDialog.Title = "Open Data File";
+                openFileDialog.FileName = "mzXml File";
                 DialogResult result = openFileDialog.ShowDialog();
                 if (result == DialogResult.OK)
                 {
@@ -62,6 +63,7 @@ namespace SpectrumLook
             try
             {
                 openFileDialog.Title = "Open Synopsis File";
+                openFileDialog.FileName = "Synopsis File";
                 DialogResult result = openFileDialog.ShowDialog();
                 if (result == DialogResult.OK)
                 {

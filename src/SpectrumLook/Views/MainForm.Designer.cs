@@ -36,9 +36,13 @@
             this.saveWorkStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openWorkStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.batchSaveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.fragLadderStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.plotStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openDlg = new System.Windows.Forms.OpenFileDialog();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panelDataView = new System.Windows.Forms.Panel();
@@ -46,8 +50,6 @@
             this.CollapsButton = new System.Windows.Forms.Button();
             this.panelFragmentLadder = new System.Windows.Forms.Panel();
             this.panelPlot = new System.Windows.Forms.Panel();
-            this.fragLadderStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.plotStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -66,7 +68,7 @@
             this.optionsToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1191, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1028, 24);
             this.menuStrip1.TabIndex = 3;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -78,6 +80,8 @@
             this.saveWorkStripMenuItem,
             this.openWorkStripMenuItem,
             this.toolStripSeparator2,
+            this.batchSaveToolStripMenuItem,
+            this.toolStripSeparator3,
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
@@ -116,6 +120,20 @@
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(197, 6);
+            this.toolStripSeparator2.Visible = false;
+            // 
+            // batchSaveToolStripMenuItem
+            // 
+            this.batchSaveToolStripMenuItem.Name = "batchSaveToolStripMenuItem";
+            this.batchSaveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.B)));
+            this.batchSaveToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
+            this.batchSaveToolStripMenuItem.Text = "&Batch Save";
+            this.batchSaveToolStripMenuItem.Click += new System.EventHandler(this.batchSaveToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(197, 6);
             // 
             // exitToolStripMenuItem
             // 
@@ -132,8 +150,8 @@
             this.fragLadderStripMenuItem,
             this.plotStripMenuItem});
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
-            this.optionsToolStripMenuItem.Text = "&Edit";
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
+            this.optionsToolStripMenuItem.Text = "&Options";
             // 
             // optionsToolStripMenuItem1
             // 
@@ -141,6 +159,20 @@
             this.optionsToolStripMenuItem1.Size = new System.Drawing.Size(209, 22);
             this.optionsToolStripMenuItem1.Text = "&General Options";
             this.optionsToolStripMenuItem1.Click += new System.EventHandler(this.optionsToolStripMenuItem1_Click);
+            // 
+            // fragLadderStripMenuItem
+            // 
+            this.fragLadderStripMenuItem.Name = "fragLadderStripMenuItem";
+            this.fragLadderStripMenuItem.Size = new System.Drawing.Size(209, 22);
+            this.fragLadderStripMenuItem.Text = "Fragment &Ladder Options";
+            this.fragLadderStripMenuItem.Click += new System.EventHandler(this.fragmentLadderToolStripMenuItem1_Click);
+            // 
+            // plotStripMenuItem
+            // 
+            this.plotStripMenuItem.Name = "plotStripMenuItem";
+            this.plotStripMenuItem.Size = new System.Drawing.Size(209, 22);
+            this.plotStripMenuItem.Text = "&Plot Options";
+            this.plotStripMenuItem.Click += new System.EventHandler(this.plottingToolStripMenuItem_Click);
             // 
             // openDlg
             // 
@@ -160,7 +192,7 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.splitContainer2);
-            this.splitContainer1.Size = new System.Drawing.Size(1191, 398);
+            this.splitContainer1.Size = new System.Drawing.Size(1028, 398);
             this.splitContainer1.SplitterDistance = 145;
             this.splitContainer1.TabIndex = 4;
             this.splitContainer1.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.splitContainer1_SplitterMoved);
@@ -173,7 +205,7 @@
             this.panelDataView.BackColor = System.Drawing.SystemColors.ControlDark;
             this.panelDataView.Location = new System.Drawing.Point(0, 0);
             this.panelDataView.Name = "panelDataView";
-            this.panelDataView.Size = new System.Drawing.Size(1191, 143);
+            this.panelDataView.Size = new System.Drawing.Size(1028, 143);
             this.panelDataView.TabIndex = 1;
             // 
             // splitContainer2
@@ -190,8 +222,8 @@
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.panelPlot);
-            this.splitContainer2.Size = new System.Drawing.Size(1191, 249);
-            this.splitContainer2.SplitterDistance = 463;
+            this.splitContainer2.Size = new System.Drawing.Size(1028, 249);
+            this.splitContainer2.SplitterDistance = 399;
             this.splitContainer2.TabIndex = 0;
             // 
             // CollapsButton
@@ -213,7 +245,7 @@
             this.panelFragmentLadder.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.panelFragmentLadder.Location = new System.Drawing.Point(0, 0);
             this.panelFragmentLadder.Name = "panelFragmentLadder";
-            this.panelFragmentLadder.Size = new System.Drawing.Size(434, 249);
+            this.panelFragmentLadder.Size = new System.Drawing.Size(370, 249);
             this.panelFragmentLadder.TabIndex = 2;
             // 
             // panelPlot
@@ -224,28 +256,14 @@
             this.panelPlot.BackColor = System.Drawing.SystemColors.Control;
             this.panelPlot.Location = new System.Drawing.Point(3, 3);
             this.panelPlot.Name = "panelPlot";
-            this.panelPlot.Size = new System.Drawing.Size(718, 243);
+            this.panelPlot.Size = new System.Drawing.Size(619, 243);
             this.panelPlot.TabIndex = 0;
-            // 
-            // fragLadderStripMenuItem
-            // 
-            this.fragLadderStripMenuItem.Name = "fragLadderStripMenuItem";
-            this.fragLadderStripMenuItem.Size = new System.Drawing.Size(209, 22);
-            this.fragLadderStripMenuItem.Text = "Fragment &Ladder Options";
-            this.fragLadderStripMenuItem.Click += new System.EventHandler(this.fragmentLadderToolStripMenuItem1_Click);
-            // 
-            // plotStripMenuItem
-            // 
-            this.plotStripMenuItem.Name = "plotStripMenuItem";
-            this.plotStripMenuItem.Size = new System.Drawing.Size(209, 22);
-            this.plotStripMenuItem.Text = "&Plot Options";
-            this.plotStripMenuItem.Click += new System.EventHandler(this.plottingToolStripMenuItem_Click);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1191, 422);
+            this.ClientSize = new System.Drawing.Size(1028, 422);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.menuStrip1);
             this.DoubleBuffered = true;
@@ -295,6 +313,8 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem fragLadderStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem plotStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem batchSaveToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
     }
 }
 

@@ -21,6 +21,13 @@ namespace SpectrumLook.Builders
         /// </summary>
         /// <param name="scanNum">This is Assumed to be the Scan Number that the data is referenced by in the file.</param>
         /// <returns></returns>
-        string []GetExperimentDataByScanNumber(int scanNum);
+        List<Element> GetExperimentDataByScanNumber(int scanNum);
+
+        string Filename
+        {
+            get;
+            set;
+        }
     }
+
 }

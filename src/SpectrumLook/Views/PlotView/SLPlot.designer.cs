@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SLPlot));
             this.groupBoxClosestPoint = new System.Windows.Forms.GroupBox();
             this.closestRelativeIntensityLabel = new System.Windows.Forms.Label();
             this.mzTextBox = new System.Windows.Forms.TextBox();
@@ -38,6 +39,10 @@
             this.labelLess = new System.Windows.Forms.Label();
             this.trackBarAnnotationPercent = new System.Windows.Forms.TrackBar();
             this.buttonHidePlotOptions = new System.Windows.Forms.Button();
+            this.buttonDetachPlot = new System.Windows.Forms.Button();
+            this.buttonPlotOptions = new System.Windows.Forms.Button();
+            this.numberOfPlots = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.msPlot = new SpectrumLook.Views.MyZedGraph();
             this.groupBoxClosestPoint.SuspendLayout();
             this.groupBoxAnnotationCoverage.SuspendLayout();
@@ -135,12 +140,53 @@
             // buttonHidePlotOptions
             // 
             this.buttonHidePlotOptions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonHidePlotOptions.Location = new System.Drawing.Point(697, 343);
+            this.buttonHidePlotOptions.Location = new System.Drawing.Point(702, 346);
             this.buttonHidePlotOptions.Name = "buttonHidePlotOptions";
             this.buttonHidePlotOptions.Size = new System.Drawing.Size(48, 19);
-            this.buttonHidePlotOptions.TabIndex = 10;
+            this.buttonHidePlotOptions.TabIndex = 0;
             this.buttonHidePlotOptions.UseVisualStyleBackColor = true;
             this.buttonHidePlotOptions.Click += new System.EventHandler(this.buttonHidePlotOptions_Click);
+            // 
+            // buttonDetachPlot
+            // 
+            this.buttonDetachPlot.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonDetachPlot.Location = new System.Drawing.Point(623, 296);
+            this.buttonDetachPlot.Name = "buttonDetachPlot";
+            this.buttonDetachPlot.Size = new System.Drawing.Size(75, 30);
+            this.buttonDetachPlot.TabIndex = 11;
+            this.buttonDetachPlot.Text = "Detach Plot";
+            this.buttonDetachPlot.UseVisualStyleBackColor = true;
+            this.buttonDetachPlot.Click += new System.EventHandler(this.buttonDetachPlot_Click);
+            // 
+            // buttonPlotOptions
+            // 
+            this.buttonPlotOptions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonPlotOptions.Location = new System.Drawing.Point(623, 332);
+            this.buttonPlotOptions.Name = "buttonPlotOptions";
+            this.buttonPlotOptions.Size = new System.Drawing.Size(75, 30);
+            this.buttonPlotOptions.TabIndex = 12;
+            this.buttonPlotOptions.Text = "Plot Options";
+            this.buttonPlotOptions.UseVisualStyleBackColor = true;
+            this.buttonPlotOptions.Click += new System.EventHandler(this.buttonPlotOptions_Click);
+            // 
+            // numberOfPlots
+            // 
+            this.numberOfPlots.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.numberOfPlots.Location = new System.Drawing.Point(702, 320);
+            this.numberOfPlots.Name = "numberOfPlots";
+            this.numberOfPlots.Size = new System.Drawing.Size(48, 20);
+            this.numberOfPlots.TabIndex = 13;
+            this.numberOfPlots.TextChanged += new System.EventHandler(this.numberOfPlots_TextChanged);
+            // 
+            // label1
+            // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(702, 301);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(51, 13);
+            this.label1.TabIndex = 14;
+            this.label1.Text = "# of plots";
             // 
             // msPlot
             // 
@@ -161,11 +207,16 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(757, 374);
+            this.ClientSize = new System.Drawing.Size(755, 374);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.numberOfPlots);
+            this.Controls.Add(this.buttonDetachPlot);
             this.Controls.Add(this.buttonHidePlotOptions);
             this.Controls.Add(this.groupBoxAnnotationCoverage);
             this.Controls.Add(this.msPlot);
             this.Controls.Add(this.groupBoxClosestPoint);
+            this.Controls.Add(this.buttonPlotOptions);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "SLPlot";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -176,6 +227,7 @@
             this.groupBoxAnnotationCoverage.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarAnnotationPercent)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -192,6 +244,10 @@
         private System.Windows.Forms.Label labelMore;
         private System.Windows.Forms.Label labelLess;
         private System.Windows.Forms.Button buttonHidePlotOptions;
+        private System.Windows.Forms.Button buttonDetachPlot;
+        private System.Windows.Forms.Button buttonPlotOptions;
+        private System.Windows.Forms.TextBox numberOfPlots;
+        private System.Windows.Forms.Label label1;
     }
 }
 

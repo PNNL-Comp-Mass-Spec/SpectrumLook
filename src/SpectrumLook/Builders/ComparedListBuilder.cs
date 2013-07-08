@@ -14,9 +14,6 @@ namespace SpectrumLook.Builders
     /// </summary>
     public class ComparedListBuilder : ElementListBuilder
     {
-        #region MEMBERS
-
-        #region PRIVATE
 
         /// <summary>
         /// This is a reference to the actualElementList that was passed into the constructor.
@@ -31,28 +28,42 @@ namespace SpectrumLook.Builders
         /// <summary>
         /// This is a value that stores the possible error between the theoretical m/z values and the actual m/z values
         /// </summary>
-        private double m_possibleError;
+        private double m_upperBoundTolerance;
 
-        #endregion
+        /// <summary>
+        /// This is a value that stores the lower possible error between the theoretical m/z values and the actual m/z values.
+        /// </summary>
+        private double m_lowerBoundTolerance;
 
-        #region PUBLIC
         public double possibleError
         {
             get
             {
-                return m_possibleError;
+                return m_upperBoundTolerance;
             }
             set
             {
                 if (value >= 0.0)
                 {
-                    m_possibleError = value;
+                    m_upperBoundTolerance = value;
                 }
             }
         }
-        #endregion
 
-        #endregion
+        public double lowerBoundPossibleError
+        {
+            get
+            {
+                return m_lowerBoundTolerance;
+            }
+            set
+            {
+                if (value >= 0.0)
+                {
+                    m_lowerBoundTolerance = value;
+                }
+            }
+        }
 
         #region CONSTRUCTOR
         /// <summary>
@@ -61,12 +72,13 @@ namespace SpectrumLook.Builders
         /// <param name="possibleError">This is a number greater than zero where it is the possible error between m/z value in the theory List and the Actual List</param>
         /// <param name="actualElementList">This should be a reference to a list generated from the ActualListBuilder</param>
         /// <param name="theoryElementList">This should be a reference to a list generated from the TheoryListBuilder </param>
-        public ComparedListBuilder(double possibleError, List<Element> actualElementList, ref List<Element> theoryElementList)
+        public ComparedListBuilder(double possibleError, double lowerBoundPossibleError, List<Element> actualElementList, ref List<Element> theoryElementList)
         {
-            this.m_actualElementList = actualElementList;
-            this.m_theoryElementList = theoryElementList;
-            this.ElementList = new List<Element>();
-            m_possibleError = possibleError;
+            this.m_actualElementList    = actualElementList;
+            this.m_theoryElementList    = theoryElementList;
+            this.ElementList            = new List<Element>();
+            m_upperBoundTolerance       = possibleError;
+            m_lowerBoundTolerance       = lowerBoundPossibleError;
         }
         #endregion
 
@@ -79,68 +91,244 @@ namespace SpectrumLook.Builders
         /// and the possibleError passed into the constructor.
         /// </summary>
         //TODO : Make an option to do a method to do highest Intensity or closest value in that "range" of errored values.
+        //public override void BuildList()
+        //{
+        //    int currentActualIndex = 0;
+        //    int currentTheoryIndex = 0;
+        //    Element elementForCopying;
+        //    int highestIntensityIndex = 0;
+        //    int absoluteHighestIntenistyIndex = 0;
+
+        //    while (currentTheoryIndex < this.m_theoryElementList.Count)
+        //    {
+        //        currentActualIndex = 0;
+        //        highestIntensityIndex = -1;
+
+        //        while (currentActualIndex < this.m_actualElementList.Count)
+        //        {
+
+        //            if ((((m_theoryElementList[currentTheoryIndex].mzValue) <= (m_actualElementList[currentActualIndex].mzValue * (1.00 + (possibleError / 100.0)))) &&
+        //                ((m_theoryElementList[currentTheoryIndex].mzValue) >= (m_actualElementList[currentActualIndex].mzValue * (1.00 - (lowerBoundPossibleError / 100.0)))))) 
+        //            {
+        //                if (highestIntensityIndex == -1)
+        //                {
+        //                    highestIntensityIndex = currentActualIndex;
+
+        //                }
+        //                else if (Math.Abs(m_actualElementList[highestIntensityIndex].mzValue - m_theoryElementList[currentTheoryIndex].mzValue) > Math.Abs(m_actualElementList[currentActualIndex].mzValue - m_theoryElementList[currentTheoryIndex].mzValue))
+        //                {
+        //                    highestIntensityIndex = currentActualIndex;
+        //                }
+        //                else if (Math.Abs(m_actualElementList[highestIntensityIndex].mzValue - m_theoryElementList[currentTheoryIndex].mzValue) == Math.Abs(m_actualElementList[currentActualIndex].mzValue - m_theoryElementList[currentTheoryIndex].mzValue))
+        //                {
+        //                    if (m_actualElementList[highestIntensityIndex].intensity < m_actualElementList[currentActualIndex].intensity)
+        //                    {
+        //                        highestIntensityIndex = currentActualIndex;
+        //                    }
+        //                }
+        //                if (m_actualElementList[highestIntensityIndex].intensity > m_actualElementList[absoluteHighestIntenistyIndex].intensity)
+        //                {
+        //                    absoluteHighestIntenistyIndex = highestIntensityIndex;
+        //                }
+        //            }
+        //            ++currentActualIndex;
+        //        }
+        //        if (highestIntensityIndex != -1)
+        //        {
+        //            m_actualElementList[highestIntensityIndex].matched = true;
+        //            if (m_actualElementList[highestIntensityIndex].annotation != "")
+        //            {
+        //                m_actualElementList[highestIntensityIndex].annotation = m_actualElementList[highestIntensityIndex].annotation + "," + m_theoryElementList[currentTheoryIndex].annotation;
+        //            }
+        //            else
+        //            {
+        //                m_actualElementList[highestIntensityIndex].annotation = m_theoryElementList[currentTheoryIndex].annotation;
+        //            }
+        //            m_theoryElementList[currentTheoryIndex].matched = true;
+        //        }
+        //        ++currentTheoryIndex;
+        //    }
+
+        //    // Tag a precursor onto the hightes Intensity Index
+        //    m_actualElementList[absoluteHighestIntenistyIndex].annotation = m_actualElementList[absoluteHighestIntenistyIndex].annotation + " - PRECURSOR";
+            
+        //    //When all is said and done the compared list will just be a copy of the actual list.
+        //    for (int i = 0; i < m_actualElementList.Count; ++i )
+        //    {
+        //        elementForCopying               = new Element();
+        //        Element currentElement          = m_actualElementList[i];
+        //        elementForCopying.annotation    = currentElement.annotation;
+        //        elementForCopying.matched       = currentElement.matched;
+        //        elementForCopying.intensity     = currentElement.intensity;
+        //        elementForCopying.mzValue       = currentElement.mzValue;                
+        //        ElementList.Add(elementForCopying);
+        //    }
+        //}
+
+       // public override void BuildList()
+        //{
+        //    int currentActualIndex = 0;
+        //    int currentTheoryIndex = 0;
+
+        //    Element elementForCopying;
+        //    int highestIntensityIndex           = 0;
+        //    int absoluteHighestIntenistyIndex   = 0;
+
+        //    while (currentTheoryIndex < this.m_theoryElementList.Count)
+        //    {
+        //        currentActualIndex      = 0;
+        //        highestIntensityIndex   = -1;
+        //        double theoryMz         = m_theoryElementList[currentTheoryIndex].mzValue;
+
+        //        while (currentActualIndex < this.m_actualElementList.Count)
+        //        {
+        //            double actualMz         = m_actualElementList[currentActualIndex].mzValue;
+        //            double actualIntensity  = m_actualElementList[currentActualIndex].intensity;                    
+        //            double upperActualMz    = actualMz + possibleError;
+        //            double lowerActualMz    = actualMz - possibleError;
+
+        //            if ((theoryMz <= upperActualMz) && (theoryMz >= lowerActualMz))
+        //            {
+        //                double diffMz = Math.Abs(actualMz - theoryMz);
+
+        //                // If highestIntensityIndex == -1, then this is the first peak we have seen, select it 
+        //                // else 
+        //                //     look at other things that are close...select the biggest peak
+        //                //     
+        //                if (highestIntensityIndex == -1)
+        //                {
+        //                    highestIntensityIndex = currentActualIndex;
+        //                }
+        //                else if (Math.Abs(m_actualElementList[highestIntensityIndex].mzValue - theoryMz) > diffMz)
+        //                {                            
+        //                    highestIntensityIndex = currentActualIndex;
+        //                }
+        //                else if (Math.Abs(m_actualElementList[highestIntensityIndex].mzValue - theoryMz) == diffMz)
+        //                {
+        //                    if (m_actualElementList[highestIntensityIndex].intensity < actualIntensity)
+        //                    {
+        //                        highestIntensityIndex = currentActualIndex;
+        //                    }
+        //                }
+
+
+        //                // Find the pre-cursor
+
+        //                                if (m_actualElementList[highestIntensityIndex].intensity > m_actualElementList[absoluteHighestIntenistyIndex].intensity)
+        //                                {
+        //                                    absoluteHighestIntenistyIndex = highestIntensityIndex;
+        //                                }
+        //            }
+        //            ++currentActualIndex;
+        //        }
+        //        if (highestIntensityIndex != -1)
+        //        {
+        //            m_actualElementList[highestIntensityIndex].matched = true;
+        //            if (m_actualElementList[highestIntensityIndex].annotation != "")
+        //            {
+        //                m_actualElementList[highestIntensityIndex].annotation = m_actualElementList[highestIntensityIndex].annotation + "," + m_theoryElementList[currentTheoryIndex].annotation;
+        //            }
+        //            else
+        //            {
+        //                m_actualElementList[highestIntensityIndex].annotation = m_theoryElementList[currentTheoryIndex].annotation;
+        //            }
+        //            m_theoryElementList[currentTheoryIndex].matched = true;
+        //        }
+        //        ++currentTheoryIndex;
+        //    }
+
+        //    // Tag a precursor onto the hightes Intensity Index
+        //    m_actualElementList[absoluteHighestIntenistyIndex].annotation = m_actualElementList[absoluteHighestIntenistyIndex].annotation + " - PRECURSOR";
+
+        //    //When all is said and done the compared list will just be a copy of the actual list.
+        //    for (int i = 0; i < m_actualElementList.Count; ++i)
+        //    {
+        //        elementForCopying = new Element();
+        //        Element currentElement = m_actualElementList[i];
+        //        elementForCopying.annotation = currentElement.annotation;
+        //        elementForCopying.matched = currentElement.matched;
+        //        elementForCopying.intensity = currentElement.intensity;
+        //        elementForCopying.mzValue = currentElement.mzValue;
+        //        ElementList.Add(elementForCopying);
+        //    }
+        //}
+
+
         public override void BuildList()
-        {
-            int currentActualIndex = 0;
-            int currentTheoryIndex = 0;
-            Element elementForCopying;
-            int highestIntensityIndex = 0;
+        {            
+            foreach(Element theoryElement in m_theoryElementList)
+            {                
+                var pairs = from actualElement in m_actualElementList
+                            where
+                                (Math.Abs(theoryElement.mzValue - actualElement.mzValue) <= m_upperBoundTolerance) && (Math.Abs(theoryElement.mzValue  - actualElement.mzValue) >= m_lowerBoundTolerance)
+                                
+                            select new { actualElement };
 
-            while (currentTheoryIndex < this.m_theoryElementList.Count)
-            {
-                currentActualIndex = 0;
-                highestIntensityIndex = -1;
+                // Should make this a LINQ query...
+                Element maxElement = null;
+                foreach (var item in pairs)
+                {
 
-                while (currentActualIndex < this.m_actualElementList.Count)
-                {
-                    if (((m_theoryElementList[currentTheoryIndex].mzValue) <= (m_actualElementList[currentActualIndex].mzValue * (1.00 + (possibleError / 100.0)))) &&
-                        ((m_theoryElementList[currentTheoryIndex].mzValue) >= (m_actualElementList[currentActualIndex].mzValue * (1.00 - (possibleError / 100.0)))))
+
+                    if (maxElement == null)
                     {
-                        if (highestIntensityIndex == -1)
-                        {
-                            highestIntensityIndex = currentActualIndex;
-                        }
-                        else if (Math.Abs(m_actualElementList[highestIntensityIndex].mzValue - m_theoryElementList[currentTheoryIndex].mzValue) > Math.Abs(m_actualElementList[currentActualIndex].mzValue - m_theoryElementList[currentTheoryIndex].mzValue))
-                        {
-                            highestIntensityIndex = currentActualIndex;
-                        }
-                            //REALLY RARE CASE!
-                            //But will cover it anyways.
-                        else if (Math.Abs(m_actualElementList[highestIntensityIndex].mzValue - m_theoryElementList[currentTheoryIndex].mzValue) == Math.Abs(m_actualElementList[currentActualIndex].mzValue - m_theoryElementList[currentTheoryIndex].mzValue))
-                        {
-                            if (m_actualElementList[highestIntensityIndex].intensity < m_actualElementList[currentActualIndex].intensity)
-                            {
-                                highestIntensityIndex = currentActualIndex;
-                            }
-                        }
-                    }
-                    ++currentActualIndex;
-                }
-                if (highestIntensityIndex != -1)
-                {
-                    m_actualElementList[highestIntensityIndex].matched = true;
-                    if (m_actualElementList[highestIntensityIndex].annotation != "")
-                    {
-                        m_actualElementList[highestIntensityIndex].annotation = m_actualElementList[highestIntensityIndex].annotation + "," + m_theoryElementList[currentTheoryIndex].annotation;
+                        maxElement = item.actualElement;
                     }
                     else
                     {
-                        m_actualElementList[highestIntensityIndex].annotation = m_theoryElementList[currentTheoryIndex].annotation;
+                        double theoryDiff = Math.Abs(item.actualElement.mzValue - theoryElement.mzValue);
+                        double maxDiff    = Math.Abs(item.actualElement.mzValue - maxElement.mzValue);
+                        if (theoryDiff < maxDiff)
+                        {
+                            maxElement = item.actualElement;
+                        }
                     }
-                    m_theoryElementList[currentTheoryIndex].matched = true;
                 }
-                ++currentTheoryIndex;
+
+                if (maxElement != null)
+                {
+                    theoryElement.matched   = true;
+                    maxElement.matched      = true;
+
+                    if (maxElement.annotation != "")
+                    {
+                        maxElement.annotation = string.Format("{0},{1}", maxElement.annotation, theoryElement.annotation);
+                    }
+                    else
+                    {
+                        maxElement.annotation = theoryElement.annotation;
+                    }
+                }                
             }
-            //When all is said and done the compared list will just be a copy of the actual list.
-            for (int i = 0; i < m_actualElementList.Count; ++i )
+
+            Element maxIntensity = null;
+            foreach (Element item in m_actualElementList)
             {
-                elementForCopying = new Element();
-                Element currentElement = m_actualElementList[i];
-                elementForCopying.annotation = currentElement.annotation;
-                elementForCopying.matched = currentElement.matched;
-                elementForCopying.intensity = currentElement.intensity;
-                elementForCopying.mzValue = currentElement.mzValue;
-                //Add the element to the list that will be outputed.
+                if (maxIntensity == null)
+                {
+                    maxIntensity = item;
+                }
+                else if (maxIntensity.intensity < item.intensity)
+                {
+                    maxIntensity = item;
+                }
+            }
+
+            // Tag a precursor onto the hightes Intensity Index
+            if (maxIntensity != null)
+            {
+                maxIntensity.annotation += " - PRECURSOR";
+            }
+
+            //When all is said and done the compared list will just be a copy of the actual list.
+            foreach (Element currentElement in m_actualElementList) 
+            {
+                Element elementForCopying       = new Element();                
+                elementForCopying.annotation    = currentElement.annotation;
+                elementForCopying.matched       = currentElement.matched;
+                elementForCopying.intensity     = currentElement.intensity;
+                elementForCopying.mzValue       = currentElement.mzValue;
+
                 ElementList.Add(elementForCopying);
             }
         }

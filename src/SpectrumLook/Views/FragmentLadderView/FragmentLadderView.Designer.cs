@@ -45,37 +45,42 @@
             this.lengthLabel = new System.Windows.Forms.Label();
             this.lengthValue = new System.Windows.Forms.Label();
             this.columnPanel = new System.Windows.Forms.Panel();
+            this.columnClearButton = new System.Windows.Forms.Button();
+            this.columnLabel = new System.Windows.Forms.Label();
+            this.columnCheckedListBox = new System.Windows.Forms.CheckedListBox();
+            this.columnSaveButton = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.columnButton = new System.Windows.Forms.Button();
-            
-            this.columnLabel = new System.Windows.Forms.Label();
-            this.columnCheckedListBox = new System.Windows.Forms.CheckedListBox();
-            this.columnSaveButton = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
-            
-            this.tabControl1.SuspendLayout();
+            this.ClearSingleMod = new System.Windows.Forms.Button();
+            this.Unmatched_Label = new System.Windows.Forms.Label();
+            this.Matched_Label = new System.Windows.Forms.Label();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.columnPanel.SuspendLayout();
+            this.tabControl1.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // peptideEditorTextBox
             // 
-            this.peptideEditorTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.peptideEditorTextBox.Location = new System.Drawing.Point(12, 60);
+            this.peptideEditorTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.peptideEditorTextBox.Location = new System.Drawing.Point(13, 29);
             this.peptideEditorTextBox.Name = "peptideEditorTextBox";
-            this.peptideEditorTextBox.Size = new System.Drawing.Size(366, 20);
-            this.peptideEditorTextBox.TabIndex = 0;
+            this.peptideEditorTextBox.Size = new System.Drawing.Size(287, 20);
+            this.peptideEditorTextBox.TabIndex = 3;
+            this.peptideEditorTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.peptideEditorTextBox_KeyDown_1);
             // 
             // recalculateMatchesButton
             // 
             this.recalculateMatchesButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.recalculateMatchesButton.Location = new System.Drawing.Point(247, 86);
+            this.recalculateMatchesButton.Location = new System.Drawing.Point(305, 29);
             this.recalculateMatchesButton.Name = "recalculateMatchesButton";
-            this.recalculateMatchesButton.Size = new System.Drawing.Size(131, 23);
-            this.recalculateMatchesButton.TabIndex = 1;
-            this.recalculateMatchesButton.Text = "Calculate Sequence";
+            this.recalculateMatchesButton.Size = new System.Drawing.Size(82, 23);
+            this.recalculateMatchesButton.TabIndex = 4;
+            this.recalculateMatchesButton.Text = "Calculate";
             this.recalculateMatchesButton.UseVisualStyleBackColor = true;
             this.recalculateMatchesButton.Click += new System.EventHandler(this.generateLadderFromPeptideInput);
             // 
@@ -219,65 +224,29 @@
             this.lengthValue.Text = "0";
             this.lengthValue.Visible = false;
             // 
-            // tabControl1
-            // 
-            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Location = new System.Drawing.Point(4, 126);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(387, 282);
-            this.tabControl1.TabIndex = 18;
-            this.tabControl1.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.changeTab);
-            this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.changeTab);
-            // 
-            // tabPage1
-            // 
-            this.tabPage1.AutoScroll = true;
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(379, 256);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Original";
-            this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // comboBox1
-            // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
-            "CID",
-            "ETD"});
-            this.comboBox1.Location = new System.Drawing.Point(12, 32);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(88, 21);
-            this.comboBox1.TabIndex = 19;
-            this.comboBox1.Text = "CID";
-            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.changeFragmentLadderMode);
-            // 
-            // columnButton
-            // 
-            this.columnButton.Location = new System.Drawing.Point(12, 85);
-            this.columnButton.Name = "columnButton";
-            this.columnButton.Size = new System.Drawing.Size(59, 23);
-            this.columnButton.TabIndex = 20;
-            this.columnButton.Text = "Column";
-            this.columnButton.UseVisualStyleBackColor = true;
-            this.columnButton.Click += new System.EventHandler(this.columnButton_Click);
-            // 
             // columnPanel
             // 
             this.columnPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.columnPanel.Controls.Add(this.columnClearButton);
             this.columnPanel.Controls.Add(this.columnLabel);
             this.columnPanel.Controls.Add(this.columnCheckedListBox);
             this.columnPanel.Controls.Add(this.columnSaveButton);
-            this.columnPanel.Location = new System.Drawing.Point(14, 105);
+            this.columnPanel.Location = new System.Drawing.Point(131, 29);
             this.columnPanel.Name = "columnPanel";
             this.columnPanel.Size = new System.Drawing.Size(119, 293);
             this.columnPanel.TabIndex = 21;
             this.columnPanel.Visible = false;
+            // 
+            // columnClearButton
+            // 
+            this.columnClearButton.Location = new System.Drawing.Point(8, 254);
+            this.columnClearButton.Name = "columnClearButton";
+            this.columnClearButton.Size = new System.Drawing.Size(48, 32);
+            this.columnClearButton.TabIndex = 4;
+            this.columnClearButton.Text = "Clear";
+            this.columnClearButton.UseVisualStyleBackColor = true;
+            this.columnClearButton.Visible = false;
+            this.columnClearButton.Click += new System.EventHandler(this.columnClearButton_Click);
             // 
             // columnLabel
             // 
@@ -288,6 +257,7 @@
             this.columnLabel.TabIndex = 3;
             this.columnLabel.Text = "Column Display";
             this.columnLabel.Visible = false;
+            this.columnLabel.Click += new System.EventHandler(this.columnLabel_Click);
             // 
             // columnCheckedListBox
             // 
@@ -320,24 +290,113 @@
             // 
             // columnSaveButton
             // 
-            this.columnSaveButton.Location = new System.Drawing.Point(8, 252);
+            this.columnSaveButton.Location = new System.Drawing.Point(61, 254);
             this.columnSaveButton.Name = "columnSaveButton";
-            this.columnSaveButton.Size = new System.Drawing.Size(101, 34);
+            this.columnSaveButton.Size = new System.Drawing.Size(48, 32);
             this.columnSaveButton.TabIndex = 0;
             this.columnSaveButton.Text = "Apply";
             this.columnSaveButton.UseVisualStyleBackColor = true;
             this.columnSaveButton.Visible = false;
             this.columnSaveButton.Click += new System.EventHandler(this.columnSaveButton_Click);
             // 
+            // tabControl1
+            // 
+            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Location = new System.Drawing.Point(4, 101);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(387, 307);
+            this.tabControl1.TabIndex = 7;
+            this.tabControl1.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.changeTab);
+            this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.changeTab);
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.AutoScroll = true;
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(379, 281);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "Original";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox1.Enabled = false;
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "CID",
+            "ETD"});
+            this.comboBox1.Location = new System.Drawing.Point(12, 5);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(102, 21);
+            this.comboBox1.TabIndex = 19;
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.changeFragmentLadderMode);
+            // 
+            // columnButton
+            // 
+            this.columnButton.Location = new System.Drawing.Point(131, 3);
+            this.columnButton.Name = "columnButton";
+            this.columnButton.Size = new System.Drawing.Size(59, 23);
+            this.columnButton.TabIndex = 2;
+            this.columnButton.Text = "Ions";
+            this.columnButton.UseVisualStyleBackColor = true;
+            this.columnButton.Click += new System.EventHandler(this.columnButton_Click);
+            // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(110, 86);
+            this.button1.Location = new System.Drawing.Point(131, 72);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(105, 23);
-            this.button1.TabIndex = 22;
-            this.button1.Text = "Clear Modifications";
+            this.button1.Size = new System.Drawing.Size(108, 23);
+            this.button1.TabIndex = 6;
+            this.button1.Text = "Clear All";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // ClearSingleMod
+            // 
+            this.ClearSingleMod.Location = new System.Drawing.Point(12, 72);
+            this.ClearSingleMod.Name = "ClearSingleMod";
+            this.ClearSingleMod.Size = new System.Drawing.Size(102, 23);
+            this.ClearSingleMod.TabIndex = 5;
+            this.ClearSingleMod.Text = "Clear ";
+            this.ClearSingleMod.UseVisualStyleBackColor = true;
+            this.ClearSingleMod.Click += new System.EventHandler(this.ClearSingleMod_Click);
+            // 
+            // Unmatched_Label
+            // 
+            this.Unmatched_Label.AutoSize = true;
+            this.Unmatched_Label.Location = new System.Drawing.Point(23, 16);
+            this.Unmatched_Label.Name = "Unmatched_Label";
+            this.Unmatched_Label.Size = new System.Drawing.Size(95, 13);
+            this.Unmatched_Label.TabIndex = 22;
+            this.Unmatched_Label.Text = "Unmatched Peaks";
+            // 
+            // Matched_Label
+            // 
+            this.Matched_Label.AutoSize = true;
+            this.Matched_Label.ForeColor = System.Drawing.Color.Red;
+            this.Matched_Label.Location = new System.Drawing.Point(23, 29);
+            this.Matched_Label.Name = "Matched_Label";
+            this.Matched_Label.Size = new System.Drawing.Size(82, 13);
+            this.Matched_Label.TabIndex = 23;
+            this.Matched_Label.Text = "Matched Peaks";
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.Unmatched_Label);
+            this.groupBox1.Controls.Add(this.Matched_Label);
+            this.groupBox1.Location = new System.Drawing.Point(243, 51);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(144, 49);
+            this.groupBox1.TabIndex = 24;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "key";
             // 
             // FragmentLadderView
             // 
@@ -345,8 +404,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(393, 411);
             this.Controls.Add(this.columnPanel);
-            this.Controls.Add(this.button1);      
+            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.columnButton);
+            this.Controls.Add(this.ClearSingleMod);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.lengthValue);
             this.Controls.Add(this.lengthLabel);
@@ -367,11 +428,15 @@
             this.Controls.Add(this.comboBox1);
             this.Name = "FragmentLadderView";
             this.Text = "Fragment Ladder";
-            this.tabControl1.ResumeLayout(false);
+            this.Load += new System.EventHandler(this.FragmentLadderView_Load);
             this.columnPanel.ResumeLayout(false);
             this.columnPanel.PerformLayout();
+            this.tabControl1.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
+
         }
 
         #endregion
@@ -401,5 +466,10 @@
         private System.Windows.Forms.CheckedListBox columnCheckedListBox;
         private System.Windows.Forms.Label columnLabel;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button ClearSingleMod;
+        private System.Windows.Forms.Label Unmatched_Label;
+        private System.Windows.Forms.Label Matched_Label;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Button columnClearButton;
     }
 }

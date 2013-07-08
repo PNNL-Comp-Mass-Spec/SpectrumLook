@@ -72,11 +72,12 @@ namespace SpectrumLookTests
         public void BuildListTest()
         {
             double possibleError = 0F; // TODO: Initialize to an appropriate value
+            double lowerPossibleError = 0F; // TODO: Initialize to an appropriate value
             List<Element> actualElementList = null; // TODO: Initialize to an appropriate value
             List<Element> actualElementListExpected = null; // TODO: Initialize to an appropriate value
             List<Element> theoryElementList = null; // TODO: Initialize to an appropriate value
             List<Element> theoryElementListExpected = null; // TODO: Initialize to an appropriate value
-            ComparedListBuilder target = new ComparedListBuilder(possibleError, actualElementList, ref theoryElementList); // TODO: Initialize to an appropriate value
+            ComparedListBuilder target = new ComparedListBuilder(possibleError, lowerPossibleError, actualElementList, ref theoryElementList); // TODO: Initialize to an appropriate value
             target.BuildList();
             Assert.AreEqual(actualElementListExpected, actualElementList);
             Assert.AreEqual(theoryElementListExpected, theoryElementList);
@@ -90,11 +91,12 @@ namespace SpectrumLookTests
         public void ComparedListBuilderConstructorTest()
         {
             double possibleError = 0F; // TODO: Initialize to an appropriate value
+            double lowerBoundPossibleError = 0F; // TODO: Initialize to an appropriate value
             List<Element> actualElementList = null; // TODO: Initialize to an appropriate value
             List<Element> actualElementListExpected = null; // TODO: Initialize to an appropriate value
             List<Element> theoryElementList = null; // TODO: Initialize to an appropriate value
             List<Element> theoryElementListExpected = null; // TODO: Initialize to an appropriate value
-            ComparedListBuilder target = new ComparedListBuilder(possibleError, actualElementList, ref theoryElementList);
+            ComparedListBuilder target = new ComparedListBuilder(possibleError, lowerBoundPossibleError, actualElementList, ref theoryElementList);
             Assert.AreEqual(actualElementListExpected, actualElementList);
             Assert.AreEqual(theoryElementListExpected, theoryElementList);
             Assert.Inconclusive("TODO: Implement code to verify target");

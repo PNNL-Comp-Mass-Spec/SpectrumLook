@@ -2,18 +2,29 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Data;
 
 namespace SpectrumLook.Builders
 {
     static class DataBuilder
     {
-        static public DataTable GetDataTable(ISynopsysParser synopsisParser)
+        static public DataTable GetDataTable(ISynopsysParser synopsisParser, ref int PeptideColumnIndex, ref int ScanColumnIndex)
         {
+            //DataProgress ProgressWindow = new DataProgress();
+            ////ProgressWindow.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
+            ////ProgressWindow.progressBar1.MarqueeAnimationSpeed = 30;
+            //ProgressWindow.Show();
+
             DataRow row = null;
             DataTable dataTable = new DataTable("DataViewTable");
             string[] InLine;
             InLine = synopsisParser.GetNextColumn();
+
+            //First GetNextColumn actually gets First Row. Getting Peptide/Scan indicies based off first row
+            PeptideColumnIndex = GetPeptideStringColumnIndex(InLine);
+            ScanColumnIndex = GetScanNumberColumnIndex(InLine);
+          
             if (InLine == null)
             {
                 throw new System.InvalidProgramException("The synopsis file is empty");
@@ -44,7 +55,52 @@ namespace SpectrumLook.Builders
                 }
             }
 
+            //ProgressWindow.Close();
             return dataTable;
+        }
+
+
+        /// <summary>
+        /// Returns the Column Index of the ScanNumber string column within the headerrow
+        /// Returns -1 if nothing is found
+        /// </summary>
+        public static int GetScanNumberColumnIndex(string[] HeaderRow)
+        {
+            List<string> PotentialScanNumberColumnNames = new List<string>();
+            PotentialScanNumberColumnNames.Add("ScanNum");
+            PotentialScanNumberColumnNames.Add("Scan");
+            PotentialScanNumberColumnNames.Add("ScanNum_s");    //_s Appended in SequestParser/GetNextColumn
+            PotentialScanNumberColumnNames.Add("Scan_s");
+
+            int i = 0;
+            foreach(string s in HeaderRow)
+            {
+                if (PotentialScanNumberColumnNames.Contains(s))
+                    return i;
+                i++;
+            }
+
+            return -1;
+        }
+
+        /// <summary>
+        /// Returns the Column Index of the Peptide string column within the headerrow
+        /// Returns -1 if nothing is found
+        /// </summary>
+        public static int GetPeptideStringColumnIndex(string[] HeaderRow)
+        {
+            List<string> PotentialPeptideColumnNames = new List<string>();
+            PotentialPeptideColumnNames.Add("Peptide"); //_p Appended in SequestParser/GetNextColumn
+            PotentialPeptideColumnNames.Add("Peptide_p");
+
+            int i = 0;
+            foreach(string s in HeaderRow)
+            {
+                if (PotentialPeptideColumnNames.Contains(s))
+                    return i;
+                i++;
+            }
+            return -1;
         }
     }
 }

@@ -14,6 +14,7 @@ namespace SpectrumLook.Views
         #region PRIVATE
         private bool m_isPlotInMainForm;
         private double m_toleranceValue;
+        private double m_lowerToleranceValue;
         #endregion
 
         #region PUBLIC
@@ -55,6 +56,22 @@ namespace SpectrumLook.Views
                 }
             }
         }
+
+        public double lowerToleranceValue
+        {
+            get
+            {
+                return m_lowerToleranceValue;
+            }
+            set
+            {
+                if (value >= 0.0)
+                {
+                    m_lowerToleranceValue = value;
+                    this.Invoke();
+                }
+            }
+        }
         #endregion
 
         #endregion
@@ -64,12 +81,14 @@ namespace SpectrumLook.Views
         {
             this.m_isPlotInMainForm = true;
             this.m_toleranceValue = 0.7;
+            this.m_lowerToleranceValue = 0.0;
         }
 
         public MainFormOptions(MainFormOptions optionsToCopy)
         {
             m_isPlotInMainForm = optionsToCopy.isPlotInMainForm;
             m_toleranceValue = optionsToCopy.toleranceValue;
+            m_lowerToleranceValue = optionsToCopy.lowerToleranceValue;
         }
         #endregion
 
@@ -87,6 +106,7 @@ namespace SpectrumLook.Views
         {
             isPlotInMainForm = optionsToCopy.isPlotInMainForm;
             toleranceValue = optionsToCopy.toleranceValue;
+            lowerToleranceValue = optionsToCopy.lowerToleranceValue;
         }
 
         #endregion

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,7 @@ namespace SpectrumLook.Builders
         ActualListBuilder m_actualBuilder;
         ComparedListBuilder m_comparedBuilder;
         TheoryListBuilder m_theoryBuilder;
+        IExperimentParser m_parser;
         
         public BuilderDirector()
         {
@@ -17,9 +19,47 @@ namespace SpectrumLook.Builders
 
         #region ActualList
 
-        public List<Element> BuildActualList(int scanNumber, string fileLocation)
+        public List<Element> BuildActualList(int scanNumber, string fileLocation)       //Idea is to check the extension, call the right parser based on extension of file name.
         {
-            m_actualBuilder = new ActualListBuilder(scanNumber, new MzParser(fileLocation));
+            string mzXML = ".mzxml";
+            string raw = ".raw";
+            string extension = Path.GetExtension(fileLocation);
+            extension = extension.ToLower();
+            if (m_parser == null)
+            {
+                if (extension.Equals(mzXML))
+                {
+                    m_parser = new MzParser(fileLocation);
+                    m_actualBuilder = new ActualListBuilder(scanNumber, m_parser);
+                }
+
+                if (extension.Equals(raw))
+                {
+                    m_parser = new ThermoRawParser(fileLocation);
+                    m_actualBuilder = new ActualListBuilder(scanNumber, m_parser);
+                }
+            }
+            else
+            {
+                if(m_parser.Filename != fileLocation)
+                {
+                    if (extension.Equals(mzXML))
+                    {
+                        m_parser = new MzParser(fileLocation);
+                        m_actualBuilder = new ActualListBuilder(scanNumber, m_parser);
+                    }
+
+                    if (extension.Equals(raw))
+                    {
+                        m_parser = new ThermoRawParser(fileLocation);
+                        m_actualBuilder = new ActualListBuilder(scanNumber, m_parser);
+                    }
+                }
+
+                m_actualBuilder.SetScanNumber(scanNumber);
+
+            }
+
 
             m_actualBuilder.BuildList();
 
@@ -42,7 +82,7 @@ namespace SpectrumLook.Builders
 
         #region ComparedList
 
-        public List<Element> BuildComparedList(double possibleError, List<Element> actualElementList, ref List<Element> theoryElementList)
+        public List<Element> BuildComparedList(double possibleError, double lowerBoundPossibleError, List<Element> actualElementList, ref List<Element> theoryElementList)
         {
 
             List<Element> copyOfActualElementList = new List<Element>(actualElementList);
@@ -53,8 +93,8 @@ namespace SpectrumLook.Builders
                 copyOfActualElementList[i].matched = false;
             }
 
-
-                m_comparedBuilder = new ComparedListBuilder(possibleError, copyOfActualElementList, ref theoryElementList);
+            ///Need to add the lowerBoundPossibleError into the function call below.
+            m_comparedBuilder = new ComparedListBuilder(possibleError, lowerBoundPossibleError, copyOfActualElementList, ref theoryElementList);
 
             m_comparedBuilder.BuildList();
 

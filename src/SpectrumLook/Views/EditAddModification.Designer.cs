@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditAddModification));
             this.symbolTextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -49,7 +50,7 @@
             this.label1.Location = new System.Drawing.Point(9, 4);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(41, 13);
-            this.label1.TabIndex = 2;
+            this.label1.TabIndex = 5;
             this.label1.Text = "Symbol";
             // 
             // label2
@@ -58,7 +59,7 @@
             this.label2.Location = new System.Drawing.Point(115, 4);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(32, 13);
-            this.label2.TabIndex = 3;
+            this.label2.TabIndex = 4;
             this.label2.Text = "Mass";
             // 
             // okModButton
@@ -66,7 +67,7 @@
             this.okModButton.Location = new System.Drawing.Point(62, 49);
             this.okModButton.Name = "okModButton";
             this.okModButton.Size = new System.Drawing.Size(75, 23);
-            this.okModButton.TabIndex = 4;
+            this.okModButton.TabIndex = 2;
             this.okModButton.Text = "Ok";
             this.okModButton.UseVisualStyleBackColor = true;
             this.okModButton.Click += new System.EventHandler(this.okModButton_Click);
@@ -77,7 +78,7 @@
             this.cancelModButton.Location = new System.Drawing.Point(143, 49);
             this.cancelModButton.Name = "cancelModButton";
             this.cancelModButton.Size = new System.Drawing.Size(75, 23);
-            this.cancelModButton.TabIndex = 5;
+            this.cancelModButton.TabIndex = 3;
             this.cancelModButton.Text = "Cancel";
             this.cancelModButton.UseVisualStyleBackColor = true;
             // 
@@ -86,7 +87,7 @@
             this.massTextBox.Location = new System.Drawing.Point(118, 23);
             this.massTextBox.Name = "massTextBox";
             this.massTextBox.Size = new System.Drawing.Size(100, 20);
-            this.massTextBox.TabIndex = 6;
+            this.massTextBox.TabIndex = 1;
             // 
             // EditAddModification
             // 
@@ -102,8 +103,8 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.symbolTextBox);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "EditAddModification";
-            this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;

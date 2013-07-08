@@ -1,8 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{F088123C-0E9E-452A-89E6-6BA2F21D5CAC}") = "Prototype4", "Prototype4\Prototype4.modelproj", "{1B6FFFD0-380E-4A9D-A189-9CD00F397C95}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpectrumLook", "SpectrumLook\SpectrumLook.csproj", "{AF37BC26-D110-44A1-B582-F9F3B2DD004B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpectrumLookTests", "SpectrumLookTests\SpectrumLookTests.csproj", "{78C8E8FF-024C-424D-8C0E-07B9C3634951}"
@@ -18,7 +16,7 @@ Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "SpectrumLook Installer", "S
 EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 3
+		SccNumberOfProjects = 4
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = http://seelteam.eecs.wsu.edu:8080/tfs/pnnl
 		SccLocalPath0 = .
@@ -28,56 +26,27 @@ Global
 		SccProjectUniqueName2 = SpectrumLookTests\\SpectrumLookTests.csproj
 		SccProjectName2 = SpectrumLookTests
 		SccLocalPath2 = SpectrumLookTests
+		SccProjectUniqueName3 = ..\\Lib\\ThermoRawFileReader\\ThermoRawFileReader\\ThermoRawFileReaderDLL.vbproj
+		SccProjectName3 = ../Lib/ThermoRawFileReader/ThermoRawFileReader
+		SccLocalPath3 = ..\\Lib\\ThermoRawFileReader\\ThermoRawFileReader
 	EndGlobalSection
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = Prototype42.vsmdi
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Any CPU = Debug|Any CPU
-		Debug|Mixed Platforms = Debug|Mixed Platforms
 		Debug|x86 = Debug|x86
-		Release|Any CPU = Release|Any CPU
-		Release|Mixed Platforms = Release|Mixed Platforms
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{1B6FFFD0-380E-4A9D-A189-9CD00F397C95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1B6FFFD0-380E-4A9D-A189-9CD00F397C95}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1B6FFFD0-380E-4A9D-A189-9CD00F397C95}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{1B6FFFD0-380E-4A9D-A189-9CD00F397C95}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{1B6FFFD0-380E-4A9D-A189-9CD00F397C95}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{1B6FFFD0-380E-4A9D-A189-9CD00F397C95}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1B6FFFD0-380E-4A9D-A189-9CD00F397C95}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1B6FFFD0-380E-4A9D-A189-9CD00F397C95}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{1B6FFFD0-380E-4A9D-A189-9CD00F397C95}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{1B6FFFD0-380E-4A9D-A189-9CD00F397C95}.Release|x86.ActiveCfg = Release|Any CPU
-		{AF37BC26-D110-44A1-B582-F9F3B2DD004B}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{AF37BC26-D110-44A1-B582-F9F3B2DD004B}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
-		{AF37BC26-D110-44A1-B582-F9F3B2DD004B}.Debug|Mixed Platforms.Build.0 = Debug|x86
 		{AF37BC26-D110-44A1-B582-F9F3B2DD004B}.Debug|x86.ActiveCfg = Debug|x86
 		{AF37BC26-D110-44A1-B582-F9F3B2DD004B}.Debug|x86.Build.0 = Debug|x86
-		{AF37BC26-D110-44A1-B582-F9F3B2DD004B}.Release|Any CPU.ActiveCfg = Release|x86
-		{AF37BC26-D110-44A1-B582-F9F3B2DD004B}.Release|Mixed Platforms.ActiveCfg = Release|x86
-		{AF37BC26-D110-44A1-B582-F9F3B2DD004B}.Release|Mixed Platforms.Build.0 = Release|x86
 		{AF37BC26-D110-44A1-B582-F9F3B2DD004B}.Release|x86.ActiveCfg = Release|x86
 		{AF37BC26-D110-44A1-B582-F9F3B2DD004B}.Release|x86.Build.0 = Release|x86
-		{78C8E8FF-024C-424D-8C0E-07B9C3634951}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{78C8E8FF-024C-424D-8C0E-07B9C3634951}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{78C8E8FF-024C-424D-8C0E-07B9C3634951}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{78C8E8FF-024C-424D-8C0E-07B9C3634951}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{78C8E8FF-024C-424D-8C0E-07B9C3634951}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{78C8E8FF-024C-424D-8C0E-07B9C3634951}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{78C8E8FF-024C-424D-8C0E-07B9C3634951}.Release|Any CPU.Build.0 = Release|Any CPU
-		{78C8E8FF-024C-424D-8C0E-07B9C3634951}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{78C8E8FF-024C-424D-8C0E-07B9C3634951}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{78C8E8FF-024C-424D-8C0E-07B9C3634951}.Release|x86.ActiveCfg = Release|Any CPU
-		{26CA897A-79C0-466E-B8D4-8ADEA4326171}.Debug|Any CPU.ActiveCfg = Debug
-		{26CA897A-79C0-466E-B8D4-8ADEA4326171}.Debug|Mixed Platforms.ActiveCfg = Debug
-		{26CA897A-79C0-466E-B8D4-8ADEA4326171}.Debug|Mixed Platforms.Build.0 = Debug
+		{78C8E8FF-024C-424D-8C0E-07B9C3634951}.Debug|x86.ActiveCfg = Debug|x86
+		{78C8E8FF-024C-424D-8C0E-07B9C3634951}.Release|x86.ActiveCfg = Release|x86
 		{26CA897A-79C0-466E-B8D4-8ADEA4326171}.Debug|x86.ActiveCfg = Debug
-		{26CA897A-79C0-466E-B8D4-8ADEA4326171}.Release|Any CPU.ActiveCfg = Release
-		{26CA897A-79C0-466E-B8D4-8ADEA4326171}.Release|Mixed Platforms.ActiveCfg = Release
 		{26CA897A-79C0-466E-B8D4-8ADEA4326171}.Release|x86.ActiveCfg = Release
+		{26CA897A-79C0-466E-B8D4-8ADEA4326171}.Release|x86.Build.0 = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

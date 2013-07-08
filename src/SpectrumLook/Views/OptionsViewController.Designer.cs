@@ -28,10 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OptionsViewController));
             this.defaultButton = new System.Windows.Forms.Button();
             this.applyButton = new System.Windows.Forms.Button();
             this.cancelButton = new System.Windows.Forms.Button();
             this.PlotOptionsView = new System.Windows.Forms.TabPage();
+            this.mainWindowOptionsGroup = new System.Windows.Forms.GroupBox();
+            this.mainDetachPlotCheckBox = new System.Windows.Forms.CheckBox();
             this.multiplePlotGroup = new System.Windows.Forms.GroupBox();
             this.numberOfPlotsLabel = new System.Windows.Forms.Label();
             this.plotNumberOfPlotsTextBox = new System.Windows.Forms.TextBox();
@@ -62,7 +65,6 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.fragModRemoveButton = new System.Windows.Forms.Button();
             this.fragModEditButton = new System.Windows.Forms.Button();
-            this.fragModAddButton = new System.Windows.Forms.Button();
             this.fragModListBox = new System.Windows.Forms.ListBox();
             this.MainOptionsView = new System.Windows.Forms.TabPage();
             this.mainDataPropertiesGroup = new System.Windows.Forms.GroupBox();
@@ -73,16 +75,17 @@
             this.mainMatchedColorSample = new System.Windows.Forms.Panel();
             this.mainMatchedColorLabel = new System.Windows.Forms.Label();
             this.mainMatchingPropertiesGroup = new System.Windows.Forms.GroupBox();
+            this.lowerMatchingToleranceBox = new System.Windows.Forms.TextBox();
+            this.lowerMatchingToleranceLabel = new System.Windows.Forms.Label();
             this.mainMatchingToleranceBox = new System.Windows.Forms.TextBox();
             this.mainMatchingToleranceLabel = new System.Windows.Forms.Label();
-            this.mainWindowOptionsGroup = new System.Windows.Forms.GroupBox();
-            this.mainDetachPlotCheckBox = new System.Windows.Forms.CheckBox();
             this.mainUserProfileGroup = new System.Windows.Forms.GroupBox();
             this.mainUserBrowseButton = new System.Windows.Forms.Button();
             this.mainProfileFileLocationBox = new System.Windows.Forms.TextBox();
             this.colorDialog = new System.Windows.Forms.ColorDialog();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.PlotOptionsView.SuspendLayout();
+            this.mainWindowOptionsGroup.SuspendLayout();
             this.multiplePlotGroup.SuspendLayout();
             this.plotAnnotationOptionsGroup.SuspendLayout();
             this.plotZoomOptionsGroup.SuspendLayout();
@@ -93,7 +96,6 @@
             this.MainOptionsView.SuspendLayout();
             this.mainDataPropertiesGroup.SuspendLayout();
             this.mainMatchingPropertiesGroup.SuspendLayout();
-            this.mainWindowOptionsGroup.SuspendLayout();
             this.mainUserProfileGroup.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -103,7 +105,7 @@
             this.defaultButton.Location = new System.Drawing.Point(13, 422);
             this.defaultButton.Name = "defaultButton";
             this.defaultButton.Size = new System.Drawing.Size(75, 23);
-            this.defaultButton.TabIndex = 1;
+            this.defaultButton.TabIndex = 14;
             this.defaultButton.Text = "Default";
             this.defaultButton.UseVisualStyleBackColor = true;
             this.defaultButton.Click += new System.EventHandler(this.defaultButton_Click);
@@ -114,8 +116,8 @@
             this.applyButton.Location = new System.Drawing.Point(352, 422);
             this.applyButton.Name = "applyButton";
             this.applyButton.Size = new System.Drawing.Size(75, 23);
-            this.applyButton.TabIndex = 2;
-            this.applyButton.Text = "Apply";
+            this.applyButton.TabIndex = 16;
+            this.applyButton.Text = "Ok";
             this.applyButton.UseVisualStyleBackColor = true;
             this.applyButton.Click += new System.EventHandler(this.applyButton_Click);
             // 
@@ -125,13 +127,14 @@
             this.cancelButton.Location = new System.Drawing.Point(271, 422);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(75, 23);
-            this.cancelButton.TabIndex = 3;
+            this.cancelButton.TabIndex = 15;
             this.cancelButton.Text = "Cancel";
             this.cancelButton.UseVisualStyleBackColor = true;
             this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
             // 
             // PlotOptionsView
             // 
+            this.PlotOptionsView.Controls.Add(this.mainWindowOptionsGroup);
             this.PlotOptionsView.Controls.Add(this.multiplePlotGroup);
             this.PlotOptionsView.Controls.Add(this.plotAnnotationOptionsGroup);
             this.PlotOptionsView.Controls.Add(this.plotZoomOptionsGroup);
@@ -144,13 +147,34 @@
             this.PlotOptionsView.Text = "Plot Options";
             this.PlotOptionsView.UseVisualStyleBackColor = true;
             // 
+            // mainWindowOptionsGroup
+            // 
+            this.mainWindowOptionsGroup.Controls.Add(this.mainDetachPlotCheckBox);
+            this.mainWindowOptionsGroup.Location = new System.Drawing.Point(201, 298);
+            this.mainWindowOptionsGroup.Name = "mainWindowOptionsGroup";
+            this.mainWindowOptionsGroup.Size = new System.Drawing.Size(199, 64);
+            this.mainWindowOptionsGroup.TabIndex = 5;
+            this.mainWindowOptionsGroup.TabStop = false;
+            this.mainWindowOptionsGroup.Text = "Window Options";
+            // 
+            // mainDetachPlotCheckBox
+            // 
+            this.mainDetachPlotCheckBox.AutoSize = true;
+            this.mainDetachPlotCheckBox.Location = new System.Drawing.Point(6, 29);
+            this.mainDetachPlotCheckBox.Name = "mainDetachPlotCheckBox";
+            this.mainDetachPlotCheckBox.Size = new System.Drawing.Size(82, 17);
+            this.mainDetachPlotCheckBox.TabIndex = 14;
+            this.mainDetachPlotCheckBox.Text = "Detach Plot";
+            this.mainDetachPlotCheckBox.UseVisualStyleBackColor = true;
+            this.mainDetachPlotCheckBox.CheckedChanged += new System.EventHandler(this.mainDetachPlotCheckBox_CheckedChanged_1);
+            // 
             // multiplePlotGroup
             // 
             this.multiplePlotGroup.Controls.Add(this.numberOfPlotsLabel);
             this.multiplePlotGroup.Controls.Add(this.plotNumberOfPlotsTextBox);
             this.multiplePlotGroup.Location = new System.Drawing.Point(7, 298);
             this.multiplePlotGroup.Name = "multiplePlotGroup";
-            this.multiplePlotGroup.Size = new System.Drawing.Size(393, 64);
+            this.multiplePlotGroup.Size = new System.Drawing.Size(188, 64);
             this.multiplePlotGroup.TabIndex = 4;
             this.multiplePlotGroup.TabStop = false;
             this.multiplePlotGroup.Text = "Multiple Plot Options";
@@ -169,7 +193,7 @@
             this.plotNumberOfPlotsTextBox.Location = new System.Drawing.Point(95, 27);
             this.plotNumberOfPlotsTextBox.Name = "plotNumberOfPlotsTextBox";
             this.plotNumberOfPlotsTextBox.Size = new System.Drawing.Size(43, 20);
-            this.plotNumberOfPlotsTextBox.TabIndex = 0;
+            this.plotNumberOfPlotsTextBox.TabIndex = 13;
             this.plotNumberOfPlotsTextBox.Leave += new System.EventHandler(this.numberOfPlotsTextBox_Leave);
             // 
             // plotAnnotationOptionsGroup
@@ -194,7 +218,7 @@
             this.plotChangeColorOpenButton.Location = new System.Drawing.Point(98, 65);
             this.plotChangeColorOpenButton.Name = "plotChangeColorOpenButton";
             this.plotChangeColorOpenButton.Size = new System.Drawing.Size(86, 23);
-            this.plotChangeColorOpenButton.TabIndex = 7;
+            this.plotChangeColorOpenButton.TabIndex = 12;
             this.plotChangeColorOpenButton.Text = "Change Color";
             this.plotChangeColorOpenButton.UseVisualStyleBackColor = true;
             this.plotChangeColorOpenButton.Click += new System.EventHandler(this.plotChangeColorOpenButton_Click);
@@ -205,7 +229,7 @@
             this.plotAnnotationColor.Location = new System.Drawing.Point(68, 70);
             this.plotAnnotationColor.Name = "plotAnnotationColor";
             this.plotAnnotationColor.Size = new System.Drawing.Size(15, 15);
-            this.plotAnnotationColor.TabIndex = 6;
+            this.plotAnnotationColor.TabIndex = 11;
             // 
             // plotAnnotatioColorLabel
             // 
@@ -221,7 +245,7 @@
             this.plotTextSize.Location = new System.Drawing.Point(68, 41);
             this.plotTextSize.Name = "plotTextSize";
             this.plotTextSize.Size = new System.Drawing.Size(31, 20);
-            this.plotTextSize.TabIndex = 4;
+            this.plotTextSize.TabIndex = 10;
             this.plotTextSize.Leave += new System.EventHandler(this.plotTextSize_TextChanged);
             // 
             // plotAnnotationTextSizeLabel
@@ -247,7 +271,7 @@
             this.plotAnnotationPercentBox.Location = new System.Drawing.Point(179, 17);
             this.plotAnnotationPercentBox.Name = "plotAnnotationPercentBox";
             this.plotAnnotationPercentBox.Size = new System.Drawing.Size(29, 20);
-            this.plotAnnotationPercentBox.TabIndex = 1;
+            this.plotAnnotationPercentBox.TabIndex = 9;
             this.plotAnnotationPercentBox.Leave += new System.EventHandler(this.plotAnnotationPercentBox_TextChanged);
             // 
             // plotAnnotationPercentLabel1
@@ -291,7 +315,7 @@
             this.plotFragLadderSelectBox.Location = new System.Drawing.Point(196, 69);
             this.plotFragLadderSelectBox.Name = "plotFragLadderSelectBox";
             this.plotFragLadderSelectBox.Size = new System.Drawing.Size(100, 20);
-            this.plotFragLadderSelectBox.TabIndex = 5;
+            this.plotFragLadderSelectBox.TabIndex = 8;
             this.plotFragLadderSelectBox.Leave += new System.EventHandler(this.plotFragLadderSelectBox_TextChanged);
             // 
             // plotFragLadderSelectLabel
@@ -318,7 +342,7 @@
             this.plotUnzoomKeyComboBox.Location = new System.Drawing.Point(266, 41);
             this.plotUnzoomKeyComboBox.Name = "plotUnzoomKeyComboBox";
             this.plotUnzoomKeyComboBox.Size = new System.Drawing.Size(121, 21);
-            this.plotUnzoomKeyComboBox.TabIndex = 2;
+            this.plotUnzoomKeyComboBox.TabIndex = 7;
             this.plotUnzoomKeyComboBox.Leave += new System.EventHandler(this.plotUnzoomKeyComboBox_Leave);
             // 
             // plotBoxZoom
@@ -327,7 +351,7 @@
             this.plotBoxZoom.Location = new System.Drawing.Point(115, 20);
             this.plotBoxZoom.Name = "plotBoxZoom";
             this.plotBoxZoom.Size = new System.Drawing.Size(73, 17);
-            this.plotBoxZoom.TabIndex = 1;
+            this.plotBoxZoom.TabIndex = 5;
             this.plotBoxZoom.TabStop = true;
             this.plotBoxZoom.Text = "Box Zoom";
             this.plotBoxZoom.UseVisualStyleBackColor = true;
@@ -339,7 +363,7 @@
             this.plotHorizontalZoom.Location = new System.Drawing.Point(7, 20);
             this.plotHorizontalZoom.Name = "plotHorizontalZoom";
             this.plotHorizontalZoom.Size = new System.Drawing.Size(102, 17);
-            this.plotHorizontalZoom.TabIndex = 0;
+            this.plotHorizontalZoom.TabIndex = 4;
             this.plotHorizontalZoom.TabStop = true;
             this.plotHorizontalZoom.Text = "Horizontal Zoom";
             this.plotHorizontalZoom.UseVisualStyleBackColor = true;
@@ -375,9 +399,10 @@
             this.plotHideUnmatchedData.Location = new System.Drawing.Point(153, 20);
             this.plotHideUnmatchedData.Name = "plotHideUnmatchedData";
             this.plotHideUnmatchedData.Size = new System.Drawing.Size(164, 17);
-            this.plotHideUnmatchedData.TabIndex = 2;
+            this.plotHideUnmatchedData.TabIndex = 1;
             this.plotHideUnmatchedData.Text = "Hide Unmatched Data in Plot";
             this.plotHideUnmatchedData.UseVisualStyleBackColor = true;
+            this.plotHideUnmatchedData.Visible = false;
             this.plotHideUnmatchedData.CheckedChanged += new System.EventHandler(this.plotHideUnmatchedData_CheckedChanged);
             // 
             // plotSnappingCursor
@@ -386,7 +411,7 @@
             this.plotSnappingCursor.Location = new System.Drawing.Point(7, 44);
             this.plotSnappingCursor.Name = "plotSnappingCursor";
             this.plotSnappingCursor.Size = new System.Drawing.Size(134, 17);
-            this.plotSnappingCursor.TabIndex = 1;
+            this.plotSnappingCursor.TabIndex = 2;
             this.plotSnappingCursor.Text = "Show Snapping Cursor";
             this.plotSnappingCursor.UseVisualStyleBackColor = true;
             this.plotSnappingCursor.CheckedChanged += new System.EventHandler(this.plotSnappingCursor_CheckedChanged);
@@ -430,7 +455,6 @@
             // 
             this.groupBox1.Controls.Add(this.fragModRemoveButton);
             this.groupBox1.Controls.Add(this.fragModEditButton);
-            this.groupBox1.Controls.Add(this.fragModAddButton);
             this.groupBox1.Controls.Add(this.fragModListBox);
             this.groupBox1.Location = new System.Drawing.Point(4, 4);
             this.groupBox1.Name = "groupBox1";
@@ -443,31 +467,21 @@
             // 
             this.fragModRemoveButton.Location = new System.Drawing.Point(7, 341);
             this.fragModRemoveButton.Name = "fragModRemoveButton";
-            this.fragModRemoveButton.Size = new System.Drawing.Size(60, 23);
-            this.fragModRemoveButton.TabIndex = 3;
+            this.fragModRemoveButton.Size = new System.Drawing.Size(81, 23);
+            this.fragModRemoveButton.TabIndex = 1;
             this.fragModRemoveButton.Text = "Remove";
             this.fragModRemoveButton.UseVisualStyleBackColor = true;
             this.fragModRemoveButton.Click += new System.EventHandler(this.fragModRemoveButton_Click);
             // 
             // fragModEditButton
             // 
-            this.fragModEditButton.Location = new System.Drawing.Point(71, 341);
+            this.fragModEditButton.Location = new System.Drawing.Point(106, 341);
             this.fragModEditButton.Name = "fragModEditButton";
-            this.fragModEditButton.Size = new System.Drawing.Size(60, 23);
+            this.fragModEditButton.Size = new System.Drawing.Size(91, 23);
             this.fragModEditButton.TabIndex = 2;
             this.fragModEditButton.Text = "Edit";
             this.fragModEditButton.UseVisualStyleBackColor = true;
             this.fragModEditButton.Click += new System.EventHandler(this.fragModEditButton_Click);
-            // 
-            // fragModAddButton
-            // 
-            this.fragModAddButton.Location = new System.Drawing.Point(137, 341);
-            this.fragModAddButton.Name = "fragModAddButton";
-            this.fragModAddButton.Size = new System.Drawing.Size(60, 23);
-            this.fragModAddButton.TabIndex = 1;
-            this.fragModAddButton.Text = "Add";
-            this.fragModAddButton.UseVisualStyleBackColor = true;
-            this.fragModAddButton.Click += new System.EventHandler(this.fragModAddButton_Click);
             // 
             // fragModListBox
             // 
@@ -481,7 +495,6 @@
             // 
             this.MainOptionsView.Controls.Add(this.mainDataPropertiesGroup);
             this.MainOptionsView.Controls.Add(this.mainMatchingPropertiesGroup);
-            this.MainOptionsView.Controls.Add(this.mainWindowOptionsGroup);
             this.MainOptionsView.Controls.Add(this.mainUserProfileGroup);
             this.MainOptionsView.Location = new System.Drawing.Point(4, 22);
             this.MainOptionsView.Name = "MainOptionsView";
@@ -498,10 +511,10 @@
             this.mainDataPropertiesGroup.Controls.Add(this.mainMatchColorChangeButton);
             this.mainDataPropertiesGroup.Controls.Add(this.mainMatchedColorSample);
             this.mainDataPropertiesGroup.Controls.Add(this.mainMatchedColorLabel);
-            this.mainDataPropertiesGroup.Location = new System.Drawing.Point(4, 124);
+            this.mainDataPropertiesGroup.Location = new System.Drawing.Point(4, 65);
             this.mainDataPropertiesGroup.Name = "mainDataPropertiesGroup";
             this.mainDataPropertiesGroup.Size = new System.Drawing.Size(399, 69);
-            this.mainDataPropertiesGroup.TabIndex = 2;
+            this.mainDataPropertiesGroup.TabIndex = 1;
             this.mainDataPropertiesGroup.TabStop = false;
             this.mainDataPropertiesGroup.Text = "Data Properties";
             // 
@@ -510,7 +523,7 @@
             this.mainUnmatchColorChangeButton.Location = new System.Drawing.Point(129, 38);
             this.mainUnmatchColorChangeButton.Name = "mainUnmatchColorChangeButton";
             this.mainUnmatchColorChangeButton.Size = new System.Drawing.Size(86, 23);
-            this.mainUnmatchColorChangeButton.TabIndex = 13;
+            this.mainUnmatchColorChangeButton.TabIndex = 7;
             this.mainUnmatchColorChangeButton.Text = "Change Color";
             this.mainUnmatchColorChangeButton.UseVisualStyleBackColor = true;
             this.mainUnmatchColorChangeButton.Click += new System.EventHandler(this.mainUnmatchColorChangeButton_Click);
@@ -521,7 +534,7 @@
             this.mainUnmatchedColorSample.Location = new System.Drawing.Point(95, 43);
             this.mainUnmatchedColorSample.Name = "mainUnmatchedColorSample";
             this.mainUnmatchedColorSample.Size = new System.Drawing.Size(15, 15);
-            this.mainUnmatchedColorSample.TabIndex = 12;
+            this.mainUnmatchedColorSample.TabIndex = 6;
             // 
             // mainUnmatchedColorLabel
             // 
@@ -537,7 +550,7 @@
             this.mainMatchColorChangeButton.Location = new System.Drawing.Point(129, 11);
             this.mainMatchColorChangeButton.Name = "mainMatchColorChangeButton";
             this.mainMatchColorChangeButton.Size = new System.Drawing.Size(86, 23);
-            this.mainMatchColorChangeButton.TabIndex = 10;
+            this.mainMatchColorChangeButton.TabIndex = 5;
             this.mainMatchColorChangeButton.Text = "Change Color";
             this.mainMatchColorChangeButton.UseVisualStyleBackColor = true;
             this.mainMatchColorChangeButton.Click += new System.EventHandler(this.mainMatchColorChangeButton_Click);
@@ -548,7 +561,7 @@
             this.mainMatchedColorSample.Location = new System.Drawing.Point(95, 16);
             this.mainMatchedColorSample.Name = "mainMatchedColorSample";
             this.mainMatchedColorSample.Size = new System.Drawing.Size(15, 15);
-            this.mainMatchedColorSample.TabIndex = 9;
+            this.mainMatchedColorSample.TabIndex = 4;
             // 
             // mainMatchedColorLabel
             // 
@@ -561,52 +574,50 @@
             // 
             // mainMatchingPropertiesGroup
             // 
+            this.mainMatchingPropertiesGroup.Controls.Add(this.lowerMatchingToleranceBox);
+            this.mainMatchingPropertiesGroup.Controls.Add(this.lowerMatchingToleranceLabel);
             this.mainMatchingPropertiesGroup.Controls.Add(this.mainMatchingToleranceBox);
             this.mainMatchingPropertiesGroup.Controls.Add(this.mainMatchingToleranceLabel);
-            this.mainMatchingPropertiesGroup.Location = new System.Drawing.Point(4, 199);
+            this.mainMatchingPropertiesGroup.Location = new System.Drawing.Point(4, 140);
             this.mainMatchingPropertiesGroup.Name = "mainMatchingPropertiesGroup";
             this.mainMatchingPropertiesGroup.Size = new System.Drawing.Size(399, 65);
-            this.mainMatchingPropertiesGroup.TabIndex = 0;
+            this.mainMatchingPropertiesGroup.TabIndex = 2;
             this.mainMatchingPropertiesGroup.TabStop = false;
             this.mainMatchingPropertiesGroup.Text = "Matching Properties";
             // 
+            // lowerMatchingToleranceBox
+            // 
+            this.lowerMatchingToleranceBox.Location = new System.Drawing.Point(12, 32);
+            this.lowerMatchingToleranceBox.Name = "lowerMatchingToleranceBox";
+            this.lowerMatchingToleranceBox.Size = new System.Drawing.Size(100, 20);
+            this.lowerMatchingToleranceBox.TabIndex = 10;
+            this.lowerMatchingToleranceBox.Leave += new System.EventHandler(this.lowerMatchingToleranceBox_TextChanged);
+            // 
+            // lowerMatchingToleranceLabel
+            // 
+            this.lowerMatchingToleranceLabel.AutoSize = true;
+            this.lowerMatchingToleranceLabel.Location = new System.Drawing.Point(9, 16);
+            this.lowerMatchingToleranceLabel.Name = "lowerMatchingToleranceLabel";
+            this.lowerMatchingToleranceLabel.Size = new System.Drawing.Size(87, 13);
+            this.lowerMatchingToleranceLabel.TabIndex = 9;
+            this.lowerMatchingToleranceLabel.Text = "Lower Tolerance";
+            // 
             // mainMatchingToleranceBox
             // 
-            this.mainMatchingToleranceBox.Location = new System.Drawing.Point(10, 37);
+            this.mainMatchingToleranceBox.Location = new System.Drawing.Point(162, 32);
             this.mainMatchingToleranceBox.Name = "mainMatchingToleranceBox";
             this.mainMatchingToleranceBox.Size = new System.Drawing.Size(100, 20);
-            this.mainMatchingToleranceBox.TabIndex = 1;
+            this.mainMatchingToleranceBox.TabIndex = 8;
             this.mainMatchingToleranceBox.Leave += new System.EventHandler(this.mainMatchingToleranceBox_TextChanged);
             // 
             // mainMatchingToleranceLabel
             // 
             this.mainMatchingToleranceLabel.AutoSize = true;
-            this.mainMatchingToleranceLabel.Location = new System.Drawing.Point(7, 20);
+            this.mainMatchingToleranceLabel.Location = new System.Drawing.Point(159, 16);
             this.mainMatchingToleranceLabel.Name = "mainMatchingToleranceLabel";
-            this.mainMatchingToleranceLabel.Size = new System.Drawing.Size(102, 13);
+            this.mainMatchingToleranceLabel.Size = new System.Drawing.Size(87, 13);
             this.mainMatchingToleranceLabel.TabIndex = 0;
-            this.mainMatchingToleranceLabel.Text = "Matching Tolerance";
-            // 
-            // mainWindowOptionsGroup
-            // 
-            this.mainWindowOptionsGroup.Controls.Add(this.mainDetachPlotCheckBox);
-            this.mainWindowOptionsGroup.Location = new System.Drawing.Point(4, 65);
-            this.mainWindowOptionsGroup.Name = "mainWindowOptionsGroup";
-            this.mainWindowOptionsGroup.Size = new System.Drawing.Size(399, 52);
-            this.mainWindowOptionsGroup.TabIndex = 1;
-            this.mainWindowOptionsGroup.TabStop = false;
-            this.mainWindowOptionsGroup.Text = "Window Options";
-            // 
-            // mainDetachPlotCheckBox
-            // 
-            this.mainDetachPlotCheckBox.AutoSize = true;
-            this.mainDetachPlotCheckBox.Location = new System.Drawing.Point(7, 20);
-            this.mainDetachPlotCheckBox.Name = "mainDetachPlotCheckBox";
-            this.mainDetachPlotCheckBox.Size = new System.Drawing.Size(82, 17);
-            this.mainDetachPlotCheckBox.TabIndex = 0;
-            this.mainDetachPlotCheckBox.Text = "Detach Plot";
-            this.mainDetachPlotCheckBox.UseVisualStyleBackColor = true;
-            this.mainDetachPlotCheckBox.CheckedChanged += new System.EventHandler(this.mainDetachPlotCheckBox_CheckedChanged);
+            this.mainMatchingToleranceLabel.Text = "Upper Tolerance";
             // 
             // mainUserProfileGroup
             // 
@@ -624,7 +635,7 @@
             this.mainUserBrowseButton.Location = new System.Drawing.Point(318, 18);
             this.mainUserBrowseButton.Name = "mainUserBrowseButton";
             this.mainUserBrowseButton.Size = new System.Drawing.Size(75, 23);
-            this.mainUserBrowseButton.TabIndex = 1;
+            this.mainUserBrowseButton.TabIndex = 2;
             this.mainUserBrowseButton.Text = "Browse";
             this.mainUserBrowseButton.UseVisualStyleBackColor = true;
             this.mainUserBrowseButton.Click += new System.EventHandler(this.mainUserBrowseButton_Click);
@@ -634,12 +645,15 @@
             this.mainProfileFileLocationBox.Location = new System.Drawing.Point(7, 20);
             this.mainProfileFileLocationBox.Name = "mainProfileFileLocationBox";
             this.mainProfileFileLocationBox.Size = new System.Drawing.Size(305, 20);
-            this.mainProfileFileLocationBox.TabIndex = 0;
+            this.mainProfileFileLocationBox.TabIndex = 1;
             // 
             // openFileDialog
             // 
             this.openFileDialog.DefaultExt = "( *.spuf ) | .spuf";
-            this.openFileDialog.FileName = "openFileDialog1";
+            this.openFileDialog.FileName = "User Profile";
+            this.openFileDialog.Filter = "SpectrumLook User File|*.spuf";
+            this.openFileDialog.InitialDirectory = "c:\\";
+            this.openFileDialog.Title = "Choose the User Profile";
             // 
             // OptionsViewController
             // 
@@ -651,12 +665,17 @@
             this.Controls.Add(this.defaultButton);
             this.Controls.Add(this.optionTabsPage);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "OptionsViewController";
+            this.ShowInTaskbar = false;
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
-            this.Text = "GlobalOptions";
+            this.Text = "Options";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.OptionsViewController_FormClosing);
+            this.Load += new System.EventHandler(this.OptionsViewController_Load);
             this.PlotOptionsView.ResumeLayout(false);
+            this.mainWindowOptionsGroup.ResumeLayout(false);
+            this.mainWindowOptionsGroup.PerformLayout();
             this.multiplePlotGroup.ResumeLayout(false);
             this.multiplePlotGroup.PerformLayout();
             this.plotAnnotationOptionsGroup.ResumeLayout(false);
@@ -673,8 +692,6 @@
             this.mainDataPropertiesGroup.PerformLayout();
             this.mainMatchingPropertiesGroup.ResumeLayout(false);
             this.mainMatchingPropertiesGroup.PerformLayout();
-            this.mainWindowOptionsGroup.ResumeLayout(false);
-            this.mainWindowOptionsGroup.PerformLayout();
             this.mainUserProfileGroup.ResumeLayout(false);
             this.mainUserProfileGroup.PerformLayout();
             this.ResumeLayout(false);
@@ -710,7 +727,6 @@
         private System.Windows.Forms.TabControl optionTabsPage;
         private System.Windows.Forms.TabPage MainOptionsView;
         private System.Windows.Forms.GroupBox mainMatchingPropertiesGroup;
-        private System.Windows.Forms.GroupBox mainWindowOptionsGroup;
         private System.Windows.Forms.GroupBox mainUserProfileGroup;
         private System.Windows.Forms.GroupBox mainDataPropertiesGroup;
         private System.Windows.Forms.Button mainUnmatchColorChangeButton;
@@ -721,7 +737,6 @@
         private System.Windows.Forms.Label mainMatchedColorLabel;
         private System.Windows.Forms.TextBox mainMatchingToleranceBox;
         private System.Windows.Forms.Label mainMatchingToleranceLabel;
-        private System.Windows.Forms.CheckBox mainDetachPlotCheckBox;
         private System.Windows.Forms.Button mainUserBrowseButton;
         private System.Windows.Forms.TextBox mainProfileFileLocationBox;
         private System.Windows.Forms.ColorDialog colorDialog;
@@ -735,7 +750,10 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button fragModRemoveButton;
         private System.Windows.Forms.Button fragModEditButton;
-        private System.Windows.Forms.Button fragModAddButton;
         private System.Windows.Forms.ListBox fragModListBox;
+        private System.Windows.Forms.GroupBox mainWindowOptionsGroup;
+        private System.Windows.Forms.CheckBox mainDetachPlotCheckBox;
+        private System.Windows.Forms.TextBox lowerMatchingToleranceBox;
+        private System.Windows.Forms.Label lowerMatchingToleranceLabel;
     }
 }

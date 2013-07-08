@@ -128,11 +128,11 @@ namespace SpectrumLook.Builders
             {
                 string[] splicedRow = currentLine.Split('\t');
                 //This is where add "_p" and "_s" to the row that signifies the peptide sequence and connection to experiment data.
-                if (m_currentRowCount == 0) //if zero then we are currently looking at the headers of the columns
+                /*if (m_currentRowCount == 0) //if zero then we are currently looking at the headers of the columns
                 {
                     splicedRow[1] = splicedRow[1] + "_s";
                     splicedRow[10] = splicedRow[10] + "_p";
-                }
+                }*/
                 ++m_currentRowCount;
                 return splicedRow;
             }

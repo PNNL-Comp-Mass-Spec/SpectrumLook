@@ -376,7 +376,10 @@ namespace SpectrumLook.Views
         /// <param name="newState"></param>
         void MyZedGraph_ZoomEvent(ZedGraphControl sender, ZoomState oldState, ZoomState newState)
         {
-            ReevaluateAnnotations();
+            if (m_manager.m_data_loaded == true)
+            {
+                ReevaluateAnnotations();
+            }
             //m_arrowShowing = false;
         }
 
@@ -387,16 +390,21 @@ namespace SpectrumLook.Views
         {
             foreach (GraphPane pane in MasterPane.PaneList)
             {
+                double minY = pane.YAxis.Scale.Min;
+                if (m_options.zoomHorizontal == false) //For box zoom (non horizontal zoom) change the YAxis to 0 to keep the X axis
+                {
+                    pane.YAxis.Scale.Min = 0;
+                    minY = 0;
+                }
                 double minX = pane.XAxis.Scale.Min;
                 double maxX = pane.XAxis.Scale.Max;
-                double minY = pane.YAxis.Scale.Min;
+                
                 double maxY = pane.YAxis.Scale.Max;
-
-                PointPairList visibleMatchedPoints = GetVisiblePoints(pane.CurveList[matchedCurveName].Points, pane.CurveList[unmatchedCurveName].Points, minX, maxX, minY, maxY);
-
-                double minIntensityToDisplay = FindMinIntensityToDisplay(visibleMatchedPoints);
-
-                foreach (TextObj text in pane.GraphObjList)
+                try
+                {
+                    PointPairList visibleMatchedPoints = GetVisiblePoints(pane.CurveList[matchedCurveName].Points, pane.CurveList[unmatchedCurveName].Points, minX, maxX, minY, maxY);
+                    double minIntensityToDisplay = FindMinIntensityToDisplay(visibleMatchedPoints);
+                    foreach (TextObj text in pane.GraphObjList)
                 {
                     PointPair pt = (PointPair)text.Tag;
                     Annotation customAnnotation = new Annotation();
@@ -430,6 +438,11 @@ namespace SpectrumLook.Views
                     {
                         text.IsVisible = true;
                     }
+                }
+                }
+                catch
+                {
+                    // Do nothing upon catch
                 }
             }
         }
@@ -664,18 +677,18 @@ namespace SpectrumLook.Views
                 {
                     foreach (GraphPane myPane in this.MasterPane.PaneList)
                     {
-                        PointPairList oldUnmatchedPoints = (PointPairList)myPane.CurveList["Unmatched Peaks"].Points;
-                        PointPairList oldMatchedPoints = (PointPairList)myPane.CurveList["Matched Peaks"].Points;
+                        //PointPairList oldUnmatchedPoints = (PointPairList)myPane.CurveList["Unmatched Peaks"].Points;
+                        //PointPairList oldMatchedPoints = (PointPairList)myPane.CurveList["Matched Peaks"].Points;
 
                         myPane.CurveList.Clear();
                         myPane.GraphObjList.Clear();
 
                         if (!m_options.hideUnmatched)
                         {
-                            OHLCBarItem unmatchedCurve = myPane.AddOHLCBar("Unmatched Peaks", oldUnmatchedPoints, m_options.unmatchedColor);
+                            OHLCBarItem unmatchedCurve = myPane.AddOHLCBar("Unmatched Peaks", m_unmatchedPoints, m_options.unmatchedColor);
                             AddAnnotations(unmatchedCurve.Points, myPane);
                         }
-                        OHLCBarItem matchedCurve = myPane.AddOHLCBar("Matched Peaks", oldMatchedPoints, m_options.matchedColor);
+                        OHLCBarItem matchedCurve = myPane.AddOHLCBar("Matched Peaks", m_matchedPoints, m_options.matchedColor);
                         AddAnnotations(matchedCurve.Points, myPane);
                     }
                 }
@@ -847,7 +860,10 @@ namespace SpectrumLook.Views
             {
                 if (e.Button == System.Windows.Forms.MouseButtons.Right)
                 {
-                    HandleZoomOut();
+                    if (m_manager.m_data_loaded == true)
+                    {
+                        HandleZoomOut();
+                    }
                 }
                 else
                 {
@@ -883,6 +899,7 @@ namespace SpectrumLook.Views
         /// </summary>
         public void HandleZoomOut()
         {
+
             Point cursorPos = Cursor.Position;
             PointF cursorPosF = new PointF(cursorPos.X, cursorPos.Y);
             GraphPane closestPane;

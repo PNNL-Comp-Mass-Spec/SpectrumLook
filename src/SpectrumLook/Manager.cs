@@ -1,4 +1,8 @@
-﻿using System;
+﻿// TEST CHECKOUT
+
+// RYAN YOUR SOLUTION TO DISCUSS WITH THE GROUP IS IN FragmentLadderView.cs at the bottom
+
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,12 +14,12 @@ using SpectrumLook;
 using SpectrumLook.Views;
 using SpectrumLook.Builders;
 
+
 namespace SpectrumLook
 {
     public class Manager
     {
         #region MEMBERS
-
         public MainForm m_mainForm;
         public SLPlot m_plot;
         public DataView m_dataView;
@@ -71,16 +75,17 @@ namespace SpectrumLook
 
             //For loading profile settings : 
             FileStream reader = null;
-            string fileLocation = "";
             bool createFileFlag = false;
+
+            // check to see if data is loaded
+            m_data_loaded = false;
 
             /*********************This is to read the UserProfile for spectrumLook**********************/
             try
             {
                 reader = new FileStream(System.IO.Directory.GetCurrentDirectory() + "\\UserProfile.spuf", FileMode.Open, FileAccess.Read);
-                fileLocation = "UserProfile2.spuf";
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 createFileFlag = true;
             }
@@ -105,7 +110,8 @@ namespace SpectrumLook
             m_workFileWriter = new HashtableXmlSerializer();
 
             //Options
-            m_options = new OptionsViewController(m_plot.m_options, m_mainForm.m_currentOptions, m_fragLadder.fragmentLadderOptions ,System.IO.Directory.GetCurrentDirectory() + "\\UserProfile.spuf", createFileFlag);
+            m_options = new OptionsViewController(m_plot.m_options, m_mainForm.m_currentOptions, m_fragLadder.fragmentLadderOptions ,System.IO.Directory.GetCurrentDirectory() + "\\UserProfile.spuf", createFileFlag, m_fragLadder);
+            m_mainForm.m_currentOptions.toleranceValue = 0.7;
 
             //attach all of the observers to the subjects
             IObserver tempObserver = m_plot as IObserver;
@@ -119,7 +125,18 @@ namespace SpectrumLook
             m_plot.m_options.Attach(ref tempObserver);//This is because the plot window depends on the mainFormOptions.
 
             tempObserver = m_fragLadder as IObserver;
+            // Add pre-defined symbols to modifications list
             m_fragLadder.fragmentLadderOptions.Attach(ref tempObserver);
+            m_fragLadder.fragmentLadderOptions.modificationList.Add("*|79.9663326");
+            m_fragLadder.fragmentLadderOptions.modificationList.Add("+|14.01565");
+            m_fragLadder.fragmentLadderOptions.modificationList.Add("@|15.99492");
+            m_fragLadder.fragmentLadderOptions.modificationList.Add("!|57.02146");
+            m_fragLadder.fragmentLadderOptions.modificationList.Add("&|58.00548");
+            m_fragLadder.fragmentLadderOptions.modificationList.Add("#|71.03711");
+            m_fragLadder.fragmentLadderOptions.modificationList.Add("$|227.127");
+            m_fragLadder.fragmentLadderOptions.modificationList.Add("%|236.127");
+            m_fragLadder.fragmentLadderOptions.modificationList.Add("~|442.225");
+            m_fragLadder.fragmentLadderOptions.modificationList.Add("`|450.274");
 
             m_plot.m_options.CopyOptions(m_plot.m_options);
             m_options.Hide();
@@ -147,10 +164,6 @@ namespace SpectrumLook
                     m_plot.HandleZoomOut();
                     e.Handled = true;
                 }
-                if (e.KeyCode == Keys.P)
-                {
-                    m_plot.MySaveAs("plot");
-                }
             }
         }
 
@@ -158,12 +171,15 @@ namespace SpectrumLook
 
         #region CALLBACK FUCNTIONS
 
+        public bool m_isSynopsisLoaded;
+        public bool m_data_loaded;
         private int m_currentScanNumber;
         private string m_currentPeptide;
         private string m_dataFileLocation;
         private string m_synopsisFileLocation;
         private bool m_isFragmentationModeCID = false;
         private List<Element> m_experimentalList;
+        
 
         /// <summary>
         /// RunOpenDialog will open the custom SLOpenFileDialog box and prompt the user to
@@ -176,47 +192,177 @@ namespace SpectrumLook
 
             if (result == DialogResult.OK)
             {
+                if (m_dataFileLocation == openDialog.m_dataPath || m_synopsisFileLocation == openDialog.m_synopsisPath)
+                {
+                    return;
+                }
                 m_dataFileLocation = openDialog.m_dataPath;
                 m_synopsisFileLocation = openDialog.m_synopsisPath;
 
+               
                 if (m_synopsisFileLocation != string.Empty)
                 {
-                    m_dataView.SetDataTable(DataBuilder.GetDataTable(new SequestParser(m_synopsisFileLocation)));
+                    try
+                    {
+                        int PeptideCol = 0, ScanCol = 0;
+                        SequestParser sqParser = new SequestParser(m_synopsisFileLocation);
+                        m_dataView.SetDataTable(DataBuilder.GetDataTable(sqParser, ref PeptideCol, ref ScanCol));
+                        m_dataView.SetScanIndexAndPeptideIndex(PeptideCol, ScanCol);
+                        m_isSynopsisLoaded = true;
+                    }
+                    catch (Exception ex)
+                    {
+                        m_isSynopsisLoaded = false;
+                        MessageBox.Show("There was an error opening the Synopsis file, are you sure you picked the right file?\n\n" + ex.Message + "\n\nStack Trace:\n" + ex.StackTrace, 
+                            "Synopsis open Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    // select first row
+                    m_dataView.HandleRowSelection();
                 }
+                
             }
+           
         }
 
+        // This function simply calls the combo box function within m_fragLadder
+        public void callcombobox()
+        {
+            m_fragLadder.setComboBox();
+        }
         /// <summary>
         /// This handle is called from the fragmentLadder.
         /// This is created for the purpose of adding a modified peptide to the current Instance List.
         /// </summary>
         /// <param name="Peptide">A peptide string.</param>
-        public void HandleInputPeptide(string Peptide)
+        public bool HandleInputPeptide(string Peptide)
         {
-            SpectrumLook.Views.FragmentLadderView.LadderInstanceBuilder ladderBuilder = new Views.FragmentLadderView.LadderInstanceBuilder();
-
-            //use the builder director to crunch all the data
-            List<Element> theoreticalList = m_builderDirector.BuildTheoryList(Peptide, m_isFragmentationModeCID, this.m_fragLadder.fragmentLadderOptions.modificationList);
-            List<Element> comparedList = m_builderDirector.BuildComparedList(m_mainForm.m_currentOptions.toleranceValue, m_experimentalList, ref theoreticalList);
-
-            //now give the data to the views to display
-            //Send the FragmentLadder and the Plot the data to show
-            if (m_ladderInstancesTable.ContainsKey(m_currentScanNumber.ToString() + m_currentPeptide))
+            
+            bool special_char_exists = false;
+            bool peptide_exists = false;
+            char character = ' ';
+            List<string> x = m_fragLadder.fragmentLadderOptions.modificationList;
+            // Check to see if any special characters exist
+            for (int i = 0; i < Peptide.Length; i++)
             {
-                m_currentInstance = ladderBuilder.GenerateInstance(theoreticalList, Peptide,m_fragLadder.fragmentLadderOptions.modificationList);
-                m_currentInstance.scanAndPeptide = m_currentScanNumber.ToString() + "|" + Peptide;
-                List<LadderInstance> tmpListHolder = (List<LadderInstance>)m_ladderInstancesTable[m_currentScanNumber.ToString() + m_currentPeptide];
-                tmpListHolder.Add(m_currentInstance);
-                m_ladderInstancesTable[m_currentScanNumber.ToString() + m_currentPeptide] = tmpListHolder;
-                m_currentInstance = ((List<LadderInstance>)m_ladderInstancesTable[m_currentScanNumber.ToString() + m_currentPeptide])[0];
-                m_fragLadder.generateLadderFromSelection(0.0, (List<LadderInstance>)m_ladderInstancesTable[m_currentScanNumber.ToString() + m_currentPeptide]);
-                m_plot.PlotData(comparedList, m_currentScanNumber.ToString(), Peptide);
+                if(Char.IsUpper(Peptide[i]))
+                {
+                    peptide_exists = true;
+                    break;
+                }
+            }
+            if(peptide_exists == true)
+            {
+                for (int i = 0; i < Peptide.Length; i++)
+                {
+                    if (Char.IsUpper(Peptide[i]))
+                    {
+                    }
+                    else
+                    {
+                        special_char_exists = true;
+                        for (int z = 0; z < x.Count; z++)
+                        {
+                            if (x[z][0] == Peptide[i])   // gets first character of string in the ith value
+                            {
+                                special_char_exists = false;
+                            }
+                        }
+                        if (special_char_exists)
+                        {
+                            character = Peptide[i];
+                            break;
+                        }
+                    }
+                }
+            }
+
+            if (m_currentScanNumber == 0)
+            {
+                MessageBox.Show("Please open a synopsis and data file and then load a scan from the data view to calculate: \"" + Peptide + "\"");
+                return false;
+            }
+
+            if (special_char_exists)
+            {
+                MessageBox.Show("The special character "+ character +" has not been defined, please define the character in options/fragment ladder.");
+                return false;
+            }
+
+            /*MG: Generating a regular expression string with the current modification
+                 * symbols to check if the peptide string from the user is a valid peptide string.
+                 * if its not, giving feedback to user and returning out*/
+            string modificationListWithSlashes = "";
+            foreach (string s in m_fragLadder.fragmentLadderOptions.modificationList)
+            {
+                modificationListWithSlashes += "\\" + s[0];
+            }
+            string spattern = "^([A-Z]{1,}[" + modificationListWithSlashes + "]{0,1})*[^" + modificationListWithSlashes + "]$";
+
+            if (!System.Text.RegularExpressions.Regex.IsMatch(Peptide, spattern) || Peptide.Length==1)
+            {
+                MessageBox.Show("Invalid peptide string.");
+                return false;
             }
             else
             {
-                m_plot.PlotData(comparedList, m_currentScanNumber.ToString(), m_currentPeptide);
+                // check to see if peptide exists in the ladder instances table and don't add a modification if it does
+                bool is_same = false;
+                int count = ((List<LadderInstance>)m_ladderInstancesTable[m_currentScanNumber.ToString() + m_currentPeptide]).Count;
+                for (int i = 0; i < count; i++)
+                {
+                    if (((List<LadderInstance>)m_ladderInstancesTable[m_currentScanNumber.ToString() + m_currentPeptide])[i].PeptideString == Peptide)
+                    {
+                        is_same = true;
+                    }
+                }
+                
+
+                if (!is_same)
+                {
+                    SpectrumLook.Views.FragmentLadderView.LadderInstanceBuilder ladderBuilder = new Views.FragmentLadderView.LadderInstanceBuilder();
+
+                    //use the builder director to crunch all the data
+                    List<Element> theoreticalList = m_builderDirector.BuildTheoryList(Peptide, m_isFragmentationModeCID, this.m_fragLadder.fragmentLadderOptions.modificationList);
+                    List<Element> comparedList = m_builderDirector.BuildComparedList(m_mainForm.m_currentOptions.toleranceValue, m_mainForm.m_currentOptions.lowerToleranceValue, m_experimentalList, ref theoreticalList);
+
+                    //now give the data to the views to display
+                    //Send the FragmentLadder and the Plot the data to show
+                    if (m_ladderInstancesTable.ContainsKey(m_currentScanNumber.ToString() + m_currentPeptide))
+                    {
+                        m_currentInstance = ladderBuilder.GenerateInstance(theoreticalList, Peptide, m_fragLadder.fragmentLadderOptions.modificationList);
+                        m_currentInstance.scanAndPeptide = m_currentScanNumber.ToString() + "|" + Peptide;
+                        List<LadderInstance> tmpListHolder = (List<LadderInstance>)m_ladderInstancesTable[m_currentScanNumber.ToString() + m_currentPeptide];
+                        tmpListHolder.Add(m_currentInstance);
+                        m_ladderInstancesTable[m_currentScanNumber.ToString() + m_currentPeptide] = tmpListHolder;
+                        m_currentInstance = ((List<LadderInstance>)m_ladderInstancesTable[m_currentScanNumber.ToString() + m_currentPeptide])[0];
+                        m_fragLadder.generateLadderFromSelection(0.0, (List<LadderInstance>)m_ladderInstancesTable[m_currentScanNumber.ToString() + m_currentPeptide]);
+                        m_plot.PlotData(comparedList, m_currentScanNumber.ToString(), Peptide);
+                    }
+                    else
+                    {
+                        m_plot.PlotData(comparedList, m_currentScanNumber.ToString(), m_currentPeptide);
+                    }
+
+                    return true;
+                }
+
+                return false;
+
             }
             
+        }
+
+        /// <summary>
+        /// This function will remove a specific modification from the ladder instances table
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="index"></param>
+        public void RemoveModificationFromList(int index)
+        {
+            string x = ((List<LadderInstance>)m_ladderInstancesTable[m_currentScanNumber.ToString() + m_currentPeptide])[index].PeptideString;
+            ((List<LadderInstance>)m_ladderInstancesTable[m_currentScanNumber.ToString() + m_currentPeptide]).RemoveAt(index);
+            //m_ladderInstancesTable.Remove(((List<LadderInstance>)m_ladderInstancesTable[m_currentScanNumber.ToString() + m_currentPeptide])[index]);
+            m_dataView.HandleRowSelection();
         }
 
 
@@ -228,34 +374,51 @@ namespace SpectrumLook
         /// <param name="Peptide">The peptide sequence.</param>
         public void HandleSelectScanAndPeptide(string ScanNumber, string Peptide)
         {
-            SpectrumLook.Views.FragmentLadderView.LadderInstanceBuilder ladderBuilder = new Views.FragmentLadderView.LadderInstanceBuilder();
-
-            m_currentScanNumber = Convert.ToInt32(ScanNumber);
-            m_currentPeptide = Peptide;
-            //use the builder director to crunch all the data
-            List<Element> theoreticalList = m_builderDirector.BuildTheoryList(Peptide, m_isFragmentationModeCID, this.m_fragLadder.fragmentLadderOptions.modificationList);
-            m_experimentalList = m_builderDirector.BuildActualList(Convert.ToInt32(ScanNumber), m_dataFileLocation);
-            List<Element> comparedList = m_builderDirector.BuildComparedList(m_mainForm.m_currentOptions.toleranceValue, m_experimentalList, ref theoreticalList);
-
-            //now give the data to the views to display
-            //Send the FragmentLadder and the Plot the data to show
-            if (m_ladderInstancesTable.ContainsKey(ScanNumber + Peptide))
+            m_data_loaded = true;
+            try
             {
-                m_currentInstance = ((List<LadderInstance>)m_ladderInstancesTable[ScanNumber + Peptide])[0];
-                m_fragLadder.generateLadderFromSelection(0.0, (List<LadderInstance>)m_ladderInstancesTable[ScanNumber + Peptide]);
-            }
-            else
-            {
-                List<LadderInstance> tempList = new List<LadderInstance>();
-                LadderInstance tempInstance = ladderBuilder.GenerateInstance(theoreticalList, Peptide, m_fragLadder.fragmentLadderOptions.modificationList);
-                tempInstance.scanAndPeptide = ScanNumber + "|" + Peptide;
-                tempList.Add(tempInstance);
-                m_ladderInstancesTable.Add(ScanNumber + Peptide, tempList);
+                SpectrumLook.Views.FragmentLadderView.LadderInstanceBuilder ladderBuilder = new Views.FragmentLadderView.LadderInstanceBuilder();
 
-                m_currentInstance = ((List<LadderInstance>)m_ladderInstancesTable[ScanNumber + Peptide])[0];
-                m_fragLadder.generateLadderFromSelection(0.0, (List<LadderInstance>)m_ladderInstancesTable[ScanNumber + Peptide]);
+                m_currentScanNumber = Convert.ToInt32(ScanNumber);
+                m_currentPeptide = Peptide;
+                //use the builder director to crunch all the data
+                List<Element> theoreticalList = m_builderDirector.BuildTheoryList(Peptide, m_isFragmentationModeCID, this.m_fragLadder.fragmentLadderOptions.modificationList);
+                m_experimentalList = m_builderDirector.BuildActualList(Convert.ToInt32(ScanNumber), m_dataFileLocation);
+                List<Element> comparedList = m_builderDirector.BuildComparedList(m_mainForm.m_currentOptions.toleranceValue, m_mainForm.m_currentOptions.lowerToleranceValue, m_experimentalList, ref theoreticalList);
+
+                //now give the data to the views to display
+                //Send the FragmentLadder and the Plot the data to show
+                if (m_ladderInstancesTable.ContainsKey(ScanNumber + Peptide))
+                {
+                    m_currentInstance = ((List<LadderInstance>)m_ladderInstancesTable[ScanNumber + Peptide])[0];
+                    m_fragLadder.generateLadderFromSelection(0.0, (List<LadderInstance>)m_ladderInstancesTable[ScanNumber + Peptide]);
+                }
+                else
+                {
+                    List<LadderInstance> tempList = new List<LadderInstance>();
+                    LadderInstance tempInstance = ladderBuilder.GenerateInstance(theoreticalList, Peptide, m_fragLadder.fragmentLadderOptions.modificationList);
+                    tempInstance.scanAndPeptide = ScanNumber + "|" + Peptide;
+                    tempList.Add(tempInstance);
+                    m_ladderInstancesTable.Add(ScanNumber + Peptide, tempList);
+
+                    m_currentInstance = ((List<LadderInstance>)m_ladderInstancesTable[ScanNumber + Peptide])[0];
+                    m_fragLadder.generateLadderFromSelection(0.0, (List<LadderInstance>)m_ladderInstancesTable[ScanNumber + Peptide]);
+                }
+                m_plot.PlotData(comparedList, ScanNumber, Peptide);
+                //m_experimentalList.Clear();
+                //m_experimentalList = null;
             }
-            m_plot.PlotData(comparedList, ScanNumber, Peptide);
+            catch (InvalidProgramException ex)
+            {
+                if (ex.Message.Contains("Invalid File Type"))
+                {
+                    MessageBox.Show("Invalid File Type for the Data file.  Only .mzXml, .mzData, and .raw types are allowed.", "File Type Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    throw ex;
+                }
+            }
         }
 
         /// <summary>
@@ -291,7 +454,7 @@ namespace SpectrumLook
                 //THIS MAY NOT BE THE CASE IF PARSER CHANGES
                 List<Element> experimentalList = m_builderDirector.BuildActualList(int.Parse(currentLadderInstances.scanNumberString), m_dataFileLocation);
                 //build the compared list
-                List<Element> comparedList = m_builderDirector.BuildComparedList(m_mainForm.m_currentOptions.toleranceValue, experimentalList, ref theoreticalList);
+                List<Element> comparedList = m_builderDirector.BuildComparedList(m_mainForm.m_currentOptions.toleranceValue, m_mainForm.m_currentOptions.lowerToleranceValue, experimentalList, ref theoreticalList);
 
                 //Generate the Instance based on the builder.
                 LadderInstance newLadder = ladderBuilder.GenerateInstance(theoreticalList, currentLadderInstances.PeptideString, m_fragLadder.fragmentLadderOptions.modificationList);
@@ -316,9 +479,9 @@ namespace SpectrumLook
         /// This will be called when the fragment ladder is to clear ladder instances.
         /// </summary>
         public void ClearLadderInstances()
-        { 
-            m_ladderInstancesTable.Remove(m_currentScanNumber.ToString() + m_currentPeptide);
-            HandleSelectScanAndPeptide(m_currentScanNumber.ToString(), m_currentPeptide);
+        {
+           m_ladderInstancesTable.Remove(m_currentScanNumber.ToString() + m_currentPeptide);
+           HandleSelectScanAndPeptide(m_currentScanNumber.ToString(), m_currentPeptide);
         }
 
         /// <summary>
@@ -347,7 +510,7 @@ namespace SpectrumLook
                     //THIS MAY NOT BE THE CASE IF PARSER CHANGES
                     List<Element> experimentalList = m_builderDirector.BuildActualList(int.Parse(currentInstance.scanNumberString), m_dataFileLocation);
                     //build the compared list
-                    List<Element> comparedList = m_builderDirector.BuildComparedList(m_mainForm.m_currentOptions.toleranceValue, experimentalList, ref theoreticalList);
+                    List<Element> comparedList = m_builderDirector.BuildComparedList(m_mainForm.m_currentOptions.toleranceValue, m_mainForm.m_currentOptions.lowerToleranceValue, experimentalList, ref theoreticalList);
                     
                     //Generate the Instance based on the builder.
                     LadderInstance newLadder = ladderBuilder.GenerateInstance(theoreticalList, currentInstance.PeptideString, m_fragLadder.fragmentLadderOptions.modificationList);
@@ -376,6 +539,7 @@ namespace SpectrumLook
         {
             m_options.SelectTab(startingTab);
             m_options.Show();
+            m_options.BringToFront();
         }
 
         public void FocusOnControl(Control attentionSeeker)
@@ -397,7 +561,7 @@ namespace SpectrumLook
             m_currentScanNumber = int.Parse(m_currentInstance.scanNumberString);
 
             List<Element> theoreticalList = m_builderDirector.BuildTheoryList(m_currentInstance.PeptideString, m_isFragmentationModeCID, this.m_fragLadder.fragmentLadderOptions.modificationList);
-            List<Element> comparedList = m_builderDirector.BuildComparedList(m_mainForm.m_currentOptions.toleranceValue, m_experimentalList, ref theoreticalList);
+            List<Element> comparedList = m_builderDirector.BuildComparedList(m_mainForm.m_currentOptions.toleranceValue, m_mainForm.m_currentOptions.lowerToleranceValue, m_experimentalList, ref theoreticalList);
             string peptide = m_currentInstance.PeptideString;
 
             m_plot.PlotData(comparedList, m_currentScanNumber.ToString(), peptide);
@@ -439,6 +603,66 @@ namespace SpectrumLook
                 this.m_ladderInstancesTable = m_workFileWriter.ReadXmlWorkFile(fileLocation);
             }
         }
+       
+        /// <summary>
+        /// Handles A batch save
+        /// </summary>
+        public void HandleBatchSave(string directory, string baseName, string saveType, bool useScansInGrid, bool usePeptideAndScanName, UpdateLabelDelegate updateLabelCallback, ref bool cancelSearch)
+        {
+            updateLabelCallback("Starting Batch Save...");
+            m_batchSaveCounter = 0;
+
+            foreach (Tuple<string, string> row in m_dataView.GetPeptidesAndScansInGrid(useScansInGrid))
+            {
+                if (!cancelSearch)
+                {
+                    string nextFileName = createNextFileName(baseName, usePeptideAndScanName, row.Item1, row.Item2) + saveType;
+                    updateLabelCallback("Saving \"" + nextFileName + "\"");
+
+                    this.HandleSelectScanAndPeptide(row.Item2, row.Item1);
+                    m_plot.SavePlotImageAs(directory + "\\" + nextFileName);
+                }
+            }
+
+            updateLabelCallback("Finished Batch Save");
+        }
+
+
+        /// <summary>
+        /// Generates a new filename to use based off of the users options and the information used in the plot
+        /// </summary>
+        /// <param name="baseName"></param>
+        /// <param name="peptide"></param>
+        /// <param name="usePeptide"></param>
+        /// <param name="scanNumber"></param>
+        /// <param name="useScanNumber"></param>
+        /// <returns></returns>
+        private static string createNextFileName(string baseName, bool usePeptideAndScanName, string peptide, string scanNumber)
+        {
+            string nextFileName = baseName;
+
+            if (usePeptideAndScanName)
+            {
+                nextFileName += "_" + peptide + "_" + scanNumber;
+            }
+            else
+            {
+                //Attach a unique number to the saved file, since we are not garenteed uniqueness from peptide or scan number alone.
+                nextFileName += "_" + String.Format("{0:0000}", m_batchSaveCounter);
+            }
+
+            // Magic number 232, appears to be the max filename legth in Windows.  For now, just truncate what they have.
+            if (nextFileName.Length > 232)
+            {
+                nextFileName = nextFileName.Remove(232);
+            }
+
+            m_batchSaveCounter++;
+            return nextFileName;
+        }
+        private static int m_batchSaveCounter = 0;
+
+        public delegate void UpdateLabelDelegate(string newText);
 
         #endregion
     }

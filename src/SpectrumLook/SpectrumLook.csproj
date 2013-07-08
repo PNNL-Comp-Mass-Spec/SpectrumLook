@@ -13,14 +13,10 @@
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
-    <SccProjectName>
-    </SccProjectName>
-    <SccLocalPath>
-    </SccLocalPath>
-    <SccAuxPath>
-    </SccAuxPath>
-    <SccProvider>
-    </SccProvider>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -46,7 +42,13 @@
     </StartupObject>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>SpectrumLookIcon.ico</ApplicationIcon>
+    <TargetZone>LocalIntranet</TargetZone>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="MSDataFileReader">
@@ -65,6 +67,10 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="ThermoRawFileReaderDLL, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>ReferencedAssemblies\ThermoRawFileReaderDLL.dll</HintPath>
+    </Reference>
     <Reference Include="ZedGraph">
       <HintPath>..\ReferencedAssemblies\ZedGraph.dll</HintPath>
     </Reference>
@@ -77,6 +83,7 @@
     <Compile Include="Builders\Element.cs" />
     <Compile Include="Builders\ElementListBuilder.cs" />
     <Compile Include="Builders\MolecularWeightCalculator.cs" />
+    <Compile Include="Builders\ThermoRawParser.cs" />
     <Compile Include="HashtableXmlSerializer.cs" />
     <Compile Include="LadderInstance.cs" />
     <Compile Include="Builders\TheoryListBuilder.cs" />
@@ -94,6 +101,12 @@
     <Compile Include="Builders\ITheoryCalculator.cs" />
     <Compile Include="Builders\MzParser.cs" />
     <Compile Include="Builders\SequestParser.cs" />
+    <Compile Include="Views\BatchSaveForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\BatchSaveForm.designer.cs">
+      <DependentUpon>BatchSaveForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\DataView\DataView.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -105,6 +118,12 @@
     </Compile>
     <Compile Include="Views\DataView\DataViewAdvance.designer.cs">
       <DependentUpon>DataViewAdvance.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DataView\DataViewProgress.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\DataView\DataViewProgress.Designer.cs">
+      <DependentUpon>DataViewProgress.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\EditAddModification.cs">
       <SubType>Form</SubType>
@@ -169,11 +188,17 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Views\BatchSaveForm.resx">
+      <DependentUpon>BatchSaveForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\DataView\DataView.resx">
       <DependentUpon>DataView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\DataView\DataViewAdvance.resx">
       <DependentUpon>DataViewAdvance.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\DataView\DataViewProgress.resx">
+      <DependentUpon>DataViewProgress.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\EditAddModification.resx">
       <DependentUpon>EditAddModification.cs</DependentUpon>
@@ -199,6 +224,7 @@
     <EmbeddedResource Include="Views\PlotView\SLPlot.resx">
       <DependentUpon>SLPlot.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="Properties\app.manifest" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

@@ -52,6 +52,7 @@ namespace SpectrumLook.Views
             this.detachPlotFromMainForm();
 
             this.MainForm_Resize(this, null);
+            this.Text = "Spectrum Look Version - 1.0.1014";
 
             KeyDown += new KeyEventHandler(MainForm_KeyDown);
             KeyPreview = true; //set this true so we can get all the key events for child controls           
@@ -239,15 +240,6 @@ namespace SpectrumLook.Views
             //}
         }
 
-        #endregion
-
-        public void UpdateObserver()
-        {
-            //TODO: add code that updates the options in main form
-            detachPlotFromMainForm();
-            //TODO: add code to regenerate fragmentLadder possibly horizontally
-            m_manager.m_fragLadder.regenerateLadderFromSelection();
-        }
 
         private void saveWorkStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -285,6 +277,29 @@ namespace SpectrumLook.Views
             {
                 System.Windows.Forms.MessageBox.Show(ex.Message, "Open File Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void batchSaveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (m_manager.m_isSynopsisLoaded)
+            {
+                BatchSaveForm batchSaveForm = new BatchSaveForm(m_manager);
+                batchSaveForm.Show();
+            }
+            else
+            {
+                MessageBox.Show("Please open a File before attempting to batch save.", "Open A File First", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        #endregion
+
+        public void UpdateObserver()
+        {
+            //TODO: add code that updates the options in main form
+            detachPlotFromMainForm();
+            //TODO: add code to regenerate fragmentLadder possibly horizontally
+            m_manager.m_fragLadder.regenerateLadderFromSelection();
         }
     }
 }

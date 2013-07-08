@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SLOpenFileDialog));
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.buttonOpen = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
@@ -135,7 +136,9 @@
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonOpen);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "SLOpenFileDialog";
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Open Files";
             this.groupBoxSynopsis.ResumeLayout(false);

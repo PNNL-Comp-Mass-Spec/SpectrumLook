@@ -17,6 +17,7 @@ namespace SpectrumLook.Views
         // 0-10, 13-15  Plot
         //11-12         Main
         //16-17         Frag Ladder
+        //18            Main lower Tolerance Value
         private object[] m_valuesForCancel;
 
         private SpectrumLook.Views.PlotOptions m_plotOptions;
@@ -25,15 +26,23 @@ namespace SpectrumLook.Views
 
         private SpectrumLook.Views.Options.FragmentLadderOptions m_fragLadderOptions;
 
+        private SpectrumLook.Views.FragmentLadderView.FragmentLadderView m_fragLadder;
+
+        private Color Unmatched;
+
+        private Color Matched;
+
         private bool m_createProfile;
 
         private string m_profileLocation;
 
-        private const int m_numCancelOptions = 18;
+        private const int m_numCancelOptions = 19;
 
-        public OptionsViewController(SpectrumLook.Views.PlotOptions referencePlotOptions, SpectrumLook.Views.MainFormOptions referenceMainFormOptions, SpectrumLook.Views.Options.FragmentLadderOptions fragmentLadderOptions, string profileLocation, bool createProfile)
+        //m_options = new OptionsViewController(m_plot.m_options, m_mainForm.m_currentOptions, m_fragLadder.fragmentLadderOptions ,System.IO.Directory.GetCurrentDirectory() + "\\UserProfile.spuf", createFileFlag);
+        public OptionsViewController(SpectrumLook.Views.PlotOptions referencePlotOptions, SpectrumLook.Views.MainFormOptions referenceMainFormOptions, SpectrumLook.Views.Options.FragmentLadderOptions fragmentLadderOptions, string profileLocation, bool createProfile, Views.FragmentLadderView.FragmentLadderView m_fragmentLadder)
         {
             InitializeComponent();
+
 
             this.m_valuesForCancel = new object[m_numCancelOptions];
 
@@ -45,6 +54,9 @@ namespace SpectrumLook.Views
             this.m_plotOptions = referencePlotOptions;
             this.m_mainFormOptions = referenceMainFormOptions;
             this.m_fragLadderOptions = fragmentLadderOptions;
+            this.m_fragLadder = m_fragmentLadder;
+            Matched = m_plotOptions.matchedColor;
+            Unmatched = m_plotOptions.unmatchedColor;
             
             this.FillKeyOptions();
             this.SaveValuesForCancel();
@@ -130,7 +142,9 @@ namespace SpectrumLook.Views
             mainDetachPlotCheckBox.Checked = !(m_mainFormOptions.isPlotInMainForm);
             mainMatchedColorSample.BackColor = m_plotOptions.matchedColor;
             mainUnmatchedColorSample.BackColor = m_plotOptions.unmatchedColor;
+            lowerMatchingToleranceBox.Text = m_mainFormOptions.lowerToleranceValue.ToString();
             mainMatchingToleranceBox.Text = m_mainFormOptions.toleranceValue.ToString();
+            
 
             //DATA VIEW
 
@@ -163,6 +177,11 @@ namespace SpectrumLook.Views
         }
 
         #region PLOT_OPTIONS_EVENTS
+        private void mainDetachPlotCheckBox_CheckedChanged_1(object sender, EventArgs e)
+        {
+            m_mainFormOptions.isPlotInMainForm = !(mainDetachPlotCheckBox.Checked);
+        }
+
         private void plotSnappingCursor_CheckedChanged(object sender, EventArgs e)
         {
             m_plotOptions.showSnappingCursor = plotSnappingCursor.Checked;
@@ -304,18 +323,14 @@ namespace SpectrumLook.Views
         #endregion
 
         #region MAIN_OPTIONS_EVENTS
-        private void mainDetachPlotCheckBox_CheckedChanged(object sender, EventArgs e)
-        {
-            m_mainFormOptions.isPlotInMainForm = !(mainDetachPlotCheckBox.Checked);
-        }
-
         private void mainMatchColorChangeButton_Click(object sender, EventArgs e)
         {
             DialogResult outputResult = this.colorDialog.ShowDialog();
             if (outputResult == DialogResult.OK)
             {
-                m_plotOptions.matchedColor = colorDialog.Color;
-                mainMatchedColorSample.BackColor = m_plotOptions.matchedColor;
+                Matched = colorDialog.Color;
+                //m_plotOptions.matchedColor = colorDialog.Color;
+                mainMatchedColorSample.BackColor = Matched;
             }
         }
 
@@ -324,8 +339,9 @@ namespace SpectrumLook.Views
             DialogResult outputResult = this.colorDialog.ShowDialog();
             if (outputResult == DialogResult.OK)
             {
-                m_plotOptions.unmatchedColor = colorDialog.Color;
-                mainUnmatchedColorSample.BackColor = m_plotOptions.unmatchedColor;
+                Unmatched = colorDialog.Color;
+               // m_plotOptions.unmatchedColor = colorDialog.Color;
+                mainUnmatchedColorSample.BackColor = Unmatched;
             }
         }
 
@@ -338,9 +354,37 @@ namespace SpectrumLook.Views
             }
             else
             {
+                if (outputValue > 1 || outputValue < 0)
+                {
+                    MessageBox.Show("Please insert a valid tolerance level (0-1)!\n");
+                    mainMatchingToleranceBox.Text = "";
+                    return;
+                }
+
                 m_mainFormOptions.toleranceValue = outputValue;
             }
         }
+
+        private void lowerMatchingToleranceBox_TextChanged(object sender, EventArgs e)
+        {
+            double outputValue = 0.0;
+            if (double.TryParse(lowerMatchingToleranceBox.Text, out outputValue) == false)
+            {
+                lowerMatchingToleranceBox.Text = "";
+            }
+            else
+            {
+                if (outputValue > 1 || outputValue < 0)
+                {
+                    MessageBox.Show("Lower tolerance level must be greater than 0 and less than upper tolerance level.\n");
+                    lowerMatchingToleranceBox.Text = "";
+                    return;
+                }
+
+                m_mainFormOptions.lowerToleranceValue = outputValue;
+            }
+        }
+        
         #endregion
 
         #region DATA_VIEW_OPTIONS_EVENTS
@@ -432,7 +476,14 @@ namespace SpectrumLook.Views
             {
                 m_valuesForCancel[i] = null;
             }
+            // update fragment ladder so color changes will take effect
+            m_fragLadder.regenerateLadderFromSelection();
+            m_fragLadder.setMatchedLabel(Matched);
+            m_fragLadder.setUnmatchedLabel(Unmatched);
 
+            // Update Plot options for Color
+            m_plotOptions.unmatchedColor = Unmatched;
+            m_plotOptions.matchedColor = Matched;
             this.Close();
         }
 
@@ -493,6 +544,7 @@ namespace SpectrumLook.Views
             }
             if (m_valuesForCancel[15] != null)
             {
+                m_plotOptions.replot = true;
                 m_plotOptions.numberOfPlots = (int)m_valuesForCancel[15];
             }
 
@@ -504,6 +556,10 @@ namespace SpectrumLook.Views
             if (m_valuesForCancel[12] != null)
             {
                 m_mainFormOptions.toleranceValue = (double)m_valuesForCancel[12];
+            }
+            if (m_valuesForCancel[18] != null)
+            {
+                m_mainFormOptions.lowerToleranceValue = (double)m_valuesForCancel[18];
             }
 
             //DATA VIEW
@@ -518,7 +574,6 @@ namespace SpectrumLook.Views
             {
                 m_fragLadderOptions.checkedHeaders = (List<string>)m_valuesForCancel[17];
             }
-
 
             this.Close();
         }
@@ -544,6 +599,7 @@ namespace SpectrumLook.Views
             //MAIN
             m_valuesForCancel[11] = m_mainFormOptions.isPlotInMainForm;
             m_valuesForCancel[12] = m_mainFormOptions.toleranceValue;
+            m_valuesForCancel[18] = m_mainFormOptions.lowerToleranceValue;
 
             //DATA VIEW
 
@@ -580,9 +636,39 @@ namespace SpectrumLook.Views
             }
         }
 
+
+        //Returns a parent directory of a given file or directory.
+        //i.e. "~Prototype4\\SpectrumLook\\bin\\Debug\\UserProfile.spuf"
+        // goes to "~Prototype4\\SpectrumLook\\bin\\Debug"
+        private string getParentDirectory(string directoryWithFile)
+        {
+            string returnVal = "";
+            string[] words = directoryWithFile.Split('\\');
+            int i = 0;
+            foreach (string s in words)
+            {
+                if (i == (words.Count() - 1)) //last word
+                {
+                }
+                else if (i == (words.Count() - 2))  //second to last word
+                {
+                    returnVal += s;
+                }
+                else
+                {
+                    returnVal += s + '\\';
+                }
+                i++;
+            }
+            
+            return returnVal;
+        }
+
         private void mainUserBrowseButton_Click(object sender, EventArgs e)
         {
+            openFileDialog.InitialDirectory = getParentDirectory(m_profileLocation);
             DialogResult openResult = openFileDialog.ShowDialog();
+
 
             if (openResult != DialogResult.Cancel)
             {
@@ -609,16 +695,30 @@ namespace SpectrumLook.Views
                 m_valuesForCancel[13] = m_plotOptions.rightClickUnzoom;
                 m_valuesForCancel[14] = m_plotOptions.hidePlotTools;
                 m_valuesForCancel[15] = m_plotOptions.numberOfPlots;
-
+              //fixed issue 10 here
+                m_plotOptions.numberOfPlots = 1;
+                m_plotOptions.replot = true;
+                
                 m_plotOptions.CopyOptions(new PlotOptions());
             }
             else if (optionTabsPage.SelectedTab.Text == "General Options")
             {
                 m_valuesForCancel[11] = m_mainFormOptions.isPlotInMainForm;
                 m_valuesForCancel[12] = m_mainFormOptions.toleranceValue;
+                m_valuesForCancel[18] = m_mainFormOptions.lowerToleranceValue;
 
                 m_mainFormOptions.CopyOptions(new MainFormOptions());
             }
         }
+
+        private void OptionsViewController_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        
+
+        
+        
     }
 }

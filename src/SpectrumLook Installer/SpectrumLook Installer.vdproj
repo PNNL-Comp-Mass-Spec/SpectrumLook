@@ -15,7 +15,19 @@
     {
         "Entry"
         {
-        "MsmKey" = "8:_6CDCCC40381F4D358E8A04BE8046746A"
+        "MsmKey" = "8:_4D54638244FE54FC9BD6098C61EE68BE"
+        "OwnerKey" = "8:_F7C8DC27BECF4410BFC8F46A2C1DC32E"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_539153B385A8903F2E526D1223472B10"
+        "OwnerKey" = "8:_F7C8DC27BECF4410BFC8F46A2C1DC32E"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_5AE8865666F059A35D0034EA12147314"
         "OwnerKey" = "8:_F7C8DC27BECF4410BFC8F46A2C1DC32E"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -27,13 +39,7 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_CC35651DDEB226FE138031F9A8FF1ECB"
-        "OwnerKey" = "8:_F7C8DC27BECF4410BFC8F46A2C1DC32E"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_F2B0C213A8B753E5D04E58743C5730D8"
+        "MsmKey" = "8:_D702CDD9606DED9439E68A95CF047474"
         "OwnerKey" = "8:_F7C8DC27BECF4410BFC8F46A2C1DC32E"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -52,19 +58,25 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_6CDCCC40381F4D358E8A04BE8046746A"
+        "OwnerKey" = "8:_539153B385A8903F2E526D1223472B10"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_F2B0C213A8B753E5D04E58743C5730D8"
+        "OwnerKey" = "8:_4D54638244FE54FC9BD6098C61EE68BE"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_CC35651DDEB226FE138031F9A8FF1ECB"
+        "OwnerKey" = "8:_D702CDD9606DED9439E68A95CF047474"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_5AE8865666F059A35D0034EA12147314"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -75,7 +87,7 @@
         "DisplayName" = "8:Debug"
         "IsDebugOnly" = "11:TRUE"
         "IsReleaseOnly" = "11:FALSE"
-        "OutputFilename" = "8:Debug\\SpectrumLook Installer.msi"
+        "OutputFilename" = "8:Debug\\SpectrumLook.msi"
         "PackageFilesAs" = "3:2"
         "PackageFileSize" = "3:-2147483648"
         "CabType" = "3:1"
@@ -172,20 +184,82 @@
         }
         "File"
         {
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_6CDCCC40381F4D358E8A04BE8046746A"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_4D54638244FE54FC9BD6098C61EE68BE"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
             "AssemblyAsmDisplayName" = "8:ZedGraph, Version=5.1.5.28844, Culture=neutral, PublicKeyToken=02a83cbd123fcd60, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_6CDCCC40381F4D358E8A04BE8046746A"
+                    "_4D54638244FE54FC9BD6098C61EE68BE"
                     {
                     "Name" = "8:ZedGraph.dll"
                     "Attributes" = "3:512"
                     }
                 }
             "SourcePath" = "8:ZedGraph.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_03BF61AFF64149399656FF51CD2002C9"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_539153B385A8903F2E526D1223472B10"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:ThermoRawFileReaderDLL, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_539153B385A8903F2E526D1223472B10"
+                    {
+                    "Name" = "8:ThermoRawFileReaderDLL.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:ThermoRawFileReaderDLL.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_03BF61AFF64149399656FF51CD2002C9"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_5AE8865666F059A35D0034EA12147314"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:MSDataFileReader, Version=1.2.3929.26854, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_5AE8865666F059A35D0034EA12147314"
+                    {
+                    "Name" = "8:MSDataFileReader.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:MSDataFileReader.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_03BF61AFF64149399656FF51CD2002C9"
@@ -223,45 +297,14 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_CC35651DDEB226FE138031F9A8FF1ECB"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:MSDataFileReader, Version=1.2.3929.26854, Culture=neutral, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_CC35651DDEB226FE138031F9A8FF1ECB"
-                    {
-                    "Name" = "8:MSDataFileReader.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:MSDataFileReader.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_03BF61AFF64149399656FF51CD2002C9"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_F2B0C213A8B753E5D04E58743C5730D8"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_D702CDD9606DED9439E68A95CF047474"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
             "AssemblyAsmDisplayName" = "8:MwtWinDll, Version=3.4.3935.34707, Culture=neutral, processorArchitecture=x86"
                 "ScatterAssemblies"
                 {
-                    "_F2B0C213A8B753E5D04E58743C5730D8"
+                    "_D702CDD9606DED9439E68A95CF047474"
                     {
                     "Name" = "8:MwtWinDll.dll"
                     "Attributes" = "3:512"
@@ -312,17 +355,28 @@
             "Property" = "8:ProgramMenuFolder"
                 "Folders"
                 {
-                    "{9EF0B969-E518-4E46-987F-47570745A589}:_EAED07312CF944499C3FB031832C1483"
+                    "{9EF0B969-E518-4E46-987F-47570745A589}:_4572D60ED3D244C38C38843A054529BA"
                     {
                     "Name" = "8:SpectrumLook"
-                    "AlwaysCreate" = "11:FALSE"
+                    "AlwaysCreate" = "11:TRUE"
                     "Condition" = "8:"
                     "Transitive" = "11:FALSE"
-                    "Property" = "8:_0C6D5EE06CD9484F94C854B0893AF944"
+                    "Property" = "8:_B5AA0187CD734614BB2F358E64172944"
                         "Folders"
                         {
                         }
                     }
+                }
+            }
+            "{1525181F-901A-416C-8A58-119130FE478E}:_6CF8DAC167434BC3ABAE4F949807CE68"
+            {
+            "Name" = "8:#1914"
+            "AlwaysCreate" = "11:FALSE"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Property" = "8:SystemFolder"
+                "Folders"
+                {
                 }
             }
             "{1525181F-901A-416C-8A58-119130FE478E}:_F32AB780D4EB4CA2A994C3E90C7572B3"
@@ -352,25 +406,25 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:SpectrumLook"
-        "ProductCode" = "8:{03405F44-BB8E-439A-9D2F-17F5C5298A86}"
-        "PackageCode" = "8:{50870BF7-4579-4F14-B413-A58ED233314C}"
+        "ProductCode" = "8:{869BBF46-5AED-494E-8200-83CFFCB09B47}"
+        "PackageCode" = "8:{734A9753-5030-4213-9BD1-E3FFEC50F1B6}"
         "UpgradeCode" = "8:{22265D91-C6AA-4E25-BFE1-9C311DEDE01A}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
-        "RemovePreviousVersions" = "11:TRUE"
+        "RemovePreviousVersions" = "11:FALSE"
         "DetectNewerInstalledVersion" = "11:TRUE"
-        "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:2.4.1"
-        "Manufacturer" = "8:Pacific Northwest National Laboratory - Washington State University"
+        "InstallAllUsers" = "11:FALSE"
+        "ProductVersion" = "8:1.0.0"
+        "Manufacturer" = "8:WSU_SpectrumLook_Team"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
-        "Title" = "8:SpectrumLook"
+        "Title" = "8:SpectrumLook Setup"
         "Subject" = "8:"
-        "ARPCONTACT" = "8:Microsoft"
+        "ARPCONTACT" = "8:WSU_SpectrumLook_Team"
         "Keywords" = "8:"
-        "ARPCOMMENTS" = "8:MS/MS visualization tool with database search output."
+        "ARPCOMMENTS" = "8:"
         "ARPURLINFOABOUT" = "8:"
-        "ARPPRODUCTICON" = "8:"
+        "ARPPRODUCTICON" = "8:_C5625A573BD84CB298D832EC43A65192"
         "ARPIconIndex" = "3:0"
         "SearchPath" = "8:"
         "UseSystemSearchPath" = "11:TRUE"
@@ -473,20 +527,6 @@
         }
         "Shortcut"
         {
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_0F6376FB4A384F2ABBAB04263B031629"
-            {
-            "Name" = "8:SpectrumLook"
-            "Arguments" = "8:"
-            "Description" = "8:"
-            "ShowCmd" = "3:1"
-            "IconIndex" = "3:0"
-            "Transitive" = "11:FALSE"
-            "Target" = "8:_F7C8DC27BECF4410BFC8F46A2C1DC32E"
-            "Folder" = "8:_EAED07312CF944499C3FB031832C1483"
-            "WorkingFolder" = "8:_03BF61AFF64149399656FF51CD2002C9"
-            "Icon" = "8:_C5625A573BD84CB298D832EC43A65192"
-            "Feature" = "8:"
-            }
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_2941A067B61A457883EABCFD1C101D48"
             {
             "Name" = "8:SpectrumLook"
@@ -497,6 +537,20 @@
             "Transitive" = "11:FALSE"
             "Target" = "8:_F7C8DC27BECF4410BFC8F46A2C1DC32E"
             "Folder" = "8:_F32AB780D4EB4CA2A994C3E90C7572B3"
+            "WorkingFolder" = "8:_03BF61AFF64149399656FF51CD2002C9"
+            "Icon" = "8:_C5625A573BD84CB298D832EC43A65192"
+            "Feature" = "8:"
+            }
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_4E742CE24A1840979C7D06B062CDCAD4"
+            {
+            "Name" = "8:SpectrumLook"
+            "Arguments" = "8:"
+            "Description" = "8:"
+            "ShowCmd" = "3:1"
+            "IconIndex" = "3:0"
+            "Transitive" = "11:FALSE"
+            "Target" = "8:_F7C8DC27BECF4410BFC8F46A2C1DC32E"
+            "Folder" = "8:_4572D60ED3D244C38C38843A054529BA"
             "WorkingFolder" = "8:_03BF61AFF64149399656FF51CD2002C9"
             "Icon" = "8:_C5625A573BD84CB298D832EC43A65192"
             "Feature" = "8:"
@@ -986,7 +1040,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_F7C8DC27BECF4410BFC8F46A2C1DC32E"
             {
-            "SourcePath" = "8:..\\SpectrumLook\\obj\\x86\\Release\\SpectrumLook.exe"
+            "SourcePath" = "8:..\\SpectrumLook\\obj\\x86\\Debug\\SpectrumLook.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_03BF61AFF64149399656FF51CD2002C9"

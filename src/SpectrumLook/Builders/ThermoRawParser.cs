@@ -1,0 +1,130 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using ThermoRawFileReaderDLL.FinniganFileIO;
+using System.IO;
+
+namespace SpectrumLook.Builders
+{
+    public class ThermoRawParser : IExperimentParser
+    {
+        #region MEMBERS
+
+        #region PUBLIC
+        #endregion
+
+        #region PRIVATE
+
+        XRawFileIO m_fileToRead;
+
+        private string m_fileLocation;
+
+        private bool m_fileOpened;
+
+        string IExperimentParser.Filename
+        {
+            get
+            {
+                return m_fileLocation;
+            }
+            set
+            {
+                m_fileLocation = value;
+            }
+        }
+        
+
+        #endregion
+
+        #endregion
+
+        #region CONSTRUCTOR
+        /// <summary>
+        /// The constructor of this parser will attempt to open any files that
+        /// end in ".RAW".  If a null string is passed in or a
+        /// a string without a ".raw" file extension then an exception
+        /// will be thrown.
+        /// </summary>
+        /// <param name="fileLocation">This must be a file Location to a ".raw" file.</param>
+        public ThermoRawParser(string filelocation)
+        {
+            this.m_fileLocation = filelocation;
+
+            string extension = Path.GetExtension(filelocation);
+            extension = extension.ToLower();
+
+            if (m_fileLocation != null)
+            {
+                if (extension == ".raw")
+                {
+                    m_fileToRead = new XRawFileIO();
+                    m_fileOpened = m_fileToRead.OpenRawFile(m_fileLocation);                //m_fileOpened is staying false for some reason. ****
+                }
+                else
+                {
+                    throw new System.InvalidProgramException("Invalid File Type");
+                }
+            }
+            else
+            {
+                throw new System.InvalidOperationException("The file location passed was equal to null");
+            }
+        }
+
+        #endregion
+
+        #region FUNCTIONS
+
+        #region PUBLIC
+         /// <summary>
+        /// This function returns an array of strings where the odd index's are intensities
+        /// and even index's are mz Values.  The function takes advantage of the MSDataFileReader
+        /// from PNNL.
+        /// </summary>
+        /// <param name="scanNum">The scan number that is used to reference the experiment Data
+        /// in the currently opened File.</param>
+        /// <returns>An array of strings where odd index (starting from 1) are the intensities
+        /// and the even index's (starting from 0) are the mzValues.</returns>
+        List<Element> IExperimentParser.GetExperimentDataByScanNumber(int scanNum)   //Have GetExperimentDataByScanNumberRaw commented out, checking without the raw...
+        {
+            List<Element> values        = new List<Element>();
+            double[] mzList             = new double[512];
+            double[] intensityList      = new double[512];
+            FinniganFileReaderBaseClass.udtScanHeaderInfoType header = new FinniganFileReaderBaseClass.udtScanHeaderInfoType();
+
+            m_fileOpened = true;        //TEST
+            
+            if (this.m_fileOpened)
+            {
+                m_fileToRead.GetScanInfo(scanNum, out header);
+                m_fileToRead.GetScanData(scanNum, ref mzList, ref intensityList, ref header);
+
+                //Step through mzList and intensityList and assign them.
+                for (int i = 0; i < mzList.Length; ++i)
+                {                    
+                    Element element     = new Element();
+                    element.mzValue     = mzList[i];
+                    element.intensity   = intensityList[i];
+                    values.Add(element);
+                }
+
+                return values;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        
+
+        #endregion
+
+        #region PRIVATE
+
+        #endregion
+
+        #endregion
+    }
+}

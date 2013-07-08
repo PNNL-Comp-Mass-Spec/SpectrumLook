@@ -79,6 +79,11 @@ namespace SpectrumLook.Views
             this.Filter_Value4.Text = null;
         }
 
+        private void Filter_Value3_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
         
 
     }

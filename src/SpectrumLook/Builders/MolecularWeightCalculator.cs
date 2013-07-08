@@ -128,12 +128,16 @@ namespace SpectrumLook.Builders
                     }
 
 
-                    bool randomBool = true;
+                    bool randomBool = false;
                     string randomComment = "";
 
                     double.TryParse(backPart,out outValue);
 
-                    m_mMwtWin.Peptide.SetModificationSymbol("[" + frontPart + "]", outValue, ref randomBool, ref randomComment);
+                    int modResult = m_mMwtWin.Peptide.SetModificationSymbol(frontPart, outValue, ref randomBool, ref randomComment);
+
+                    //if modresult = 0 symbol add is successful, useful spot for breakpoint
+                    //modResult = modResult + 0;
+                
                 }
             }
 

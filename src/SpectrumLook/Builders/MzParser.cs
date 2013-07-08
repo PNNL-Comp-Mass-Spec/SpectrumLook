@@ -22,10 +22,23 @@ namespace SpectrumLook.Builders
         #region PRIVATE
 
         private clsMSDataFileReaderBaseClass m_fileToRead;
+        //private clsMzXMLFileAccessor m_fileToRead;
 
         private string m_fileLocation;
 
         private bool m_fileOpened;
+
+        string IExperimentParser.Filename
+        {
+            get
+            {
+                return m_fileLocation;
+            }
+            set
+            {
+                m_fileLocation = value;
+            }
+        }
 
         #endregion
 
@@ -75,18 +88,19 @@ namespace SpectrumLook.Builders
             {
                 if (m_fileLocation.Contains(".mzXML"))
                 {
-                    m_fileToRead = new clsMzXMLFileReader();
-                    m_fileOpened = m_fileToRead.OpenFile(m_fileLocation);
+                    m_fileToRead = new clsMzXMLFileAccessor();
+                    m_fileOpened = m_fileToRead.OpenFile(m_fileLocation);                    
                 }
                 else if (m_fileLocation.Contains(".mzData"))
                 {
-                    m_fileToRead = new clsMzDataFileReader();
+                    m_fileToRead = new clsMzXMLFileAccessor();
                     m_fileOpened = m_fileToRead.OpenFile(m_fileLocation);
                 }
                 else
                 {
                     throw new System.InvalidProgramException("Invalid File Type");
                 }
+                m_fileToRead.ReadAndCacheEntireFile();
             }
             else
             {
@@ -106,28 +120,30 @@ namespace SpectrumLook.Builders
         /// </summary>
         /// <param name="scanNum">The scan number that is used to reference the experiment Data
         /// in the currently opened File.</param>
-        /// <returns>An array of strings where odd index (starting from 1) are the intensities
-        /// and the even index's (starting from 0) are the mzValues.</returns>
-        string[] IExperimentParser.GetExperimentDataByScanNumber(int scanNum)
+        /// <returns></returns>
+        List<Element> IExperimentParser.GetExperimentDataByScanNumber(int scanNum)
         {
             List<string> outputValues = new List<string>();
             clsSpectrumInfo currentSpectrum;
 
             if (this.m_fileOpened)
             {
-                //Load the entire file into memory.
-                m_fileToRead.ReadAndCacheEntireFile();
-
-                currentSpectrum = new clsSpectrumInfo();
-
+                //Load the entire file into memory.                                
+                //m_fileToRead.ReadAndCacheEntireFile();
+            
+                currentSpectrum         = new clsSpectrumInfo();            
                 m_fileToRead.GetSpectrumByScanNumber(scanNum, ref currentSpectrum);
 
+                List<Element> elements  = new List<Element>();
                 foreach (double currentMzValue in currentSpectrum.MZList)
                 {
-                    outputValues.Add(currentMzValue.ToString());
-                    outputValues.Add(((double)currentSpectrum.LookupIonIntensityByMZ(currentMzValue, (float)0.0, (float)0.04)).ToString());
+                    Element element     = new Element();
+                    element.mzValue     = currentMzValue;
+                    element.intensity   = Convert.ToDouble(currentSpectrum.LookupIonIntensityByMZ(currentMzValue, (float)0.0, (float)0.04));
+                    element.matched     = false;
+                    elements.Add(element);
                 }
-                return outputValues.ToArray();
+                return elements;
             }
             else
             {

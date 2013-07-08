@@ -1,6 +1,7 @@
 ﻿using SpectrumLook.Builders;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Collections.Generic;
 
 namespace SpectrumLookTests
 {
@@ -44,7 +45,7 @@ namespace SpectrumLookTests
             {
                 target = new MzParser("..\\..\\..\\TestData\\QC_Standards_Excerpt_syn");
             }
-            catch (Exception e1)
+            catch (Exception)
             {
                 target = null;
             }
@@ -53,7 +54,7 @@ namespace SpectrumLookTests
             {
                 target = new MzParser("");
             }
-            catch (Exception e2)
+            catch (Exception)
             {
                 target = null;
             }
@@ -72,8 +73,8 @@ namespace SpectrumLookTests
             IExperimentParser target = new MzParser(fileLocation);
             int scanNum = 7382;
             string[] actual;
-            actual = target.GetExperimentDataByScanNumber(scanNum);
-            Assert.AreEqual<int>(528, actual.Length,"Length of output is unexpected, is there new test data?");
+            List<Element> actual = target.GetExperimentDataByScanNumber(scanNum);
+            Assert.AreEqual<int>(528, actual.Count ,"Length of output is unexpected, is there new test data?");
         }
     }
 }

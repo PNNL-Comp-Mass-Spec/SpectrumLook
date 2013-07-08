@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Windows.Forms;
 using SpectrumLook.Builders;
 
@@ -13,15 +14,17 @@ namespace SpectrumLook.Views
     //TODO : Need to inherit from IObserver and override the Update function! Otherwise the options will not update properly.
     public partial class DataView : Form
     {
-        ///////private DataViewOptions m_dataViewOptions;
-
+        ////////private DataViewOptions m_dataViewOptions;
         Manager m_manager;
-        DataTable DataTableForDisplay;
+        public DataTable DataTableForDisplay;
         public DataViewAdvance DataAdvanceOption;
+        public volatile bool shouldStop;
         private int ColNum;
         private int RowNum;
         List<string> HeaderList = new List<string>();
         private ContextMenu Menu = new ContextMenu();
+        private int ScanNumColumn;
+        private int PetideStringColumn;
 
         public DataView(Manager manager)
         {
@@ -29,6 +32,7 @@ namespace SpectrumLook.Views
             m_manager = manager;
             DataTableForDisplay = new DataTable();
             DataGridTable.KeyDown += new KeyEventHandler(DataGridTable_KeyDown);
+            DataGridTable.TabIndex = 1;
         }
         void DataGridTable_KeyDown(object sender, KeyEventArgs e)
         {
@@ -42,24 +46,54 @@ namespace SpectrumLook.Views
         {
             HandleRowSelection();
         }
-        private void HandleRowSelection()
+        public void HandleRowSelection()
         {
-            DataGridViewRow selectedRow = DataGridTable.SelectedRows[0];
-
-            string ScanNumber = selectedRow.Cells[1].Value.ToString();
-            string Peptide = selectedRow.Cells[10].Value.ToString();
-
-            if (Peptide.Contains("."))
+            if (DataGridTable.CurrentCell != null)
             {
+                DataGridViewRow selectedRow = DataGridTable.SelectedRows[0];
+
+                //ScanNumber and Peptide Need to be selected based off file type.
+                string Peptide = selectedRow.Cells[PetideStringColumn].Value.ToString();
+                string ScanNumber = selectedRow.Cells[ScanNumColumn].Value.ToString();
                 Peptide = Peptide.Substring(Peptide.IndexOf(".") + 1).Remove(Peptide.LastIndexOf(".") - 2); //we want what's inbetween the .'s
+                m_manager.HandleSelectScanAndPeptide(ScanNumber, Peptide);
+                m_manager.FocusOnControl(DataGridTable);
+                m_manager.callcombobox();
             }
-            m_manager.HandleSelectScanAndPeptide(ScanNumber, Peptide);
-            m_manager.FocusOnControl(DataGridTable);
         }
+
+        public void DisplayProgress()
+        {
+            DataViewProgress ProgressWindow = new DataViewProgress();
+            ProgressWindow.Show();
+            while (!shouldStop)
+            {
+                Application.DoEvents();
+            }
+            ProgressWindow.Close();
+        }
+
+        public void RequestStop()
+        {
+            shouldStop = true;
+        }
+
+        public void SetScanIndexAndPeptideIndex(int peptideIndex, int scanIndex)
+        {
+            ScanNumColumn = scanIndex;
+            PetideStringColumn = peptideIndex;
+        }
+
         public void SetDataTable(DataTable newTable)
         {
+            //DataViewProgress ProgressWindow = new DataViewProgress();
+            //ProgressWindow.Show();
+            Thread workerThread = new Thread(DisplayProgress);
+            workerThread.Start();
+
             ToolStripMenuItem InsertItem = null;
             this.DataTableForDisplay = new DataTable();
+            DataGridTable.SelectionChanged -= new System.EventHandler(this.DataGridTable_SelectionChanged);
             DataGridTable.Rows.Clear();
             DataGridTable.Columns.Clear();
             this.ColNum = 0;
@@ -117,8 +151,10 @@ namespace SpectrumLook.Views
 
             this.DataGridTable.SortCompare += new DataGridViewSortCompareEventHandler(Custom_SortCompare);
 
+            //Adding event back
+            DataGridTable.SelectionChanged += new System.EventHandler(this.DataGridTable_SelectionChanged);
 
-
+            RequestStop();
         }
 
         void DataAdvanceOption_FormClosing(object sender, FormClosingEventArgs e)
@@ -200,7 +236,6 @@ namespace SpectrumLook.Views
                         }
                     }
 
-                    DataGridTable.CurrentCell = null;
 
                     if (VisibleRows == true)
                     {
@@ -620,7 +655,6 @@ namespace SpectrumLook.Views
         private void Custom_SortCompare(object sender, DataGridViewSortCompareEventArgs e)
         {
             //MessageBox.Show("THe custom_sortcompare working");
-
             double InputDoubleValue;
             double SelDoubleValue;
             int Column_index = e.Column.Index;
@@ -651,5 +685,76 @@ namespace SpectrumLook.Views
 
 
 
+        public List<Tuple<string, string>> GetPeptidesAndScansInGrid(bool useOnlyVisible)
+        {
+            List<Tuple<string, string>> peptidesAndScans = new List<Tuple<string,string>>();
+
+            //calculate the indexes for scan numbers and peptides
+            int scanNumIndex = 0, peptideIndex = 0;
+            for (int i = 0; i < ColNum; i++)
+            {
+                if (DataGridTable.Columns[i].HeaderText.ToLower().Contains("scannum"))
+                {
+                    scanNumIndex = i;
+                }
+                if (DataGridTable.Columns[i].HeaderText.ToLower().Contains("peptide"))
+                {
+                    peptideIndex = i;
+                }
+            }
+
+            //get the scan numbers and peptides for the rows
+            foreach (DataGridViewRow row in DataGridTable.Rows)
+            {
+                if (row.Visible || !useOnlyVisible)
+                {
+                    string scanNumber = row.Cells[scanNumIndex].Value.ToString();
+                    string peptide = row.Cells[peptideIndex].Value.ToString();
+                    
+                    try
+                    {
+                       peptide = peptide.Split(".".ToCharArray())[1];
+                    }
+                    catch { }
+
+                    peptidesAndScans.Add(new Tuple<string, string>(peptide, scanNumber));
+                }
+            }
+
+            return peptidesAndScans;
+        }
+
+        private void DataGridTable_SelectionChanged(object sender, EventArgs e)
+        {
+            if (m_manager.m_data_loaded == true)
+            {
+                HandleRowSelection();
+            }
+        }
+
+        private void DataGridTable_Click(object sender, EventArgs e)
+        {
+            if (m_manager.m_data_loaded == false)
+            {
+                HandleRowSelection();
+            }
+        }
+
+        private void SearchBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                string SearchSubString = this.SearchBox.Text;
+                if (DataGridTable != null)
+                {
+                    SimpleSearch(SearchSubString);
+                }
+                else
+                {
+                    MessageBox.Show("The File should be loaded first");
+                }
+                e.Handled = true;
+            }
+        }
     }
 }

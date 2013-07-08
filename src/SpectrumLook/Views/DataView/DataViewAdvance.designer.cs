@@ -28,9 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DataViewAdvance));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.AdvSeaFilterPanel = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
             this.button5 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
@@ -52,7 +54,6 @@
             this.Filter_Value1 = new System.Windows.Forms.TextBox();
             this.AndOrComboBox1 = new System.Windows.Forms.ComboBox();
             this.AndOrComboBox2 = new System.Windows.Forms.ComboBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.panel1 = new System.Windows.Forms.Panel();
             this.textBox1 = new System.Windows.Forms.TextBox();
@@ -104,6 +105,7 @@
             // 
             this.AdvSeaFilterPanel.AutoSize = true;
             this.AdvSeaFilterPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.AdvSeaFilterPanel.Controls.Add(this.label1);
             this.AdvSeaFilterPanel.Controls.Add(this.button5);
             this.AdvSeaFilterPanel.Controls.Add(this.button4);
             this.AdvSeaFilterPanel.Controls.Add(this.button3);
@@ -125,19 +127,27 @@
             this.AdvSeaFilterPanel.Controls.Add(this.Filter_Value1);
             this.AdvSeaFilterPanel.Controls.Add(this.AndOrComboBox1);
             this.AdvSeaFilterPanel.Controls.Add(this.AndOrComboBox2);
-            this.AdvSeaFilterPanel.Controls.Add(this.textBox3);
             this.AdvSeaFilterPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.AdvSeaFilterPanel.Location = new System.Drawing.Point(3, 3);
             this.AdvSeaFilterPanel.Name = "AdvSeaFilterPanel";
             this.AdvSeaFilterPanel.Size = new System.Drawing.Size(390, 302);
             this.AdvSeaFilterPanel.TabIndex = 36;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(136, 14);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(87, 13);
+            this.label1.TabIndex = 29;
+            this.label1.Text = "Search and Filter";
+            // 
             // button5
             // 
             this.button5.Location = new System.Drawing.Point(246, 245);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(75, 23);
-            this.button5.TabIndex = 28;
+            this.button5.TabIndex = 19;
             this.button5.Text = "Clear";
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Click += new System.EventHandler(this.button5_Click);
@@ -147,7 +157,7 @@
             this.button4.Location = new System.Drawing.Point(246, 125);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(75, 23);
-            this.button4.TabIndex = 27;
+            this.button4.TabIndex = 10;
             this.button4.Text = "Clear";
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
@@ -157,7 +167,7 @@
             this.button3.Location = new System.Drawing.Point(246, 186);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 26;
+            this.button3.TabIndex = 15;
             this.button3.Text = "Clear";
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
@@ -167,7 +177,7 @@
             this.button1.Location = new System.Drawing.Point(246, 68);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 25;
+            this.button1.TabIndex = 5;
             this.button1.Text = "Clear";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
@@ -177,7 +187,7 @@
             this.AdvSrcCancel.Location = new System.Drawing.Point(217, 274);
             this.AdvSrcCancel.Name = "AdvSrcCancel";
             this.AdvSrcCancel.Size = new System.Drawing.Size(75, 23);
-            this.AdvSrcCancel.TabIndex = 24;
+            this.AdvSrcCancel.TabIndex = 20;
             this.AdvSrcCancel.Text = "Cancel";
             this.AdvSrcCancel.UseVisualStyleBackColor = true;
             // 
@@ -186,7 +196,7 @@
             this.AdvSrchOption.Location = new System.Drawing.Point(311, 274);
             this.AdvSrchOption.Name = "AdvSrchOption";
             this.AdvSrchOption.Size = new System.Drawing.Size(75, 23);
-            this.AdvSrchOption.TabIndex = 23;
+            this.AdvSrchOption.TabIndex = 21;
             this.AdvSrchOption.Text = "Apply";
             this.AdvSrchOption.UseVisualStyleBackColor = true;
             // 
@@ -196,7 +206,7 @@
             this.SeaFil_Pep4.Location = new System.Drawing.Point(13, 219);
             this.SeaFil_Pep4.Name = "SeaFil_Pep4";
             this.SeaFil_Pep4.Size = new System.Drawing.Size(121, 21);
-            this.SeaFil_Pep4.TabIndex = 22;
+            this.SeaFil_Pep4.TabIndex = 16;
             // 
             // SeaFil_Pep2
             // 
@@ -204,7 +214,7 @@
             this.SeaFil_Pep2.Location = new System.Drawing.Point(13, 98);
             this.SeaFil_Pep2.Name = "SeaFil_Pep2";
             this.SeaFil_Pep2.Size = new System.Drawing.Size(121, 21);
-            this.SeaFil_Pep2.TabIndex = 21;
+            this.SeaFil_Pep2.TabIndex = 6;
             // 
             // SeaFil_Pep3
             // 
@@ -212,7 +222,7 @@
             this.SeaFil_Pep3.Location = new System.Drawing.Point(13, 159);
             this.SeaFil_Pep3.Name = "SeaFil_Pep3";
             this.SeaFil_Pep3.Size = new System.Drawing.Size(121, 21);
-            this.SeaFil_Pep3.TabIndex = 20;
+            this.SeaFil_Pep3.TabIndex = 11;
             // 
             // SeaFil_Pep1
             // 
@@ -220,7 +230,7 @@
             this.SeaFil_Pep1.Location = new System.Drawing.Point(13, 42);
             this.SeaFil_Pep1.Name = "SeaFil_Pep1";
             this.SeaFil_Pep1.Size = new System.Drawing.Size(121, 21);
-            this.SeaFil_Pep1.TabIndex = 19;
+            this.SeaFil_Pep1.TabIndex = 1;
             // 
             // FilterComboBox4
             // 
@@ -234,7 +244,7 @@
             this.FilterComboBox4.Location = new System.Drawing.Point(153, 218);
             this.FilterComboBox4.Name = "FilterComboBox4";
             this.FilterComboBox4.Size = new System.Drawing.Size(70, 21);
-            this.FilterComboBox4.TabIndex = 18;
+            this.FilterComboBox4.TabIndex = 17;
             // 
             // FilterComboBox3
             // 
@@ -248,7 +258,7 @@
             this.FilterComboBox3.Location = new System.Drawing.Point(153, 159);
             this.FilterComboBox3.Name = "FilterComboBox3";
             this.FilterComboBox3.Size = new System.Drawing.Size(70, 21);
-            this.FilterComboBox3.TabIndex = 17;
+            this.FilterComboBox3.TabIndex = 12;
             // 
             // FilterComboBox2
             // 
@@ -262,28 +272,29 @@
             this.FilterComboBox2.Location = new System.Drawing.Point(153, 98);
             this.FilterComboBox2.Name = "FilterComboBox2";
             this.FilterComboBox2.Size = new System.Drawing.Size(70, 21);
-            this.FilterComboBox2.TabIndex = 16;
+            this.FilterComboBox2.TabIndex = 7;
             // 
             // Filter_Value4
             // 
             this.Filter_Value4.Location = new System.Drawing.Point(246, 219);
             this.Filter_Value4.Name = "Filter_Value4";
             this.Filter_Value4.Size = new System.Drawing.Size(129, 20);
-            this.Filter_Value4.TabIndex = 15;
+            this.Filter_Value4.TabIndex = 18;
             // 
             // Filter_Value3
             // 
             this.Filter_Value3.Location = new System.Drawing.Point(246, 160);
             this.Filter_Value3.Name = "Filter_Value3";
             this.Filter_Value3.Size = new System.Drawing.Size(129, 20);
-            this.Filter_Value3.TabIndex = 14;
+            this.Filter_Value3.TabIndex = 13;
+            this.Filter_Value3.TextChanged += new System.EventHandler(this.Filter_Value3_TextChanged);
             // 
             // Filter_Value2
             // 
             this.Filter_Value2.Location = new System.Drawing.Point(246, 98);
             this.Filter_Value2.Name = "Filter_Value2";
             this.Filter_Value2.Size = new System.Drawing.Size(129, 20);
-            this.Filter_Value2.TabIndex = 13;
+            this.Filter_Value2.TabIndex = 8;
             // 
             // AndOrComboBox3
             // 
@@ -295,7 +306,7 @@
             this.AndOrComboBox3.Location = new System.Drawing.Point(26, 192);
             this.AndOrComboBox3.Name = "AndOrComboBox3";
             this.AndOrComboBox3.Size = new System.Drawing.Size(86, 21);
-            this.AndOrComboBox3.TabIndex = 12;
+            this.AndOrComboBox3.TabIndex = 14;
             // 
             // FilterComboBox1
             // 
@@ -309,14 +320,14 @@
             this.FilterComboBox1.Location = new System.Drawing.Point(153, 42);
             this.FilterComboBox1.Name = "FilterComboBox1";
             this.FilterComboBox1.Size = new System.Drawing.Size(70, 21);
-            this.FilterComboBox1.TabIndex = 7;
+            this.FilterComboBox1.TabIndex = 2;
             // 
             // Filter_Value1
             // 
             this.Filter_Value1.Location = new System.Drawing.Point(246, 42);
             this.Filter_Value1.Name = "Filter_Value1";
             this.Filter_Value1.Size = new System.Drawing.Size(129, 20);
-            this.Filter_Value1.TabIndex = 6;
+            this.Filter_Value1.TabIndex = 3;
             // 
             // AndOrComboBox1
             // 
@@ -328,7 +339,7 @@
             this.AndOrComboBox1.Location = new System.Drawing.Point(26, 71);
             this.AndOrComboBox1.Name = "AndOrComboBox1";
             this.AndOrComboBox1.Size = new System.Drawing.Size(86, 21);
-            this.AndOrComboBox1.TabIndex = 5;
+            this.AndOrComboBox1.TabIndex = 4;
             // 
             // AndOrComboBox2
             // 
@@ -340,15 +351,7 @@
             this.AndOrComboBox2.Location = new System.Drawing.Point(26, 125);
             this.AndOrComboBox2.Name = "AndOrComboBox2";
             this.AndOrComboBox2.Size = new System.Drawing.Size(86, 21);
-            this.AndOrComboBox2.TabIndex = 3;
-            // 
-            // textBox3
-            // 
-            this.textBox3.Location = new System.Drawing.Point(118, 12);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(174, 20);
-            this.textBox3.TabIndex = 0;
-            this.textBox3.Text = "Search & Filter option";
+            this.AndOrComboBox2.TabIndex = 9;
             // 
             // tabPage2
             // 
@@ -389,14 +392,14 @@
             this.checkedListBox1.Location = new System.Drawing.Point(0, 21);
             this.checkedListBox1.Name = "checkedListBox1";
             this.checkedListBox1.Size = new System.Drawing.Size(136, 214);
-            this.checkedListBox1.TabIndex = 12;
+            this.checkedListBox1.TabIndex = 1;
             // 
             // Cancel_Filter1
             // 
             this.Cancel_Filter1.Location = new System.Drawing.Point(0, 251);
             this.Cancel_Filter1.Name = "Cancel_Filter1";
             this.Cancel_Filter1.Size = new System.Drawing.Size(53, 37);
-            this.Cancel_Filter1.TabIndex = 31;
+            this.Cancel_Filter1.TabIndex = 2;
             this.Cancel_Filter1.Text = "Cancel";
             this.Cancel_Filter1.UseVisualStyleBackColor = true;
             // 
@@ -405,7 +408,7 @@
             this.ColmDisplayOption.Location = new System.Drawing.Point(83, 251);
             this.ColmDisplayOption.Name = "ColmDisplayOption";
             this.ColmDisplayOption.Size = new System.Drawing.Size(53, 37);
-            this.ColmDisplayOption.TabIndex = 13;
+            this.ColmDisplayOption.TabIndex = 3;
             this.ColmDisplayOption.Text = "Apply";
             this.ColmDisplayOption.UseVisualStyleBackColor = true;
             // 
@@ -432,7 +435,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(3, 3);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(390, 293);
+            this.panel2.Size = new System.Drawing.Size(390, 302);
             this.panel2.TabIndex = 35;
             // 
             // button2
@@ -440,7 +443,7 @@
             this.button2.Location = new System.Drawing.Point(45, 125);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 14;
+            this.button2.TabIndex = 6;
             this.button2.Text = "Cancel";
             this.button2.UseVisualStyleBackColor = true;
             // 
@@ -453,14 +456,14 @@
             this.SrtClmOption1.Location = new System.Drawing.Point(141, 33);
             this.SrtClmOption1.Name = "SrtClmOption1";
             this.SrtClmOption1.Size = new System.Drawing.Size(60, 21);
-            this.SrtClmOption1.TabIndex = 11;
+            this.SrtClmOption1.TabIndex = 3;
             // 
             // SrtOption
             // 
             this.SrtOption.Location = new System.Drawing.Point(126, 125);
             this.SrtOption.Name = "SrtOption";
             this.SrtOption.Size = new System.Drawing.Size(75, 23);
-            this.SrtOption.TabIndex = 10;
+            this.SrtOption.TabIndex = 7;
             this.SrtOption.Text = "Sort";
             this.SrtOption.UseVisualStyleBackColor = true;
             // 
@@ -469,7 +472,7 @@
             this.textBox2.Location = new System.Drawing.Point(55, 3);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(100, 20);
-            this.textBox2.TabIndex = 3;
+            this.textBox2.TabIndex = 1;
             this.textBox2.Text = "Sorting";
             // 
             // SrtClm3
@@ -478,7 +481,7 @@
             this.SrtClm3.Location = new System.Drawing.Point(3, 87);
             this.SrtClm3.Name = "SrtClm3";
             this.SrtClm3.Size = new System.Drawing.Size(121, 21);
-            this.SrtClm3.TabIndex = 2;
+            this.SrtClm3.TabIndex = 5;
             // 
             // SrtClm2
             // 
@@ -486,7 +489,7 @@
             this.SrtClm2.Location = new System.Drawing.Point(3, 60);
             this.SrtClm2.Name = "SrtClm2";
             this.SrtClm2.Size = new System.Drawing.Size(121, 21);
-            this.SrtClm2.TabIndex = 1;
+            this.SrtClm2.TabIndex = 4;
             // 
             // SrtClm1
             // 
@@ -494,7 +497,7 @@
             this.SrtClm1.Location = new System.Drawing.Point(3, 33);
             this.SrtClm1.Name = "SrtClm1";
             this.SrtClm1.Size = new System.Drawing.Size(121, 21);
-            this.SrtClm1.TabIndex = 0;
+            this.SrtClm1.TabIndex = 2;
             // 
             // DataViewAdvance
             // 
@@ -502,6 +505,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(404, 334);
             this.Controls.Add(this.tabControl1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "DataViewAdvance";
             this.Text = "Data View Adcanced Setting";
             this.tabControl1.ResumeLayout(false);
@@ -542,7 +546,6 @@
         public System.Windows.Forms.TextBox Filter_Value1;
         public System.Windows.Forms.ComboBox AndOrComboBox1;
         public System.Windows.Forms.ComboBox AndOrComboBox2;
-        public System.Windows.Forms.TextBox textBox3;
         public System.Windows.Forms.Panel panel1;
         public System.Windows.Forms.TextBox textBox1;
         public System.Windows.Forms.CheckedListBox checkedListBox1;
@@ -561,6 +564,7 @@
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Label label1;
 
     }
 }
