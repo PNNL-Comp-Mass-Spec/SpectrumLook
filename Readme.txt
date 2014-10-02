@@ -1,5 +1,4 @@
-SpectrumLook can be used to inspect the fragmentation (MS/MS) 
-spectra in an LC-MS/MS analysis.
+SpectrumLook can be used to visually inspect the peptide sequence matches (PSMs) against fragmentation spectra in an LC-MS/MS dataset.
 
 SpectrumLook reads Finnigan .Raw files or .mzXml files, plus a "Synopsis File" listing peptides identified by a MS/MS interpretation tool like MSGF+, SEQUEST, or X!Tandem. The software allows users to visually browse the MS/MS spectra that led to the peptide identifications, including viewing annotations for the identified b and y ions, plus neutral loss ions where appropriate. See the Peptide Hit Results Processor page for more information on Synopsis and First hits files.
 
