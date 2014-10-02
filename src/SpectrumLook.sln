@@ -15,21 +15,6 @@ EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "SpectrumLook Installer", "SpectrumLook Installer\SpectrumLook Installer.vdproj", "{26CA897A-79C0-466E-B8D4-8ADEA4326171}"
 EndProject
 Global
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 4
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = http://seelteam.eecs.wsu.edu:8080/tfs/pnnl
-		SccLocalPath0 = .
-		SccProjectUniqueName1 = SpectrumLook\\SpectrumLook.csproj
-		SccProjectName1 = SpectrumLook
-		SccLocalPath1 = SpectrumLook
-		SccProjectUniqueName2 = SpectrumLookTests\\SpectrumLookTests.csproj
-		SccProjectName2 = SpectrumLookTests
-		SccLocalPath2 = SpectrumLookTests
-		SccProjectUniqueName3 = ..\\Lib\\ThermoRawFileReader\\ThermoRawFileReader\\ThermoRawFileReaderDLL.vbproj
-		SccProjectName3 = ../Lib/ThermoRawFileReader/ThermoRawFileReader
-		SccLocalPath3 = ..\\Lib\\ThermoRawFileReader\\ThermoRawFileReader
-	EndGlobalSection
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = Prototype42.vsmdi
 	EndGlobalSection

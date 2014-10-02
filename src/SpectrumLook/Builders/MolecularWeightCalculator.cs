@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SpectrumLook.Builders
 {
-    public class MolecularWeightCalculator : ITheoryCalculator 
+    public class MolecularWeightCalculator : ITheoryCalculator
     {
 
         public MolecularWeightCalculator(List<string> modificationList)
@@ -53,8 +53,9 @@ namespace SpectrumLook.Builders
         /// and mzValues are even index values (starting from 0).
         /// </summary>
         /// <param name="peptide">This is the peptide sequence.</param>
-        /// <returns></returns>
-        public string[] GetTheoreticalDataByPeptideSequence(string peptide, bool fragmentationModeCID)
+        /// <param name="fragmentationModeCID">True when the fragmentation mode is CID</param>
+        /// <returns>List of theoretical ions as key/value pairs (key is ion abbreviation, value is m/z value)</returns>
+        public List<KeyValuePair<string, double>> GetTheoreticalDataByPeptideSequence(string peptide, bool fragmentationModeCID)
         {
 
             // Set the element mode
@@ -74,10 +75,10 @@ namespace SpectrumLook.Builders
             udtFragSpectrumOptions.TripleChargeIonsThreshold = 1;
 
             // Each label begins with "b", "y", "c", or "z"
-            string modeString1;
+            char modeString1;
             if (fragmentationModeCID)
             {
-                modeString1 = "c";
+                modeString1 = 'c';
                 udtFragSpectrumOptions.IonTypeOptions[(int)MwtWinDll.MWPeptideClass.itIonTypeConstants.itBIon].ShowIon = false;
                 udtFragSpectrumOptions.IonTypeOptions[(int)MwtWinDll.MWPeptideClass.itIonTypeConstants.itYIon].ShowIon = false;
                 udtFragSpectrumOptions.IonTypeOptions[(int)MwtWinDll.MWPeptideClass.itIonTypeConstants.itCIon].ShowIon = true;
@@ -86,7 +87,7 @@ namespace SpectrumLook.Builders
             }
             else
             {
-                modeString1 = "b";
+                modeString1 = 'b';
                 udtFragSpectrumOptions.IonTypeOptions[(int)MwtWinDll.MWPeptideClass.itIonTypeConstants.itBIon].ShowIon = true;
                 udtFragSpectrumOptions.IonTypeOptions[(int)MwtWinDll.MWPeptideClass.itIonTypeConstants.itYIon].ShowIon = true;
                 udtFragSpectrumOptions.IonTypeOptions[(int)MwtWinDll.MWPeptideClass.itIonTypeConstants.itCIon].ShowIon = false;
@@ -105,127 +106,127 @@ namespace SpectrumLook.Builders
             //Add the modifications if needed.
             if (m_modificationList != null)
             {
-                int stringIndex = 0;
+                var sepChars = new char[] { '|' };
 
-                foreach (string stringToFind in m_modificationList)
+                foreach (string modDef in m_modificationList)
                 {
-                    string frontPart = "";
-                    string backPart = "";
-                    double outValue = 0.0;
-                    bool foundspace = false;
+                    // Modifications are of the form Symbol|ModMass
+                    // Split on |
 
-                    for (stringIndex = 0; stringIndex < stringToFind.Length; ++stringIndex)
+                    var splitVals = modDef.Split(sepChars);
+                    if (splitVals.Length > 1)
                     {
-                        if (stringToFind[stringIndex] == '|')
+                        double modMass;
+                        string modComment = string.Empty;
+
+                        if (double.TryParse(splitVals[1], out modMass))
                         {
-                            foundspace = true;
-                            continue;
+                            bool indicatesPhospho = Math.Abs(modMass - 79.9663326) < 0.005;
+
+                            int modResult = m_mMwtWin.Peptide.SetModificationSymbol(splitVals[0], modMass, indicatesPhospho, modComment);
+
+                            //if modresult = 0 symbol add is successful, useful spot for breakpoint
+                            //modResult = modResult + 0;
                         }
-                        if (!foundspace)
-                            frontPart += stringToFind[stringIndex];
-                        else
-                            backPart += stringToFind[stringIndex];
                     }
-
-
-                    bool randomBool = false;
-                    string randomComment = "";
-
-                    double.TryParse(backPart,out outValue);
-
-                    int modResult = m_mMwtWin.Peptide.SetModificationSymbol(frontPart, outValue, ref randomBool, ref randomComment);
-
-                    //if modresult = 0 symbol add is successful, useful spot for breakpoint
-                    //modResult = modResult + 0;
-                
                 }
             }
 
             // Update the options
-            m_mMwtWin.Peptide.SetFragmentationSpectrumOptions(ref udtFragSpectrumOptions);
+            m_mMwtWin.Peptide.SetFragmentationSpectrumOptions(udtFragSpectrumOptions);
 
             // Get the fragmentation masses
             MwtWinDll.MWPeptideClass.udtFragmentationSpectrumDataType[] udtFragSpectrum = null;
             m_mMwtWin.Peptide.GetFragmentationMasses(ref udtFragSpectrum);
 
-            // Create a new theoretical list
-            System.Collections.ArrayList theoryList = new System.Collections.ArrayList();
 
-            // Generate the first b or c ion
-            if (!fragmentationModeCID)
+            var cleanPeptide = m_mMwtWin.Peptide.GetSequence(false, false, false, false, false);
+
+            if (string.IsNullOrWhiteSpace(cleanPeptide))
             {
-                theoryList.Add((m_deNovoTableB[peptide[0]]).ToString());
-                theoryList.Add(modeString1 + "1");
-            }
-            else
-            {
-                theoryList.Add((m_deNovoTableB[peptide[0]] + 18).ToString());
-                theoryList.Add(modeString1 + "1");
+                // No valid residues
+                return new List<KeyValuePair<string, double>>();
             }
 
-            // Generate the first b++ or c++ ion
-            if (!fragmentationModeCID)
+            // Obtain the list of ions
+            List<KeyValuePair<string, double>> theoryList = GetTheoryList(cleanPeptide, fragmentationModeCID, modeString1, udtFragSpectrum);
+
+            return theoryList;
+        }
+
+        private List<KeyValuePair<string, double>> GetTheoryList(
+            string peptide,
+            bool fragmentationModeCID,
+            char modeString1,
+            MwtWinDll.MWPeptideClass.udtFragmentationSpectrumDataType[] udtFragSpectrum)
+        {
+            var theoryList = new List<KeyValuePair<string, double>>();
+
+            double nTerminusResidueMass = 0;
+            if (m_deNovoTableB.ContainsKey(peptide[0]))
+                nTerminusResidueMass = m_deNovoTableB[peptide[0]];
+
+            // Generate the first b or c ion, as 1+, 2+, and 3+
+            for (var charge = 1; charge <= 3; charge++)
             {
-                theoryList.Add((m_deNovoTableB[peptide[0]] / 2).ToString());
-                theoryList.Add(modeString1 + "1++");
-            }
-            else
-            {
-                theoryList.Add(((m_deNovoTableB[peptide[0]] + 18) / 2).ToString());
-                theoryList.Add(modeString1 + "1++");
+                string ionDescription = modeString1 + "1";
+                if (charge > 1)
+                    ionDescription += new String('+', charge);
+
+                if (!fragmentationModeCID)
+                    theoryList.Add(new KeyValuePair<string, double>(ionDescription, nTerminusResidueMass / charge));
+                else
+                    theoryList.Add(new KeyValuePair<string, double>(ionDescription, (nTerminusResidueMass + 18) / charge));
             }
 
-            // Generate the first b+++ or c+++ ion
-            if (!fragmentationModeCID)
-            {
-                theoryList.Add((m_deNovoTableB[peptide[0]] / 3).ToString());
-                theoryList.Add(modeString1 + "1+++");
-            }
-            else
-            {
-                theoryList.Add(((m_deNovoTableB[peptide[0]] + 18) / 3).ToString());
-                theoryList.Add(modeString1 + "1+++");
-            }
+            var peptideResidueCount = peptide.Length;
+            var cTermModeSymbolFlag = modeString1 + (peptideResidueCount - 1).ToString();
+            var cTermMassesAdded = false;
+
+            double cTerminusResidueMass = 0;
+            if (m_deNovoTableB.ContainsKey(peptide.Last()))
+                cTerminusResidueMass = m_deNovoTableB[peptide.Last()];
 
             // Generate every other ion except the last of the b or c ion series
             for (int i = 0; i < udtFragSpectrum.Length; i++)
             {
                 try
                 {
-                    if ((udtFragSpectrum[i].Symbol[0] == 'S') && (udtFragSpectrum[i].Symbol[1] == 'h'))
-                    {}
+                    if ((udtFragSpectrum[i].Symbol.StartsWith("Shoulder")))
+                    {
+                        // Shoulder ion; ignore it
+                        continue;
+                    }
                     else
                     {
-                        theoryList.Add((udtFragSpectrum[i].Mass).ToString());
-                        theoryList.Add(udtFragSpectrum[i].Symbol);
+                        theoryList.Add(new KeyValuePair<string, double>(udtFragSpectrum[i].Symbol, udtFragSpectrum[i].Mass));
 
-                        // Generate the last b or c ion
-                        if( (udtFragSpectrum[i].Symbol) == (modeString1 + (peptide.Length - 1).ToString()) )
+                        // Generate the last b or c ion, as 1+, 2+, and 3+
+                        // This code only works if peptide contains all capital letters
+
+                        if (udtFragSpectrum[i].Symbol != cTermModeSymbolFlag || cTermMassesAdded)
                         {
-                            theoryList.Add((udtFragSpectrum[i].Mass + m_deNovoTableB[peptide[peptide.Length - 1]]).ToString());
-                            theoryList.Add(modeString1 + (peptide.Length).ToString());
+                            continue;
                         }
 
-                        // Generate the last b++ or c++ ion
-                        if( (udtFragSpectrum[i].Symbol) == (modeString1 + (peptide.Length - 1).ToString()) + "++")
+                        cTermMassesAdded = true;
+                        for (var charge = 1; charge <= 3; charge++)
                         {
-                            theoryList.Add((udtFragSpectrum[i].Mass + (m_deNovoTableB[peptide[peptide.Length - 1]] / 2)).ToString() );
-                            theoryList.Add(modeString1 + (peptide.Length).ToString() + "++");
-                        }
+                            string ionDescription = modeString1 + peptideResidueCount.ToString();
+                            if (charge > 1)
+                                ionDescription += new String('+', charge);
 
-                        // Generate the last b+++ or c+++ ion
-                        if( (udtFragSpectrum[i].Symbol) == (modeString1 + (peptide.Length - 1).ToString()) + "+++")
-                        {
-                            theoryList.Add((udtFragSpectrum[i].Mass + (m_deNovoTableB[peptide[peptide.Length - 1]] / 3)).ToString());
-                            theoryList.Add(modeString1 + (peptide.Length).ToString() + "+++");
+                            theoryList.Add(new KeyValuePair<string, double>(ionDescription, cTerminusResidueMass / charge));
                         }
                     }
                 }
-                catch{}
+                catch (Exception ex)
+                {
+                    // Ignore errors here
+                }
             }
 
-            string[] theoreticalList = (string[])theoryList.ToArray(typeof(string));
-            return theoreticalList;
+            return theoryList;
         }
     }
 }

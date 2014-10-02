@@ -48,20 +48,19 @@ namespace SpectrumLook.Builders
         /// </summary>
         public override void BuildList()
         {
-            string[] theoreticalData = this.m_theoryCalculator.GetTheoreticalDataByPeptideSequence(m_peptide, m_fragmentationModeCID);
+            var theoreticalData = this.m_theoryCalculator.GetTheoreticalDataByPeptideSequence(m_peptide, m_fragmentationModeCID);
 
             ElementList = new List<Element>();
 
-            for(int i = 0; i < theoreticalData.Count(); i += 2)
+            foreach (var theoreticalIon in theoreticalData)
             {
-                Element newElement = new Element();
-
-                /// The output is a string array that should be structured such that annotations are odd index values (starting from 1)
-                /// and mzValues are even index values (starting from 0).
-                newElement.annotation = theoreticalData[i + 1];
-                newElement.mzValue = Convert.ToDouble(theoreticalData[i]);
-                newElement.intensity = 0;
-                newElement.matched = false;
+                var newElement = new Element
+                {
+                    annotation = theoreticalIon.Key,
+                    mzValue = theoreticalIon.Value,
+                    intensity = 0,
+                    matched = false
+                };
 
                 ElementList.Add(newElement);
             }

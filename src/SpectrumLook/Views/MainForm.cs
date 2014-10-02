@@ -18,6 +18,7 @@ namespace SpectrumLook.Views
         private Manager m_manager;
 
         public MainFormOptions m_currentOptions;
+        private const string PROGRAM_DATE = "October 1, 2014";
 
         #region CONSTRUCTOR
         public MainForm()
@@ -30,32 +31,43 @@ namespace SpectrumLook.Views
 
             //Fragment Ladder
             panelFragmentLadder.Controls.Add(m_manager.m_fragLadder);
+			panelFragmentLadder.Controls[m_manager.m_fragLadder.Name].Dock = DockStyle.Fill;
+
             panelFragmentLadder.Resize += new EventHandler(panel_Resize);
 
             //Data View
             panelDataView.Controls.Add(m_manager.m_dataView);
+			panelDataView.Controls[m_manager.m_dataView.Name].Dock = DockStyle.Fill;
             panelDataView.Resize += new EventHandler(panel_Resize);
 
             //Plot
             panelPlot.Controls.Add(m_manager.m_plot);
+			panelPlot.Controls[m_manager.m_plot.Name].Dock = DockStyle.Fill;
             panelPlot.Resize += new EventHandler(panel_Resize);
             
             //////FileOpen
             ////FileOpen = new OpenMenu();
 
-            this.splitContainer2.IsSplitterFixed = true;
-            this.splitContainer1.BorderStyle = BorderStyle.FixedSingle;
+            splitContainer2.IsSplitterFixed = false;
+			splitContainer2.BorderStyle = BorderStyle.FixedSingle;
+
+            splitContainer1.BorderStyle = BorderStyle.FixedSingle;
 
             splitContainer1.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top;
             splitContainer2.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top;
 
-            this.detachPlotFromMainForm();
+            detachPlotFromMainForm();
 
-            this.MainForm_Resize(this, null);
-            this.Text = "Spectrum Look Version - 1.0.1014";
+            MainForm_Resize(this, null);
+            Text = "Spectrum Look - " + GetAppVersion();
 
             KeyDown += new KeyEventHandler(MainForm_KeyDown);
             KeyPreview = true; //set this true so we can get all the key events for child controls           
+        }
+
+        private static string GetAppVersion()
+        {
+            return System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString() + " (" + PROGRAM_DATE + ")";
         }
 
         /// <summary>
@@ -63,12 +75,13 @@ namespace SpectrumLook.Views
         /// </summary>
         void panel_Resize(object sender, EventArgs e)
         {
-            Panel senderPanel = (Panel)sender;
+            /*Panel senderPanel = (Panel)sender;
             if (senderPanel.Controls.Count > 0)
             {
                 senderPanel.Controls[0].Width = senderPanel.Width;
                 senderPanel.Controls[0].Height = senderPanel.Height;
             }
+			 */
         }
         #endregion
 
@@ -87,11 +100,11 @@ namespace SpectrumLook.Views
         private void detachPlotFromMainForm()
         {
             Point pointOnTheScreen;
-            if(!this.m_currentOptions.isPlotInMainForm)
+            if(!m_currentOptions.isPlotInMainForm)
             {
                 if (panelPlot.Controls.Contains(m_manager.m_plot))
                 {
-                    pointOnTheScreen = m_manager.m_plot.PointToScreen(this.m_manager.m_plot.Location);
+                    pointOnTheScreen = m_manager.m_plot.PointToScreen(m_manager.m_plot.Location);
                     panelPlot.Controls.Remove(m_manager.m_plot);
                     m_manager.m_plot.Hide();
                     m_manager.m_plot.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
@@ -105,91 +118,106 @@ namespace SpectrumLook.Views
                 MainForm_Resize(this, null);
                 m_manager.m_plot.Show();
             }
-            else if (this.m_currentOptions.isPlotInMainForm && !(panelPlot.Controls.Contains(m_manager.m_plot)))
+            else if (m_currentOptions.isPlotInMainForm && !(panelPlot.Controls.Contains(m_manager.m_plot)))
             {
                 m_manager.m_plot.TopLevel = false;
                 m_manager.m_plot.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
                 m_manager.m_plot.Location = new Point(0, 0); // Sets it to the corner of the screen... May need to save the original location though.
                 m_manager.m_plot.Hide();
                 panelPlot.Controls.Add(m_manager.m_plot);
+				panelPlot.Controls[m_manager.m_plot.Name].Dock = DockStyle.Fill;
                 MainForm_Resize(this, null);
                 m_manager.m_plot.Show();
             }
         }
 
+		private void MoveCollapseButton()
+		{
+			// cmdShowHideFragmentIons.Height = splitContainer2.Panel1.Height / 2;
+			// cmdShowHideFragmentIons.Location = new Point(splitContainer2.Panel1.Left + 4, splitContainer2.Panel1.Top + cmdShowHideFragmentIons.Height / 4);
+		}
+
         void m_plot_FormClosing(object sender, FormClosingEventArgs e)
         {
             e.Cancel = true;
-            this.m_currentOptions.isPlotInMainForm = true;
+            m_currentOptions.isPlotInMainForm = true;
             //detachPlotFromMainForm();
         }
 
         private void splitContainer1_SplitterMoved(object sender, SplitterEventArgs e)
         {
-            this.CollapsButton.Height = this.splitContainer2.Panel1.Height - 4;
+			MoveCollapseButton();
         }
+
+		private void splitContainer2_SplitterMoved(object sender, SplitterEventArgs e)
+		{
+			MoveCollapseButton();
+		}
 
         private void MainForm_Resize(object sender, EventArgs e)
         {
-            if (CollapsButton.Text == "<<")
-            {
-                if (this.m_currentOptions.isPlotInMainForm)
-                {
-                    this.splitContainer2.Panel2Collapsed = false;
-                    this.splitContainer2.SplitterDistance = 420;
-                    this.CollapsButton.Location = new Point(this.panelFragmentLadder.Width, 2);
-                }
-                else
-                {
-                    this.splitContainer2.Panel2Collapsed = true;
-                    this.splitContainer2.SplitterDistance = this.splitContainer1.Width;
-                    this.CollapsButton.Location = new Point(((this.splitContainer1.Width - this.CollapsButton.Width) - 5), 2);
-                }
-                //m_manager.m_fragmentLadder.Width = this.CollapsButton.Location.X;
-            }
-            if (CollapsButton.Text == ">>")
-            {
-                this.CollapsButton.Location = new Point(0, 2);
-                this.splitContainer2.SplitterDistance = this.CollapsButton.Width;
-            }
+			//if (cmdShowHideFragmentIons.Text == "<<")
+			//{			
+			//    if (m_currentOptions != null && m_currentOptions.isPlotInMainForm)
+			//    {
+			//        splitContainer2.Panel2Collapsed = false;
+			//        splitContainer2.SplitterDistance = 420;
+			//        cmdShowHideFragmentIons.Location = new Point(panelFragmentLadder.Width, 2);
+			//    }
+			//    else
+			//    {
+			//        splitContainer2.Panel2Collapsed = true;
+			//        splitContainer2.SplitterDistance = splitContainer1.Width;
+			//        cmdShowHideFragmentIons.Location = new Point(((splitContainer1.Width - cmdShowHideFragmentIons.Width) - 5), 2);
+			//    }
+			//    //m_manager.m_fragmentLadder.Width = cmdShowHideFragmentIons.Location.X;
+			//}
+			//if (cmdShowHideFragmentIons.Text == ">>")
+			//{
+			//    cmdShowHideFragmentIons.Location = new Point(0, 2);
+			//    splitContainer2.SplitterDistance = cmdShowHideFragmentIons.Width;
+			//}
 
-            panelFragmentLadder.Height = this.splitContainer2.Panel1.Height;
-            //m_manager.m_fragmentLadder.Height = this.splitContainer2.Panel1.Height;
-            this.CollapsButton.Height = this.splitContainer2.Panel1.Height - 4;
+			//panelFragmentLadder.Height = splitContainer2.Panel1.Height;
+			////m_manager.m_fragmentLadder.Height = splitContainer2.Panel1.Height;
 
-            panelDataView.Height = this.splitContainer1.Panel1.Height;
-            panelDataView.Width = this.splitContainer1.Panel1.Width;
+			//MoveCollapseButton();
 
-            if (this.m_currentOptions.isPlotInMainForm) // This is so that the resize doesn't try to resize the plot window when it is detached.
-            {
-                panelPlot.Height = this.splitContainer2.Panel2.Height;
-                panelPlot.Width = this.splitContainer2.Panel2.Width;
-            }
+			//panelDataView.Height = splitContainer1.Panel1.Height;
+			//panelDataView.Width = splitContainer1.Panel1.Width;
+
+			//if (m_currentOptions != null && m_currentOptions.isPlotInMainForm) // This is so that the resize doesn't try to resize the plot window when it is detached.
+			//{
+			//    panelPlot.Height = splitContainer2.Panel2.Height;
+			//    panelPlot.Width = splitContainer2.Panel2.Width;
+			//}
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (CollapsButton.Text == "<<")
+			/*
+            if (cmdShowHideFragmentIons.Text == "<<")
             {
-                this.splitContainer2.SplitterDistance = this.CollapsButton.Width;
-                this.panelFragmentLadder.Visible = false;
-                this.CollapsButton.Location = new Point(0, 2);
-                CollapsButton.Text = ">>";
-                if (this.m_currentOptions.isPlotInMainForm)
+                splitContainer2.SplitterDistance = cmdShowHideFragmentIons.Width;
+                panelFragmentLadder.Visible = false;
+                cmdShowHideFragmentIons.Location = new Point(0, 2);
+                cmdShowHideFragmentIons.Text = ">>";
+                if (m_currentOptions.isPlotInMainForm)
                 {
-                    panelPlot.Height = this.splitContainer2.Panel2.Height;
-                    panelPlot.Width = this.splitContainer2.Panel2.Width;
-                    m_manager.m_plot.Height = this.splitContainer2.Panel2.Height;
-                    m_manager.m_plot.Width = this.splitContainer2.Panel2.Width;
+                    panelPlot.Height = splitContainer2.Panel2.Height;
+                    panelPlot.Width = splitContainer2.Panel2.Width;
+                    m_manager.m_plot.Height = splitContainer2.Panel2.Height;
+                    m_manager.m_plot.Width = splitContainer2.Panel2.Width;
                 }
             }
             else
             {
-                this.splitContainer2.SplitterDistance = 420;
-                this.panelFragmentLadder.Visible = true;
-                CollapsButton.Text = "<<";
+                splitContainer2.SplitterDistance = 420;
+                panelFragmentLadder.Visible = true;
+                cmdShowHideFragmentIons.Text = "<<";
                 MainForm_Resize(sender, null);
             }
+			 */
         }
 
         #endregion
@@ -236,7 +264,7 @@ namespace SpectrumLook.Views
         {
             //if (((MainFormOptions)sender).Visible == false)
             //{
-            //    this.detachPlotFromMainForm(); //This uses the boolean value isPlotDetached.
+            //    detachPlotFromMainForm(); //This uses the boolean value isPlotDetached.
             //}
         }
 

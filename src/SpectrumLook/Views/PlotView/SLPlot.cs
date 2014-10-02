@@ -57,7 +57,7 @@ namespace SpectrumLook.Views
         /// <param name="e"></param>
         private void Form1_Load(object sender, EventArgs e)
         {
-            msPlot.SetSize(new Point(10, 10), ClientRectangle.Width - 20, ClientRectangle.Height - 20);
+            // msPlot.SetSize(new Point(10, 10), ClientRectangle.Width - 20, ClientRectangle.Height - 20);
         }
         #endregion
 
@@ -87,6 +87,7 @@ namespace SpectrumLook.Views
         /// </summary>
         private void ResizeForm()
         {
+			/*
             bool setSnapBoxVisible = true;
             bool setAnnotationSliderVisible = true;
             bool setButtonDetachPlot = true;
@@ -118,7 +119,7 @@ namespace SpectrumLook.Views
             }
 
             ////Check the user options for if we need to hide something we have room for
-            if (msPlot.m_options.hidePlotTools)
+			if (m_options != null && msPlot.m_options.hidePlotTools)
             {
                 setSnapBoxVisible = false;
                 setAnnotationSliderVisible = false;
@@ -147,6 +148,7 @@ namespace SpectrumLook.Views
             {
                 msPlot.SetSize(new Point(10, 10), ClientRectangle.Width - 20, ClientRectangle.Height - (30 + buttonHidePlotOptions.Height));
             }
+			*/
         }
 
         private void buttonHidePlotOptions_Click(object sender, EventArgs e)
@@ -386,6 +388,7 @@ namespace SpectrumLook.Views
         /// <param name="e"></param>
         private void trackBarAnnotationPercent_Scroll(object sender, EventArgs e)
         {
+
             msPlot.m_options.annotationPercent = trackBarAnnotationPercent.Value;
             msPlot.ReevaluateAnnotations();
             msPlot.Invalidate();
@@ -417,7 +420,9 @@ namespace SpectrumLook.Views
         /// <param name="focusValue">The x value to focus on in the plot</param>
         public void FocusPlotOnPoint(double focusValue)
         {
-            if (msPlot.m_arrowShowing && (float)focusValue == msPlot.m_arrowPoint.X)
+            var arrowPoint = msPlot.m_arrowPoint;
+
+            if (msPlot.m_arrowShowing && Math.Abs((float)focusValue - arrowPoint.X) < Single.Epsilon)
             {
                 msPlot.m_arrowShowing = false;
             }

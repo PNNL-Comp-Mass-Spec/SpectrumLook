@@ -103,7 +103,7 @@ namespace SpectrumLook.Views.FragmentLadderView
 
         public void regenerateLadderFromSelection()
         {
-            if (m_currentInstances != null && m_currentParentMZ != null)
+            if (m_currentInstances != null && m_currentParentMZ > 0)
             {
                 generateLadderFromSelection(m_currentParentMZ, m_currentInstances);
             }

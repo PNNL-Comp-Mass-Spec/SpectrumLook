@@ -13,7 +13,8 @@ namespace SpectrumLook.Builders
         /// and mzValues are even index values (starting from 0).
         /// </summary>
         /// <param name="peptide">This is the peptide sequence.</param>
-        /// <returns></returns>
-        string[] GetTheoreticalDataByPeptideSequence(string peptide, bool fragmentationModeCID);
+        /// <param name="fragmentationModeCID">True when the fragmentation mode is CID</param>
+        /// <returns>List of theoretical ions as key/value pairs (key is ion abbreviation, value is m/z value)</returns>
+        List<KeyValuePair<string, double>> GetTheoreticalDataByPeptideSequence(string peptide, bool fragmentationModeCID);
     }
 }

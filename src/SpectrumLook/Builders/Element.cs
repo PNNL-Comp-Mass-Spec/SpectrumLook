@@ -17,6 +17,11 @@ namespace SpectrumLook.Builders
 
         #region PUBLIC
 
+        public override string ToString()
+        {
+            return annotation + ", " + mzValue.ToString("0.00");
+        }
+
         #endregion
 
         #region PRIVATE

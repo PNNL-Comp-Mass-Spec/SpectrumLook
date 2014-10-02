@@ -22,7 +22,6 @@ namespace SpectrumLook.Builders
         #region PRIVATE
 
         private clsMSDataFileReaderBaseClass m_fileToRead;
-        //private clsMzXMLFileAccessor m_fileToRead;
 
         private string m_fileLocation;
 
@@ -86,19 +85,15 @@ namespace SpectrumLook.Builders
             this.m_fileLocation = fileLocation;
             if (m_fileLocation != null)
             {
-                if (m_fileLocation.Contains(".mzXML"))
-                {
-                    m_fileToRead = new clsMzXMLFileAccessor();
-                    m_fileOpened = m_fileToRead.OpenFile(m_fileLocation);                    
-                }
-                else if (m_fileLocation.Contains(".mzData"))
+                if (m_fileLocation.ToLower().EndsWith(".mzXML".ToLower()) || 
+                    m_fileLocation.ToLower().EndsWith(".mzData".ToLower()))
                 {
                     m_fileToRead = new clsMzXMLFileAccessor();
                     m_fileOpened = m_fileToRead.OpenFile(m_fileLocation);
-                }
+                }              
                 else
                 {
-                    throw new System.InvalidProgramException("Invalid File Type");
+                    throw new System.InvalidProgramException("Invalid File Type, must be .mzXML or .mzData");
                 }
                 m_fileToRead.ReadAndCacheEntireFile();
             }
