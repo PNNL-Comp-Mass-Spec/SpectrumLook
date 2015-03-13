@@ -10,7 +10,7 @@ namespace SpectrumLook.Views.Options
     [Serializable]
     public class FragmentLadderOptions : Subject
     {
-        private List<string> m_modificationList;
+        private Dictionary<char, double> m_modificationList;
 
         private List<string> m_checkedHeaders;
 
@@ -20,7 +20,7 @@ namespace SpectrumLook.Views.Options
 
         private int m_precision;
 
-        public List<string> modificationList
+        public Dictionary<char, double> modificationList
         {
             get
             {
@@ -89,7 +89,7 @@ namespace SpectrumLook.Views.Options
 
         public FragmentLadderOptions()
         {
-            m_modificationList = new List<string>();
+            m_modificationList = new Dictionary<char, double>();
             m_checkedHeaders = new List<string>();
             m_checkedHeaders.AddRange(new string[] {
                 "b",

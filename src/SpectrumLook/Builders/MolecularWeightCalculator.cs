@@ -8,7 +8,7 @@ namespace SpectrumLook.Builders
     public class MolecularWeightCalculator : ITheoryCalculator
     {
 
-        public MolecularWeightCalculator(List<string> modificationList)
+        public MolecularWeightCalculator(Dictionary<char, double> modificationList)
         {
             m_modificationList = modificationList;
         }
@@ -18,7 +18,7 @@ namespace SpectrumLook.Builders
         /// </summary>
         private MwtWinDll.MolecularWeightCalculator m_mMwtWin = new MwtWinDll.MolecularWeightCalculator();
 
-        private List<string> m_modificationList;
+        private Dictionary<char, double> m_modificationList;
 
         /// <summary>
         /// The deNovo Table values for b ions
@@ -49,8 +49,6 @@ namespace SpectrumLook.Builders
 
         /// <summary>
         /// This will take the input of a peptide sequence and a bool for the fragmentation mode (false = CID, true = ETD).
-        /// The output is a string array that should be structured such that annotations are odd index values (starting from 1)
-        /// and mzValues are even index values (starting from 0).
         /// </summary>
         /// <param name="peptide">This is the peptide sequence.</param>
         /// <param name="fragmentationModeCID">True when the fragmentation mode is CID</param>
@@ -95,6 +93,23 @@ namespace SpectrumLook.Builders
                 udtFragSpectrumOptions.IonTypeOptions[(int)MwtWinDll.MWPeptideClass.itIonTypeConstants.itAIon].ShowIon = false;
             }
 
+            //Add the modifications if needed.
+            if (m_modificationList != null)
+            {
+                m_mMwtWin.Peptide.RemoveAllModificationSymbols(); // Remove the default MWT modification symbols
+                foreach (KeyValuePair<char, double> modPair in m_modificationList)
+                {
+                    // Key is symbol, value is mzValue
+                    string modComment = string.Empty;
+                    bool indicatesPhospho = Math.Abs(modPair.Value - 79.9663326) < 0.005;
+                    int modResult = m_mMwtWin.Peptide.SetModificationSymbol(modPair.Key.ToString(), modPair.Value, indicatesPhospho,
+                        modComment);
+
+                    //if modresult = 0 symbol add is successful, useful spot for breakpoint
+                    //modResult = modResult + 0;
+                }
+            }
+
             // Obtain the fragmentation spectrum for a peptide
             // First define the peptide sequence
             // Need to pass "false" to parameter blnIs3LetterCode since "peptide" is in one-letter notation
@@ -102,35 +117,6 @@ namespace SpectrumLook.Builders
                                         MwtWinDll.MWPeptideClass.ntgNTerminusGroupConstants.ntgHydrogen,
                                         MwtWinDll.MWPeptideClass.ctgCTerminusGroupConstants.ctgHydroxyl,
                                         false);
-
-            //Add the modifications if needed.
-            if (m_modificationList != null)
-            {
-                var sepChars = new char[] { '|' };
-
-                foreach (string modDef in m_modificationList)
-                {
-                    // Modifications are of the form Symbol|ModMass
-                    // Split on |
-
-                    var splitVals = modDef.Split(sepChars);
-                    if (splitVals.Length > 1)
-                    {
-                        double modMass;
-                        string modComment = string.Empty;
-
-                        if (double.TryParse(splitVals[1], out modMass))
-                        {
-                            bool indicatesPhospho = Math.Abs(modMass - 79.9663326) < 0.005;
-
-                            int modResult = m_mMwtWin.Peptide.SetModificationSymbol(splitVals[0], modMass, indicatesPhospho, modComment);
-
-                            //if modresult = 0 symbol add is successful, useful spot for breakpoint
-                            //modResult = modResult + 0;
-                        }
-                    }
-                }
-            }
 
             // Update the options
             m_mMwtWin.Peptide.SetFragmentationSpectrumOptions(udtFragSpectrumOptions);

@@ -126,17 +126,17 @@ namespace SpectrumLook
 
             tempObserver = m_fragLadder as IObserver;
             // Add pre-defined symbols to modifications list
-            m_fragLadder.fragmentLadderOptions.Attach(ref tempObserver);
-            m_fragLadder.fragmentLadderOptions.modificationList.Add("*|79.9663326");
-            m_fragLadder.fragmentLadderOptions.modificationList.Add("+|14.01565");
-            m_fragLadder.fragmentLadderOptions.modificationList.Add("@|15.99492");
-            m_fragLadder.fragmentLadderOptions.modificationList.Add("!|57.02146");
-            m_fragLadder.fragmentLadderOptions.modificationList.Add("&|58.00548");
-            m_fragLadder.fragmentLadderOptions.modificationList.Add("#|71.03711");
-            m_fragLadder.fragmentLadderOptions.modificationList.Add("$|227.127");
-            m_fragLadder.fragmentLadderOptions.modificationList.Add("%|236.127");
-            m_fragLadder.fragmentLadderOptions.modificationList.Add("~|442.225");
-            m_fragLadder.fragmentLadderOptions.modificationList.Add("`|450.274");
+            //m_fragLadder.fragmentLadderOptions.Attach(ref tempObserver);
+            m_fragLadder.fragmentLadderOptions.modificationList.Add('*', 79.9663326);
+            m_fragLadder.fragmentLadderOptions.modificationList.Add('+', 14.01565);
+            m_fragLadder.fragmentLadderOptions.modificationList.Add('@', 15.99492);
+            m_fragLadder.fragmentLadderOptions.modificationList.Add('!', 57.02146);
+            m_fragLadder.fragmentLadderOptions.modificationList.Add('&', 58.00548);
+            m_fragLadder.fragmentLadderOptions.modificationList.Add('#', 71.03711);
+            m_fragLadder.fragmentLadderOptions.modificationList.Add('$', 227.127);
+            m_fragLadder.fragmentLadderOptions.modificationList.Add('%', 236.127);
+            m_fragLadder.fragmentLadderOptions.modificationList.Add('~', 442.225);
+            m_fragLadder.fragmentLadderOptions.modificationList.Add('`', 450.274);
 
             m_plot.m_options.CopyOptions(m_plot.m_options);
             m_options.Hide();
@@ -240,7 +240,6 @@ namespace SpectrumLook
             bool special_char_exists = false;
             bool peptide_exists = false;
             char character = ' ';
-            List<string> x = m_fragLadder.fragmentLadderOptions.modificationList;
             // Check to see if any special characters exist
             for (int i = 0; i < Peptide.Length; i++)
             {
@@ -250,6 +249,7 @@ namespace SpectrumLook
                     break;
                 }
             }
+            // TODO: CLEAN THIS UP!!!
             if(peptide_exists == true)
             {
                 for (int i = 0; i < Peptide.Length; i++)
@@ -260,9 +260,9 @@ namespace SpectrumLook
                     else
                     {
                         special_char_exists = true;
-                        for (int z = 0; z < x.Count; z++)
+                        foreach (KeyValuePair<char, double> modPair in m_fragLadder.fragmentLadderOptions.modificationList)
                         {
-                            if (x[z][0] == Peptide[i])   // gets first character of string in the ith value
+                            if (modPair.Key == Peptide[i])   // gets first character of string in the ith value
                             {
                                 special_char_exists = false;
                             }
@@ -291,12 +291,24 @@ namespace SpectrumLook
             /*MG: Generating a regular expression string with the current modification
                  * symbols to check if the peptide string from the user is a valid peptide string.
                  * if its not, giving feedback to user and returning out*/
-            string modificationListWithSlashes = "";
-            foreach (string s in m_fragLadder.fragmentLadderOptions.modificationList)
+            string escapedModList = "";
+            foreach (char c in m_fragLadder.fragmentLadderOptions.modificationList.Keys)
             {
-                modificationListWithSlashes += "\\" + s[0];
+                // Characters that must be escaped: \[^$.|?*+(){}
+                if ("\\[^$.|?*+(){}".Contains(c))
+                {
+                    escapedModList += "\\" + c;
+                }
+                else
+                {
+                    escapedModList += c;
+                }
             }
-            string spattern = "^([A-Z]{1,}[" + modificationListWithSlashes + "]{0,1})*[^" + modificationListWithSlashes + "]$";
+            // One or more characters, A-Z, which may be followed by a valid modification symbol, that does not end with a modification symbol be itself?
+            // The escaping of all symbols is likely a problem.
+            //string spattern = "^([A-Z]{1,}[" + escapedModList + "]{0,1})*[^" + escapedModList + "]$";
+            // Match any set of one or more groups of "character a-z followed by 0-2 valid modification symbols"
+            string spattern = "^([A-Z][" + escapedModList + "]{0,2})+$";
 
             if (!System.Text.RegularExpressions.Regex.IsMatch(Peptide, spattern) || Peptide.Length==1)
             {

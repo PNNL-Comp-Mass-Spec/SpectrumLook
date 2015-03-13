@@ -116,13 +116,9 @@ namespace SpectrumLook.Views
                 }
             }
 
-
-
             DataGridTable.ReadOnly = true;
             DataGridTable.AutoResizeColumns();
             DataGridTable.AllowUserToResizeColumns = true;
-
-
 
             for (int i = 0; i < ColNum; i++)
             {

@@ -29,7 +29,7 @@ namespace SpectrumLook.Views.FragmentLadderView
         /// <param name="theoryList">A list of elements that have been processed through the ComparedListBuilder.</param>
         /// <param name="peptide">The Peptide sequence that the List of Elements are generated from.</param>
         /// <returns></returns>
-        public LadderInstance GenerateInstance(List<SpectrumLook.Builders.Element> theoryList, string peptide, List<string> modifcationValues)
+        public LadderInstance GenerateInstance(List<SpectrumLook.Builders.Element> theoryList, string peptide, Dictionary<char, double> modificationValues)
         {
             int i = 0;
             List<string[]> tempListHolder = new List<string[]>();
@@ -42,7 +42,7 @@ namespace SpectrumLook.Views.FragmentLadderView
                 if (!(tempListColumnOptions.Contains(spliceNumberFromAnnotation(currentElement.annotation))))
                 {
                     //Need to filter out Modification values when calculating the length of the string.
-                    tempListHolder.Add(new string[peptideLength(peptide, modifcationValues)]);
+                    tempListHolder.Add(new string[peptideLength(peptide, modificationValues)]);
                     tempListColumnOptions.Add(spliceNumberFromAnnotation(currentElement.annotation));
                 }
                 //Find the index to add.
@@ -120,26 +120,17 @@ namespace SpectrumLook.Views.FragmentLadderView
             return currentAnnotationIndex;
         }
 
-        private int peptideLength(string peptide, List<string> modificationList)
+        private int peptideLength(string peptide, Dictionary<char, double> modificationList)
         {
             int count = 0;
-            for (int peptideStringIndex = 0; peptideStringIndex < peptide.Length; ++peptideStringIndex)
+            foreach (char c in peptide)
             {
-                char currentAminoAcid = peptide[peptideStringIndex];
-                if ((peptideStringIndex + 1) < peptide.Length)
+                if (modificationList.ContainsKey(c))
                 {
-                    foreach (string currentModification in modificationList)
-                    {
-                        if(currentModification.Contains(peptide[(peptideStringIndex+1)].ToString()))
-                        {
-                            --count;
-                        }
-                    }
+                    count++;
                 }
-                ++count;
             }
-
-            return count;
+            return peptide.Length - count;
         }
 
         #endregion

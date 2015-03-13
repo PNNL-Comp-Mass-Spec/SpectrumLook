@@ -139,10 +139,6 @@ namespace SpectrumLook.Views.FragmentLadderView
             // This is a counter for the list boxes.
             int listBoxCounter = 0;
 
-            // This will tell when a modification code has been added to
-            // the molecular weight calculator.
-            bool foundModCode = false;
-
             //this.columnCheckedListBox.Items.AddRange(currentListInstances[0].mzValueHeaders.ToArray());
             tabControl1.TabPages.Clear();
             tabControl1.Visible = false;
@@ -344,37 +340,18 @@ namespace SpectrumLook.Views.FragmentLadderView
                     tempListBox.BorderStyle = BorderStyle.None;
                     tempListBox.Click += new EventHandler(tempListBox_Click);
                     char[] peptide = currentInstance.PeptideString.ToCharArray();
-                    tempListBox.Items.Add((object)(" "));
+                    tempListBox.Items.Add(" ");
 
                     for (int peptideStringIndex = 0; peptideStringIndex < peptide.Length; ++peptideStringIndex)
                     {
-                        char aminoAcidCode = peptide[peptideStringIndex];
-                        if ((peptideStringIndex + 1) < peptide.Length)
+                        string aminoAcidCode = " " + peptide[peptideStringIndex];
+                        if ((peptideStringIndex + 1) < peptide.Length &&
+                            this.fragmentLadderOptions.modificationList.ContainsKey(peptide[(peptideStringIndex + 1)]))
                         {
-                            foreach (string currentModification in this.fragmentLadderOptions.modificationList)
-                            {
-                                try
-                                {
-                                    if (currentModification.Contains(peptide[(peptideStringIndex + 1)].ToString()))
-                                    {
-
-                                        tempListBox.Items.Add((object)(" " + aminoAcidCode.ToString() + peptide[(peptideStringIndex + 1)].ToString()));
-                                        foundModCode = true;
-                                        ++peptideStringIndex;
-
-                                    }
-                                }
-                                catch
-                                {
-
-                                }
-                            }
+                            aminoAcidCode += peptide[(peptideStringIndex + 1)];
+                            ++peptideStringIndex;
                         }
-                        if (foundModCode == false)
-                        {
-                            tempListBox.Items.Add((object)(" " + aminoAcidCode.ToString()));
-                        }
-                        foundModCode = false;
+                        tempListBox.Items.Add(aminoAcidCode);
                     }
 
                     if (!m_manager.m_mainForm.m_currentOptions.isPlotInMainForm)// m_fragmentLadderOptions.plotDetached)

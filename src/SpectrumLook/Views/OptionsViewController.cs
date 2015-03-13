@@ -18,6 +18,7 @@ namespace SpectrumLook.Views
         //11-12         Main
         //16-17         Frag Ladder
         //18            Main lower Tolerance Value
+        // TODO: THIS DOESN'T WORK FOR ANYTHING BUT PRIMITIVES (MAYBE FOR PRIMITIVES)
         private object[] m_valuesForCancel;
 
         private SpectrumLook.Views.PlotOptions m_plotOptions;
@@ -149,13 +150,13 @@ namespace SpectrumLook.Views
             //DATA VIEW
 
             //FRAGMENT LADDER
-            foreach (string tempString in this.m_fragLadderOptions.modificationList)
+            foreach (KeyValuePair<char, double> modPair in this.m_fragLadderOptions.modificationList)
             {
-                string[] splittedString = tempString.Split('|');
                 //"Symbol|Mass"
-                if (!fragModListBox.Items.Contains(splittedString[0] + "          " + splittedString[1]))
+                // TODO: CHANGE TO A BETTER BOX, LIKE MOLECULAR WEIGHT CALCULATOR
+                if (!fragModListBox.Items.Contains(modPair.Key + "          " + modPair.Value))
                 {
-                    fragModListBox.Items.Add(splittedString[0] + "          " + splittedString[1]);
+                    fragModListBox.Items.Add(modPair.Key + "          " + modPair.Value);
                 }
             }
         }
@@ -392,6 +393,7 @@ namespace SpectrumLook.Views
 
         #region FRAGMENT_LADDER_OPTIONS_EVENTS
 
+        // TODO: Actually use this
         private void fragModAddButton_Click(object sender, EventArgs e)
         {
             EditAddModification dialogBox = new EditAddModification(null, null);
@@ -399,13 +401,12 @@ namespace SpectrumLook.Views
 
             if (tmpResult == System.Windows.Forms.DialogResult.OK)
             {
-                List<string> tempModListHolder = m_fragLadderOptions.modificationList;
-                tempModListHolder.Add(dialogBox.modificationString + "|" + dialogBox.massString);
-                m_fragLadderOptions.modificationList = tempModListHolder;
+                m_fragLadderOptions.modificationList.Add(dialogBox.modificationString[0], double.Parse(dialogBox.massString));
                 fragModListBox.Items.Add(dialogBox.modificationString + "          " + dialogBox.massString);
             }
         }
 
+        // TODO: FIX THE LISTBOX, AND CLEAN THIS NASTY CODE UP
         private void fragModEditButton_Click(object sender, EventArgs e)
         {
             string stringToFind = (string)this.fragModListBox.SelectedItem;
@@ -435,15 +436,11 @@ namespace SpectrumLook.Views
                         backPart += stringToFind[stringIndex];
                 }
 
-                stringIndex = this.m_fragLadderOptions.modificationList.IndexOf(reformatString);
-
                 EditAddModification dialogBox = new EditAddModification(frontPart, backPart);
                 if ((dialogBox.ShowDialog()) == DialogResult.OK)
                 {
-                    List<string> modificationListHolder = this.m_fragLadderOptions.modificationList;
-                    modificationListHolder[stringIndex] = dialogBox.modificationString + "|" + dialogBox.massString;
+                    this.m_fragLadderOptions.modificationList[frontPart[0]] = double.Parse(dialogBox.massString);
                     fragModListBox.Items.Remove(stringToFind);
-                    this.m_fragLadderOptions.modificationList = modificationListHolder;
                     fragModListBox.Items.Add(dialogBox.modificationString + "          " + dialogBox.massString);
                 }
             }
@@ -452,17 +449,12 @@ namespace SpectrumLook.Views
         private void fragModRemoveButton_Click(object sender, EventArgs e)
         {
             string stringToFind = (string)this.fragModListBox.SelectedItem;
-            string[] splittedArray;
 
             if (stringToFind != null)
             {
                 this.fragModListBox.Items.Remove(stringToFind);
-                splittedArray = new string[1];
-                splittedArray[0] = " ";
-                splittedArray = stringToFind.Split(splittedArray, StringSplitOptions.RemoveEmptyEntries);
-                List<string> modificationListHolder = this.m_fragLadderOptions.modificationList;
-                modificationListHolder.Remove(splittedArray[0] + "|" + splittedArray[1]);
-                this.m_fragLadderOptions.modificationList = modificationListHolder;
+                // TODO: likely to fail, since I think a space is added first, then the symbol, then a bunch of spaces, then the value...
+                this.m_fragLadderOptions.modificationList.Remove(stringToFind[0]);
             }
         }
 
@@ -567,7 +559,7 @@ namespace SpectrumLook.Views
             //FRAGMENT LADDER
             if (m_valuesForCancel[16] != null)
             {
-                m_fragLadderOptions.modificationList = (List<string>)m_valuesForCancel[16];
+                m_fragLadderOptions.modificationList = (Dictionary<char, double>)m_valuesForCancel[16];
             }
 
             if (m_valuesForCancel[17] != null)
