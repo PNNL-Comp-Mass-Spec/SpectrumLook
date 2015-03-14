@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace SpectrumLook.Builders
 {
     public class MolecularWeightCalculator : ITheoryCalculator
     {
-
         public MolecularWeightCalculator(Dictionary<char, double> modificationList)
         {
             m_modificationList = modificationList;
@@ -51,9 +49,9 @@ namespace SpectrumLook.Builders
         /// This will take the input of a peptide sequence and a bool for the fragmentation mode (false = CID, true = ETD).
         /// </summary>
         /// <param name="peptide">This is the peptide sequence.</param>
-        /// <param name="fragmentationModeCID">True when the fragmentation mode is CID</param>
+        /// <param name="fragmentationModeETD">True when the fragmentation mode is CID</param>
         /// <returns>List of theoretical ions as key/value pairs (key is ion abbreviation, value is m/z value)</returns>
-        public List<KeyValuePair<string, double>> GetTheoreticalDataByPeptideSequence(string peptide, bool fragmentationModeCID)
+        public List<KeyValuePair<string, double>> GetTheoreticalDataByPeptideSequence(string peptide, bool fragmentationModeETD)
         {
 
             // Set the element mode
@@ -74,7 +72,7 @@ namespace SpectrumLook.Builders
 
             // Each label begins with "b", "y", "c", or "z"
             char modeString1;
-            if (fragmentationModeCID)
+            if (fragmentationModeETD)
             {
                 modeString1 = 'c';
                 udtFragSpectrumOptions.IonTypeOptions[(int)MwtWinDll.MWPeptideClass.itIonTypeConstants.itBIon].ShowIon = false;
@@ -92,6 +90,33 @@ namespace SpectrumLook.Builders
                 udtFragSpectrumOptions.IonTypeOptions[(int)MwtWinDll.MWPeptideClass.itIonTypeConstants.itZIon].ShowIon = false;
                 udtFragSpectrumOptions.IonTypeOptions[(int)MwtWinDll.MWPeptideClass.itIonTypeConstants.itAIon].ShowIon = false;
             }
+            
+            // MolecularWeightTool allowed modification symbols.
+            // 33	!
+            // 35	#
+            // 36	$
+            // 37	%
+            // 38	&
+            // 39	'
+            // 42	*
+            // 43	+
+            // 63	?
+            // 64	@
+            // 94	^
+            // 95	_
+            // 96	`
+            // 126	~
+            string allowedSymbols = "!#$%&'*+?@^_`~";
+            string usedSymbols = new string(m_modificationList.Keys.ToArray());
+            string availableSymbols = "";
+            foreach (char c in allowedSymbols)
+            {
+                if (!usedSymbols.Contains(c))
+                {
+                    availableSymbols += c;
+                }
+            }
+            Dictionary<char, char> badSymbolMap = new Dictionary<char, char>();
 
             //Add the modifications if needed.
             if (m_modificationList != null)
@@ -105,15 +130,29 @@ namespace SpectrumLook.Builders
                     int modResult = m_mMwtWin.Peptide.SetModificationSymbol(modPair.Key.ToString(), modPair.Value, indicatesPhospho,
                         modComment);
 
+                    if (modResult != 0) // A symbol that is not allowed, most likely
+                    {
+                        modResult = m_mMwtWin.Peptide.SetModificationSymbol(availableSymbols[0].ToString(), modPair.Value, indicatesPhospho,
+                        modComment);
+                        badSymbolMap.Add(modPair.Key, availableSymbols[0]); // Add it to the dictionary
+                        availableSymbols = availableSymbols.Substring(1); // Remove it from the available symbols.
+                    }
+
                     //if modresult = 0 symbol add is successful, useful spot for breakpoint
                     //modResult = modResult + 0;
                 }
             }
 
+            string peptideFix = peptide;
+            foreach (KeyValuePair<char, char> symfix in badSymbolMap)
+            {
+                peptideFix = peptideFix.Replace(symfix.Key, symfix.Value);
+            }
+
             // Obtain the fragmentation spectrum for a peptide
             // First define the peptide sequence
             // Need to pass "false" to parameter blnIs3LetterCode since "peptide" is in one-letter notation
-            m_mMwtWin.Peptide.SetSequence(peptide,
+            m_mMwtWin.Peptide.SetSequence(peptideFix,
                                         MwtWinDll.MWPeptideClass.ntgNTerminusGroupConstants.ntgHydrogen,
                                         MwtWinDll.MWPeptideClass.ctgCTerminusGroupConstants.ctgHydroxyl,
                                         false);
@@ -135,7 +174,7 @@ namespace SpectrumLook.Builders
             }
 
             // Obtain the list of ions
-            List<KeyValuePair<string, double>> theoryList = GetTheoryList(cleanPeptide, fragmentationModeCID, modeString1, udtFragSpectrum);
+            List<KeyValuePair<string, double>> theoryList = GetTheoryList(cleanPeptide, fragmentationModeETD, modeString1, udtFragSpectrum);
 
             return theoryList;
         }

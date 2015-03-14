@@ -16,7 +16,7 @@ namespace SpectrumLook.Builders
         /// <summary>
         /// A flag representing the fragmentation mode for the calculations (false = CID, true = ETD)
         /// </summary>
-        private bool m_fragmentationModeCID;
+        private bool m_fragmentationModeETD;
 
         /// <summary>
         /// The theory calculator that handles the brunt of calculating peptides
@@ -35,7 +35,7 @@ namespace SpectrumLook.Builders
         public TheoryListBuilder(string peptide, bool fragmentationModeCID, ITheoryCalculator theoryCalculator)
         {
             m_peptide = peptide;
-            m_fragmentationModeCID = fragmentationModeCID;
+            m_fragmentationModeETD = fragmentationModeCID;
             m_theoryCalculator = theoryCalculator;
         }
         
@@ -48,7 +48,7 @@ namespace SpectrumLook.Builders
         /// </summary>
         public override void BuildList()
         {
-            var theoreticalData = this.m_theoryCalculator.GetTheoreticalDataByPeptideSequence(m_peptide, m_fragmentationModeCID);
+            var theoreticalData = this.m_theoryCalculator.GetTheoreticalDataByPeptideSequence(m_peptide, m_fragmentationModeETD);
 
             ElementList = new List<Element>();
 

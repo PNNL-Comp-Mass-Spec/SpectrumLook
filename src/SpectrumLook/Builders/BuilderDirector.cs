@@ -117,9 +117,9 @@ namespace SpectrumLook.Builders
 
         #region TheoryList
 
-        public List<Element> BuildTheoryList(string peptide, bool fragmentationModeCID, Dictionary<char, double> modificationList)
+        public List<Element> BuildTheoryList(string peptide, bool fragmentationModeETD, Dictionary<char, double> modificationList)
         {
-            m_theoryBuilder = new TheoryListBuilder(peptide, fragmentationModeCID, new MolecularWeightCalculator(modificationList));
+            m_theoryBuilder = new TheoryListBuilder(peptide, fragmentationModeETD, new MolecularWeightCalculator(modificationList));
             
             m_theoryBuilder.BuildList();
 

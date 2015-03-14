@@ -19,7 +19,7 @@ namespace SpectrumLook.Builders
             DataRow row = null;
             DataTable dataTable = new DataTable("DataViewTable");
             string[] InLine;
-            InLine = synopsisParser.GetNextColumn();
+            InLine = synopsisParser.GetNextRow();
 
             //First GetNextColumn actually gets First Row. Getting Peptide/Scan indicies based off first row
             PeptideColumnIndex = GetPeptideStringColumnIndex(InLine);
@@ -43,7 +43,7 @@ namespace SpectrumLook.Builders
                         dataTable.Columns[i].ReadOnly = true;
                     }
                 }
-                InLine = synopsisParser.GetNextColumn();
+                InLine = synopsisParser.GetNextRow();
 
                 while (InLine != null)
                 {
@@ -51,7 +51,7 @@ namespace SpectrumLook.Builders
                     row.ItemArray = InLine;
                     dataTable.Rows.Add(row);
 
-                    InLine = synopsisParser.GetNextColumn();
+                    InLine = synopsisParser.GetNextRow();
                 }
             }
 

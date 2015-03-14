@@ -55,7 +55,15 @@ namespace SpectrumLook.Views
                 //ScanNumber and Peptide Need to be selected based off file type.
                 string Peptide = selectedRow.Cells[PetideStringColumn].Value.ToString();
                 string ScanNumber = selectedRow.Cells[ScanNumColumn].Value.ToString();
-                Peptide = Peptide.Substring(Peptide.IndexOf(".") + 1).Remove(Peptide.LastIndexOf(".") - 2); //we want what's inbetween the .'s
+                if (Peptide.IndexOf(".") > -1 && Peptide.IndexOf(".") < (Peptide.Length / 2))
+                {
+                    Peptide = Peptide.Substring(Peptide.IndexOf("."));
+                }
+                if (Peptide.LastIndexOf(".") >= (Peptide.Length/2))
+                {
+                    Peptide = Peptide.Substring(0, Peptide.LastIndexOf("."));
+                }
+                //Peptide = Peptide.Substring(Peptide.IndexOf(".") + 1).Remove(Peptide.LastIndexOf(".") - 2); //we want what's inbetween the .'s
                 m_manager.HandleSelectScanAndPeptide(ScanNumber, Peptide);
                 m_manager.FocusOnControl(DataGridTable);
                 m_manager.callcombobox();

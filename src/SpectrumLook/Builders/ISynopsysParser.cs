@@ -19,6 +19,6 @@ namespace SpectrumLook.Builders
         /// If there are no more rows to read the parser should return an empty string array.
         /// </summary>
         /// <returns></returns>
-        string[] GetNextColumn();
+        string[] GetNextRow();
     }
 }

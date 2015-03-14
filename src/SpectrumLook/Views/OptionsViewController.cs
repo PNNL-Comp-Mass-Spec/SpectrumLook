@@ -110,6 +110,7 @@ namespace SpectrumLook.Views
 
         public void SelectTab(string newTab)
         {
+            UpdateModList();
             if (newTab == "Plot Options")
             {
                 optionTabsPage.SelectTab(0);
@@ -150,6 +151,12 @@ namespace SpectrumLook.Views
             //DATA VIEW
 
             //FRAGMENT LADDER
+            UpdateModList();
+        }
+
+        public void UpdateModList()
+        {
+            fragModListBox.Items.Clear();
             foreach (KeyValuePair<char, double> modPair in this.m_fragLadderOptions.modificationList)
             {
                 //"Symbol|Mass"
@@ -705,7 +712,6 @@ namespace SpectrumLook.Views
 
         private void OptionsViewController_Load(object sender, EventArgs e)
         {
-
         }
 
         

@@ -54,6 +54,9 @@
     <Reference Include="MwtWinDll">
       <HintPath>..\..\lib\MwtWinDll.dll</HintPath>
     </Reference>
+    <Reference Include="PHRPReader">
+      <HintPath>..\..\lib\PHRPReader.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -80,8 +83,9 @@
     <Compile Include="Builders\Element.cs" />
     <Compile Include="Builders\ElementListBuilder.cs" />
     <Compile Include="Builders\MolecularWeightCalculator.cs" />
+    <Compile Include="Builders\PHRPReaderParser.cs" />
     <Compile Include="Builders\ThermoRawParser.cs" />
-    <Compile Include="HashtableXmlSerializer.cs" />
+    <Compile Include="LadderInstanceDictionaryXmlSerializer.cs" />
     <Compile Include="LadderInstance.cs" />
     <Compile Include="Builders\TheoryListBuilder.cs" />
     <Compile Include="Manager.cs" />

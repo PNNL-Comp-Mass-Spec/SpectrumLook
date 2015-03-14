@@ -76,7 +76,7 @@ namespace SpectrumLookTests
                                 //Copied straight from QC file.
             string[] actual;
 
-            actual = target.GetNextColumn();
+            actual = target.GetNextRow();
 
             foreach (string actualTmp in actual)
             {

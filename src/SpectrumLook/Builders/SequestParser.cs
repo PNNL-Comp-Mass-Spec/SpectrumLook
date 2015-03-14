@@ -121,7 +121,7 @@ namespace SpectrumLook.Builders
         /// connection between the synopsis file and the experiment file.
         /// </summary>
         /// <returns></returns>
-        string[] ISynopsysParser.GetNextColumn()
+        string[] ISynopsysParser.GetNextRow()
         {
             string currentLine = m_fileReader.ReadLine();
             if ((currentLine != null) && (currentLine != ""))
