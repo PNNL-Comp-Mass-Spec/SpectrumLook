@@ -66,6 +66,13 @@ namespace SpectrumLook.Views
 
             mainProfileFileLocationBox.Text = m_profileLocation;
 
+            this.dataGridViewModList.Columns.Add("symbol", "Symbol");
+            this.dataGridViewModList.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            this.dataGridViewModList.Columns.Add("mass", "Mass");
+            this.dataGridViewModList.RowHeadersVisible = false;
+            this.dataGridViewModList.Click += dataGridViewModList_Click;
+            this.dataGridViewModList.EditMode = DataGridViewEditMode.EditProgrammatically; // Disable manual edit
+
             this.UpdateOptions();
         }
 
@@ -156,15 +163,10 @@ namespace SpectrumLook.Views
 
         public void UpdateModList()
         {
-            fragModListBox.Items.Clear();
+            dataGridViewModList.Rows.Clear();
             foreach (KeyValuePair<char, double> modPair in this.m_fragLadderOptions.modificationList)
             {
-                //"Symbol|Mass"
-                // TODO: CHANGE TO A BETTER BOX, LIKE MOLECULAR WEIGHT CALCULATOR
-                if (!fragModListBox.Items.Contains(modPair.Key + "          " + modPair.Value))
-                {
-                    fragModListBox.Items.Add(modPair.Key + "          " + modPair.Value);
-                }
+                dataGridViewModList.Rows.Add(new object[] {modPair.Key, modPair.Value});
             }
         }
 
@@ -400,73 +402,52 @@ namespace SpectrumLook.Views
 
         #region FRAGMENT_LADDER_OPTIONS_EVENTS
 
-        // TODO: Actually use this
-        private void fragModAddButton_Click(object sender, EventArgs e)
+        private void dataGridViewModList_Click(object sender, EventArgs e)
         {
-            EditAddModification dialogBox = new EditAddModification(null, null);
+            var selectedCell = dataGridViewModList.CurrentCell;
+            var row = selectedCell.RowIndex;
+            char? symbol = (char?)(dataGridViewModList.Rows[row].Cells[0].Value);
+            double? mass = (double?)(dataGridViewModList.Rows[row].Cells[1].Value);
+
+            // Configure values for and open a DialogBox for modifying modification data.
+            string strSymbol = symbol == null ? null : symbol.ToString();
+            string strMass = mass == null ? null : mass.ToString();
+            string usedSymbols = "";
+            foreach (DataGridViewRow rowData in dataGridViewModList.Rows)
+            {
+                if (rowData.Cells[0].Value != null)
+                {
+                    usedSymbols += rowData.Cells[0].Value.ToString();
+                }
+            }
+            EditAddModification dialogBox = new EditAddModification(strSymbol, strMass, usedSymbols);
             DialogResult tmpResult = dialogBox.ShowDialog();
 
-            if (tmpResult == System.Windows.Forms.DialogResult.OK)
+            // Only if they click OK do we perform any updating of the DataGridView.
+            if (tmpResult == DialogResult.OK)
             {
-                m_fragLadderOptions.modificationList.Add(dialogBox.modificationString[0], double.Parse(dialogBox.massString));
-                fragModListBox.Items.Add(dialogBox.modificationString + "          " + dialogBox.massString);
-            }
-        }
-
-        // TODO: FIX THE LISTBOX, AND CLEAN THIS NASTY CODE UP
-        private void fragModEditButton_Click(object sender, EventArgs e)
-        {
-            string stringToFind = (string)this.fragModListBox.SelectedItem;
-            string reformatString = "";
-            string frontPart = "";
-            string backPart = "";
-            bool foundspace = false;
-            int stringIndex = 0;
-
-            if (stringToFind != null)
-            {
-                for (stringIndex = 0; stringIndex < stringToFind.Length; ++stringIndex)
+                if (row == dataGridViewModList.RowCount - 1)
                 {
-                    if (stringToFind[stringIndex] == ' ')
-                    {
-                        if (!foundspace)
-                        {
-                            reformatString += "|";
-                            foundspace = true;
-                        }
-                        continue;
-                    }
-                    reformatString += stringToFind[stringIndex];
-                    if (!foundspace)
-                        frontPart += stringToFind[stringIndex];
-                    else
-                        backPart += stringToFind[stringIndex];
+                    dataGridViewModList.Rows.Add(new object[] { dialogBox.ModificationString[0], double.Parse(dialogBox.MassString) });
                 }
-
-                EditAddModification dialogBox = new EditAddModification(frontPart, backPart);
-                if ((dialogBox.ShowDialog()) == DialogResult.OK)
+                else if (string.IsNullOrWhiteSpace(dialogBox.ModificationString) ||
+                         string.IsNullOrWhiteSpace(dialogBox.MassString))
                 {
-                    this.m_fragLadderOptions.modificationList[frontPart[0]] = double.Parse(dialogBox.massString);
-                    fragModListBox.Items.Remove(stringToFind);
-                    fragModListBox.Items.Add(dialogBox.modificationString + "          " + dialogBox.massString);
+                    dataGridViewModList.Rows.RemoveAt(row);
                 }
-            }
-        }
-
-        private void fragModRemoveButton_Click(object sender, EventArgs e)
-        {
-            string stringToFind = (string)this.fragModListBox.SelectedItem;
-
-            if (stringToFind != null)
-            {
-                this.fragModListBox.Items.Remove(stringToFind);
-                // TODO: likely to fail, since I think a space is added first, then the symbol, then a bunch of spaces, then the value...
-                this.m_fragLadderOptions.modificationList.Remove(stringToFind[0]);
+                else
+                {
+                    dataGridViewModList.Rows[row].Cells[0].Value = dialogBox.ModificationString[0];
+                    dataGridViewModList.Rows[row].Cells[1].Value = double.Parse(dialogBox.MassString);
+                }
             }
         }
 
         #endregion
 
+        // TODO: Don't actually store any values to objects until this handler is called.
+        // TODO: This will remove all need for the "cancel button handler" "data restore" (that doesn't restore any data).
+        // TODO: This should be easily accomplished by populating all data accordingly when the dialog is opened, and then ONLY storing the data if/when "OK" is clicked.
         private void applyButton_Click(object sender, EventArgs e)
         {
             int i = 0;
@@ -474,6 +455,16 @@ namespace SpectrumLook.Views
             for (i = 0; i < m_numCancelOptions; ++i)
             {
                 m_valuesForCancel[i] = null;
+            }
+
+            // Finally modify the modification list.
+            m_fragLadderOptions.modificationList.Clear();
+            foreach (DataGridViewRow row in dataGridViewModList.Rows)
+            {
+                if (row.Cells[0].Value != null)
+                {
+                    m_fragLadderOptions.modificationList.Add((char)(row.Cells[0].Value), double.Parse(row.Cells[1].Value.ToString()));
+                }
             }
             // update fragment ladder so color changes will take effect
             m_fragLadder.regenerateLadderFromSelection();
@@ -564,10 +555,6 @@ namespace SpectrumLook.Views
             //DATA VIEW
 
             //FRAGMENT LADDER
-            if (m_valuesForCancel[16] != null)
-            {
-                m_fragLadderOptions.modificationList = (Dictionary<char, double>)m_valuesForCancel[16];
-            }
 
             if (m_valuesForCancel[17] != null)
             {
@@ -603,7 +590,6 @@ namespace SpectrumLook.Views
             //DATA VIEW
 
             //FRAGMENT LADDER
-            m_valuesForCancel[16] = m_fragLadderOptions.modificationList;
             m_valuesForCancel[17] = m_fragLadderOptions.checkedHeaders;
         }
 
@@ -713,10 +699,5 @@ namespace SpectrumLook.Views
         private void OptionsViewController_Load(object sender, EventArgs e)
         {
         }
-
-        
-
-        
-        
     }
 }

@@ -14,8 +14,6 @@ namespace SpectrumLookTests
     [TestClass()]
     public class ElementListBuilderTest
     {
-
-
         private TestContext testContextInstance;
 
         /// <summary>
@@ -83,10 +81,10 @@ namespace SpectrumLookTests
             Assert.Inconclusive("A method that does not return a value cannot be verified.");
         }
 
-        internal virtual ElementListBuilder_Accessor CreateElementListBuilder_Accessor()
+        internal virtual ElementListBuilder CreateElementListBuilder_Accessor()
         {
             // TODO: Instantiate an appropriate concrete class.
-            ElementListBuilder_Accessor target = null;
+            ElementListBuilder target = null;
             return target;
         }
 
@@ -94,15 +92,14 @@ namespace SpectrumLookTests
         ///A test for ElementList
         ///</summary>
         [TestMethod()]
-        [DeploymentItem("SpectrumLook.exe")]
         public void ElementListTest()
         {
-            PrivateObject param0 = null; // TODO: Initialize to an appropriate value
-            ElementListBuilder_Accessor target = new ElementListBuilder_Accessor(param0); // TODO: Initialize to an appropriate value
+            //PrivateObject param0 = null; // TODO: Initialize to an appropriate value
+            //ElementListBuilder target = new ElementListBuilder(param0); // TODO: Initialize to an appropriate value
             List<Element> expected = null; // TODO: Initialize to an appropriate value
-            List<Element> actual;
-            target.ElementList = expected;
-            actual = target.ElementList;
+            List<Element> actual = null;
+            //target.ElementList = expected;
+            //actual = target.ElementList;
             Assert.AreEqual(expected, actual);
             Assert.Inconclusive("Verify the correctness of this test method.");
         }

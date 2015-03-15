@@ -72,7 +72,6 @@ namespace SpectrumLookTests
             string fileLocation = "..\\..\\..\\TestData\\QC_Standards_Excerpt.mzXML";
             IExperimentParser target = new MzParser(fileLocation);
             int scanNum = 7382;
-            string[] actual;
             List<Element> actual = target.GetExperimentDataByScanNumber(scanNum);
             Assert.AreEqual<int>(528, actual.Count ,"Length of output is unexpected, is there new test data?");
         }

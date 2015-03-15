@@ -281,7 +281,7 @@ namespace SpectrumLook
             string spattern = "([A-Z][" + escapedModList + "]{0,5})+";
             // This test will always be evaluate to 'not false' whenever there are lowercase characters or symbols that are not in the modification list,
             // or if the peptide begins with a modification symbol.
-            // TODO: can a peptide begin with a modification symbol?
+            // TODO: can a peptide begin with a modification symbol? (Not with any software Matt Monroe has written/uses - put mod after first amino acid)
             if (!System.Text.RegularExpressions.Regex.IsMatch(Peptide, "^" + spattern + "$"))
             {
                 // Get a string with all invalid characters

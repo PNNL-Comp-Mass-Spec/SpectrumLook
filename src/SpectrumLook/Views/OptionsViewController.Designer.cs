@@ -62,10 +62,8 @@
             this.plotShowLegend = new System.Windows.Forms.CheckBox();
             this.optionTabsPage = new System.Windows.Forms.TabControl();
             this.fragLadderTab = new System.Windows.Forms.TabPage();
+            this.dataGridViewModList = new System.Windows.Forms.DataGridView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.fragModRemoveButton = new System.Windows.Forms.Button();
-            this.fragModEditButton = new System.Windows.Forms.Button();
-            this.fragModListBox = new System.Windows.Forms.ListBox();
             this.MainOptionsView = new System.Windows.Forms.TabPage();
             this.mainDataPropertiesGroup = new System.Windows.Forms.GroupBox();
             this.mainUnmatchColorChangeButton = new System.Windows.Forms.Button();
@@ -451,45 +449,23 @@
             this.fragLadderTab.Text = "Fragment Ladder Options";
             this.fragLadderTab.UseVisualStyleBackColor = true;
             // 
+            // dataGridViewModList
+            // 
+            this.dataGridViewModList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewModList.Location = new System.Drawing.Point(6, 19);
+            this.dataGridViewModList.Name = "dataGridViewModList";
+            this.dataGridViewModList.Size = new System.Drawing.Size(191, 345);
+            this.dataGridViewModList.TabIndex = 1;
+            // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.fragModRemoveButton);
-            this.groupBox1.Controls.Add(this.fragModEditButton);
-            this.groupBox1.Controls.Add(this.fragModListBox);
+            this.groupBox1.Controls.Add(this.dataGridViewModList);
             this.groupBox1.Location = new System.Drawing.Point(4, 4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(203, 370);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Modifications";
-            // 
-            // fragModRemoveButton
-            // 
-            this.fragModRemoveButton.Location = new System.Drawing.Point(7, 341);
-            this.fragModRemoveButton.Name = "fragModRemoveButton";
-            this.fragModRemoveButton.Size = new System.Drawing.Size(81, 23);
-            this.fragModRemoveButton.TabIndex = 1;
-            this.fragModRemoveButton.Text = "Remove";
-            this.fragModRemoveButton.UseVisualStyleBackColor = true;
-            this.fragModRemoveButton.Click += new System.EventHandler(this.fragModRemoveButton_Click);
-            // 
-            // fragModEditButton
-            // 
-            this.fragModEditButton.Location = new System.Drawing.Point(106, 341);
-            this.fragModEditButton.Name = "fragModEditButton";
-            this.fragModEditButton.Size = new System.Drawing.Size(91, 23);
-            this.fragModEditButton.TabIndex = 2;
-            this.fragModEditButton.Text = "Edit";
-            this.fragModEditButton.UseVisualStyleBackColor = true;
-            this.fragModEditButton.Click += new System.EventHandler(this.fragModEditButton_Click);
-            // 
-            // fragModListBox
-            // 
-            this.fragModListBox.FormattingEnabled = true;
-            this.fragModListBox.Location = new System.Drawing.Point(7, 20);
-            this.fragModListBox.Name = "fragModListBox";
-            this.fragModListBox.Size = new System.Drawing.Size(190, 316);
-            this.fragModListBox.TabIndex = 0;
             // 
             // MainOptionsView
             // 
@@ -748,12 +724,10 @@
         private System.Windows.Forms.TextBox plotNumberOfPlotsTextBox;
         private System.Windows.Forms.TabPage fragLadderTab;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Button fragModRemoveButton;
-        private System.Windows.Forms.Button fragModEditButton;
-        private System.Windows.Forms.ListBox fragModListBox;
         private System.Windows.Forms.GroupBox mainWindowOptionsGroup;
         private System.Windows.Forms.CheckBox mainDetachPlotCheckBox;
         private System.Windows.Forms.TextBox lowerMatchingToleranceBox;
         private System.Windows.Forms.Label lowerMatchingToleranceLabel;
+        private System.Windows.Forms.DataGridView dataGridViewModList;
     }
 }

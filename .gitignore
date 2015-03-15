@@ -1,3 +1,5 @@
 Installers
 src/*/bin/
 src/*/obj/
+*.suo
+*.user
