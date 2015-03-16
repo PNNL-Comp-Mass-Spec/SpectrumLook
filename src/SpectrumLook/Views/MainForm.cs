@@ -309,7 +309,7 @@ namespace SpectrumLook.Views
 
         private void batchSaveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (m_manager.m_isSynopsisLoaded)
+            if (m_manager.SynopsisLoaded)
             {
                 BatchSaveForm batchSaveForm = new BatchSaveForm(m_manager);
                 batchSaveForm.Show();

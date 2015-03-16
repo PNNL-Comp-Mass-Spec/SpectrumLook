@@ -1,4 +1,4 @@
-﻿// TEST CHECKOUT
+// TEST CHECKOUT
 
 // RYAN YOUR SOLUTION TO DISCUSS WITH THE GROUP IS IN FragmentLadderView.cs at the bottom
 
@@ -78,7 +78,7 @@ namespace SpectrumLook
             bool createFileFlag = false;
 
             // check to see if data is loaded
-            m_data_loaded = false;
+            DataLoaded = false;
 
             /*********************This is to read the UserProfile for spectrumLook**********************/
             try
@@ -169,11 +169,21 @@ namespace SpectrumLook
 
         #region CALLBACK FUCNTIONS
 
-        public bool m_isSynopsisLoaded;
-        public bool m_data_loaded;
+        public bool SynopsisLoaded { get; private set; }
+        public bool DataLoaded { get; private set; }
+        public string DataFileName = string.Empty;
+        private string m_dataFileDirectory = string.Empty;
+        private string m_dataFileLocation
+        {
+            get { return Path.Combine(m_dataFileDirectory, DataFileName); }
+            set
+            {
+                m_dataFileDirectory = Path.GetDirectoryName(value);
+                DataFileName = Path.GetFileName(value);
+            }
+        }
         private int m_currentScanNumber;
         private string m_currentPeptide;
-        private string m_dataFileLocation;
         private string m_synopsisFileLocation;
         private bool m_isFragmentationModeETD = false;
         private List<Element> m_experimentalList;
@@ -203,18 +213,19 @@ namespace SpectrumLook
                     try
                     {
                         int PeptideCol = 0, ScanCol = 0;
+                        int DatasetCol = -1;
                         // New code, uses PHRPReader
                         PHRPReaderParser reader = new PHRPReaderParser(m_synopsisFileLocation, m_fragLadder.fragmentLadderOptions);
-                        m_dataView.SetDataTable(DataBuilder.GetDataTable(reader, ref PeptideCol, ref ScanCol));
+                        m_dataView.SetDataTable(DataBuilder.GetDataTable(reader, ref PeptideCol, ref ScanCol, ref DatasetCol));
                         // Old code, doesn't use PHRPReader
                         //SequestParser sqParser = new SequestParser(m_synopsisFileLocation);
                         //m_dataView.SetDataTable(DataBuilder.GetDataTable(sqParser, ref PeptideCol, ref ScanCol));
-                        m_dataView.SetScanIndexAndPeptideIndex(PeptideCol, ScanCol);
-                        m_isSynopsisLoaded = true;
+                        m_dataView.SetScanIndexAndPeptideIndex(PeptideCol, ScanCol, DatasetCol);
+                        SynopsisLoaded = true;
                     }
                     catch (Exception ex)
                     {
-                        m_isSynopsisLoaded = false;
+                        SynopsisLoaded = false;
                         MessageBox.Show("There was an error opening the Synopsis file, are you sure you picked the right file?\n\n" + ex.Message + "\n\nStack Trace:\n" + ex.StackTrace, 
                             "Synopsis open Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
@@ -369,7 +380,7 @@ namespace SpectrumLook
         /// <param name="Peptide">The peptide sequence.</param>
         public void HandleSelectScanAndPeptide(string ScanNumber, string Peptide)
         {
-            m_data_loaded = true;
+            DataLoaded = true;
             try
             {
                 SpectrumLook.Views.FragmentLadderView.LadderInstanceBuilder ladderBuilder = new Views.FragmentLadderView.LadderInstanceBuilder();
@@ -605,13 +616,17 @@ namespace SpectrumLook
             updateLabelCallback("Starting Batch Save...");
             m_batchSaveCounter = 0;
 
-            foreach (Tuple<string, string> row in m_dataView.GetPeptidesAndScansInGrid(useScansInGrid))
+            foreach (Tuple<string, string, string> row in m_dataView.GetPeptidesAndScansInGrid(useScansInGrid))
             {
                 if (!cancelSearch)
                 {
                     string nextFileName = createNextFileName(baseName, usePeptideAndScanName, row.Item1, row.Item2) + saveType;
                     updateLabelCallback("Saving \"" + nextFileName + "\"");
 
+                    if (!string.IsNullOrWhiteSpace(row.Item3))
+                    {
+                        DataFileName = row.Item3;
+                    }
                     this.HandleSelectScanAndPeptide(row.Item2, row.Item1);
                     m_plot.SavePlotImageAs(directory + "\\" + nextFileName);
                 }

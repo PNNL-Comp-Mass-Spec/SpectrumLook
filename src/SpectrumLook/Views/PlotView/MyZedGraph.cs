@@ -376,7 +376,7 @@ namespace SpectrumLook.Views
         /// <param name="newState"></param>
         void MyZedGraph_ZoomEvent(ZedGraphControl sender, ZoomState oldState, ZoomState newState)
         {
-            if (m_manager.m_data_loaded == true)
+            if (m_manager.DataLoaded == true)
             {
                 ReevaluateAnnotations();
             }
@@ -860,7 +860,7 @@ namespace SpectrumLook.Views
             {
                 if (e.Button == System.Windows.Forms.MouseButtons.Right)
                 {
-                    if (m_manager.m_data_loaded == true)
+                    if (m_manager.DataLoaded == true)
                     {
                         HandleZoomOut();
                     }

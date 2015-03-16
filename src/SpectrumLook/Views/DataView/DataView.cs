@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -25,6 +25,7 @@ namespace SpectrumLook.Views
         private ContextMenu Menu = new ContextMenu();
         private int ScanNumColumn;
         private int PetideStringColumn;
+        private int DatasetColumn = -1;
 
         public DataView(Manager manager)
         {
@@ -55,16 +56,17 @@ namespace SpectrumLook.Views
                 //ScanNumber and Peptide Need to be selected based off file type.
                 string Peptide = selectedRow.Cells[PetideStringColumn].Value.ToString();
                 string ScanNumber = selectedRow.Cells[ScanNumColumn].Value.ToString();
-                if (Peptide.IndexOf(".") > -1 && Peptide.IndexOf(".") < (Peptide.Length / 2))
+                if (DatasetColumn != -1)
                 {
-                    Peptide = Peptide.Substring(Peptide.IndexOf("."));
+                    m_manager.DataFileName = selectedRow.Cells[DatasetColumn].Value.ToString();
                 }
-                if (Peptide.LastIndexOf(".") >= (Peptide.Length/2))
-                {
-                    Peptide = Peptide.Substring(0, Peptide.LastIndexOf("."));
-                }
-                //Peptide = Peptide.Substring(Peptide.IndexOf(".") + 1).Remove(Peptide.LastIndexOf(".") - 2); //we want what's inbetween the .'s
-                m_manager.HandleSelectScanAndPeptide(ScanNumber, Peptide);
+
+                string sequence;
+                string prefix;
+                string suffix;
+                PHRPReader.clsPeptideCleavageStateCalculator.SplitPrefixAndSuffixFromSequence(Peptide, out sequence, out prefix, out suffix);
+
+                m_manager.HandleSelectScanAndPeptide(ScanNumber, sequence);
                 m_manager.FocusOnControl(DataGridTable);
                 m_manager.callcombobox();
             }
@@ -86,10 +88,11 @@ namespace SpectrumLook.Views
             shouldStop = true;
         }
 
-        public void SetScanIndexAndPeptideIndex(int peptideIndex, int scanIndex)
+        public void SetScanIndexAndPeptideIndex(int peptideIndex, int scanIndex, int datasetIndex = -1)
         {
             ScanNumColumn = scanIndex;
             PetideStringColumn = peptideIndex;
+            DatasetColumn = datasetIndex;
         }
 
         public void SetDataTable(DataTable newTable)
@@ -689,21 +692,26 @@ namespace SpectrumLook.Views
 
 
 
-        public List<Tuple<string, string>> GetPeptidesAndScansInGrid(bool useOnlyVisible)
+        public List<Tuple<string, string, string>> GetPeptidesAndScansInGrid(bool useOnlyVisible)
         {
-            List<Tuple<string, string>> peptidesAndScans = new List<Tuple<string,string>>();
+            List<Tuple<string, string, string>> peptidesAndScans = new List<Tuple<string,string, string>>();
 
             //calculate the indexes for scan numbers and peptides
             int scanNumIndex = 0, peptideIndex = 0;
+            int datasetIndex = -1;
             for (int i = 0; i < ColNum; i++)
             {
-                if (DataGridTable.Columns[i].HeaderText.ToLower().Contains("scannum"))
+                if (DataGridTable.Columns[i].HeaderText.ToLower().Contains("scan"))
                 {
                     scanNumIndex = i;
                 }
                 if (DataGridTable.Columns[i].HeaderText.ToLower().Contains("peptide"))
                 {
                     peptideIndex = i;
+                }
+                if (DataGridTable.Columns[i].HeaderText.ToLower().Contains("dataset"))
+                {
+                    datasetIndex = i;
                 }
             }
 
@@ -714,14 +722,15 @@ namespace SpectrumLook.Views
                 {
                     string scanNumber = row.Cells[scanNumIndex].Value.ToString();
                     string peptide = row.Cells[peptideIndex].Value.ToString();
-                    
-                    try
-                    {
-                       peptide = peptide.Split(".".ToCharArray())[1];
-                    }
-                    catch { }
+                    string dataset = datasetIndex != -1 ? row.Cells[datasetIndex].Value.ToString() : null;
 
-                    peptidesAndScans.Add(new Tuple<string, string>(peptide, scanNumber));
+                    string sequence;
+                    string prefix;
+                    string suffix;
+                    PHRPReader.clsPeptideCleavageStateCalculator.SplitPrefixAndSuffixFromSequence(peptide, out sequence,
+                        out prefix, out suffix);
+
+                    peptidesAndScans.Add(new Tuple<string, string, string>(sequence, scanNumber, dataset));
                 }
             }
 
@@ -730,7 +739,7 @@ namespace SpectrumLook.Views
 
         private void DataGridTable_SelectionChanged(object sender, EventArgs e)
         {
-            if (m_manager.m_data_loaded == true)
+            if (m_manager.DataLoaded == true)
             {
                 HandleRowSelection();
             }
@@ -738,7 +747,7 @@ namespace SpectrumLook.Views
 
         private void DataGridTable_Click(object sender, EventArgs e)
         {
-            if (m_manager.m_data_loaded == false)
+            if (m_manager.DataLoaded == false)
             {
                 HandleRowSelection();
             }
