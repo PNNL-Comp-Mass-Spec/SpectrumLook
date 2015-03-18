@@ -36,7 +36,7 @@
             this.saveWorkStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openWorkStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.batchSaveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.savePlotsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -81,7 +81,7 @@
             this.saveWorkStripMenuItem,
             this.openWorkStripMenuItem,
             this.toolStripSeparator2,
-            this.batchSaveToolStripMenuItem,
+            this.savePlotsToolStripMenuItem,
             this.toolStripSeparator3,
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
@@ -125,11 +125,11 @@
             // 
             // batchSaveToolStripMenuItem
             // 
-            this.batchSaveToolStripMenuItem.Name = "batchSaveToolStripMenuItem";
-            this.batchSaveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.B)));
-            this.batchSaveToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
-            this.batchSaveToolStripMenuItem.Text = "&Batch Save";
-            this.batchSaveToolStripMenuItem.Click += new System.EventHandler(this.batchSaveToolStripMenuItem_Click);
+            this.savePlotsToolStripMenuItem.Name = "savePlotsToolStripMenuItem";
+            this.savePlotsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.P)));
+            this.savePlotsToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
+            this.savePlotsToolStripMenuItem.Text = "Save &Plot(s)";
+            this.savePlotsToolStripMenuItem.Click += new System.EventHandler(this.SavePlotsToolStripMenuItem_Click);
             // 
             // toolStripSeparator3
             // 
@@ -314,7 +314,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem fragLadderStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem plotStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem batchSaveToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem savePlotsToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
     }
 }

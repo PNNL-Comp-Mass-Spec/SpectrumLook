@@ -44,13 +44,22 @@ namespace SpectrumLook
                 string startDirectory = BaseFolderTextBox.Text;
                 string baseName = BaseName.Text;
                 string saveType = TypeComboBox.Text;
-                bool saveOnlyInGrid = SaveGridRadioButton.Checked;
-                bool usePeptideAndScanName = UsePeptideAndScanRadioButton.Checked;
 
-                m_manager.m_mainForm.Visible = false;
-                m_manager.HandleBatchSave(startDirectory, baseName, saveType,
-                    saveOnlyInGrid, usePeptideAndScanName, UpdateStatusLabel, ref cancelSearch);
-                m_manager.m_mainForm.Visible = true;
+                if (SaveCurrentRadioButton.Checked)
+                {
+                    m_manager.HandlePlotSave(startDirectory, baseName, saveType);
+                }
+                else
+                {
+                    bool saveOnlyInGrid = SaveGridRadioButton.Checked;
+                    bool usePeptideAndScanName = UsePeptideAndScanRadioButton.Checked;
+                    bool addDatasetName = AddDatasetNameCheckbox.Checked;
+
+                    m_manager.m_mainForm.Visible = false;
+                    m_manager.HandleBatchSave(startDirectory, baseName, saveType,
+                        saveOnlyInGrid, usePeptideAndScanName, addDatasetName, UpdateStatusLabel, ref cancelSearch);
+                    m_manager.m_mainForm.Visible = true;
+                }
 
                 Close();
             }
@@ -124,7 +133,7 @@ namespace SpectrumLook
             success &= Directory.Exists(BaseFolderTextBox.Text);
             success &= !string.IsNullOrEmpty(BaseName.Text);
             success &= !string.IsNullOrEmpty(TypeComboBox.Text);
-            success &= SaveAllRadioButton.Checked || SaveGridRadioButton.Checked;
+            success &= SaveAllRadioButton.Checked || SaveGridRadioButton.Checked || SaveCurrentRadioButton.Checked;
 
             return success;
         }

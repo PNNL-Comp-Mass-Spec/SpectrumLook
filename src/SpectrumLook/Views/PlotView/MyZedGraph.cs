@@ -629,14 +629,16 @@ namespace SpectrumLook.Views
                 myPaneT.Y2Axis.MinSpace = 20;
 
 
-                ////generate the lines
+                // generate the lines
+                // Keep the matched points in front by drawing them first.
+                OHLCBarItem matchedCurve = myPaneT.AddOHLCBar(matchedCurveName, matchedPointsSection[j], m_options.matchedColor);
+                matchedCurve.Bar.Width = 2;
+                AddAnnotations(matchedCurve.Points, myPaneT);
                 if (!m_options.hideUnmatched)
                 {
                     OHLCBarItem unmatchedCurve = myPaneT.AddOHLCBar(unmatchedCurveName, unmatchedPointsSection[j], m_options.unmatchedColor);
                     AddAnnotations(unmatchedCurve.Points, myPaneT);
                 }
-                OHLCBarItem matchedCurve = myPaneT.AddOHLCBar(matchedCurveName, matchedPointsSection[j], m_options.matchedColor);
-                AddAnnotations(matchedCurve.Points, myPaneT);
 
                 // Add the GraphPane to the MasterPane.PaneList
                 master.Add(myPaneT);

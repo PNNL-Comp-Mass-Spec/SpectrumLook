@@ -611,7 +611,7 @@ namespace SpectrumLook
         /// <summary>
         /// Handles A batch save
         /// </summary>
-        public void HandleBatchSave(string directory, string baseName, string saveType, bool useScansInGrid, bool usePeptideAndScanName, UpdateLabelDelegate updateLabelCallback, ref bool cancelSearch)
+        public void HandleBatchSave(string directory, string baseName, string saveType, bool useScansInGrid, bool usePeptideAndScanName, bool addDatasetName, UpdateLabelDelegate updateLabelCallback, ref bool cancelSearch)
         {
             updateLabelCallback("Starting Batch Save...");
             m_batchSaveCounter = 0;
@@ -620,21 +620,33 @@ namespace SpectrumLook
             {
                 if (!cancelSearch)
                 {
-                    string nextFileName = createNextFileName(baseName, usePeptideAndScanName, row.Item1, row.Item2) + saveType;
-                    updateLabelCallback("Saving \"" + nextFileName + "\"");
-
+                    string nextFilebase = baseName;
                     if (!string.IsNullOrWhiteSpace(row.Item3))
                     {
                         DataFileName = row.Item3;
+                        if (addDatasetName)
+                        {
+                            nextFilebase += "_" + Path.GetFileNameWithoutExtension(row.Item3);
+                        }
                     }
+                    string nextFileName = createNextFileName(nextFilebase, usePeptideAndScanName, row.Item1, row.Item2) + saveType;
+                    updateLabelCallback("Saving \"" + nextFileName + "\"");
+
                     this.HandleSelectScanAndPeptide(row.Item2, row.Item1);
-                    m_plot.SavePlotImageAs(directory + "\\" + nextFileName);
+                    m_plot.SavePlotImageAs(Path.Combine(directory, nextFileName));
                 }
             }
 
             updateLabelCallback("Finished Batch Save");
         }
 
+        /// <summary>
+        /// Handles a plot save
+        /// </summary>
+        public void HandlePlotSave(string directory, string fileName, string saveType)
+        {
+            m_plot.SavePlotImageAs(Path.Combine(directory, fileName + saveType));
+        }
 
         /// <summary>
         /// Generates a new filename to use based off of the users options and the information used in the plot

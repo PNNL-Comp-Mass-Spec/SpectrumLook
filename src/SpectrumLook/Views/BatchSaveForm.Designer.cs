@@ -49,6 +49,8 @@
             this.UsePeptideAndScanRadioButton = new System.Windows.Forms.RadioButton();
             this.UseIndexRadioButton = new System.Windows.Forms.RadioButton();
             this.NamingGroupBox = new System.Windows.Forms.GroupBox();
+            this.SaveCurrentRadioButton = new System.Windows.Forms.RadioButton();
+            this.AddDatasetNameCheckbox = new System.Windows.Forms.CheckBox();
             this.InfoGroupBox.SuspendLayout();
             this.OptionsGroupBox.SuspendLayout();
             this.NamingGroupBox.SuspendLayout();
@@ -57,7 +59,7 @@
             // SaveButton
             // 
             this.SaveButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.SaveButton.Location = new System.Drawing.Point(219, 273);
+            this.SaveButton.Location = new System.Drawing.Point(246, 282);
             this.SaveButton.Name = "SaveButton";
             this.SaveButton.Size = new System.Drawing.Size(75, 23);
             this.SaveButton.TabIndex = 0;
@@ -68,7 +70,7 @@
             // TypeComboBox
             // 
             this.TypeComboBox.FormattingEnabled = true;
-            this.TypeComboBox.Location = new System.Drawing.Point(261, 99);
+            this.TypeComboBox.Location = new System.Drawing.Point(296, 99);
             this.TypeComboBox.Name = "TypeComboBox";
             this.TypeComboBox.Size = new System.Drawing.Size(89, 21);
             this.TypeComboBox.TabIndex = 1;
@@ -88,7 +90,7 @@
             this.BaseFolderTextBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.FileSystem;
             this.BaseFolderTextBox.Location = new System.Drawing.Point(63, 47);
             this.BaseFolderTextBox.Name = "BaseFolderTextBox";
-            this.BaseFolderTextBox.Size = new System.Drawing.Size(242, 20);
+            this.BaseFolderTextBox.Size = new System.Drawing.Size(276, 20);
             this.BaseFolderTextBox.TabIndex = 3;
             // 
             // TypeLabel
@@ -113,7 +115,7 @@
             // 
             this.BaseName.Location = new System.Drawing.Point(165, 73);
             this.BaseName.Name = "BaseName";
-            this.BaseName.Size = new System.Drawing.Size(185, 20);
+            this.BaseName.Size = new System.Drawing.Size(219, 20);
             this.BaseName.TabIndex = 6;
             // 
             // InfoGroupBox
@@ -127,7 +129,7 @@
             this.InfoGroupBox.Controls.Add(this.BaseNameLabel);
             this.InfoGroupBox.Location = new System.Drawing.Point(12, 12);
             this.InfoGroupBox.Name = "InfoGroupBox";
-            this.InfoGroupBox.Size = new System.Drawing.Size(363, 134);
+            this.InfoGroupBox.Size = new System.Drawing.Size(390, 134);
             this.InfoGroupBox.TabIndex = 7;
             this.InfoGroupBox.TabStop = false;
             this.InfoGroupBox.Text = "Base Info";
@@ -135,7 +137,7 @@
             // BrowseFolderButton
             // 
             this.BrowseFolderButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.BrowseFolderButton.Location = new System.Drawing.Point(311, 44);
+            this.BrowseFolderButton.Location = new System.Drawing.Point(345, 45);
             this.BrowseFolderButton.Name = "BrowseFolderButton";
             this.BrowseFolderButton.Size = new System.Drawing.Size(39, 23);
             this.BrowseFolderButton.TabIndex = 11;
@@ -145,11 +147,12 @@
             // 
             // OptionsGroupBox
             // 
+            this.OptionsGroupBox.Controls.Add(this.SaveCurrentRadioButton);
             this.OptionsGroupBox.Controls.Add(this.SaveGridRadioButton);
             this.OptionsGroupBox.Controls.Add(this.SaveAllRadioButton);
-            this.OptionsGroupBox.Location = new System.Drawing.Point(212, 152);
+            this.OptionsGroupBox.Location = new System.Drawing.Point(239, 152);
             this.OptionsGroupBox.Name = "OptionsGroupBox";
-            this.OptionsGroupBox.Size = new System.Drawing.Size(163, 75);
+            this.OptionsGroupBox.Size = new System.Drawing.Size(163, 88);
             this.OptionsGroupBox.TabIndex = 8;
             this.OptionsGroupBox.TabStop = false;
             this.OptionsGroupBox.Text = "Options";
@@ -179,7 +182,7 @@
             // CancelBatchSaveButton
             // 
             this.CancelBatchSaveButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.CancelBatchSaveButton.Location = new System.Drawing.Point(300, 273);
+            this.CancelBatchSaveButton.Location = new System.Drawing.Point(327, 282);
             this.CancelBatchSaveButton.Name = "CancelBatchSaveButton";
             this.CancelBatchSaveButton.Size = new System.Drawing.Size(75, 23);
             this.CancelBatchSaveButton.TabIndex = 9;
@@ -190,7 +193,7 @@
             // StatusLabel
             // 
             this.StatusLabel.AutoSize = true;
-            this.StatusLabel.Location = new System.Drawing.Point(9, 250);
+            this.StatusLabel.Location = new System.Drawing.Point(17, 254);
             this.StatusLabel.Name = "StatusLabel";
             this.StatusLabel.Size = new System.Drawing.Size(63, 13);
             this.StatusLabel.TabIndex = 10;
@@ -220,20 +223,43 @@
             // 
             // NamingGroupBox
             // 
+            this.NamingGroupBox.Controls.Add(this.AddDatasetNameCheckbox);
             this.NamingGroupBox.Controls.Add(this.UsePeptideAndScanRadioButton);
             this.NamingGroupBox.Controls.Add(this.UseIndexRadioButton);
             this.NamingGroupBox.Location = new System.Drawing.Point(12, 152);
             this.NamingGroupBox.Name = "NamingGroupBox";
-            this.NamingGroupBox.Size = new System.Drawing.Size(194, 75);
+            this.NamingGroupBox.Size = new System.Drawing.Size(221, 88);
             this.NamingGroupBox.TabIndex = 11;
             this.NamingGroupBox.TabStop = false;
             this.NamingGroupBox.Text = "Unique file Name Identifiers";
+            // 
+            // SaveCurrentRadioButton
+            // 
+            this.SaveCurrentRadioButton.AutoSize = true;
+            this.SaveCurrentRadioButton.Location = new System.Drawing.Point(6, 65);
+            this.SaveCurrentRadioButton.Name = "SaveCurrentRadioButton";
+            this.SaveCurrentRadioButton.Size = new System.Drawing.Size(139, 17);
+            this.SaveCurrentRadioButton.TabIndex = 4;
+            this.SaveCurrentRadioButton.TabStop = true;
+            this.SaveCurrentRadioButton.Text = "Save Only Current Scan";
+            this.SaveCurrentRadioButton.UseMnemonic = false;
+            this.SaveCurrentRadioButton.UseVisualStyleBackColor = true;
+            // 
+            // AddDatasetNameCheckbox
+            // 
+            this.AddDatasetNameCheckbox.AutoSize = true;
+            this.AddDatasetNameCheckbox.Location = new System.Drawing.Point(6, 66);
+            this.AddDatasetNameCheckbox.Name = "AddDatasetNameCheckbox";
+            this.AddDatasetNameCheckbox.Size = new System.Drawing.Size(205, 17);
+            this.AddDatasetNameCheckbox.TabIndex = 6;
+            this.AddDatasetNameCheckbox.Text = "Add Dataset Name (Combined results)";
+            this.AddDatasetNameCheckbox.UseVisualStyleBackColor = true;
             // 
             // BatchSaveForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(379, 308);
+            this.ClientSize = new System.Drawing.Size(409, 311);
             this.Controls.Add(this.NamingGroupBox);
             this.Controls.Add(this.StatusLabel);
             this.Controls.Add(this.CancelBatchSaveButton);
@@ -278,5 +304,7 @@
         private System.Windows.Forms.RadioButton UsePeptideAndScanRadioButton;
         private System.Windows.Forms.RadioButton UseIndexRadioButton;
         private System.Windows.Forms.GroupBox NamingGroupBox;
+        private System.Windows.Forms.RadioButton SaveCurrentRadioButton;
+        private System.Windows.Forms.CheckBox AddDatasetNameCheckbox;
     }
 }

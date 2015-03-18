@@ -307,7 +307,7 @@ namespace SpectrumLook.Views
             }
         }
 
-        private void batchSaveToolStripMenuItem_Click(object sender, EventArgs e)
+        private void SavePlotsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (m_manager.SynopsisLoaded)
             {
