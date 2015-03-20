@@ -39,21 +39,21 @@ namespace SpectrumLook.Views.FragmentLadderView
             foreach (SpectrumLook.Builders.Element currentElement in theoryList)
             {
                 i = 0;
-                if (!(tempListColumnOptions.Contains(spliceNumberFromAnnotation(currentElement.annotation))))
+                if (!(tempListColumnOptions.Contains(spliceNumberFromAnnotation(currentElement.Annotation))))
                 {
                     //Need to filter out Modification values when calculating the length of the string.
                     tempListHolder.Add(new string[peptideLength(peptide, modificationValues)]);
-                    tempListColumnOptions.Add(spliceNumberFromAnnotation(currentElement.annotation));
+                    tempListColumnOptions.Add(spliceNumberFromAnnotation(currentElement.Annotation));
                 }
                 //Find the index to add.
-                while (tempListColumnOptions[i] != spliceNumberFromAnnotation(currentElement.annotation))
+                while (tempListColumnOptions[i] != spliceNumberFromAnnotation(currentElement.Annotation))
                 {
                     ++i;
                 }
-                string tempDoubleString = string.Format("{0:#.00}", currentElement.mzValue);
+                string tempDoubleString = string.Format("{0:#.00}", currentElement.Mz);
                 try
                 {
-                    tempListHolder[i][unformatAnnotation(currentElement.annotation) - 1] = tempDoubleString + "|" + currentElement.matched.ToString();
+                    tempListHolder[i][unformatAnnotation(currentElement.Annotation) - 1] = tempDoubleString + "|" + currentElement.Matched.ToString();
                 }
                 catch { }
             }

@@ -56,10 +56,10 @@ namespace SpectrumLook.Builders
             {
                 var newElement = new Element
                 {
-                    annotation = theoreticalIon.Key,
-                    mzValue = theoreticalIon.Value,
-                    intensity = 0,
-                    matched = false
+                    Annotation = theoreticalIon.Key,
+                    Mz = theoreticalIon.Value,
+                    Intensity = 0,
+                    Matched = false
                 };
 
                 ElementList.Add(newElement);

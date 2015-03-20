@@ -35,6 +35,8 @@ namespace SpectrumLook.Builders
         /// </summary>
         private double m_lowerBoundTolerance;
 
+        private double m_precursor;
+
         public double possibleError
         {
             get
@@ -71,12 +73,14 @@ namespace SpectrumLook.Builders
         /// </summary>
         /// <param name="possibleError">This is a number greater than zero where it is the possible error between m/z value in the theory List and the Actual List</param>
         /// <param name="actualElementList">This should be a reference to a list generated from the ActualListBuilder</param>
+        /// <param name="precursor">The precursor, to label the precursor if present </param>
         /// <param name="theoryElementList">This should be a reference to a list generated from the TheoryListBuilder </param>
-        public ComparedListBuilder(double possibleError, double lowerBoundPossibleError, List<Element> actualElementList, ref List<Element> theoryElementList)
+        public ComparedListBuilder(double possibleError, double lowerBoundPossibleError, List<Element> actualElementList, double precursor, ref List<Element> theoryElementList)
         {
             this.m_actualElementList    = actualElementList;
             this.m_theoryElementList    = theoryElementList;
             this.ElementList            = new List<Element>();
+            this.m_precursor            = precursor;
             m_upperBoundTolerance       = possibleError;
             m_lowerBoundTolerance       = lowerBoundPossibleError;
         }
@@ -260,7 +264,7 @@ namespace SpectrumLook.Builders
             {                
                 var pairs = from actualElement in m_actualElementList
                             where
-                                (Math.Abs(theoryElement.mzValue - actualElement.mzValue) <= m_upperBoundTolerance) && (Math.Abs(theoryElement.mzValue  - actualElement.mzValue) >= m_lowerBoundTolerance)
+                                (Math.Abs(theoryElement.Mz - actualElement.Mz) <= m_upperBoundTolerance) && (Math.Abs(theoryElement.Mz  - actualElement.Mz) >= m_lowerBoundTolerance)
                                 
                             select new { actualElement };
 
@@ -268,16 +272,14 @@ namespace SpectrumLook.Builders
                 Element maxElement = null;
                 foreach (var item in pairs)
                 {
-
-
                     if (maxElement == null)
                     {
                         maxElement = item.actualElement;
                     }
                     else
                     {
-                        double theoryDiff = Math.Abs(item.actualElement.mzValue - theoryElement.mzValue);
-                        double maxDiff    = Math.Abs(item.actualElement.mzValue - maxElement.mzValue);
+                        double theoryDiff = Math.Abs(item.actualElement.Mz - theoryElement.Mz);
+                        double maxDiff    = Math.Abs(item.actualElement.Mz - maxElement.Mz);
                         if (theoryDiff < maxDiff)
                         {
                             maxElement = item.actualElement;
@@ -287,47 +289,63 @@ namespace SpectrumLook.Builders
 
                 if (maxElement != null)
                 {
-                    theoryElement.matched   = true;
-                    maxElement.matched      = true;
+                    theoryElement.Matched   = true;
+                    maxElement.Matched      = true;
 
-                    if (maxElement.annotation != "")
+                    if (maxElement.Annotation != "")
                     {
-                        maxElement.annotation = string.Format("{0},{1}", maxElement.annotation, theoryElement.annotation);
+                        maxElement.Annotation = string.Format("{0},{1}", maxElement.Annotation, theoryElement.Annotation);
                     }
                     else
                     {
-                        maxElement.annotation = theoryElement.annotation;
+                        maxElement.Annotation = theoryElement.Annotation;
                     }
                 }                
             }
 
             Element maxIntensity = null;
+            Element precursor = null;
             foreach (Element item in m_actualElementList)
             {
+                if (Math.Abs(item.Mz - m_precursor) <= m_upperBoundTolerance &&
+                    Math.Abs(item.Mz - m_precursor) >= m_lowerBoundTolerance)
+                {
+                    if (precursor == null || item.Intensity > precursor.Intensity)
+                    {
+                        precursor = item;
+                    }
+                }
                 if (maxIntensity == null)
                 {
                     maxIntensity = item;
                 }
-                else if (maxIntensity.intensity < item.intensity)
+                else if (maxIntensity.Intensity < item.Intensity)
                 {
                     maxIntensity = item;
                 }
             }
 
-            // Tag a precursor onto the hightes Intensity Index
-            if (maxIntensity != null)
+            if (precursor != null)
             {
-                maxIntensity.annotation += " - PRECURSOR";
+                if (maxIntensity == null || precursor.Intensity >= (maxIntensity.Intensity/10.0))
+                {
+                    precursor.Annotation += " - PRECURSOR";
+                }
             }
+            //// Tag a precursor onto the highest Intensity Index
+            //if (maxIntensity != null)
+            //{
+            //    maxIntensity.Annotation += " - PRECURSOR";
+            //}
 
             //When all is said and done the compared list will just be a copy of the actual list.
             foreach (Element currentElement in m_actualElementList) 
             {
                 Element elementForCopying       = new Element();                
-                elementForCopying.annotation    = currentElement.annotation;
-                elementForCopying.matched       = currentElement.matched;
-                elementForCopying.intensity     = currentElement.intensity;
-                elementForCopying.mzValue       = currentElement.mzValue;
+                elementForCopying.Annotation    = currentElement.Annotation;
+                elementForCopying.Matched       = currentElement.Matched;
+                elementForCopying.Intensity     = currentElement.Intensity;
+                elementForCopying.Mz       = currentElement.Mz;
 
                 ElementList.Add(elementForCopying);
             }

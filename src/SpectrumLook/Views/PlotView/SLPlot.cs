@@ -458,7 +458,7 @@ namespace SpectrumLook.Views
 
             foreach (Element point in Points)
             {
-                if (point.matched == true)
+                if (point.Matched == true)
                 {
                     matchedPoints.Add(point);
                 }

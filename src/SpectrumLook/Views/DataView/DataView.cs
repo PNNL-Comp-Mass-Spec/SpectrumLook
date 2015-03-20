@@ -26,6 +26,7 @@ namespace SpectrumLook.Views
         private int ScanNumColumn;
         private int PetideStringColumn;
         private int DatasetColumn = -1;
+        private int PrecursorMzColumn;
 
         public DataView(Manager manager)
         {
@@ -60,6 +61,7 @@ namespace SpectrumLook.Views
                 {
                     m_manager.DataFileName = selectedRow.Cells[DatasetColumn].Value.ToString();
                 }
+                m_manager.PrecursorMZ = double.Parse(selectedRow.Cells[PrecursorMzColumn].Value.ToString());
 
                 string sequence;
                 string prefix;
@@ -88,11 +90,12 @@ namespace SpectrumLook.Views
             shouldStop = true;
         }
 
-        public void SetScanIndexAndPeptideIndex(int peptideIndex, int scanIndex, int datasetIndex = -1)
+        public void SetScanIndexAndPeptideIndex(int peptideIndex, int scanIndex, int precursorIndex, int datasetIndex = -1)
         {
             ScanNumColumn = scanIndex;
             PetideStringColumn = peptideIndex;
             DatasetColumn = datasetIndex;
+            PrecursorMzColumn = precursorIndex;
         }
 
         public void SetDataTable(DataTable newTable)
@@ -606,6 +609,7 @@ namespace SpectrumLook.Views
             }
             DataAdvanceOption.Visible=false;
         }*/
+
         private void AdvFilter_Click(object sender, EventArgs e)
         {
             if (DataGridTable.Rows.Count != 0)
@@ -619,6 +623,7 @@ namespace SpectrumLook.Views
                 MessageBox.Show("The File is not Loaded");
             }
         }
+
         void DataGridTable_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             ListBox list;
@@ -633,6 +638,7 @@ namespace SpectrumLook.Views
             }
 
         }
+
         private void Menu_Click(object sender, EventArgs e)
         {
 
@@ -641,6 +647,7 @@ namespace SpectrumLook.Views
             MessageBox.Show(item.Text);
 
         }
+
         private void DataGridTable_ColumnHeaderMouseClick_1(object sender, DataGridViewCellMouseEventArgs e)
         {
             int Column_index = e.ColumnIndex;
@@ -659,6 +666,7 @@ namespace SpectrumLook.Views
                 //Error
             }
         }
+
         private void Custom_SortCompare(object sender, DataGridViewSortCompareEventArgs e)
         {
             //MessageBox.Show("THe custom_sortcompare working");
@@ -684,21 +692,16 @@ namespace SpectrumLook.Views
                 }
                 e.Handled = true;
             }
-
-
-
-
         }
 
-
-
-        public List<Tuple<string, string, string>> GetPeptidesAndScansInGrid(bool useOnlyVisible)
+        public List<ResultRowData> GetPeptidesAndScansInGrid(bool useOnlyVisible)
         {
-            List<Tuple<string, string, string>> peptidesAndScans = new List<Tuple<string,string, string>>();
+            List<ResultRowData> peptidesAndScans = new List<ResultRowData>();
 
             //calculate the indexes for scan numbers and peptides
             int scanNumIndex = 0, peptideIndex = 0;
             int datasetIndex = -1;
+            int precursorIndex = 0;
             for (int i = 0; i < ColNum; i++)
             {
                 if (DataGridTable.Columns[i].HeaderText.ToLower().Contains("scan"))
@@ -713,6 +716,10 @@ namespace SpectrumLook.Views
                 {
                     datasetIndex = i;
                 }
+                if (DataGridTable.Columns[i].HeaderText.ToLower().Contains("precursormz"))
+                {
+                    precursorIndex = i;
+                }
             }
 
             //get the scan numbers and peptides for the rows
@@ -723,6 +730,7 @@ namespace SpectrumLook.Views
                     string scanNumber = row.Cells[scanNumIndex].Value.ToString();
                     string peptide = row.Cells[peptideIndex].Value.ToString();
                     string dataset = datasetIndex != -1 ? row.Cells[datasetIndex].Value.ToString() : null;
+                    string precursor = row.Cells[precursorIndex].Value.ToString();
 
                     string sequence;
                     string prefix;
@@ -730,7 +738,7 @@ namespace SpectrumLook.Views
                     PHRPReader.clsPeptideCleavageStateCalculator.SplitPrefixAndSuffixFromSequence(peptide, out sequence,
                         out prefix, out suffix);
 
-                    peptidesAndScans.Add(new Tuple<string, string, string>(sequence, scanNumber, dataset));
+                    peptidesAndScans.Add(new ResultRowData(dataset, scanNumber, peptide, precursor));
                 }
             }
 

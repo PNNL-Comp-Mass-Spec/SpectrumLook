@@ -82,19 +82,19 @@ namespace SpectrumLook.Builders
 
         #region ComparedList
 
-        public List<Element> BuildComparedList(double possibleError, double lowerBoundPossibleError, List<Element> actualElementList, ref List<Element> theoryElementList)
+        public List<Element> BuildComparedList(double possibleError, double lowerBoundPossibleError, List<Element> actualElementList, double precursor, ref List<Element> theoryElementList)
         {
 
             List<Element> copyOfActualElementList = new List<Element>(actualElementList);
 
             for (int i = 0; i < copyOfActualElementList.Count; ++i)
             {
-                copyOfActualElementList[i].annotation = "";
-                copyOfActualElementList[i].matched = false;
+                copyOfActualElementList[i].Annotation = "";
+                copyOfActualElementList[i].Matched = false;
             }
 
             ///Need to add the lowerBoundPossibleError into the function call below.
-            m_comparedBuilder = new ComparedListBuilder(possibleError, lowerBoundPossibleError, copyOfActualElementList, ref theoryElementList);
+            m_comparedBuilder = new ComparedListBuilder(possibleError, lowerBoundPossibleError, copyOfActualElementList, precursor, ref theoryElementList);
 
             m_comparedBuilder.BuildList();
 

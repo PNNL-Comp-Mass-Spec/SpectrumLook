@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using ThermoRawFileReaderDLL;
 using ThermoRawFileReaderDLL.FinniganFileIO;
 using System.IO;
 
@@ -88,25 +89,20 @@ namespace SpectrumLook.Builders
         /// and the even index's (starting from 0) are the mzValues.</returns>
         List<Element> IExperimentParser.GetExperimentDataByScanNumber(int scanNum)   //Have GetExperimentDataByScanNumberRaw commented out, checking without the raw...
         {
-            List<Element> values        = new List<Element>();
-            double[] mzList             = new double[512];
-            double[] intensityList      = new double[512];
-            FinniganFileReaderBaseClass.udtScanHeaderInfoType header = new FinniganFileReaderBaseClass.udtScanHeaderInfoType();
-
-            m_fileOpened = true;        //TEST
+            //m_fileOpened = true;        //TEST
             
             if (this.m_fileOpened)
             {
-                m_fileToRead.GetScanInfo(scanNum, out header);
-                m_fileToRead.GetScanData(scanNum, ref mzList, ref intensityList, ref header);
+                List<Element> values = new List<Element>();
+                double[,] mzIntensityPairList;
+                int dataPairCount = -1;
+
+                dataPairCount = m_fileToRead.GetScanData2D(scanNum, out mzIntensityPairList, 0, true);
 
                 //Step through mzList and intensityList and assign them.
-                for (int i = 0; i < mzList.Length; ++i)
-                {                    
-                    Element element     = new Element();
-                    element.mzValue     = mzList[i];
-                    element.intensity   = intensityList[i];
-                    values.Add(element);
+                for (int i = 0; i < dataPairCount; ++i)
+                {
+                    values.Add(new Element(mzIntensityPairList[0,i], mzIntensityPairList[1,i]));
                 }
 
                 return values;

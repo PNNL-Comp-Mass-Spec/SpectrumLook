@@ -133,9 +133,9 @@ namespace SpectrumLook.Builders
                 foreach (double currentMzValue in currentSpectrum.MZList)
                 {
                     Element element     = new Element();
-                    element.mzValue     = currentMzValue;
-                    element.intensity   = Convert.ToDouble(currentSpectrum.LookupIonIntensityByMZ(currentMzValue, (float)0.0, (float)0.04));
-                    element.matched     = false;
+                    element.Mz          = currentMzValue;
+                    element.Intensity   = Convert.ToDouble(currentSpectrum.LookupIonIntensityByMZ(currentMzValue, (float)0.0, (float)0.04));
+                    element.Matched     = false;
                     elements.Add(element);
                 }
                 return elements;

@@ -19,7 +19,7 @@ namespace SpectrumLook.Builders
 
         public override string ToString()
         {
-            return annotation + ", " + mzValue.ToString("0.00");
+            return Annotation + ", " + Mz.ToString("0.00");
         }
 
         #endregion
@@ -55,16 +55,22 @@ namespace SpectrumLook.Builders
 
         #region CONSTRUCTOR
         /// <summary>
-        /// This constructor current does nothing.
+        /// This constructor currently does nothing.
         /// </summary>
         public Element()
         {
+        }
+
+        public Element(double mz, double intensity)
+        {
+            m_mzValue = mz;
+            m_intensity = intensity;
         }
         #endregion
 
         #region PROPERTIES
 
-        public string annotation
+        public string Annotation
         {
             get
             {
@@ -76,7 +82,7 @@ namespace SpectrumLook.Builders
             }
         }
 
-        public double intensity
+        public double Intensity
         {
             get
             {
@@ -88,7 +94,7 @@ namespace SpectrumLook.Builders
             }
         }
 
-        public bool matched
+        public bool Matched
         {
             get
             {
@@ -100,7 +106,7 @@ namespace SpectrumLook.Builders
             }
         }
 
-        public double mzValue
+        public double Mz
         {
             get
             {

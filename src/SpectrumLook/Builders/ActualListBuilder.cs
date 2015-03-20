@@ -73,7 +73,7 @@ namespace SpectrumLook.Builders
             List<Element> listToStore       = new List<Element>();
             Element tempElement             = new Element();
             List<Element> experimentDataStringArray = m_fileParser.GetExperimentDataByScanNumber(m_scanNumber);
-            experimentDataStringArray.ForEach(x => x.matched = false);            
+            experimentDataStringArray.ForEach(x => x.Matched = false);            
             ElementList = experimentDataStringArray;
         }
 

@@ -768,13 +768,13 @@ namespace SpectrumLook.Views
 
             foreach (Element point in points)
             {
-                if (string.IsNullOrEmpty(point.annotation))
+                if (string.IsNullOrEmpty(point.Annotation))
                 {
-                    newList.Add(point.mzValue, point.intensity);
+                    newList.Add(point.Mz, point.Intensity);
                 }
                 else
                 {
-                    newList.Add(point.mzValue, point.intensity, point.annotation);
+                    newList.Add(point.Mz, point.Intensity, point.Annotation);
                 }
             }
 

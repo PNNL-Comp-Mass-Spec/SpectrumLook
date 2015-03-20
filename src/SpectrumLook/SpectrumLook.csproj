@@ -84,6 +84,7 @@
     <Compile Include="Builders\ElementListBuilder.cs" />
     <Compile Include="Builders\MolecularWeightCalculator.cs" />
     <Compile Include="Builders\PHRPReaderParser.cs" />
+    <Compile Include="Builders\ResultRowData.cs" />
     <Compile Include="Builders\ThermoRawParser.cs" />
     <Compile Include="LadderInstanceDictionaryXmlSerializer.cs" />
     <Compile Include="LadderInstance.cs" />

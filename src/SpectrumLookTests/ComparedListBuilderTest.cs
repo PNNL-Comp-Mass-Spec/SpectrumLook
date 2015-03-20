@@ -77,7 +77,7 @@ namespace SpectrumLookTests
             List<Element> actualElementListExpected = null; // TODO: Initialize to an appropriate value
             List<Element> theoryElementList = null; // TODO: Initialize to an appropriate value
             List<Element> theoryElementListExpected = null; // TODO: Initialize to an appropriate value
-            ComparedListBuilder target = new ComparedListBuilder(possibleError, lowerPossibleError, actualElementList, ref theoryElementList); // TODO: Initialize to an appropriate value
+            ComparedListBuilder target = new ComparedListBuilder(possibleError, lowerPossibleError, actualElementList, 0, ref theoryElementList); // TODO: Initialize to an appropriate value
             target.BuildList();
             Assert.AreEqual(actualElementListExpected, actualElementList);
             Assert.AreEqual(theoryElementListExpected, theoryElementList);
@@ -96,7 +96,7 @@ namespace SpectrumLookTests
             List<Element> actualElementListExpected = null; // TODO: Initialize to an appropriate value
             List<Element> theoryElementList = null; // TODO: Initialize to an appropriate value
             List<Element> theoryElementListExpected = null; // TODO: Initialize to an appropriate value
-            ComparedListBuilder target = new ComparedListBuilder(possibleError, lowerBoundPossibleError, actualElementList, ref theoryElementList);
+            ComparedListBuilder target = new ComparedListBuilder(possibleError, lowerBoundPossibleError, actualElementList, 0, ref theoryElementList);
             Assert.AreEqual(actualElementListExpected, actualElementList);
             Assert.AreEqual(theoryElementListExpected, theoryElementList);
             Assert.Inconclusive("TODO: Implement code to verify target");

@@ -1,0 +1,205 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+MwtWinDll
+</name>
+</assembly>
+<members>
+<member name="M:MwtWinDll.MWPeptideClass.GetFragmentationMasses(MwtWinDll.MWPeptideClass.udtFragmentationSpectrumDataType[]@)">
+	<summary>
+	</summary>
+	<param name="udtFragSpectrum"></param>
+	<returns>The number of ions in udtFragSpectrum()</returns>
+	<remarks></remarks>
+</member><member name="M:MwtWinDll.MWPeptideClass.GetTrypticName(System.String,System.String,System.Int32@,System.Int32@,System.Boolean,System.String,System.String,System.String,System.Boolean,System.Int32)">
+	<summary>
+ Examines strPeptideResidues to see where they exist in strProteinResidues
+ Constructs a name string based on their position and based on whether the fragment is truly tryptic
+ In addition, returns the position of the first and last residue in lngReturnResidueStart and lngReturnResidueEnd
+ </summary>
+	<param name="strProteinResidues"></param>
+	<param name="strPeptideResidues"></param>
+	<param name="lngReturnResidueStart">Output: start peptides of the peptide residues in the protein</param>
+	<param name="lngReturnResidueEnd">Output: end peptides of the peptide residues in the protein</param>
+	<param name="blnICR2LSCompatible"></param>
+	<param name="strRuleResidues"></param>
+	<param name="strExceptionResidues"></param>
+	<param name="strTerminiiSymbol"></param>
+	<param name="blnIgnoreCase"></param>
+	<param name="lngProteinSearchStartLoc"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:MwtWinDll.MWPeptideClass.GetTrypticNameMultipleMatches(System.String,System.String,System.Int32@,System.Int32@,System.Int32@,System.Boolean,System.String,System.String,System.String,System.Boolean,System.Int32,System.String)">
+	<summary>
+ Examines strPeptideResidues to see where they exist in strProteinResidues
+ Looks for all possible matches, returning them as a comma separated list
+ </summary>
+	<param name="strProteinResidues"></param>
+	<param name="strPeptideResidues"></param>
+	<param name="lngReturnMatchCount"></param>
+	<param name="lngReturnResidueStart"></param>
+	<param name="lngReturnResidueEnd"></param>
+	<param name="blnICR2LSCompatible"></param>
+	<param name="strRuleResidues"></param>
+	<param name="strExceptionResidues"></param>
+	<param name="strTerminiiSymbol"></param>
+	<param name="blnIgnoreCase"></param>
+	<param name="lngProteinSearchStartLoc"></param>
+	<param name="strListDelimeter"></param>
+	<returns>The number of matches</returns>
+	<remarks></remarks>
+</member><member name="M:MwtWinDll.MWPeptideClass.SetSequence(System.String)">
+	<summary>
+ Defines the peptide sequence
+ </summary>
+	<param name="strSequence">Peptide sequence using 3-letter amino acid symbols</param>
+	<returns>0 if success or 1 if an error</returns>
+	<remarks>If strSequence is blank or contains no valid residues, then will still return 0</remarks>
+</member><member name="M:MwtWinDll.MWPeptideClass.SetSequence1LetterSymbol(System.String)">
+	<summary>
+ Defines the peptide sequence
+ </summary>
+	<param name="strSequence">Peptide sequence using 1-letter amino acid symbols</param>
+	<returns>0 if success or 1 if an error</returns>
+	<remarks>If strSequence is blank or contains no valid residues, then will still return 0</remarks>
+</member><member name="M:MwtWinDll.MWPeptideClass.SetSequence(System.String,System.Boolean,System.Boolean)">
+	<summary>
+ Defines the peptide sequence
+ </summary>
+	<param name="strSequence">Peptide sequence</param>
+	<param name="blnIs3LetterCode">Set to True for 3-letter amino acid symbols, False for 1-letter symbols (for example, R.ABCDEF.R)</param>
+	<param name="bln1LetterCheckForPrefixAndSuffixResidues"></param>
+	<returns>0 if success or 1 if an error</returns>
+	<remarks>If strSequence is blank or contains no valid residues, then will still return 0</remarks>
+</member><member name="M:MwtWinDll.MWPeptideClass.SetSequence(System.String,MwtWinDll.MWPeptideClass.ntgNTerminusGroupConstants,MwtWinDll.MWPeptideClass.ctgCTerminusGroupConstants)">
+	<summary>
+ Defines the peptide sequence
+ </summary>
+	<param name="strSequence">Peptide sequence using 3-letter amino acid symbols</param>
+	<param name="eNTerminus">N-terminus group</param>
+	<param name="eCTerminus">C-terminus group</param>
+	<returns>0 if success or 1 if an error</returns>
+	<remarks>If strSequence is blank or contains no valid residues, then will still return 0</remarks>
+</member><member name="M:MwtWinDll.MWPeptideClass.SetSequence(System.String,MwtWinDll.MWPeptideClass.ntgNTerminusGroupConstants,MwtWinDll.MWPeptideClass.ctgCTerminusGroupConstants,System.Boolean)">
+	<summary>
+ Defines the peptide sequence
+ </summary>
+	<param name="strSequence">Peptide sequence</param>
+	<param name="eNTerminus">N-terminus group</param>
+	<param name="eCTerminus">C-terminus group</param>
+	<param name="blnIs3LetterCode">Set to True for 3-letter amino acid symbols, False for 1-letter symbols (for example, R.ABCDEF.R)</param>
+	<returns>0 if success or 1 if an error</returns>
+	<remarks>If strSequence is blank or contains no valid residues, then will still return 0</remarks>
+</member><member name="M:MwtWinDll.MWPeptideClass.SetSequence(System.String,MwtWinDll.MWPeptideClass.ntgNTerminusGroupConstants,MwtWinDll.MWPeptideClass.ctgCTerminusGroupConstants,System.Boolean,System.Boolean)">
+	<summary>
+ Defines the peptide sequence
+ </summary>
+	<param name="strSequence">Peptide sequence</param>
+	<param name="eNTerminus">N-terminus group</param>
+	<param name="eCTerminus">C-terminus group</param>
+	<param name="blnIs3LetterCode">Set to True for 3-letter amino acid symbols, False for 1-letter symbols (for example, R.ABCDEF.R)</param>
+	<param name="bln1LetterCheckForPrefixAndSuffixResidues">Set to True to check for and remove prefix and suffix residues when blnIs3LetterCode = False</param>
+	<returns>0 if success or 1 if an error</returns>
+	<remarks>If strSequence is blank or contains no valid residues, then will still return 0</remarks>
+</member><member name="M:MwtWinDll.MWPeptideClass.SetSequence(System.String,MwtWinDll.MWPeptideClass.ntgNTerminusGroupConstants,MwtWinDll.MWPeptideClass.ctgCTerminusGroupConstants,System.Boolean,System.Boolean,System.Boolean)">
+	<summary>
+ Defines the peptide sequence
+ </summary>
+	<param name="strSequence">Peptide sequence</param>
+	<param name="eNTerminus">N-terminus group</param>
+	<param name="eCTerminus">C-terminus group</param>
+	<param name="blnIs3LetterCode">Set to True for 3-letter amino acid symbols, False for 1-letter symbols (for example, R.ABCDEF.R)</param>
+	<param name="bln1LetterCheckForPrefixAndSuffixResidues">Set to True to check for and remove prefix and suffix residues when blnIs3LetterCode = False</param>
+	<param name="bln3LetterCheckForPrefixHandSuffixOH">Set to True to check for and remove prefix H and OH when blnIs3LetterCode = True</param>
+	<returns>0 if success or 1 if an error</returns>
+	<remarks>If strSequence is blank or contains no valid residues, then will still return 0</remarks>
+</member><member name="M:MwtWinDll.MWPeptideClass.SetSequence(System.String,MwtWinDll.MWPeptideClass.ntgNTerminusGroupConstants,MwtWinDll.MWPeptideClass.ctgCTerminusGroupConstants,System.Boolean,System.Boolean,System.Boolean,System.Boolean)">
+	<summary>
+ Defines the peptide sequence
+ </summary>
+	<param name="strSequence">Peptide sequence</param>
+	<param name="eNTerminus">N-terminus group</param>
+	<param name="eCTerminus">C-terminus group</param>
+	<param name="blnIs3LetterCode">Set to True for 3-letter amino acid symbols, False for 1-letter symbols (for example, R.ABCDEF.R)</param>
+	<param name="bln1LetterCheckForPrefixAndSuffixResidues">Set to True to check for and remove prefix and suffix residues when blnIs3LetterCode = False</param>
+	<param name="bln3LetterCheckForPrefixHandSuffixOH">Set to True to check for and remove prefix H and OH when blnIs3LetterCode = True</param>
+	<param name="blnAddMissingModificationSymbols">Set to True to automatically add missing modification symbols (though the mod masses will be 0)</param>
+	<returns>0 if success or 1 if an error</returns>
+	<remarks>If strSequence is blank or contains no valid residues, then will still return 0</remarks>
+</member><member name="M:MwtWinDll.MolecularWeightCalculator.ConvoluteMass(System.Double,System.Int16)">
+	<summary>
+ Converts a given mass or m/z value to the MH+ m/z value
+ </summary>
+	<param name="dblMassMZ">Mass or m/z value</param>
+	<param name="intCurrentCharge">Current charge (0 means neutral mass)</param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:MwtWinDll.MolecularWeightCalculator.ConvoluteMass(System.Double,System.Int16,System.Int16)">
+	<summary>
+ Converts a given mass or m/z value to the MH+ m/z value
+ </summary>
+	<param name="dblMassMZ">Mass or m/z value</param>
+	<param name="intCurrentCharge">Current charge (0 means neutral mass)</param>
+	<param name="intDesiredCharge">Desired charge (0 means neutral mass)</param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:MwtWinDll.MolecularWeightCalculator.ConvoluteMass(System.Double,System.Int16,System.Int16,System.Double)">
+	<summary>
+ Converts a given mass or m/z value to the MH+ m/z value
+ </summary>
+	<param name="dblMassMZ">Mass or m/z value</param>
+	<param name="intCurrentCharge">Current charge (0 means neutral mass)</param>
+	<param name="intDesiredCharge">Desired charge (0 means neutral mass)</param>
+	<param name="dblChargeCarrierMass">Custom charge carrier mass (default is 1.00727649)</param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:MwtWinDll.MWElementAndMassRoutines.ComputeIsotopicAbundancesInternal(System.String@,System.Int16,System.String@,System.Double[0:,0:]@,System.Int32@,System.String,System.String,System.String,System.String,System.Boolean@,System.Boolean)">
+	<summary>
+ Computes the Isotopic Distribution for a formula, returns uncharged mass values if intChargeState=0,
+ M+H values if intChargeState=1, and convoluted m/z if intChargeState is &gt; 1
+ </summary>
+	<param name="strFormulaIn">The properly formatted formula to parse</param>
+	<param name="intChargeState">0 for monoisotopic (uncharged) masses; 1 or higher for convoluted m/z vlaues</param>
+	<param name="strResults">Table of results</param>
+	<param name="ConvolutedMSData2DOneBased">2D array of MSData (mass and intensity pairs)</param>
+	<param name="ConvolutedMSDataCount">Number of data points in ConvolutedMSData2DOneBased</param>
+	<param name="strHeaderIsotopicAbundances">Header to use in strResultes</param>
+	<param name="strHeaderMassToCharge">Header to use in strResultes</param>
+	<param name="strHeaderFraction">Header to use in strResultes</param>
+	<param name="strHeaderIntensity">Header to use in strResultes</param>
+	<param name="blnUseFactorials">Set to true to use Factorial math, which is typically slower; default is False</param>
+	<returns>0 if success, -1 if an error</returns>
+	<remarks></remarks>
+</member><member name="M:MwtWinDll.MWElementAndMassRoutines.ConvertStickDataToGaussian2DArray(System.Collections.Generic.List{System.Collections.Generic.KeyValuePair{System.Double,System.Double}},System.Int32,System.Double,System.Int32)">
+	<summary>
+ Convert the centroided data (stick data) in XYVals to a Gaussian representation
+ </summary>
+	<param name="XYVals">XY data, as key-value pairs</param>
+	<param name="intResolution">Effective instrument resolution (e.g. 1000 or 20000)</param>
+	<param name="dblResolutionMass">The m/z value at which the resolution applies</param>
+	<param name="intQualityFactor">Gaussian quality factor (between 1 and 75, default is 50)</param>
+	<returns>Gaussian spectrum data</returns>
+	<remarks></remarks>
+</member><member name="M:MwtWinDll.MWElementAndMassRoutines.UpdateProgress(System.String)">
+	<summary>
+ Update the progress description
+ </summary>
+	<param name="strProgressStepDescription">Description of the current processing occurring</param>
+	<remarks></remarks>
+</member><member name="M:MwtWinDll.MWElementAndMassRoutines.UpdateProgress(System.Single)">
+	<summary>
+ Update the progress
+ </summary>
+	<param name="sngPercentComplete">Value between 0 and 100, indicating percent complete</param>
+	<remarks></remarks>
+</member><member name="M:MwtWinDll.MWElementAndMassRoutines.UpdateProgress(System.String,System.Single)">
+	<summary>
+ Update the progress
+ </summary>
+	<param name="strProgressStepDescription">Description of the current processing occurring</param>
+	<param name="sngPercentComplete">Value between 0 and 100, indicating percent complete</param>
+	<remarks></remarks>
+</member>
+</members>
+</doc>

@@ -83,8 +83,8 @@ namespace SpectrumLookTests
             Element target = new Element(); // TODO: Initialize to an appropriate value
             string expected = string.Empty; // TODO: Initialize to an appropriate value
             string actual;
-            target.annotation = expected;
-            actual = target.annotation;
+            target.Annotation = expected;
+            actual = target.Annotation;
             Assert.AreEqual(expected, actual);
             Assert.Inconclusive("Verify the correctness of this test method.");
         }
@@ -98,8 +98,8 @@ namespace SpectrumLookTests
             Element target = new Element(); // TODO: Initialize to an appropriate value
             double expected = 0F; // TODO: Initialize to an appropriate value
             double actual;
-            target.intensity = expected;
-            actual = target.intensity;
+            target.Intensity = expected;
+            actual = target.Intensity;
             Assert.AreEqual(expected, actual);
             Assert.Inconclusive("Verify the correctness of this test method.");
         }
@@ -113,8 +113,8 @@ namespace SpectrumLookTests
             Element target = new Element(); // TODO: Initialize to an appropriate value
             bool expected = false; // TODO: Initialize to an appropriate value
             bool actual;
-            target.matched = expected;
-            actual = target.matched;
+            target.Matched = expected;
+            actual = target.Matched;
             Assert.AreEqual(expected, actual);
             Assert.Inconclusive("Verify the correctness of this test method.");
         }
@@ -128,8 +128,8 @@ namespace SpectrumLookTests
             Element target = new Element(); // TODO: Initialize to an appropriate value
             double expected = 0F; // TODO: Initialize to an appropriate value
             double actual;
-            target.mzValue = expected;
-            actual = target.mzValue;
+            target.Mz = expected;
+            actual = target.Mz;
             Assert.AreEqual(expected, actual);
             Assert.Inconclusive("Verify the correctness of this test method.");
         }
