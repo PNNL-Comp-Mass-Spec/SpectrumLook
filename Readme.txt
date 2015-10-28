@@ -3,6 +3,12 @@
 SpectrumLook can be used to visually inspect the peptide sequence 
 matches (PSMs) against fragmentation spectra in an LC-MS/MS dataset.
 
+== Alternatives ==
+
+For visualizing MSGF+ results (.mzid files), consider using LCMS Spectator
+* http://omics.pnl.gov/software/lcmsspectator
+* https://github.com/PNNL-Comp-Mass-Spec/LCMS-Spectator
+
 == Installation ==
 
 Install MSFileReader.  
