@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using ThermoRawFileReaderDLL;
-using ThermoRawFileReaderDLL.FinniganFileIO;
+using ThermoRawFileReader;
 using System.IO;
 
 namespace SpectrumLook.Builders

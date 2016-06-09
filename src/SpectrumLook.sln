@@ -1,6 +1,8 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40629.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpectrumLook", "SpectrumLook\SpectrumLook.csproj", "{AF37BC26-D110-44A1-B582-F9F3B2DD004B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpectrumLookTests", "SpectrumLookTests\SpectrumLookTests.csproj", "{78C8E8FF-024C-424D-8C0E-07B9C3634951}"

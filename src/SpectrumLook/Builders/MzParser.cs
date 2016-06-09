@@ -125,9 +125,8 @@ namespace SpectrumLook.Builders
             {
                 //Load the entire file into memory.                                
                 //m_fileToRead.ReadAndCacheEntireFile();
-            
-                currentSpectrum         = new clsSpectrumInfo();            
-                m_fileToRead.GetSpectrumByScanNumber(scanNum, ref currentSpectrum);
+
+                m_fileToRead.GetSpectrumByScanNumber(scanNum, out currentSpectrum);
 
                 List<Element> elements  = new List<Element>();
                 foreach (double currentMzValue in currentSpectrum.MZList)
