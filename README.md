@@ -1,24 +1,25 @@
-== Overview ==
+# SpectrumLook
 
 SpectrumLook can be used to visually inspect the peptide sequence 
 matches (PSMs) against fragmentation spectra in an LC-MS/MS dataset.
 
-== Alternatives ==
+## Alternatives
 
-For visualizing MSGF+ results (.mzid files), consider using LCMS Spectator
-* http://omics.pnl.gov/software/lcmsspectator
-* https://github.com/PNNL-Comp-Mass-Spec/LCMS-Spectator
+For visualizing MSGF+ results (.mzid files), consider using LCMS Spectator. \
+Download from [PNNL-Comp-Mass-Spec/LCMS-Spectator/releases](https://github.com/PNNL-Comp-Mass-Spec/LCMS-Spectator/releases) on GitHub
 
-== Installation ==
+## Installation
 
-Install MSFileReader.  
-Download from Thermo at http://sjsupport.thermofinnigan.com/public/detail.asp?id=703
-
-Be sure to install both the 32-bit and the 64-bit versions
+Install Thermo's MSFileReader library. Download MSFileReader v3.x via these steps:
+1) Create an account at [Flexnetoperations.com](https://thermo.flexnetoperations.com/control/thmo/login)
+2) Login 
+3) Choose "Utility Software". 
+4) Look for MSFileReader 3.1 SP4 or similar.
+5) Run the installer and install both the 32-bit and 64-bit versions.
 
 Next, run SpectrumLook.msi to install SpectrumLook
 
-== Features ==
+## Features
 
 SpectrumLook reads Finnigan .Raw files or .mzXml files, plus a 
 "Synopsis File" listing peptides identified by a MS/MS interpretation 
@@ -40,3 +41,18 @@ MSFileReader v2.2, available on Thermo's MSFileReader page
 SpectrumLook also supports the mzXML format. You can use 
 Proteowizard's MSConvert tool to convert most vendor formats into the 
 mzXML format.
+
+
+## Contacts
+
+Written by a Washington State University senior design team, overseen by Brian LaMarche for the Department of Energy (PNNL, Richland, WA) \
+Additional contributions from Bryson Gibbons and Matthew Monroe \
+Copyright 2017, Battelle Memorial Institute.  All Rights Reserved. \
+E-mail: proteomics@pnnl.gov \
+Website: https://panomics.pnl.gov/ or https://omics.pnl.gov
+
+## License
+
+Licensed under the Apache License, Version 2.0; you may not use this file except
+in compliance with the License.  You may obtain a copy of the License at
+http://www.apache.org/licenses/LICENSE-2.0
