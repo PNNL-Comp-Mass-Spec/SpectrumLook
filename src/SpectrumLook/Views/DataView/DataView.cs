@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
+using PHRPReader;
 using SpectrumLook.Builders;
 
 namespace SpectrumLook.Views
@@ -66,7 +67,7 @@ namespace SpectrumLook.Views
                 string sequence;
                 string prefix;
                 string suffix;
-                PHRPReader.clsPeptideCleavageStateCalculator.SplitPrefixAndSuffixFromSequence(Peptide, out sequence, out prefix, out suffix);
+                PeptideCleavageStateCalculator.SplitPrefixAndSuffixFromSequence(Peptide, out sequence, out prefix, out suffix);
 
                 m_manager.HandleSelectScanAndPeptide(ScanNumber, sequence);
                 m_manager.FocusOnControl(DataGridTable);
@@ -735,7 +736,7 @@ namespace SpectrumLook.Views
                     string sequence;
                     string prefix;
                     string suffix;
-                    PHRPReader.clsPeptideCleavageStateCalculator.SplitPrefixAndSuffixFromSequence(peptide, out sequence,
+                    PeptideCleavageStateCalculator.SplitPrefixAndSuffixFromSequence(peptide, out sequence,
                         out prefix, out suffix);
 
                     peptidesAndScans.Add(new ResultRowData(dataset, scanNumber, peptide, precursor));

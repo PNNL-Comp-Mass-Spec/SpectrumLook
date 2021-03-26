@@ -2,14 +2,14 @@
 using System.IO;
 using System.Text;
 using PHRPReader;
+using PHRPReader.Data;
 using SpectrumLook.Views.Options;
 
 namespace SpectrumLook.Builders
 {
     public class PHRPReaderParser : ISynopsysParser
     {
-        private clsPHRPReader m_reader;
-        private clsPHRPParser m_parser;
+        private ReaderFactory m_reader;
         private FragmentLadderOptions m_fragLadderOptions;
         private bool m_firstRead = true;
         private int m_peptideColumnIndex;
@@ -31,17 +31,16 @@ namespace SpectrumLook.Builders
                     }
                 }
             }
-            var oStartupOptions = new clsPHRPStartupOptions
+            var startupOptions = new StartupOptions
             {
                 LoadModsAndSeqInfo = true,
                 LoadMSGFResults = true,
                 LoadScanStatsData = false,
                 MaxProteinsPerPSM = 100
             };
-            m_reader = new clsPHRPReader(synopsisFilePath, oStartupOptions);
+            m_reader = new ReaderFactory(synopsisFilePath, startupOptions);
             //m_reader.FastReadMode = true;
             m_reader.SkipDuplicatePSMs = true;
-            m_parser = m_reader.PHRPParser;
         }
 
         public string[] GetNextRow()
@@ -62,7 +61,7 @@ namespace SpectrumLook.Builders
                 string prefix;
                 string suffix;
                 string sequence;
-                PHRPReader.clsPeptideCleavageStateCalculator.SplitPrefixAndSuffixFromSequence(
+                PeptideCleavageStateCalculator.SplitPrefixAndSuffixFromSequence(
                     m_reader.CurrentPSM.Peptide, out sequence, out prefix, out suffix);
 
                 splitLine[m_peptideColumnIndex] = prefix + "." + modPeptide + "." + suffix;
@@ -72,12 +71,7 @@ namespace SpectrumLook.Builders
             return null;
         }
 
-        //public Dictionary<char, double> GetModifications()
-        //{
-        //    m_reader.
-        //}
-
-        private string PeptideWithAllMods(string cleanSequence, List<clsAminoAcidModInfo> residues)
+        private string PeptideWithAllMods(string cleanSequence, List<AminoAcidModInfo> residues)
         {
             StringBuilder modPeptide = new StringBuilder();
 
@@ -101,14 +95,14 @@ namespace SpectrumLook.Builders
                 {
                     var modSym = modInfo.ModDefinition.ModificationSymbol;
                     int loc = modInfo.ResidueLocInPeptide;
-                    var term = modInfo.ResidueTerminusState;
+                    var term = modInfo.TerminusState;
 
                     if (i + 1 == loc)
                     {
                         modPeptide.Append(modSym);
                     }
                 }
-                
+
             }
             return modPeptide.ToString();
         }
