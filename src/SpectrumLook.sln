@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.40629.0
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31112.23
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpectrumLook", "SpectrumLook\SpectrumLook.csproj", "{AF37BC26-D110-44A1-B582-F9F3B2DD004B}"
 EndProject
@@ -14,12 +14,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		TraceAndTestImpact.testsettings = TraceAndTestImpact.testsettings
 	EndProjectSection
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "SpectrumLook Installer", "SpectrumLook Installer\SpectrumLook Installer.vdproj", "{26CA897A-79C0-466E-B8D4-8ADEA4326171}"
-EndProject
 Global
-	GlobalSection(TestCaseManagementSettings) = postSolution
-		CategoryFile = Prototype42.vsmdi
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
 		Release|x86 = Release|x86
@@ -31,11 +26,14 @@ Global
 		{AF37BC26-D110-44A1-B582-F9F3B2DD004B}.Release|x86.Build.0 = Release|x86
 		{78C8E8FF-024C-424D-8C0E-07B9C3634951}.Debug|x86.ActiveCfg = Debug|x86
 		{78C8E8FF-024C-424D-8C0E-07B9C3634951}.Release|x86.ActiveCfg = Release|x86
-		{26CA897A-79C0-466E-B8D4-8ADEA4326171}.Debug|x86.ActiveCfg = Debug
-		{26CA897A-79C0-466E-B8D4-8ADEA4326171}.Release|x86.ActiveCfg = Release
-		{26CA897A-79C0-466E-B8D4-8ADEA4326171}.Release|x86.Build.0 = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BFE3F050-F5B9-4C14-88D6-A8CB9714B12A}
+	EndGlobalSection
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = Prototype42.vsmdi
 	EndGlobalSection
 EndGlobal
