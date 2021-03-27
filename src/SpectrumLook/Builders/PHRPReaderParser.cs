@@ -9,11 +9,11 @@ namespace SpectrumLook.Builders
 {
     public class PHRPReaderParser : ISynopsisParser
     {
-        private ReaderFactory m_reader;
-        private FragmentLadderOptions m_fragLadderOptions;
+        private readonly ReaderFactory m_reader;
+        private readonly FragmentLadderOptions m_fragLadderOptions;
         private bool m_firstRead = true;
-        private int m_peptideColumnIndex;
-        private string[] m_firstLine;
+        private readonly int m_peptideColumnIndex;
+        private readonly string[] m_firstLine;
 
         public PHRPReaderParser(string synopsisFilePath, FragmentLadderOptions fragLadderOptions)
         {

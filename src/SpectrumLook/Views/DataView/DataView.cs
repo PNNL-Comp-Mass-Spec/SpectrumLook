@@ -13,7 +13,7 @@ namespace SpectrumLook.Views
     public partial class DataView : Form
     {
         //////// private DataViewOptions m_dataViewOptions;
-        Manager m_manager;
+        readonly Manager m_manager;
 
         public DataTable DataTableForDisplay;
         public DataViewAdvance DataAdvanceOption;
