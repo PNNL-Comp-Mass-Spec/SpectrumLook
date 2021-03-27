@@ -41,7 +41,7 @@ namespace SpectrumLook
         private LadderInstanceDictionaryXmlSerializer m_workFileWriter;
 
         /// <summary>
-        /// Ths is the main class the manages the interactions between the plot, dataview, mainform, and fragment ladder.
+        /// This is the main class the manages the interactions between the plot, dataview, mainform, and fragment ladder.
         /// </summary>
         /// <param name="mainForm">This should be the mainform that will contain the fragment ladder, plot and the dataview.</param>
         public Manager(MainForm mainForm)
