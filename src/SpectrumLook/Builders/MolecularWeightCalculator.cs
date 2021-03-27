@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using MolecularWeightCalculator;
+using MolecularWeightCalculator.Formula;
+using MolecularWeightCalculator.Sequence;
 
 namespace SpectrumLook.Builders
 {
-    public class MolecularWeightCalculator : ITheoryCalculator
+    public class MolecularWeightUtility : ITheoryCalculator
     {
-        public MolecularWeightCalculator(Dictionary<char, double> modificationList)
+        public MolecularWeightUtility(Dictionary<char, double> modificationList)
         {
             m_modificationList = modificationList;
         }
@@ -14,7 +17,7 @@ namespace SpectrumLook.Builders
         /// <summary>
         /// This is an instantiation of the Molecular Weight Calculator.
         /// </summary>
-        private MwtWinDll.MolecularWeightCalculator m_mMwtWin = new MwtWinDll.MolecularWeightCalculator();
+        private readonly MolecularWeightTool mMolecularWeightTool = new MolecularWeightTool();
 
         private Dictionary<char, double> m_modificationList;
 
@@ -55,40 +58,39 @@ namespace SpectrumLook.Builders
         {
 
             // Set the element mode
-            m_mMwtWin.SetElementMode(MwtWinDll.MWElementAndMassRoutines.emElementModeConstants.emIsotopicMass);
+            mMolecularWeightTool.SetElementMode(ElementMassMode.Isotopic);
 
             // Initialize the options
-            var udtFragSpectrumOptions = default(MwtWinDll.MWPeptideClass.udtFragmentationSpectrumOptionsType);
-            udtFragSpectrumOptions.Initialize();
+            var fragSpectrumOptions = new FragmentationSpectrumOptions();
 
-            // Initialize udtFragSpectrumOptions with the defaults
-            udtFragSpectrumOptions = m_mMwtWin.Peptide.GetFragmentationSpectrumOptions();
+            // Initialize fragSpectrumOptions with the defaults
+            fragSpectrumOptions = mMolecularWeightTool.Peptide.GetFragmentationSpectrumOptions();
 
-            // The entire list of value will be retirved without any filtering
-            udtFragSpectrumOptions.DoubleChargeIonsShow = true;
-            udtFragSpectrumOptions.TripleChargeIonsShow = true;
-            udtFragSpectrumOptions.DoubleChargeIonsThreshold = 1;
-            udtFragSpectrumOptions.TripleChargeIonsThreshold = 1;
+            // The entire list of value will be retrieved without any filtering
+            fragSpectrumOptions.DoubleChargeIonsShow = true;
+            fragSpectrumOptions.TripleChargeIonsShow = true;
+            fragSpectrumOptions.DoubleChargeIonsThreshold = 1;
+            fragSpectrumOptions.TripleChargeIonsThreshold = 1;
 
             // Each label begins with "b", "y", "c", or "z"
             char modeString1;
             if (fragmentationModeETD)
             {
                 modeString1 = 'c';
-                udtFragSpectrumOptions.IonTypeOptions[(int)MwtWinDll.MWPeptideClass.itIonTypeConstants.itBIon].ShowIon = false;
-                udtFragSpectrumOptions.IonTypeOptions[(int)MwtWinDll.MWPeptideClass.itIonTypeConstants.itYIon].ShowIon = false;
-                udtFragSpectrumOptions.IonTypeOptions[(int)MwtWinDll.MWPeptideClass.itIonTypeConstants.itCIon].ShowIon = true;
-                udtFragSpectrumOptions.IonTypeOptions[(int)MwtWinDll.MWPeptideClass.itIonTypeConstants.itZIon].ShowIon = true;
-                udtFragSpectrumOptions.IonTypeOptions[(int)MwtWinDll.MWPeptideClass.itIonTypeConstants.itAIon].ShowIon = false;
+                fragSpectrumOptions.IonTypeOptions[(int)IonType.BIon].ShowIon = false;
+                fragSpectrumOptions.IonTypeOptions[(int)IonType.YIon].ShowIon = false;
+                fragSpectrumOptions.IonTypeOptions[(int)IonType.CIon].ShowIon = true;
+                fragSpectrumOptions.IonTypeOptions[(int)IonType.ZIon].ShowIon = true;
+                fragSpectrumOptions.IonTypeOptions[(int)IonType.AIon].ShowIon = false;
             }
             else
             {
                 modeString1 = 'b';
-                udtFragSpectrumOptions.IonTypeOptions[(int)MwtWinDll.MWPeptideClass.itIonTypeConstants.itBIon].ShowIon = true;
-                udtFragSpectrumOptions.IonTypeOptions[(int)MwtWinDll.MWPeptideClass.itIonTypeConstants.itYIon].ShowIon = true;
-                udtFragSpectrumOptions.IonTypeOptions[(int)MwtWinDll.MWPeptideClass.itIonTypeConstants.itCIon].ShowIon = false;
-                udtFragSpectrumOptions.IonTypeOptions[(int)MwtWinDll.MWPeptideClass.itIonTypeConstants.itZIon].ShowIon = false;
-                udtFragSpectrumOptions.IonTypeOptions[(int)MwtWinDll.MWPeptideClass.itIonTypeConstants.itAIon].ShowIon = false;
+                fragSpectrumOptions.IonTypeOptions[(int)IonType.BIon].ShowIon = true;
+                fragSpectrumOptions.IonTypeOptions[(int)IonType.YIon].ShowIon = true;
+                fragSpectrumOptions.IonTypeOptions[(int)IonType.CIon].ShowIon = false;
+                fragSpectrumOptions.IonTypeOptions[(int)IonType.ZIon].ShowIon = false;
+                fragSpectrumOptions.IonTypeOptions[(int)IonType.AIon].ShowIon = false;
             }
 
             // MolecularWeightTool allowed modification symbols.
@@ -121,18 +123,18 @@ namespace SpectrumLook.Builders
             //Add the modifications if needed.
             if (m_modificationList != null)
             {
-                m_mMwtWin.Peptide.RemoveAllModificationSymbols(); // Remove the default MWT modification symbols
+                mMolecularWeightTool.Peptide.RemoveAllModificationSymbols(); // Remove the default MWT modification symbols
                 foreach (var modPair in m_modificationList)
                 {
                     // Key is symbol, value is mzValue
                     var modComment = string.Empty;
                     var indicatesPhospho = Math.Abs(modPair.Value - 79.9663326) < 0.005;
-                    var modResult = m_mMwtWin.Peptide.SetModificationSymbol(modPair.Key.ToString(), modPair.Value, indicatesPhospho,
+                    var modResult = mMolecularWeightTool.Peptide.SetModificationSymbol(modPair.Key.ToString(), modPair.Value, indicatesPhospho,
                         modComment);
 
                     if (modResult != 0) // A symbol that is not allowed, most likely
                     {
-                        modResult = m_mMwtWin.Peptide.SetModificationSymbol(availableSymbols[0].ToString(), modPair.Value, indicatesPhospho,
+                        modResult = mMolecularWeightTool.Peptide.SetModificationSymbol(availableSymbols[0].ToString(), modPair.Value, indicatesPhospho,
                         modComment);
                         badSymbolMap.Add(modPair.Key, availableSymbols[0]); // Add it to the dictionary
                         availableSymbols = availableSymbols.Substring(1); // Remove it from the available symbols.
@@ -152,20 +154,15 @@ namespace SpectrumLook.Builders
             // Obtain the fragmentation spectrum for a peptide
             // First define the peptide sequence
             // Need to pass "false" to parameter blnIs3LetterCode since "peptide" is in one-letter notation
-            m_mMwtWin.Peptide.SetSequence(peptideFix,
-                                        MwtWinDll.MWPeptideClass.ntgNTerminusGroupConstants.ntgHydrogen,
-                                        MwtWinDll.MWPeptideClass.ctgCTerminusGroupConstants.ctgHydroxyl,
-                                        false);
+            mMolecularWeightTool.Peptide.SetSequence(peptideFix, NTerminusGroupType.Hydrogen, CTerminusGroupType.Hydroxyl, false);
 
             // Update the options
-            m_mMwtWin.Peptide.SetFragmentationSpectrumOptions(udtFragSpectrumOptions);
+            mMolecularWeightTool.Peptide.SetFragmentationSpectrumOptions(fragSpectrumOptions);
 
-            // Get the fragmentation masses
-            MwtWinDll.MWPeptideClass.udtFragmentationSpectrumDataType[] udtFragSpectrum = null;
-            m_mMwtWin.Peptide.GetFragmentationMasses(ref udtFragSpectrum);
+            // Get the fragmentation masses = null;
+            mMolecularWeightTool.Peptide.GetFragmentationMasses(out var fragSpectrum);
 
-
-            var cleanPeptide = m_mMwtWin.Peptide.GetSequence(false, false, false, false, false);
+            var cleanPeptide = mMolecularWeightTool.Peptide.GetSequence(false, false, false, false, false);
 
             if (string.IsNullOrWhiteSpace(cleanPeptide))
             {
@@ -174,7 +171,7 @@ namespace SpectrumLook.Builders
             }
 
             // Obtain the list of ions
-            var theoryList = GetTheoryList(cleanPeptide, fragmentationModeETD, modeString1, udtFragSpectrum);
+            var theoryList = GetTheoryList(cleanPeptide, fragmentationModeETD, modeString1, fragSpectrum);
 
             return theoryList;
         }
@@ -183,7 +180,7 @@ namespace SpectrumLook.Builders
             string peptide,
             bool fragmentationModeCID,
             char modeString1,
-            MwtWinDll.MWPeptideClass.udtFragmentationSpectrumDataType[] udtFragSpectrum)
+            IReadOnlyList<FragmentationSpectrumData> fragSpectrum)
         {
             var theoryList = new List<KeyValuePair<string, double>>();
 
@@ -213,23 +210,23 @@ namespace SpectrumLook.Builders
                 cTerminusResidueMass = m_deNovoTableB[peptide.Last()];
 
             // Generate every other ion except the last of the b or c ion series
-            for (var i = 0; i < udtFragSpectrum.Length; i++)
+            for (var i = 0; i < fragSpectrum.Count; i++)
             {
                 try
                 {
-                    if ((udtFragSpectrum[i].Symbol.StartsWith("Shoulder")))
+                    if ((fragSpectrum[i].Symbol.StartsWith("Shoulder")))
                     {
                         // Shoulder ion; ignore it
                         continue;
                     }
                     else
                     {
-                        theoryList.Add(new KeyValuePair<string, double>(udtFragSpectrum[i].Symbol, udtFragSpectrum[i].Mass));
+                        theoryList.Add(new KeyValuePair<string, double>(fragSpectrum[i].Symbol, fragSpectrum[i].Mass));
 
                         // Generate the last b or c ion, as 1+, 2+, and 3+
                         // This code only works if peptide contains all capital letters
 
-                        if (udtFragSpectrum[i].Symbol != cTermModeSymbolFlag || cTermMassesAdded)
+                        if (fragSpectrum[i].Symbol != cTermModeSymbolFlag || cTermMassesAdded)
                         {
                             continue;
                         }

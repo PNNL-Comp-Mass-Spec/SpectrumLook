@@ -52,8 +52,8 @@
     <Reference Include="MSDataFileReader">
       <HintPath>..\..\lib\MSDataFileReader.dll</HintPath>
     </Reference>
-    <Reference Include="MwtWinDll">
-      <HintPath>..\..\lib\MwtWinDll.dll</HintPath>
+    <Reference Include="MolecularWeightCalculator">
+      <HintPath>..\..\lib\MolecularWeightCalculator.dll</HintPath>
     </Reference>
     <Reference Include="PHRPReader">
       <HintPath>..\..\lib\PHRPReader.dll</HintPath>
