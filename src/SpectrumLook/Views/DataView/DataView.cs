@@ -240,7 +240,7 @@ namespace SpectrumLook.Views
                 {
                     VisibleRows = false;
 
-                    for (j = 0; j < DataGridTable.Columns.Count && VisibleRows == false; j++)
+                    for (j = 0; j < DataGridTable.Columns.Count && !VisibleRows; j++)
                     {
                         StringFromCell = DataGridTable.Rows[i].Cells[j].Value.ToString().ToLower();
                         if (StringFromCell.Contains(SearchText))
@@ -729,7 +729,7 @@ namespace SpectrumLook.Views
 
         private void DataGridTable_Click(object sender, EventArgs e)
         {
-            if (m_manager.DataLoaded == false)
+            if (!m_manager.DataLoaded)
             {
                 HandleRowSelection();
             }

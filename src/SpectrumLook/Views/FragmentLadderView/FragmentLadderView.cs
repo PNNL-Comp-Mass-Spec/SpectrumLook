@@ -651,7 +651,7 @@ namespace SpectrumLook.Views.FragmentLadderView
                     break;
                 }
             }
-            if (peptide_exists == false)
+            if (!peptide_exists)
             {
                 peptideEditorTextBox.Text = peptideEditorTextBox.Text.ToUpper();
             }

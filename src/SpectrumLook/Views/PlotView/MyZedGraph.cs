@@ -380,7 +380,7 @@ namespace SpectrumLook.Views
             foreach (var pane in MasterPane.PaneList)
             {
                 var minY = pane.YAxis.Scale.Min;
-                if (m_options.zoomHorizontal == false) // For box zoom (non horizontal zoom) change the YAxis to 0 to keep the X axis
+                if (!m_options.zoomHorizontal) // For box zoom (non horizontal zoom) change the YAxis to 0 to keep the X axis
                 {
                     pane.YAxis.Scale.Min = 0;
                     minY = 0;
