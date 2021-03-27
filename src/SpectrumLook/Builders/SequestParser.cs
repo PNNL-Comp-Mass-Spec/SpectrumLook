@@ -77,7 +77,7 @@ namespace SpectrumLook.Builders
         string[] ISynopsisParser.GetNextRow()
         {
             var currentLine = m_fileReader.ReadLine();
-            if ((currentLine != null) && (currentLine != ""))
+            if (!string.IsNullOrEmpty(currentLine))
             {
                 var splicedRow = currentLine.Split('\t');
                 // This is where add "_p" and "_s" to the row that signifies the peptide sequence and connection to experiment data.
