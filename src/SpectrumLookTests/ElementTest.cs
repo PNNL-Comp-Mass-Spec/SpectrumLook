@@ -63,7 +63,7 @@ namespace SpectrumLookTests
         [TestMethod()]
         public void ElementConstructorTest()
         {
-            Element target = new Element();
+            var target = new Element();
             Assert.Inconclusive("TODO: Implement code to verify target");
         }
 
@@ -73,8 +73,8 @@ namespace SpectrumLookTests
         [TestMethod()]
         public void annotationTest()
         {
-            Element target = new Element(); // TODO: Initialize to an appropriate value
-            string expected = string.Empty; // TODO: Initialize to an appropriate value
+            var target = new Element(); // TODO: Initialize to an appropriate value
+            var expected = string.Empty; // TODO: Initialize to an appropriate value
             string actual;
             target.Annotation = expected;
             actual = target.Annotation;
@@ -88,7 +88,7 @@ namespace SpectrumLookTests
         [TestMethod()]
         public void intensityTest()
         {
-            Element target = new Element(); // TODO: Initialize to an appropriate value
+            var target = new Element(); // TODO: Initialize to an appropriate value
             double expected = 0F; // TODO: Initialize to an appropriate value
             double actual;
             target.Intensity = expected;
@@ -103,8 +103,8 @@ namespace SpectrumLookTests
         [TestMethod()]
         public void matchedTest()
         {
-            Element target = new Element(); // TODO: Initialize to an appropriate value
-            bool expected = false; // TODO: Initialize to an appropriate value
+            var target = new Element(); // TODO: Initialize to an appropriate value
+            var expected = false; // TODO: Initialize to an appropriate value
             bool actual;
             target.Matched = expected;
             actual = target.Matched;
@@ -118,7 +118,7 @@ namespace SpectrumLookTests
         [TestMethod()]
         public void mzValueTest()
         {
-            Element target = new Element(); // TODO: Initialize to an appropriate value
+            var target = new Element(); // TODO: Initialize to an appropriate value
             double expected = 0F; // TODO: Initialize to an appropriate value
             double actual;
             target.Mz = expected;

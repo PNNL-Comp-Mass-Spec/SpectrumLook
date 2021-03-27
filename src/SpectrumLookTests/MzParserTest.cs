@@ -36,8 +36,8 @@ namespace SpectrumLookTests
         [TestMethod()]
         public void MzParserConstructorTest()
         {
-            string fileLocation = "..\\..\\..\\TestData\\QC_Standards_Excerpt.mzXML";
-            MzParser target = new MzParser(fileLocation);
+            var fileLocation = "..\\..\\..\\TestData\\QC_Standards_Excerpt.mzXML";
+            var target = new MzParser(fileLocation);
             Assert.IsNotNull(target,"Target is null on an existing file.  Did that data move?");
             try
             {
@@ -67,10 +67,10 @@ namespace SpectrumLookTests
         [DeploymentItem("SpectrumLook.exe")]
         public void GetExperimentDataByScanNumberTest()
         {
-            string fileLocation = "..\\..\\..\\TestData\\QC_Standards_Excerpt.mzXML";
+            var fileLocation = "..\\..\\..\\TestData\\QC_Standards_Excerpt.mzXML";
             IExperimentParser target = new MzParser(fileLocation);
-            int scanNum = 7382;
-            List<Element> actual = target.GetExperimentDataByScanNumber(scanNum);
+            var scanNum = 7382;
+            var actual = target.GetExperimentDataByScanNumber(scanNum);
             Assert.AreEqual<int>(528, actual.Count ,"Length of output is unexpected, is there new test data?");
         }
     }

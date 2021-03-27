@@ -71,7 +71,7 @@ namespace SpectrumLookTests
         [TestMethod()]
         public void BuildListTest()
         {
-            ElementListBuilder target = CreateElementListBuilder(); // TODO: Initialize to an appropriate value
+            var target = CreateElementListBuilder(); // TODO: Initialize to an appropriate value
             target.BuildList();
             Assert.Inconclusive("A method that does not return a value cannot be verified.");
         }

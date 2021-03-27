@@ -35,7 +35,7 @@ namespace SpectrumLookTests
         [TestMethod()]
         public void SequestParserConstructorTest()
         {
-            string fileLocation = "..\\..\\..\\TestData\\QC_Standards_Excerpt_syn.txt";
+            var fileLocation = "..\\..\\..\\TestData\\QC_Standards_Excerpt_syn.txt";
             SequestParser target;
             try
             {
@@ -64,19 +64,19 @@ namespace SpectrumLookTests
         [DeploymentItem("SpectrumLook.exe")]
         public void GetNextColumnTest()
         {
-            int indexOfExpect = 0;
+            var indexOfExpect = 0;
 
-            string fileLocation = "..\\..\\..\\TestData\\QC_Standards_Excerpt_syn.txt";
+            var fileLocation = "..\\..\\..\\TestData\\QC_Standards_Excerpt_syn.txt";
 
             ISynopsisParser target = new SequestParser(fileLocation);
 
-            string[] expected = "HitNum	ScanNum_s	ScanCount	ChargeState	MH	XCorr	DelCn	Sp	Reference	MultiProtein	Peptide_p	DelCn2	RankSp	RankXc	DelM	XcRatio	PassFilt	MScore	NumTrypticEnds".Split('\t');
+            var expected = "HitNum	ScanNum_s	ScanCount	ChargeState	MH	XCorr	DelCn	Sp	Reference	MultiProtein	Peptide_p	DelCn2	RankSp	RankXc	DelM	XcRatio	PassFilt	MScore	NumTrypticEnds".Split('\t');
                                 //Copied straight from QC file.
             string[] actual;
 
             actual = target.GetNextRow();
 
-            foreach (string actualTmp in actual)
+            foreach (var actualTmp in actual)
             {
                 Assert.AreNotSame(expected[indexOfExpect], actualTmp);
                 ++indexOfExpect;
