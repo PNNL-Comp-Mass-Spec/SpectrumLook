@@ -6,7 +6,7 @@ namespace SpectrumLook.Views
 {
     public partial class EditAddModification : Form
     {
-        private string m_validSymbols = "!#$%&'*+?@^_`~-"; // Allow use of '-'
+        private readonly string m_validSymbols = "!#$%&'*+?@^_`~-"; // Allow use of '-'
         //    string allowedSymbols = "!#$%&'*+?@^_`~";    // by molecular weight calculator
         private readonly string m_availableSymbols;
         private readonly string m_symbolRegex;

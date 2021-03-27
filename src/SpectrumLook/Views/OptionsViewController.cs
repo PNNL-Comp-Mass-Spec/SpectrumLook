@@ -18,13 +18,13 @@ namespace SpectrumLook.Views
         // TODO: THIS DOESN'T WORK FOR ANYTHING BUT PRIMITIVES (MAYBE FOR PRIMITIVES)
         private object[] m_valuesForCancel;
 
-        private PlotOptions m_plotOptions;
+        private readonly PlotOptions m_plotOptions;
 
-        private MainFormOptions m_mainFormOptions;
+        private readonly MainFormOptions m_mainFormOptions;
 
-        private Options.FragmentLadderOptions m_fragLadderOptions;
+        private readonly Options.FragmentLadderOptions m_fragLadderOptions;
 
-        private SpectrumLook.Views.FragmentLadderView.FragmentLadderView m_fragLadder;
+        private readonly SpectrumLook.Views.FragmentLadderView.FragmentLadderView m_fragLadder;
 
         private Color Unmatched;
 

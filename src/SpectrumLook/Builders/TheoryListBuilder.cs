@@ -7,23 +7,24 @@ namespace SpectrumLook.Builders
         /// <summary>
         /// the peptide that was passed into this builder that the theory set is calculated from
         /// </summary>
-        private string m_peptide;
+        private readonly string m_peptide;
 
         /// <summary>
         /// A flag representing the fragmentation mode for the calculations (false = CID, true = ETD)
         /// </summary>
-        private bool m_fragmentationModeETD;
+        private readonly bool m_fragmentationModeETD;
 
         /// <summary>
         /// The theory calculator that handles the brunt of calculating peptides
         /// </summary>
-        private ITheoryCalculator m_theoryCalculator;
+        private readonly ITheoryCalculator m_theoryCalculator;
 
         /// <summary>
         /// Constructor for the TheoryListBuilder
         /// </summary>
         /// <param name="peptide"></param>
         /// <param name="fragmentationModeCID"></param>
+        /// <param name="theoryCalculator"></param>
         public TheoryListBuilder(string peptide, bool fragmentationModeCID, ITheoryCalculator theoryCalculator)
         {
             m_peptide = peptide;

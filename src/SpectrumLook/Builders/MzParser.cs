@@ -12,7 +12,7 @@ namespace SpectrumLook.Builders
     /// </summary>
     public class MzParser : IExperimentParser
     {
-        private clsMSDataFileReaderBaseClass m_fileToRead;
+        private readonly clsMSDataFileReaderBaseClass m_fileToRead;
 
         string IExperimentParser.Filename
         {

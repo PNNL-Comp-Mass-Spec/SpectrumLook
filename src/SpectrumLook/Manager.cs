@@ -30,15 +30,15 @@ namespace SpectrumLook
         public DataView m_dataView;
         public Views.FragmentLadderView.FragmentLadderView m_fragLadder;
 
-        private OptionsViewController m_options;
+        private readonly OptionsViewController m_options;
 
-        private BuilderDirector m_builderDirector;
+        private readonly BuilderDirector m_builderDirector;
 
         private Dictionary<string, List<LadderInstance>> m_ladderInstancesTable = new Dictionary<string, List<LadderInstance>>();
 
         private LadderInstance m_currentInstance;
 
-        private LadderInstanceDictionaryXmlSerializer m_workFileWriter;
+        private readonly LadderInstanceDictionaryXmlSerializer m_workFileWriter;
 
         /// <summary>
         /// This is the main class the manages the interactions between the plot, dataview, mainform, and fragment ladder.

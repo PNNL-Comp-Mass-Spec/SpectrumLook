@@ -16,7 +16,7 @@ namespace SpectrumLook.Views
 
     public class MyZedGraph : ZedGraphControl
     {
-        private int m_snapBoxSize = 5;
+        private readonly int m_snapBoxSize = 5;
         private Color m_snapBoxColor = Color.Black;
         private Point m_snapBoxPosition;
         private bool m_snapShowing;

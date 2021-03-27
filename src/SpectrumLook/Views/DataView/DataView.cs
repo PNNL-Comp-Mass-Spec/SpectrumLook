@@ -24,9 +24,9 @@ namespace SpectrumLook.Views
         private int ColNum;
         private int RowNum;
 
-        private List<string> HeaderList = new List<string>();
+        private readonly List<string> HeaderList = new List<string>();
 
-        private ContextMenu Menu = new ContextMenu();
+        private readonly ContextMenu Menu = new ContextMenu();
 
         private Manager.SynFileColumnIndices mSynFileColumns;
 

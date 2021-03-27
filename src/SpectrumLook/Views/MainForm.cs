@@ -10,7 +10,7 @@ namespace SpectrumLook.Views
     // TODO : Need to inherit from IObserver and override the Update function! Otherwise the options will not update properly.
     public partial class MainForm : Form, IObserver
     {
-        private Manager m_manager;
+        private readonly Manager m_manager;
 
         public MainFormOptions m_currentOptions;
         private const string PROGRAM_DATE = "March 26, 2021";

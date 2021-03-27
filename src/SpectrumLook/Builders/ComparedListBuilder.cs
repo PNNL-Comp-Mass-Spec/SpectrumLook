@@ -16,12 +16,12 @@ namespace SpectrumLook.Builders
         /// <summary>
         /// This is a reference to the actualElementList that was passed into the constructor.
         /// </summary>
-        private List<Element> m_actualElementList;
+        private readonly List<Element> m_actualElementList;
 
         /// <summary>
         /// This is a reference to the theoryElementList that was passed into the constructor.
         /// </summary>
-        private List<Element> m_theoryElementList;
+        private readonly List<Element> m_theoryElementList;
 
         /// <summary>
         /// This is a value that stores the possible error between the theoretical m/z values and the actual m/z values
@@ -33,7 +33,7 @@ namespace SpectrumLook.Builders
         /// </summary>
         private double m_lowerBoundTolerance;
 
-        private double m_precursor;
+        private readonly double m_precursor;
 
         public double possibleError
         {

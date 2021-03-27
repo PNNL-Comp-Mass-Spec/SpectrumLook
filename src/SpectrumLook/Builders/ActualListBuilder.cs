@@ -14,7 +14,7 @@ namespace SpectrumLook.Builders
         /// This stores the inputed experiment parser, so that this class can
         /// retive data from the experiment files.
         /// </summary>
-        private IExperimentParser m_fileParser;
+        private readonly IExperimentParser m_fileParser;
 
         /// <summary>
         /// This stores the inputed scan number in the constructor so that the BuildList function knows where
