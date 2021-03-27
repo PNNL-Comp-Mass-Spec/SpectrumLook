@@ -66,9 +66,8 @@ namespace SpectrumLook.Builders
             if (this.m_fileOpened)
             {
                 var values = new List<Element>();
-                var dataPairCount = -1;
 
-                dataPairCount = m_fileToRead.GetScanData2D(scanNum, out var mzIntensityPairList, 0, true);
+                var dataPairCount = m_fileToRead.GetScanData2D(scanNum, out var mzIntensityPairList, 0, true);
 
                 // Step through mzList and intensityList and assign them.
                 for (var i = 0; i < dataPairCount; ++i)
