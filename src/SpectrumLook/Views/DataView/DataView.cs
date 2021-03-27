@@ -79,7 +79,7 @@ namespace SpectrumLook.Views
 
                 m_manager.HandleSelectScanAndPeptide(scanNumber, sequence);
                 m_manager.FocusOnControl(DataGridTable);
-                m_manager.callcombobox();
+                m_manager.CallComboBox();
             }
         }
 

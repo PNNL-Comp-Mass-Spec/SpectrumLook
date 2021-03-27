@@ -225,7 +225,7 @@ namespace SpectrumLook
         }
 
         // This function simply calls the combo box function within m_fragLadder
-        public void callcombobox()
+        public void CallComboBox()
         {
             m_fragLadder.setComboBox();
         }
