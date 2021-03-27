@@ -6,11 +6,10 @@ namespace SpectrumLook.Views
 {
     public partial class EditAddModification : Form
     {
-        private string m_usedSymbols;
         private string m_validSymbols = "!#$%&'*+?@^_`~-"; // Allow use of '-'
-        //    string allowedSymbols = "!#$%&'*+?@^_`~"; // bby molecular weight calculator
-        private string m_availableSymbols;
-        private string m_symbolRegex;
+        //    string allowedSymbols = "!#$%&'*+?@^_`~";    // by molecular weight calculator
+        private readonly string m_availableSymbols;
+        private readonly string m_symbolRegex;
 
         public string ModificationString { get; private set; }
 
@@ -26,14 +25,20 @@ namespace SpectrumLook.Views
             symbolTextBox.Text = ModificationString;
             massTextBox.Text = MassString;
 
-            m_usedSymbols = usedSymbols;
-            if (!string.IsNullOrWhiteSpace(editedModString))
+            string usedSymbolsToCheck;
+
+            if (string.IsNullOrWhiteSpace(editedModString))
             {
-                m_usedSymbols = usedSymbols.Remove(usedSymbols.IndexOf(ModificationString[0]), 1);
+                usedSymbolsToCheck = usedSymbols;
             }
+            else
+            {
+                usedSymbolsToCheck = usedSymbols.Remove(usedSymbols.IndexOf(ModificationString[0]), 1);
+            }
+
             foreach (var c in m_validSymbols)
             {
-                if (!m_usedSymbols.Contains(c))
+                if (!usedSymbolsToCheck.Contains(c))
                 {
                     m_availableSymbols += c;
                 }
