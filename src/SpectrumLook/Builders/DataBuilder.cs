@@ -9,140 +9,79 @@ namespace SpectrumLook.Builders
 {
     static class DataBuilder
     {
-        static public DataTable GetDataTable(ISynopsysParser synopsisParser, ref int PeptideColumnIndex, ref int ScanColumnIndex, ref int PrecursorMzColumnInt, ref int DatasetColumnIndex)
+        public static DataTable GetDataTable(
+            ISynopsysParser synopsisParser,
+            out Manager.SynFileColumnIndices synFileColumns)
         {
-            //DataProgress ProgressWindow = new DataProgress();
-            ////ProgressWindow.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
-            ////ProgressWindow.progressBar1.MarqueeAnimationSpeed = 30;
-            //ProgressWindow.Show();
+            synFileColumns = new Manager.SynFileColumnIndices();
 
-            DataRow row = null;
             var dataTable = new DataTable("DataViewTable");
-            string[] InLine;
-            InLine = synopsisParser.GetNextRow();
+            var headerRow = synopsisParser.GetNextRow();
 
-            //First GetNextColumn actually gets First Row. Getting Peptide/Scan indices based off first row
-            PeptideColumnIndex = GetPeptideStringColumnIndex(InLine);
-            ScanColumnIndex = GetScanNumberColumnIndex(InLine);
-            PrecursorMzColumnInt = GetPrecursorMzColumnIndex(InLine);
-            DatasetColumnIndex = GetDatasetColumnIndex(InLine);
-
-            if (InLine == null)
+            if (headerRow == null)
             {
                 throw new System.InvalidProgramException("The synopsis file is empty");
             }
-            else
+
+            //First GetNextColumn actually gets First Row. Getting Peptide/Scan indices based off first row
+            synFileColumns.Peptide = FindColumnIndex(headerRow, "Peptide", "Peptide_p");
+
+            synFileColumns.Scan = FindColumnIndex(headerRow, "Scan", "ScanNum", "ScanNum_s", "Scan_s");
+
+            synFileColumns.PrecursorMz = FindColumnIndex(headerRow, "PrecursorMZ");
+
+            if (synFileColumns.PrecursorMz < 0)
             {
-                foreach (var i in InLine)
-                {
-                    dataTable.Columns.Add(new DataColumn(i, typeof(string)));
-                    if (i.ToLower().Contains("peptide_p"))
-                    {
-                        dataTable.Columns[i].ReadOnly = false;
-                    }
-                    else
-                    {
-                        dataTable.Columns[i].ReadOnly = true;
-                    }
-                }
-                InLine = synopsisParser.GetNextRow();
+                synFileColumns.ParentMH = FindColumnIndex(headerRow, "MH");
+                synFileColumns.Charge = FindColumnIndex(headerRow, "ChargeState", "Charge");
+            }
 
-                while (InLine != null)
-                {
-                    row = dataTable.NewRow();
-                    row.ItemArray = InLine;
-                    dataTable.Rows.Add(row);
+            synFileColumns.Dataset = FindColumnIndex(headerRow, "Dataset");
 
-                    InLine = synopsisParser.GetNextRow();
-                }
+            foreach (var headerName in headerRow)
+            {
+                dataTable.Columns.Add(new DataColumn(headerName, typeof(string)));
+                dataTable.Columns[headerName].ReadOnly = headerName.IndexOf("peptide_p", StringComparison.OrdinalIgnoreCase) <= 0;
+            }
+
+
+            while (true)
+            {
+                var dataLine = synopsisParser.GetNextRow();
+                if (dataLine == null)
+                    break;
+
+                var row = dataTable.NewRow();
+
+                for (var i = 0; i < dataLine.Length; i++)
+                    row[i] = dataLine[i];
+
+                dataTable.Rows.Add(row);
             }
 
             //ProgressWindow.Close();
             return dataTable;
         }
 
-
         /// <summary>
-        /// Returns the Column Index of the ScanNumber string column within the header row
-        /// Returns -1 if nothing is found
+        /// Determine the index of the column
         /// </summary>
-        public static int GetScanNumberColumnIndex(string[] HeaderRow)
+        /// <param name="headerColumns">Header row columns</param>
+        /// <param name="columnNameSynonyms">Column names to find</param>
+        /// <returns>The index of the column if found, otherwise -1</returns>
+        private static int FindColumnIndex(IReadOnlyList<string> headerColumns, params string[] columnNameSynonyms)
         {
-            var PotentialScanNumberColumnNames = new List<string>();
-            PotentialScanNumberColumnNames.Add("ScanNum");
-            PotentialScanNumberColumnNames.Add("Scan");
-            PotentialScanNumberColumnNames.Add("ScanNum_s");    //_s Appended in SequestParser/GetNextColumn
-            PotentialScanNumberColumnNames.Add("Scan_s");
-
-            var i = 0;
-            foreach(var s in HeaderRow)
+            foreach (var synonym in columnNameSynonyms)
             {
-                if (PotentialScanNumberColumnNames.Contains(s))
-                    return i;
-                i++;
+                for (var i = 0; i < headerColumns.Count; i++)
+                {
+                    if (headerColumns[i].Equals(synonym))
+                        return i;
+                }
             }
 
             return -1;
         }
 
-        /// <summary>
-        /// Returns the Column Index of the Precursor m/z string column within the header row
-        /// Returns -1 if nothing is found
-        /// </summary>
-        public static int GetPrecursorMzColumnIndex(string[] HeaderRow)
-        {
-            var PotentialPrecursorMzColumnNames = new List<string>();
-            PotentialPrecursorMzColumnNames.Add("PrecursorMZ");
-
-            var i = 0;
-            foreach (var s in HeaderRow)
-            {
-                if (PotentialPrecursorMzColumnNames.Contains(s))
-                    return i;
-                i++;
-            }
-
-            return -1;
-        }
-
-        /// <summary>
-        /// Returns the Column Index of the Dataset string column within the header row
-        /// Returns -1 if nothing is found
-        /// </summary>
-        public static int GetDatasetColumnIndex(string[] HeaderRow)
-        {
-            var PotentialDatasetNameColumnNames = new List<string>();
-            PotentialDatasetNameColumnNames.Add("Dataset");
-
-            var i = 0;
-            foreach (var s in HeaderRow)
-            {
-                if (PotentialDatasetNameColumnNames.Contains(s))
-                    return i;
-                i++;
-            }
-
-            return -1;
-        }
-
-        /// <summary>
-        /// Returns the Column Index of the Peptide string column within the header row
-        /// Returns -1 if nothing is found
-        /// </summary>
-        public static int GetPeptideStringColumnIndex(string[] HeaderRow)
-        {
-            var PotentialPeptideColumnNames = new List<string>();
-            PotentialPeptideColumnNames.Add("Peptide"); //_p Appended in SequestParser/GetNextColumn
-            PotentialPeptideColumnNames.Add("Peptide_p");
-
-            var i = 0;
-            foreach(var s in HeaderRow)
-            {
-                if (PotentialPeptideColumnNames.Contains(s))
-                    return i;
-                i++;
-            }
-            return -1;
-        }
     }
 }
