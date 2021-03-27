@@ -20,11 +20,11 @@ namespace SpectrumLook.Views.FragmentLadderView
         /// <returns></returns>
         public LadderInstance GenerateInstance(List<Builders.Element> theoryList, string peptide, Dictionary<char, double> modificationValues)
         {
-            var i = 0;
             var tempListHolder = new List<string[]>();
             var tempListColumnOptions = new List<string>();
             var returnedLadderInstance = new LadderInstance();
 
+            int i;
             foreach (var currentElement in theoryList)
             {
                 i = 0;

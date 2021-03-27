@@ -143,13 +143,11 @@ namespace SpectrumLook.Views
             for (var i = 0; i < ColNum; i++)
             {
                 HeaderList.Insert(i, DataTableForDisplay.Columns[i].ColumnName);
-                InsertItem = new ToolStripMenuItem
-                {
-                    Text = HeaderList[i],
-                    ImageIndex = i,
-                    CheckOnClick = true,
-                    Checked = true
-                };
+                InsertItem = new ToolStripMenuItem();
+                InsertItem.Text = HeaderList[i];
+                InsertItem.ImageIndex = i;
+                InsertItem.CheckOnClick = true;
+                InsertItem.Checked = true;
                 InsertItem.CheckedChanged += new EventHandler(InsertItem_CheckedChanged);
                 ColcontextMenuStrip.Items.Insert(i, InsertItem);
             }
@@ -185,10 +183,9 @@ namespace SpectrumLook.Views
         }
         void InsertItem_CheckedChanged(object sender, EventArgs e)
         {
-            ToolStripMenuItem InsertItem = null;
             for (var i = 0; i < ColNum; i++)
             {
-                InsertItem = (ToolStripMenuItem)ColcontextMenuStrip.Items[i];
+                var InsertItem = (ToolStripMenuItem)ColcontextMenuStrip.Items[i];
                 DataGridTable.Columns[i].Visible = InsertItem.Checked;
             }
         }
@@ -210,12 +207,9 @@ namespace SpectrumLook.Views
         }
         public void SimpleSearch(string inputS)
         {
-            bool VisibleRows;
-            var SearchText = inputS.ToLower();
-            string StringFromCell = null;
-            var j = 0;
-            var i = 0;
-            if (SearchText == "")// Null string
+            var searchText = inputS.ToLower();
+            int i;
+            if (searchText?.Length == 0)// Null string
             {
                 // show All the table
                 for (i = 0; i < DataGridTable.Columns.Count; i++)
@@ -240,18 +234,19 @@ namespace SpectrumLook.Views
                 }
                 for (i = 0; i < DataGridTable.Rows.Count; i++)
                 {
-                    VisibleRows = false;
+                    var visibleRows = false;
 
-                    for (j = 0; j < DataGridTable.Columns.Count && !VisibleRows; j++)
+                    int j;
+                    for (j = 0; j < DataGridTable.Columns.Count && !visibleRows; j++)
                     {
-                        StringFromCell = DataGridTable.Rows[i].Cells[j].Value.ToString().ToLower();
-                        if (StringFromCell.Contains(SearchText))
+                        var StringFromCell = DataGridTable.Rows[i].Cells[j].Value.ToString().ToLower();
+                        if (StringFromCell.Contains(searchText))
                         {
-                            VisibleRows = true;
+                            visibleRows = true;
                         }
                     }
 
-                    if (VisibleRows == true)
+                    if (visibleRows)
                     {
                         DataGridTable.Rows[i].Visible = true;
                     }
@@ -320,16 +315,16 @@ namespace SpectrumLook.Views
         }
         public void Contains(int CellCount, string Input, bool AND)
         {
-            var indexR = 0;
             var SearchInput = Input.ToLower();
             DataGridTable.CurrentCell = null;
+            int indexR;
             for (indexR = 0; indexR < RowNum; indexR++)
             {
                 if (AND)
                 {
                     if (!DataGridTable.Rows[indexR].Cells[CellCount].Value.ToString().ToLower().Contains(SearchInput))
                     {
-                        if (DataGridTable.Rows[indexR].Visible == true)
+                        if (DataGridTable.Rows[indexR].Visible)
                         {
                             DataGridTable.Rows[indexR].Visible = false;
                         }
@@ -350,13 +345,13 @@ namespace SpectrumLook.Views
         }
         public void GreaterThan(int CellCount, string Input, bool AND)
         {
-            double InputDoubleValue = 0;
-            double SelDoubleValue = 0;
             var Input_lower = Input.ToLower();
-            var indexR = 0;
             DataGridTable.CurrentCell = null;
+            int indexR;
             for (indexR = 0; indexR < RowNum; indexR++)
             {
+                double InputDoubleValue;
+                double SelDoubleValue;
                 if (AND)
                 {
                     if (Double.TryParse(Input_lower, out InputDoubleValue))// what user input
@@ -365,7 +360,7 @@ namespace SpectrumLook.Views
                         {
                             if (SelDoubleValue <= InputDoubleValue)// if the value in the table is less than or equal to the user input
                             {
-                                if (DataGridTable.Rows[indexR].Visible == true)
+                                if (DataGridTable.Rows[indexR].Visible)
                                 {
                                     DataGridTable.Rows[indexR].Visible = false;
                                 }
@@ -397,8 +392,8 @@ namespace SpectrumLook.Views
             double InputDoubleValue;
             double SelDoubleValue;
             var Input_lower = Input.ToLower();
-            var indexR = 0;
             DataGridTable.CurrentCell = null;
+            int indexR;
             for (indexR = 0; indexR < RowNum; indexR++)
             {
                 if (AND)
@@ -409,7 +404,7 @@ namespace SpectrumLook.Views
                         {
                             if (SelDoubleValue > InputDoubleValue || SelDoubleValue > InputDoubleValue)// If the input is less or larger than the cell value
                             {
-                                if (DataGridTable.Rows[indexR].Visible == true)
+                                if (DataGridTable.Rows[indexR].Visible)
                                 {
                                     DataGridTable.Rows[indexR].Visible = false;
                                 }
@@ -441,8 +436,8 @@ namespace SpectrumLook.Views
             double InputDoubleValue;
             double SelDoubleValue;
             var Input_lower = Input.ToLower();
-            var indexR = 0;
             DataGridTable.CurrentCell = null;
+            int indexR;
             for (indexR = 0; indexR < RowNum; indexR++)
             {
                 if (AND)
@@ -454,7 +449,7 @@ namespace SpectrumLook.Views
                             Console.WriteLine(SelDoubleValue);
                             if (SelDoubleValue >= InputDoubleValue && DataGridTable.Rows[indexR].Cells[CellCount].Value.ToString() != null)// if the input value is less than the cell value
                             {
-                                if (DataGridTable.Rows[indexR].Visible == true)
+                                if (DataGridTable.Rows[indexR].Visible)
                                 {
                                     DataGridTable.Rows[indexR].Visible = false;
                                 }
@@ -723,7 +718,7 @@ namespace SpectrumLook.Views
 
         private void DataGridTable_SelectionChanged(object sender, EventArgs e)
         {
-            if (m_manager.DataLoaded == true)
+            if (m_manager.DataLoaded)
             {
                 HandleRowSelection();
             }

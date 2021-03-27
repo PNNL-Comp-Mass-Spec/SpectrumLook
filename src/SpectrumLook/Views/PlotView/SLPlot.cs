@@ -438,7 +438,7 @@ namespace SpectrumLook.Views
 
             foreach (var point in Points)
             {
-                if (point.Matched == true)
+                if (point.Matched)
                 {
                     matchedPoints.Add(point);
                 }
@@ -476,8 +476,8 @@ namespace SpectrumLook.Views
 
         private void numberOfPlots_TextChanged(object sender, EventArgs e)
         {
-            var numPlots = 0;
             var str = numberOfPlots.Text.Trim();
+            int numPlots;
             if (int.TryParse(str, out numPlots))
             {
                 // m_manager.m_mainForm.m_currentOptions.numberOfPlotsChangedOnForm = numPlots;

@@ -97,8 +97,7 @@ namespace SpectrumLook.Views
 
         public void UpdateSnappingCursor(PointF mousePosition)
         {
-            PointPair closestPoint = null;
-
+            PointPair closestPoint;
             if (FindClosestPoint(mousePosition, out closestPoint, out var closestPane))
             {
                 var graphPoint = new PointF((float)closestPoint.X, (float)closestPoint.Y);
@@ -133,7 +132,6 @@ namespace SpectrumLook.Views
         public bool FindClosestPoint(PointF mousePosition, out PointPair closestPoint, out GraphPane closestPane)
         {
             closestPoint = null;
-            closestPane = null;
 
             var unmatchedClosest = new PointPair();
             var matchedClosest = new PointPair();
@@ -367,7 +365,7 @@ namespace SpectrumLook.Views
         /// <param name="newState"></param>
         void MyZedGraph_ZoomEvent(ZedGraphControl sender, ZoomState oldState, ZoomState newState)
         {
-            if (m_manager.DataLoaded == true)
+            if (m_manager.DataLoaded)
             {
                 ReevaluateAnnotations();
             }
@@ -841,7 +839,7 @@ namespace SpectrumLook.Views
             {
                 if (e.Button == MouseButtons.Right)
                 {
-                    if (m_manager.DataLoaded == true)
+                    if (m_manager.DataLoaded)
                     {
                         HandleZoomOut();
                     }

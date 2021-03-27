@@ -261,7 +261,6 @@ namespace SpectrumLook
                  * symbols to check if the peptide string from the user is a valid peptide string.
                  * if its not, giving feedback to user and returning out*/
             var modList = new string(m_fragLadder.fragmentLadderOptions.modificationList.Keys.ToArray());
-            var escapedModList = "";
             // The manual way, based on a list of metacharacters that need to be escaped
             /*foreach (char c in modList)
             {
@@ -276,7 +275,7 @@ namespace SpectrumLook
                 }
             }*/
             // The automatic way, using .NET
-            escapedModList = System.Text.RegularExpressions.Regex.Escape(modList);
+            var escapedModList = System.Text.RegularExpressions.Regex.Escape(modList);
 
             // One or more characters, A-Z, which may be followed by a valid modification symbol, that does not end with a modification symbol be itself?
             // The escaping of all symbols is likely a problem.
@@ -578,7 +577,7 @@ namespace SpectrumLook
         /// <param name="fileLocation">The location in which you want to save the .spwf</param>
         public void HandleSaveWorkFile(string fileLocation)
         {
-            if (fileLocation != null && fileLocation != "")
+            if (!string.IsNullOrEmpty(fileLocation))
                 m_workFileWriter.WriteLadderInstanceDictionary(fileLocation, m_ladderInstancesTable);
             else
                 m_workFileWriter.WriteLadderInstanceDictionary(m_ladderInstancesTable);

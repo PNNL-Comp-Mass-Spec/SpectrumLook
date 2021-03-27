@@ -76,12 +76,11 @@ namespace SpectrumLook.Views
         {
             base.OnClosing(e);
             e.Cancel = true;
-            FileStream writer = null;
             if (m_profileLocation != "")
             {
                 if (m_createProfile)
                 {
-                    writer = new FileStream(m_profileLocation, FileMode.Create, FileAccess.Write);
+                    var writer = new FileStream(m_profileLocation, FileMode.Create, FileAccess.Write);
 
                     try
                     {
@@ -105,7 +104,7 @@ namespace SpectrumLook.Views
         protected override void OnVisibleChanged(EventArgs e)
         {
             base.OnVisibleChanged(e);
-            if (Visible == true)
+            if (Visible)
             {
                 SaveValuesForCancel();
             }
@@ -245,7 +244,7 @@ namespace SpectrumLook.Views
 
         private void plotFragLadderSelectBox_TextChanged(object sender, EventArgs e)
         {
-            var outputValue = 0;
+            int outputValue;
             if (!int.TryParse(plotFragLadderSelectBox.Text, out outputValue))
             {
                 plotFragLadderSelectBox.Text = "";
@@ -349,7 +348,7 @@ namespace SpectrumLook.Views
 
         private void mainMatchingToleranceBox_TextChanged(object sender, EventArgs e)
         {
-            var outputValue = 0.0;
+            double outputValue;
             if (!double.TryParse(mainMatchingToleranceBox.Text, out outputValue))
             {
                 mainMatchingToleranceBox.Text = "";
@@ -369,7 +368,7 @@ namespace SpectrumLook.Views
 
         private void lowerMatchingToleranceBox_TextChanged(object sender, EventArgs e)
         {
-            var outputValue = 0.0;
+            double outputValue;
             if (!double.TryParse(lowerMatchingToleranceBox.Text, out outputValue))
             {
                 lowerMatchingToleranceBox.Text = "";
@@ -433,8 +432,8 @@ namespace SpectrumLook.Views
         // TODO: This should be easily accomplished by populating all data accordingly when the dialog is opened, and then ONLY storing the data if/when "OK" is clicked.
         private void applyButton_Click(object sender, EventArgs e)
         {
-            var i = 0;
             m_valuesForCancel = new object[m_numCancelOptions];
+            int i;
             for (i = 0; i < m_numCancelOptions; ++i)
             {
                 m_valuesForCancel[i] = null;
@@ -578,13 +577,12 @@ namespace SpectrumLook.Views
 
         private void OptionsViewController_FormClosing(object sender, FormClosingEventArgs e)
         {
-            // Lets Save the Profile data.
-            FileStream writer = null;
             if (m_profileLocation != "")
             {
                 if (m_createProfile)
                 {
-                    writer = new FileStream(m_profileLocation, FileMode.Create, FileAccess.Write);
+                    // Lets Save the Profile data.
+                    var writer = new FileStream(m_profileLocation, FileMode.Create, FileAccess.Write);
 
                     try
                     {
