@@ -32,7 +32,7 @@ namespace SpectrumLook.Builders
             }
             else
             {
-                if(m_parser.Filename != fileLocation)
+                if (m_parser.Filename != fileLocation)
                 {
                     if (extension.Equals(mzXML))
                     {

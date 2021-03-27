@@ -9,7 +9,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 namespace SpectrumLook.Views
 {
-    public partial class OptionsViewController : Form , IObserver
+    public partial class OptionsViewController : Form, IObserver
     {
         // 0-10, 13-15  Plot
         //11-12         Main
@@ -161,7 +161,7 @@ namespace SpectrumLook.Views
             dataGridViewModList.Rows.Clear();
             foreach (var modPair in m_fragLadderOptions.modificationList)
             {
-                dataGridViewModList.Rows.Add(new object[] {modPair.Key, modPair.Value});
+                dataGridViewModList.Rows.Add(new object[] { modPair.Key, modPair.Value });
             }
         }
 
@@ -342,7 +342,7 @@ namespace SpectrumLook.Views
             if (outputResult == DialogResult.OK)
             {
                 Unmatched = colorDialog.Color;
-               // m_plotOptions.unmatchedColor = colorDialog.Color;
+                // m_plotOptions.unmatchedColor = colorDialog.Color;
                 mainUnmatchedColorSample.BackColor = Unmatched;
             }
         }
@@ -661,7 +661,7 @@ namespace SpectrumLook.Views
                 m_valuesForCancel[13] = m_plotOptions.rightClickUnzoom;
                 m_valuesForCancel[14] = m_plotOptions.hidePlotTools;
                 m_valuesForCancel[15] = m_plotOptions.numberOfPlots;
-              // fixed issue 10 here
+                // fixed issue 10 here
                 m_plotOptions.numberOfPlots = 1;
                 m_plotOptions.replot = true;
 

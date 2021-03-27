@@ -68,12 +68,12 @@ namespace SpectrumLook.Builders
         /// <param name="theoryElementList">This should be a reference to a list generated from the TheoryListBuilder </param>
         public ComparedListBuilder(double possibleError, double lowerBoundPossibleError, List<Element> actualElementList, double precursor, ref List<Element> theoryElementList)
         {
-            m_actualElementList    = actualElementList;
-            m_theoryElementList    = theoryElementList;
-            ElementList            = new List<Element>();
-            m_precursor            = precursor;
-            m_upperBoundTolerance       = possibleError;
-            m_lowerBoundTolerance       = lowerBoundPossibleError;
+            m_actualElementList = actualElementList;
+            m_theoryElementList = theoryElementList;
+            ElementList = new List<Element>();
+            m_precursor = precursor;
+            m_upperBoundTolerance = possibleError;
+            m_lowerBoundTolerance = lowerBoundPossibleError;
         }
 
         /// <summary>
@@ -155,7 +155,7 @@ namespace SpectrumLook.Builders
         //    }
         //}
 
-       // public override void BuildList()
+        // public override void BuildList()
         //{
         //    int currentActualIndex = 0;
         //    int currentTheoryIndex = 0;
@@ -244,11 +244,11 @@ namespace SpectrumLook.Builders
 
         public override void BuildList()
         {
-            foreach(var theoryElement in m_theoryElementList)
+            foreach (var theoryElement in m_theoryElementList)
             {
                 var pairs = from actualElement in m_actualElementList
                             where
-                                (Math.Abs(theoryElement.Mz - actualElement.Mz) <= m_upperBoundTolerance) && (Math.Abs(theoryElement.Mz  - actualElement.Mz) >= m_lowerBoundTolerance)
+                                (Math.Abs(theoryElement.Mz - actualElement.Mz) <= m_upperBoundTolerance) && (Math.Abs(theoryElement.Mz - actualElement.Mz) >= m_lowerBoundTolerance)
 
                             select new { actualElement };
 
@@ -263,7 +263,7 @@ namespace SpectrumLook.Builders
                     else
                     {
                         var theoryDiff = Math.Abs(item.actualElement.Mz - theoryElement.Mz);
-                        var maxDiff    = Math.Abs(item.actualElement.Mz - maxElement.Mz);
+                        var maxDiff = Math.Abs(item.actualElement.Mz - maxElement.Mz);
                         if (theoryDiff < maxDiff)
                         {
                             maxElement = item.actualElement;
@@ -273,8 +273,8 @@ namespace SpectrumLook.Builders
 
                 if (maxElement != null)
                 {
-                    theoryElement.Matched   = true;
-                    maxElement.Matched      = true;
+                    theoryElement.Matched = true;
+                    maxElement.Matched = true;
 
                     if (maxElement.Annotation != "")
                     {
@@ -311,7 +311,7 @@ namespace SpectrumLook.Builders
 
             if (precursor != null)
             {
-                if (maxIntensity == null || precursor.Intensity >= (maxIntensity.Intensity/10.0))
+                if (maxIntensity == null || precursor.Intensity >= (maxIntensity.Intensity / 10.0))
                 {
                     precursor.Annotation += " - PRECURSOR";
                 }
@@ -325,11 +325,11 @@ namespace SpectrumLook.Builders
             // When all is said and done the compared list will just be a copy of the actual list.
             foreach (var currentElement in m_actualElementList)
             {
-                var elementForCopying       = new Element();
-                elementForCopying.Annotation    = currentElement.Annotation;
-                elementForCopying.Matched       = currentElement.Matched;
-                elementForCopying.Intensity     = currentElement.Intensity;
-                elementForCopying.Mz       = currentElement.Mz;
+                var elementForCopying = new Element();
+                elementForCopying.Annotation = currentElement.Annotation;
+                elementForCopying.Matched = currentElement.Matched;
+                elementForCopying.Intensity = currentElement.Intensity;
+                elementForCopying.Mz = currentElement.Mz;
 
                 ElementList.Add(elementForCopying);
             }

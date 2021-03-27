@@ -89,7 +89,7 @@ namespace SpectrumLook.Views
         private void detachPlotFromMainForm()
         {
             Point pointOnTheScreen;
-            if(!m_currentOptions.isPlotInMainForm)
+            if (!m_currentOptions.isPlotInMainForm)
             {
                 if (panelPlot.Controls.Contains(m_manager.m_plot))
                 {

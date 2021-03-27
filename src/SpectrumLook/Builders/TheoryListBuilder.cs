@@ -8,7 +8,7 @@ namespace SpectrumLook.Builders
         /// the peptide that was passed into this builder that the theory set is calculated from
         /// </summary>
         private string m_peptide;
-        
+
         /// <summary>
         /// A flag representing the fragmentation mode for the calculations (false = CID, true = ETD)
         /// </summary>

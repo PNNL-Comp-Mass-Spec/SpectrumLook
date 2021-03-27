@@ -267,14 +267,26 @@ namespace SpectrumLook.Views
                                 var format = ImageFormat.Png;
                                 switch (ext)
                                 {
-                                    case ("png"): format = ImageFormat.Png; break;
-                                    case ("gif"): format = ImageFormat.Gif; break;
+                                    case ("png"):
+                                        format = ImageFormat.Png;
+                                        break;
+                                    case ("gif"):
+                                        format = ImageFormat.Gif;
+                                        break;
                                     case ("jpg"):
-                                    case ("jpeg"): format = ImageFormat.Jpeg; break;
+                                    case ("jpeg"):
+                                        format = ImageFormat.Jpeg;
+                                        break;
                                     case ("tiff"):
-                                    case ("tif"): format = ImageFormat.Tiff; break;
-                                    case ("bmp"): format = ImageFormat.Bmp; break;
-                                    default: format = ImageFormat.Png; break;
+                                    case ("tif"):
+                                        format = ImageFormat.Tiff;
+                                        break;
+                                    case ("bmp"):
+                                        format = ImageFormat.Bmp;
+                                        break;
+                                    default:
+                                        format = ImageFormat.Png;
+                                        break;
                                 }
 
                                 msPlot.MasterPane.GetImage(msPlot.MasterPane.IsAntiAlias).Save(myStream, format);

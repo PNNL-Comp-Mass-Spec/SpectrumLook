@@ -120,7 +120,7 @@ namespace SpectrumLook.Views.FragmentLadderView
                 }
             }
 
-            if(columnCheckedListBox.CheckedItems.Count != 0)
+            if (columnCheckedListBox.CheckedItems.Count != 0)
             {
                 if (indexOfFirstHalfEnd == 0 && columnCheckedListBox.CheckedItems[columnCheckedListBox.CheckedItems.Count - 1].ToString()[0] == 'b')
                 {
@@ -196,19 +196,19 @@ namespace SpectrumLook.Views.FragmentLadderView
                         }
                         else
                         {*/
-                            var currentLadderValueIndex = 0;
-                            while (currentLadderValueIndex < currentInstance.mzValue[listBoxCounter].Length)
+                        var currentLadderValueIndex = 0;
+                        while (currentLadderValueIndex < currentInstance.mzValue[listBoxCounter].Length)
+                        {
+                            if (currentInstance.mzValue[listBoxCounter][currentLadderValueIndex] == "")
                             {
-                                if (currentInstance.mzValue[listBoxCounter][currentLadderValueIndex] == "")
-                                {
-                                    tempListBox.Items.Insert((currentLadderValueIndex + 1), "");
-                                }
-                                else
-                                {
-                                    tempListBox.Items.Insert((currentLadderValueIndex + 1), currentInstance.mzValue[listBoxCounter][currentLadderValueIndex]);
-                                }
-                                ++currentLadderValueIndex;
+                                tempListBox.Items.Insert((currentLadderValueIndex + 1), "");
                             }
+                            else
+                            {
+                                tempListBox.Items.Insert((currentLadderValueIndex + 1), currentInstance.mzValue[listBoxCounter][currentLadderValueIndex]);
+                            }
+                            ++currentLadderValueIndex;
+                        }
                         //}
 
                         /**************This is to find the largest string. **************/
@@ -397,22 +397,22 @@ namespace SpectrumLook.Views.FragmentLadderView
                         /*if ((columnCheckedListBox.CheckedItems[index].ToString().Contains("y")) ||
                             (columnCheckedListBox.CheckedItems[index].ToString().Contains("z")))
                         {*/
-                            var tempArray = currentInstance.mzValue[listBoxCounter];
-                            var findNonNull = 0;
-                            while ((findNonNull < tempArray.Length) && (tempArray[findNonNull] == ""))
-                                ++findNonNull;
-                            var splittedSubArrayOne = tempArray[findNonNull].Split('|');
-                            var splittedSubArrayTwo = tempArray[(findNonNull + 1)].Split('|');
-                            var outValue1 = 0.0;
-                            var outValue2 = 0.0;
+                        var tempArray = currentInstance.mzValue[listBoxCounter];
+                        var findNonNull = 0;
+                        while ((findNonNull < tempArray.Length) && (tempArray[findNonNull] == ""))
+                            ++findNonNull;
+                        var splittedSubArrayOne = tempArray[findNonNull].Split('|');
+                        var splittedSubArrayTwo = tempArray[(findNonNull + 1)].Split('|');
+                        var outValue1 = 0.0;
+                        var outValue2 = 0.0;
 
-                            double.TryParse(splittedSubArrayOne[0], out outValue1);
-                            double.TryParse(splittedSubArrayTwo[0], out outValue2);
-                            if (outValue2 > outValue1)
-                            {
-                                Array.Reverse(tempArray);
-                            }
-                            tempListBox.Items.AddRange(tempArray);
+                        double.TryParse(splittedSubArrayOne[0], out outValue1);
+                        double.TryParse(splittedSubArrayTwo[0], out outValue2);
+                        if (outValue2 > outValue1)
+                        {
+                            Array.Reverse(tempArray);
+                        }
+                        tempListBox.Items.AddRange(tempArray);
                         /*}
                         else
                         {
@@ -622,9 +622,10 @@ namespace SpectrumLook.Views.FragmentLadderView
         {
             try
             {
-                 foreach(int indexChecked in columnCheckedListBox.CheckedIndices) {
-                     columnCheckedListBox.SetItemChecked(indexChecked, false);
-                 }
+                foreach (int indexChecked in columnCheckedListBox.CheckedIndices)
+                {
+                    columnCheckedListBox.SetItemChecked(indexChecked, false);
+                }
             }
             catch (Exception ex)
             {
@@ -732,11 +733,11 @@ namespace SpectrumLook.Views.FragmentLadderView
 
         private void changeTab(object sender, EventArgs e)
         {
-            if(!m_currentlyDrawing)
-            if (tabControl1.SelectedIndex != -1)
-            {
-                m_manager.UpdateCurrentInstance(tabControl1.SelectedIndex);
-            }
+            if (!m_currentlyDrawing)
+                if (tabControl1.SelectedIndex != -1)
+                {
+                    m_manager.UpdateCurrentInstance(tabControl1.SelectedIndex);
+                }
         }
 
         private void button1_Click(object sender, EventArgs e)

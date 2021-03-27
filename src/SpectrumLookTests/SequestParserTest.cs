@@ -59,7 +59,7 @@ namespace SpectrumLookTests
             ISynopsisParser target = new SequestParser(fileLocation);
 
             var expected = "HitNum	ScanNum_s	ScanCount	ChargeState	MH	XCorr	DelCn	Sp	Reference	MultiProtein	Peptide_p	DelCn2	RankSp	RankXc	DelM	XcRatio	PassFilt	MScore	NumTrypticEnds".Split('\t');
-                                // Copied straight from QC file.
+            // Copied straight from QC file.
             string[] actual;
 
             actual = target.GetNextRow();

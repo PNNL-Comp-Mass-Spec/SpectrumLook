@@ -28,7 +28,7 @@ namespace SpectrumLook
         /// <param name="tableToWrite">The hashtable that contains a List of LadderInstances.</param>
         public void WriteLadderInstanceDictionary(Dictionary<string, List<LadderInstance>> tableToWrite)
         {
-            if(fileSaved != null)
+            if (fileSaved != null)
                 WriteLadderInstanceDictionary(fileSaved, tableToWrite);
         }
 

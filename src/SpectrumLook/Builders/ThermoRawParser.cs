@@ -50,7 +50,7 @@ namespace SpectrumLook.Builders
             }
         }
 
-         /// <summary>
+        /// <summary>
         /// This function returns an array of strings where the odd index's are intensities
         /// and even index's are mz Values.  The function takes advantage of the MSDataFileReader
         /// from PNNL.
@@ -72,7 +72,7 @@ namespace SpectrumLook.Builders
                 // Step through mzList and intensityList and assign them.
                 for (var i = 0; i < dataPairCount; ++i)
                 {
-                    values.Add(new Element(mzIntensityPairList[0,i], mzIntensityPairList[1,i]));
+                    values.Add(new Element(mzIntensityPairList[0, i], mzIntensityPairList[1, i]));
                 }
 
                 return values;

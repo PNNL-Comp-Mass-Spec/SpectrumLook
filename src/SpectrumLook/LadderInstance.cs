@@ -60,7 +60,7 @@ namespace SpectrumLook
             set
             {
                 var splittedString = scanAndPeptide.Split('|');
-                scanAndPeptide =  splittedString[0] + "|" + value;
+                scanAndPeptide = splittedString[0] + "|" + value;
             }
         }
         public string currentMode { get; set; }
