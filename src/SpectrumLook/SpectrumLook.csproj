@@ -105,7 +105,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Builders\IExperimentParser.cs" />
-    <Compile Include="Builders\ISynopsysParser.cs" />
+    <Compile Include="Builders\ISynopsisParser.cs" />
     <Compile Include="Builders\ITheoryCalculator.cs" />
     <Compile Include="Builders\MzParser.cs" />
     <Compile Include="Builders\SequestParser.cs" />
