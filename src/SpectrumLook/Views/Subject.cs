@@ -21,9 +21,9 @@ namespace SpectrumLook.Views
         {
             if (m_observerList == null)
             {
-                this.m_observerList = new List<IObserver>();
+                m_observerList = new List<IObserver>();
             }
-            this.m_observerList.Add(observerToAdd);
+            m_observerList.Add(observerToAdd);
         }
 
         /// <summary>
@@ -33,7 +33,7 @@ namespace SpectrumLook.Views
         /// <param name="observerToRemove">The observer you wish to remove from the list.</param>
         public void Detach(IObserver observerToRemove)
         {
-            this.m_observerList.Remove(observerToRemove);
+            m_observerList.Remove(observerToRemove);
         }
 
         /// <summary>

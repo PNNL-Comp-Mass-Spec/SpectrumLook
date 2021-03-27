@@ -20,7 +20,7 @@ namespace SpectrumLook.Builders
 
         protected ElementListBuilder()
         {
-            this.ElementList = new List<Element>();
+            ElementList = new List<Element>();
         }
 
         /// <summary>

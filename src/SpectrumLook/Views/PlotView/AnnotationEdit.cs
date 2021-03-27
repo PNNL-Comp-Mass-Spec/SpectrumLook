@@ -35,12 +35,12 @@ namespace SpectrumLook.Views.PlotView
                 radioButtonVisibleAuto.Checked = true;
             }
 
-            this.FormClosing += new FormClosingEventHandler(AnnotationEdit_FormClosing);
+            FormClosing += new FormClosingEventHandler(AnnotationEdit_FormClosing);
         }
 
         void AnnotationEdit_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (this.DialogResult == System.Windows.Forms.DialogResult.OK)
+            if (DialogResult == DialogResult.OK)
             {
                 m_annotation = m_modifiedAnnotation;
             }
@@ -52,13 +52,13 @@ namespace SpectrumLook.Views.PlotView
 
         private void buttonApply_Click(object sender, EventArgs e)
         {
-            this.DialogResult = System.Windows.Forms.DialogResult.OK;
+            DialogResult = DialogResult.OK;
             Close();
         }
 
         private void buttonCancel_Click(object sender, EventArgs e)
         {
-            this.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            DialogResult = DialogResult.Cancel;
             Close();
         }
 

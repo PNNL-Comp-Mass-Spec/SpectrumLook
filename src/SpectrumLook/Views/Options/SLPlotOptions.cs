@@ -12,135 +12,135 @@ namespace SpectrumLook.Views
     {
         public bool showSnappingCursor
         {
-            get => this.m_showSnappingCursor;
+            get => m_showSnappingCursor;
             set
             {
-                this.m_showSnappingCursor = value;
-                this.Invoke();
+                m_showSnappingCursor = value;
+                Invoke();
             }
         }
         public bool showLegend
         {
-            get => this.m_showLegend;
+            get => m_showLegend;
             set
             {
-                this.m_showLegend = value;
-                this.Invoke();
+                m_showLegend = value;
+                Invoke();
             }
         }
         public int annotationPercent
         {
-            get => this.m_annotationPercent;
+            get => m_annotationPercent;
             set
             {
-                this.m_annotationPercent = value;
-                this.Invoke();
+                m_annotationPercent = value;
+                Invoke();
             }
         }
         public int annotationTextSize
         {
-            get => this.m_annotationTextSize;
+            get => m_annotationTextSize;
             set
             {
-                this.m_annotationTextSize = value;
-                this.Invoke();
+                m_annotationTextSize = value;
+                Invoke();
             }
         }
         public Color annotationColor
         {
-            get => this.m_annotationColor;
+            get => m_annotationColor;
             set
             {
-                this.m_annotationColor = value;
-                this.Invoke();
+                m_annotationColor = value;
+                Invoke();
             }
         }
         public Color matchedColor
         {
-            get => this.m_matchedColor;
+            get => m_matchedColor;
             set
             {
-                this.m_matchedColor = value;
-                this.Invoke();
+                m_matchedColor = value;
+                Invoke();
             }
         }
         public Color unmatchedColor
         {
-            get => this.m_unmatchedColor;
+            get => m_unmatchedColor;
             set
             {
-                this.m_unmatchedColor = value;
-                this.Invoke();
+                m_unmatchedColor = value;
+                Invoke();
             }
         }
         public bool zoomHorizontal
         {
-            get => this.m_zoomHorizontal;
+            get => m_zoomHorizontal;
             set
             {
-                this.m_zoomHorizontal = value;
-                this.Invoke();
+                m_zoomHorizontal = value;
+                Invoke();
             }
         }
         public bool hideUnmatched
         {
-            get => this.m_hideUnmatched;
+            get => m_hideUnmatched;
             set
             {
-                this.m_hideUnmatched = value;
-                this.Invoke();
+                m_hideUnmatched = value;
+                Invoke();
             }
         }
         public Keys unzoomKey
         {
-            get => this.m_unzoomKey;
+            get => m_unzoomKey;
             set
             {
-                this.m_unzoomKey = value;
-                this.Invoke();
+                m_unzoomKey = value;
+                Invoke();
             }
         }
         public int focusOffset
         {
-            get => this.m_focusOffset;
+            get => m_focusOffset;
             set
             {
-                this.m_focusOffset = value;
-                this.Invoke();
+                m_focusOffset = value;
+                Invoke();
             }
         }
         public bool rightClickUnzoom
         {
-            get => this.m_rightClickUnzoom;
+            get => m_rightClickUnzoom;
             set
             {
-                this.m_rightClickUnzoom = value;
-                this.Invoke();
+                m_rightClickUnzoom = value;
+                Invoke();
             }
         }
         public bool hidePlotTools
         {
-            get => this.m_hidePlotTools;
+            get => m_hidePlotTools;
             set
             {
-                this.m_hidePlotTools = value;
-                this.Invoke();
+                m_hidePlotTools = value;
+                Invoke();
             }
         }
         public int numberOfPlots
         {
             get
             {
-                if (this.m_numberOfPlots < 1 || this.m_numberOfPlots > 5)
+                if (m_numberOfPlots < 1 || m_numberOfPlots > 5)
                 {
                     return 1;
                 }
-                return this.m_numberOfPlots;
+                return m_numberOfPlots;
             }
             set
             {
-                this.m_numberOfPlots = value;
-                this.Invoke();
+                m_numberOfPlots = value;
+                Invoke();
             }
         }
 

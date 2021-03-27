@@ -20,11 +20,11 @@ namespace SpectrumLook.Views
         {
             InitializeComponent();
 
-            this.ModificationString = editedModString;
-            this.MassString = editedMassString;
+            ModificationString = editedModString;
+            MassString = editedMassString;
 
-            this.symbolTextBox.Text = this.ModificationString;
-            this.massTextBox.Text = this.MassString;
+            symbolTextBox.Text = ModificationString;
+            massTextBox.Text = MassString;
 
             m_usedSymbols = usedSymbols;
             if (!string.IsNullOrWhiteSpace(editedModString))
@@ -39,8 +39,8 @@ namespace SpectrumLook.Views
                 }
             }
 
-            this.symbolTextBox.TextChanged += symbolTextBox_TextChanged;
-            this.massTextBox.TextChanged += massTextBox_TextChanged;
+            symbolTextBox.TextChanged += symbolTextBox_TextChanged;
+            massTextBox.TextChanged += massTextBox_TextChanged;
 
             m_symbolRegex = "^[" + System.Text.RegularExpressions.Regex.Escape(m_availableSymbols) + "]{0,1}$";
         }
@@ -50,47 +50,47 @@ namespace SpectrumLook.Views
             var outValue = 0.0;
             if (double.TryParse(massTextBox.Text, out outValue))
             {
-                this.DialogResult = System.Windows.Forms.DialogResult.OK;
-                this.ModificationString = this.symbolTextBox.Text;
-                this.MassString = outValue.ToString();
-                this.Close();
+                DialogResult = DialogResult.OK;
+                ModificationString = symbolTextBox.Text;
+                MassString = outValue.ToString();
+                Close();
             }
         }
 
         private void symbolTextBox_TextChanged(object sender, EventArgs e)
         {
-            if (System.Text.RegularExpressions.Regex.IsMatch(this.symbolTextBox.Text, m_symbolRegex))
+            if (System.Text.RegularExpressions.Regex.IsMatch(symbolTextBox.Text, m_symbolRegex))
             {
-                ModificationString = this.symbolTextBox.Text;
+                ModificationString = symbolTextBox.Text;
             }
             else
             {
-                this.symbolTextBox.Text = ModificationString;
+                symbolTextBox.Text = ModificationString;
             }
 
-            this.symbolTextBox.SelectAll();
+            symbolTextBox.SelectAll();
         }
 
         private void massTextBox_TextChanged(object sender, EventArgs e)
         {
-            var selLength = this.massTextBox.SelectionLength;
-            var pos = this.massTextBox.SelectionStart;
-            if (this.massTextBox.Text.Length == 0)
+            var selLength = massTextBox.SelectionLength;
+            var pos = massTextBox.SelectionStart;
+            if (massTextBox.Text.Length == 0)
             {
-                MassString = this.massTextBox.Text;
+                MassString = massTextBox.Text;
             }
             else
             {
                 double tempVal = 0;
-                if (double.TryParse(this.massTextBox.Text, out tempVal))
+                if (double.TryParse(massTextBox.Text, out tempVal))
                 {
-                    MassString = this.massTextBox.Text;
+                    MassString = massTextBox.Text;
                 }
                 else
                 {
-                    this.massTextBox.Text = MassString;
-                    this.massTextBox.SelectionStart = pos - 1;
-                    this.massTextBox.SelectionLength = selLength;
+                    massTextBox.Text = MassString;
+                    massTextBox.SelectionStart = pos - 1;
+                    massTextBox.SelectionLength = selLength;
                 }
             }
         }

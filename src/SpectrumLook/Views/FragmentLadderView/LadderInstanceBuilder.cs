@@ -18,7 +18,7 @@ namespace SpectrumLook.Views.FragmentLadderView
         /// <param name="theoryList">A list of elements that have been processed through the ComparedListBuilder.</param>
         /// <param name="peptide">The Peptide sequence that the List of Elements are generated from.</param>
         /// <returns></returns>
-        public LadderInstance GenerateInstance(List<SpectrumLook.Builders.Element> theoryList, string peptide, Dictionary<char, double> modificationValues)
+        public LadderInstance GenerateInstance(List<Builders.Element> theoryList, string peptide, Dictionary<char, double> modificationValues)
         {
             var i = 0;
             var tempListHolder = new List<string[]>();

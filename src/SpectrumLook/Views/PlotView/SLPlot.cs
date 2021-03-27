@@ -210,7 +210,7 @@ namespace SpectrumLook.Views
 
             // Open the AnnotationEdit form
             var editForm = new PlotView.AnnotationEdit(selectedAnnotation);
-            if (editForm.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            if (editForm.ShowDialog() == DialogResult.OK)
             {
                 if (editForm.m_annotation.m_showHideAuto < 0)
                 {
@@ -251,7 +251,7 @@ namespace SpectrumLook.Views
             {
                 if (msPlot.MasterPane != null && !string.IsNullOrEmpty(fileName))
                 {
-                    var ext = System.IO.Path.GetExtension(fileName).ToLower();
+                    var ext = Path.GetExtension(fileName).ToLower();
 
                     using (Stream myStream = new FileStream(fileName, FileMode.Create))
                     {
@@ -294,7 +294,7 @@ namespace SpectrumLook.Views
 
         /// Dlls needed to save an EmfFile
         [DllImport("gdi32.dll")]
-        static extern IntPtr CopyEnhMetaFile(IntPtr hemfSrc, System.Text.StringBuilder hNULL);
+        static extern IntPtr CopyEnhMetaFile(IntPtr hemfSrc, StringBuilder hNULL);
         [DllImport("gdi32.dll")]
         static extern bool DeleteEnhMetaFile(IntPtr hemf);
 
@@ -307,7 +307,7 @@ namespace SpectrumLook.Views
         /// </remarks>
         internal void SaveEmfFile(string fileName)
         {
-            using (var g = this.CreateGraphics())
+            using (var g = CreateGraphics())
             {
                 var hdc = g.GetHdc();
                 var metaFile = new Metafile(hdc, EmfType.EmfPlusOnly);
@@ -348,7 +348,7 @@ namespace SpectrumLook.Views
             }
             // msPlot.ReevaluateAnnotations();
             msPlot.Invalidate();
-            this.Invalidate();
+            Invalidate();
         }
 
         /// <summary>

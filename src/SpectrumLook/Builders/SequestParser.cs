@@ -43,9 +43,9 @@ namespace SpectrumLook.Builders
         /// <param name="fileLocation">The location of the sequest file. (.txt format)</param>
         public SequestParser(string fileLocation)
         {
-            this.m_fileLocation = fileLocation;
+            m_fileLocation = fileLocation;
 
-            this.currentRowCount = 0;
+            currentRowCount = 0;
 
             if (m_fileLocation != null)
             {
@@ -60,7 +60,7 @@ namespace SpectrumLook.Builders
             }
             else
             {
-                throw new System.InvalidProgramException("Null fileLocation Value.");
+                throw new InvalidProgramException("Null fileLocation Value.");
                 // Throw Exception.
             }
         }

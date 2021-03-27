@@ -22,7 +22,7 @@ namespace SpectrumLook.Views.Options
             set
             {
                 // This is a property that does need to be synced.
-                this.Invoke();
+                Invoke();
                 m_modificationList = value;
             }
         }
@@ -33,7 +33,7 @@ namespace SpectrumLook.Views.Options
             set
             {
                 // This is a property that does not need to be synced.
-                this.Invoke();
+                Invoke();
                 m_checkedHeaders = value;
             }
         }
@@ -43,7 +43,7 @@ namespace SpectrumLook.Views.Options
             get => m_ammoniaLoss;
             set
             {
-                this.Invoke();
+                Invoke();
                 m_ammoniaLoss = value;
             }
         }
@@ -53,7 +53,7 @@ namespace SpectrumLook.Views.Options
             get => m_waterLoss;
             set
             {
-                this.Invoke();
+                Invoke();
                 m_waterLoss = value;
             }
         }
@@ -63,7 +63,7 @@ namespace SpectrumLook.Views.Options
             get => m_precision;
             set
             {
-                this.Invoke();
+                Invoke();
                 m_precision = value;
             }
         }
@@ -82,11 +82,11 @@ namespace SpectrumLook.Views.Options
 
         public FragmentLadderOptions(FragmentLadderOptions rhsOptions)
         {
-            this.m_modificationList = rhsOptions.m_modificationList;
-            this.m_checkedHeaders = rhsOptions.m_checkedHeaders;
-            this.m_ammoniaLoss = rhsOptions.ammoniaLoss;
-            this.m_waterLoss = rhsOptions.waterLoss;
-            this.m_precision = rhsOptions.m_precision;
+            m_modificationList = rhsOptions.m_modificationList;
+            m_checkedHeaders = rhsOptions.m_checkedHeaders;
+            m_ammoniaLoss = rhsOptions.ammoniaLoss;
+            m_waterLoss = rhsOptions.waterLoss;
+            m_precision = rhsOptions.m_precision;
         }
     }
 }

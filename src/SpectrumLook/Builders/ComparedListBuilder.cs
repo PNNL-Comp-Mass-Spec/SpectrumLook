@@ -68,10 +68,10 @@ namespace SpectrumLook.Builders
         /// <param name="theoryElementList">This should be a reference to a list generated from the TheoryListBuilder </param>
         public ComparedListBuilder(double possibleError, double lowerBoundPossibleError, List<Element> actualElementList, double precursor, ref List<Element> theoryElementList)
         {
-            this.m_actualElementList    = actualElementList;
-            this.m_theoryElementList    = theoryElementList;
-            this.ElementList            = new List<Element>();
-            this.m_precursor            = precursor;
+            m_actualElementList    = actualElementList;
+            m_theoryElementList    = theoryElementList;
+            ElementList            = new List<Element>();
+            m_precursor            = precursor;
             m_upperBoundTolerance       = possibleError;
             m_lowerBoundTolerance       = lowerBoundPossibleError;
         }

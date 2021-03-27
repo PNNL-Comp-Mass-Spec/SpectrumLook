@@ -36,7 +36,7 @@ namespace SpectrumLook.Builders
         /// </summary>
         public override void BuildList()
         {
-            var theoreticalData = this.m_theoryCalculator.GetTheoreticalDataByPeptideSequence(m_peptide, m_fragmentationModeETD);
+            var theoreticalData = m_theoryCalculator.GetTheoreticalDataByPeptideSequence(m_peptide, m_fragmentationModeETD);
 
             ElementList = new List<Element>();
 

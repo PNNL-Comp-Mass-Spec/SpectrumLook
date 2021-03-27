@@ -112,27 +112,27 @@ namespace SpectrumLook.Views
             workerThread.Start();
 
             ToolStripMenuItem InsertItem = null;
-            this.DataTableForDisplay = new DataTable();
-            DataGridTable.SelectionChanged -= new System.EventHandler(this.DataGridTable_SelectionChanged);
+            DataTableForDisplay = new DataTable();
+            DataGridTable.SelectionChanged -= new EventHandler(DataGridTable_SelectionChanged);
             DataGridTable.Rows.Clear();
             DataGridTable.Columns.Clear();
-            this.ColNum = 0;
-            this.RowNum = 0;
+            ColNum = 0;
+            RowNum = 0;
             HeaderList.Clear();
             Menu.MenuItems.Clear();
-            this.DataTableForDisplay = newTable;
-            this.ColNum = DataTableForDisplay.Columns.Count;
-            this.RowNum = DataTableForDisplay.Rows.Count;
+            DataTableForDisplay = newTable;
+            ColNum = DataTableForDisplay.Columns.Count;
+            RowNum = DataTableForDisplay.Rows.Count;
             for (var i = 0; i < ColNum; i++)
             {
-                this.DataGridTable.Columns.Add(DataTableForDisplay.Columns[i].ColumnName, DataTableForDisplay.Columns[i].ColumnName);
+                DataGridTable.Columns.Add(DataTableForDisplay.Columns[i].ColumnName, DataTableForDisplay.Columns[i].ColumnName);
             }
             for (var i = 0; i < RowNum; i++)
             {
                 DataGridTable.Rows.Add();
                 for (var j = 0; j < ColNum; j++)
                 {
-                    this.DataGridTable.Rows[i].Cells[j].Value = DataTableForDisplay.Rows[i][j].ToString();
+                    DataGridTable.Rows[i].Cells[j].Value = DataTableForDisplay.Rows[i][j].ToString();
                 }
             }
 
@@ -149,7 +149,7 @@ namespace SpectrumLook.Views
                 InsertItem.CheckOnClick = true;
                 InsertItem.Checked = true;
                 InsertItem.CheckedChanged += new EventHandler(InsertItem_CheckedChanged);
-                this.ColcontextMenuStrip.Items.Insert(i, InsertItem);
+                ColcontextMenuStrip.Items.Insert(i, InsertItem);
             }
             for (var i = 0; i < DataGridTable.ColumnCount; i++)
             {
@@ -157,17 +157,17 @@ namespace SpectrumLook.Views
             }
 
             DataAdvanceOption = new DataViewAdvance();
-            this.SetAdvancedOptions();
+            SetAdvancedOptions();
             DataAdvanceOption.Visible = false;
             DataAdvanceOption.AdvSrchOption.Click += new EventHandler(AdvancedSearchClick);
             DataAdvanceOption.ColmDisplayOption.Click += new EventHandler(ColumnDisplayClick);
             DataAdvanceOption.AdvSrcCancel.Click += new EventHandler(AdvSrcCancel_Click);
             DataAdvanceOption.FormClosing += new FormClosingEventHandler(DataAdvanceOption_FormClosing);
 
-            this.DataGridTable.SortCompare += new DataGridViewSortCompareEventHandler(Custom_SortCompare);
+            DataGridTable.SortCompare += new DataGridViewSortCompareEventHandler(Custom_SortCompare);
 
             // Adding event back
-            DataGridTable.SelectionChanged += new System.EventHandler(this.DataGridTable_SelectionChanged);
+            DataGridTable.SelectionChanged += new EventHandler(DataGridTable_SelectionChanged);
 
             RequestStop();
         }
@@ -175,11 +175,11 @@ namespace SpectrumLook.Views
         void DataAdvanceOption_FormClosing(object sender, FormClosingEventArgs e)
         {
             e.Cancel = true;
-            this.DataAdvanceOption.Visible = false;
+            DataAdvanceOption.Visible = false;
         }
         void AdvSrcCancel_Click(object sender, EventArgs e)
         {
-            this.DataAdvanceOption.Visible = false;
+            DataAdvanceOption.Visible = false;
         }
         void InsertItem_CheckedChanged(object sender, EventArgs e)
         {
@@ -196,7 +196,7 @@ namespace SpectrumLook.Views
         }
         public void SearchButton_Click(object sender, EventArgs e)
         {
-            var SearchSubString = this.SearchBox.Text;
+            var SearchSubString = SearchBox.Text;
             if (DataGridTable != null)
             {
                 SimpleSearch(SearchSubString);
@@ -221,9 +221,9 @@ namespace SpectrumLook.Views
                     DataGridTable.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
                 }
 
-                for (i = 0; i < this.DataGridTable.Rows.Count; i++)
+                for (i = 0; i < DataGridTable.Rows.Count; i++)
                 {
-                    this.DataGridTable.Rows[i].Visible = true;
+                    DataGridTable.Rows[i].Visible = true;
                 }
                 for (i = 0; i < DataGridTable.Columns.Count; i++)
                 {
@@ -612,9 +612,9 @@ namespace SpectrumLook.Views
         {
             ListBox list;
             list = new ListBox() { Parent = this, Dock = DockStyle.Fill };
-            this.DataGridTable.SelectionMode = DataGridViewSelectionMode.ColumnHeaderSelect;
-            this.DataGridTable.Columns[e.ColumnIndex].HeaderCell.SortGlyphDirection = SortOrder.None;
-            this.DataGridTable.Columns[e.ColumnIndex].Selected = true;
+            DataGridTable.SelectionMode = DataGridViewSelectionMode.ColumnHeaderSelect;
+            DataGridTable.Columns[e.ColumnIndex].HeaderCell.SortGlyphDirection = SortOrder.None;
+            DataGridTable.Columns[e.ColumnIndex].Selected = true;
             if (e.Button == MouseButtons.Right)
             {
                 // show context menu
@@ -635,7 +635,7 @@ namespace SpectrumLook.Views
 
             if (e.Button == MouseButtons.Right)
             {
-                ColcontextMenuStrip.Show((Control)sender, PointToClient(Control.MousePosition).X, e.Location.Y);// Somehow, PointToClick(Control.MousePosition) X axis is correct, but the Y is not. Also e.X is not correct, but e.Y has correct location, so it is combined
+                ColcontextMenuStrip.Show((Control)sender, PointToClient(MousePosition).X, e.Location.Y);// Somehow, PointToClick(Control.MousePosition) X axis is correct, but the Y is not. Also e.X is not correct, but e.Y has correct location, so it is combined
             }
             else if (e.Button == MouseButtons.Left)
             {
@@ -652,7 +652,7 @@ namespace SpectrumLook.Views
             var Column_index = e.Column.Index;
             if (e.CellValue1 != null && e.CellValue2 != null)
             {
-                e.SortResult = System.String.Compare(e.CellValue1.ToString(), e.CellValue2.ToString());
+                e.SortResult = String.Compare(e.CellValue1.ToString(), e.CellValue2.ToString());
                 if (Double.TryParse(e.CellValue1.ToString(), out var InputDoubleValue))
                 {
                     if (Double.TryParse(e.CellValue2.ToString(), out var SelDoubleValue))
@@ -739,7 +739,7 @@ namespace SpectrumLook.Views
         {
             if (e.KeyCode == Keys.Enter)
             {
-                var SearchSubString = this.SearchBox.Text;
+                var SearchSubString = SearchBox.Text;
                 if (DataGridTable != null)
                 {
                     SimpleSearch(SearchSubString);

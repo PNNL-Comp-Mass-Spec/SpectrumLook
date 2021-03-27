@@ -19,7 +19,7 @@ namespace SpectrumLook
         /// </summary>
         public LadderInstanceDictionaryXmlSerializer()
         {
-            this.fileSaved = null;
+            fileSaved = null;
         }
 
         /// <summary>
@@ -29,7 +29,7 @@ namespace SpectrumLook
         public void WriteLadderInstanceDictionary(Dictionary<string, List<LadderInstance>> tableToWrite)
         {
             if(fileSaved != null)
-                this.WriteLadderInstanceDictionary(fileSaved, tableToWrite);
+                WriteLadderInstanceDictionary(fileSaved, tableToWrite);
         }
 
         /// <summary>

@@ -9,7 +9,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 namespace SpectrumLook.Views
 {
-    public partial class OptionsViewController : Form , SpectrumLook.Views.IObserver
+    public partial class OptionsViewController : Form , IObserver
     {
         // 0-10, 13-15  Plot
         //11-12         Main
@@ -18,11 +18,11 @@ namespace SpectrumLook.Views
         // TODO: THIS DOESN'T WORK FOR ANYTHING BUT PRIMITIVES (MAYBE FOR PRIMITIVES)
         private object[] m_valuesForCancel;
 
-        private SpectrumLook.Views.PlotOptions m_plotOptions;
+        private PlotOptions m_plotOptions;
 
-        private SpectrumLook.Views.MainFormOptions m_mainFormOptions;
+        private MainFormOptions m_mainFormOptions;
 
-        private SpectrumLook.Views.Options.FragmentLadderOptions m_fragLadderOptions;
+        private Options.FragmentLadderOptions m_fragLadderOptions;
 
         private SpectrumLook.Views.FragmentLadderView.FragmentLadderView m_fragLadder;
 
@@ -37,39 +37,39 @@ namespace SpectrumLook.Views
         private const int m_numCancelOptions = 19;
 
         // m_options = new OptionsViewController(m_plot.m_options, m_mainForm.m_currentOptions, m_fragLadder.fragmentLadderOptions ,System.IO.Directory.GetCurrentDirectory() + "\\UserProfile.spuf", createFileFlag);
-        public OptionsViewController(SpectrumLook.Views.PlotOptions referencePlotOptions, SpectrumLook.Views.MainFormOptions referenceMainFormOptions, SpectrumLook.Views.Options.FragmentLadderOptions fragmentLadderOptions, string profileLocation, bool createProfile, Views.FragmentLadderView.FragmentLadderView m_fragmentLadder)
+        public OptionsViewController(PlotOptions referencePlotOptions, MainFormOptions referenceMainFormOptions, Options.FragmentLadderOptions fragmentLadderOptions, string profileLocation, bool createProfile, Views.FragmentLadderView.FragmentLadderView m_fragmentLadder)
         {
             InitializeComponent();
 
-            this.m_valuesForCancel = new object[m_numCancelOptions];
+            m_valuesForCancel = new object[m_numCancelOptions];
 
             for (var i = 0; i < m_numCancelOptions; ++i)
             {
                 m_valuesForCancel[i] = null;
             }
 
-            this.m_plotOptions = referencePlotOptions;
-            this.m_mainFormOptions = referenceMainFormOptions;
-            this.m_fragLadderOptions = fragmentLadderOptions;
-            this.m_fragLadder = m_fragmentLadder;
+            m_plotOptions = referencePlotOptions;
+            m_mainFormOptions = referenceMainFormOptions;
+            m_fragLadderOptions = fragmentLadderOptions;
+            m_fragLadder = m_fragmentLadder;
             Matched = m_plotOptions.matchedColor;
             Unmatched = m_plotOptions.unmatchedColor;
 
-            this.FillKeyOptions();
-            this.SaveValuesForCancel();
+            FillKeyOptions();
+            SaveValuesForCancel();
             m_createProfile = createProfile;
             m_profileLocation = profileLocation;
 
             mainProfileFileLocationBox.Text = m_profileLocation;
 
-            this.dataGridViewModList.Columns.Add("symbol", "Symbol");
-            this.dataGridViewModList.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            this.dataGridViewModList.Columns.Add("mass", "Mass");
-            this.dataGridViewModList.RowHeadersVisible = false;
-            this.dataGridViewModList.Click += dataGridViewModList_Click;
-            this.dataGridViewModList.EditMode = DataGridViewEditMode.EditProgrammatically; // Disable manual edit
+            dataGridViewModList.Columns.Add("symbol", "Symbol");
+            dataGridViewModList.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridViewModList.Columns.Add("mass", "Mass");
+            dataGridViewModList.RowHeadersVisible = false;
+            dataGridViewModList.Click += dataGridViewModList_Click;
+            dataGridViewModList.EditMode = DataGridViewEditMode.EditProgrammatically; // Disable manual edit
 
-            this.UpdateOptions();
+            UpdateOptions();
         }
 
         protected override void OnClosing(CancelEventArgs e)
@@ -99,15 +99,15 @@ namespace SpectrumLook.Views
                     }
                 }
             }
-            this.Hide();
+            Hide();
         }
 
         protected override void OnVisibleChanged(EventArgs e)
         {
             base.OnVisibleChanged(e);
-            if (this.Visible == true)
+            if (Visible == true)
             {
-                this.SaveValuesForCancel();
+                SaveValuesForCancel();
             }
         }
 
@@ -159,7 +159,7 @@ namespace SpectrumLook.Views
         public void UpdateModList()
         {
             dataGridViewModList.Rows.Clear();
-            foreach (var modPair in this.m_fragLadderOptions.modificationList)
+            foreach (var modPair in m_fragLadderOptions.modificationList)
             {
                 dataGridViewModList.Rows.Add(new object[] {modPair.Key, modPair.Value});
             }
@@ -299,7 +299,7 @@ namespace SpectrumLook.Views
 
         private void plotChangeColorOpenButton_Click(object sender, EventArgs e)
         {
-            var outputResult = this.colorDialog.ShowDialog();
+            var outputResult = colorDialog.ShowDialog();
             if (outputResult == DialogResult.OK)
             {
                 m_plotOptions.annotationColor = colorDialog.Color;
@@ -327,7 +327,7 @@ namespace SpectrumLook.Views
 
         private void mainMatchColorChangeButton_Click(object sender, EventArgs e)
         {
-            var outputResult = this.colorDialog.ShowDialog();
+            var outputResult = colorDialog.ShowDialog();
             if (outputResult == DialogResult.OK)
             {
                 Matched = colorDialog.Color;
@@ -338,7 +338,7 @@ namespace SpectrumLook.Views
 
         private void mainUnmatchColorChangeButton_Click(object sender, EventArgs e)
         {
-            var outputResult = this.colorDialog.ShowDialog();
+            var outputResult = colorDialog.ShowDialog();
             if (outputResult == DialogResult.OK)
             {
                 Unmatched = colorDialog.Color;
@@ -457,7 +457,7 @@ namespace SpectrumLook.Views
             // Update Plot options for Color
             m_plotOptions.unmatchedColor = Unmatched;
             m_plotOptions.matchedColor = Matched;
-            this.Close();
+            Close();
         }
 
         private void cancelButton_Click(object sender, EventArgs e)
@@ -544,7 +544,7 @@ namespace SpectrumLook.Views
                 m_fragLadderOptions.checkedHeaders = (List<string>)m_valuesForCancel[17];
             }
 
-            this.Close();
+            Close();
         }
 
         private void SaveValuesForCancel()

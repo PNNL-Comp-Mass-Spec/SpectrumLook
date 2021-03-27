@@ -16,7 +16,7 @@ namespace SpectrumLook.Views
             set
             {
                 m_isPlotInMainForm = value;
-                this.Invoke();
+                Invoke();
             }
         }
 
@@ -28,7 +28,7 @@ namespace SpectrumLook.Views
                 if (value >= 0.0)
                 {
                     m_toleranceValue = value;
-                    this.Invoke();
+                    Invoke();
                 }
             }
         }
@@ -41,16 +41,16 @@ namespace SpectrumLook.Views
                 if (value >= 0.0)
                 {
                     m_lowerToleranceValue = value;
-                    this.Invoke();
+                    Invoke();
                 }
             }
         }
 
         public MainFormOptions()
         {
-            this.m_isPlotInMainForm = true;
-            this.m_toleranceValue = 0.7;
-            this.m_lowerToleranceValue = 0.0;
+            m_isPlotInMainForm = true;
+            m_toleranceValue = 0.7;
+            m_lowerToleranceValue = 0.0;
         }
 
         public MainFormOptions(MainFormOptions optionsToCopy)

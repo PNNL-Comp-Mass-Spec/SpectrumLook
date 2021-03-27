@@ -96,7 +96,7 @@ namespace SpectrumLook.Views
                     pointOnTheScreen = m_manager.m_plot.PointToScreen(m_manager.m_plot.Location);
                     panelPlot.Controls.Remove(m_manager.m_plot);
                     m_manager.m_plot.Hide();
-                    m_manager.m_plot.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
+                    m_manager.m_plot.FormBorderStyle = FormBorderStyle.SizableToolWindow;
                     m_manager.m_plot.TopLevel = true;
                     m_manager.m_plot.ShowInTaskbar = true;// false;
                     m_manager.m_plot.ShowIcon = false;
@@ -110,7 +110,7 @@ namespace SpectrumLook.Views
             else if (m_currentOptions.isPlotInMainForm && !(panelPlot.Controls.Contains(m_manager.m_plot)))
             {
                 m_manager.m_plot.TopLevel = false;
-                m_manager.m_plot.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+                m_manager.m_plot.FormBorderStyle = FormBorderStyle.None;
                 m_manager.m_plot.Location = new Point(0, 0); // Sets it to the corner of the screen... May need to save the original location though.
                 m_manager.m_plot.Hide();
                 panelPlot.Controls.Add(m_manager.m_plot);
@@ -261,14 +261,14 @@ namespace SpectrumLook.Views
 
             try
             {
-                if (saveWorkFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                if (saveWorkFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     m_manager.HandleSaveWorkFile(saveWorkFileDialog.FileName);
                 }
             }
             catch (Exception ex)
             {
-                System.Windows.Forms.MessageBox.Show(ex.Message, "Open File Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Open File Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -280,14 +280,14 @@ namespace SpectrumLook.Views
 
             try
             {
-                if (openWorkFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                if (openWorkFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     m_manager.HandleOpenWorkFile(openWorkFileDialog.FileName);
                 }
             }
             catch (Exception ex)
             {
-                System.Windows.Forms.MessageBox.Show(ex.Message, "Open File Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Open File Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

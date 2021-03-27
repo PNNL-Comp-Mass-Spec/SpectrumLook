@@ -50,20 +50,20 @@ namespace SpectrumLook
             m_plot = new SLPlot(this);
             m_plot.TopLevel = false;
             m_plot.Visible = true;
-            m_plot.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            m_plot.FormBorderStyle = FormBorderStyle.None;
             m_plot.Text = "Plot";
 
             // Data View
             m_dataView = new DataView(this);
             m_dataView.TopLevel = false;
             m_dataView.Visible = true;
-            m_dataView.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            m_dataView.FormBorderStyle = FormBorderStyle.None;
 
             // Fragment Ladder
             m_fragLadder = new Views.FragmentLadderView.FragmentLadderView(this);
             m_fragLadder.TopLevel = false;
             m_fragLadder.Visible = true;
-            m_fragLadder.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            m_fragLadder.FormBorderStyle = FormBorderStyle.None;
 
             // MainForm
             m_mainForm = mainForm;
@@ -81,7 +81,7 @@ namespace SpectrumLook
             // This is to read the UserProfile for spectrumLook
             try
             {
-                reader = new FileStream(System.IO.Directory.GetCurrentDirectory() + "\\UserProfile.spuf", FileMode.Open, FileAccess.Read);
+                reader = new FileStream(Directory.GetCurrentDirectory() + "\\UserProfile.spuf", FileMode.Open, FileAccess.Read);
             }
             catch (Exception)
             {
@@ -108,7 +108,7 @@ namespace SpectrumLook
             m_workFileWriter = new LadderInstanceDictionaryXmlSerializer();
 
             // Options
-            m_options = new OptionsViewController(m_plot.m_options, m_mainForm.m_currentOptions, m_fragLadder.fragmentLadderOptions ,System.IO.Directory.GetCurrentDirectory() + "\\UserProfile.spuf", createFileFlag, m_fragLadder);
+            m_options = new OptionsViewController(m_plot.m_options, m_mainForm.m_currentOptions, m_fragLadder.fragmentLadderOptions ,Directory.GetCurrentDirectory() + "\\UserProfile.spuf", createFileFlag, m_fragLadder);
             m_mainForm.m_currentOptions.toleranceValue = 0.7;
 
             // attach all of the observers to the subjects
@@ -316,7 +316,7 @@ namespace SpectrumLook
 
                 // use the builder director to crunch all the data
                 var theoreticalList = m_builderDirector.BuildTheoryList(Peptide, m_isFragmentationModeETD,
-                    this.m_fragLadder.fragmentLadderOptions.modificationList);
+                    m_fragLadder.fragmentLadderOptions.modificationList);
                 var comparedList =
                     m_builderDirector.BuildComparedList(m_mainForm.m_currentOptions.toleranceValue,
                         m_mainForm.m_currentOptions.lowerToleranceValue, m_experimentalList, PrecursorMZ, ref theoreticalList);
@@ -373,7 +373,7 @@ namespace SpectrumLook
                 m_currentScanNumber = Convert.ToInt32(ScanNumber);
                 m_currentPeptide = Peptide;
                 // use the builder director to crunch all the data
-                var theoreticalList = m_builderDirector.BuildTheoryList(Peptide, m_isFragmentationModeETD, this.m_fragLadder.fragmentLadderOptions.modificationList);
+                var theoreticalList = m_builderDirector.BuildTheoryList(Peptide, m_isFragmentationModeETD, m_fragLadder.fragmentLadderOptions.modificationList);
                 m_experimentalList = m_builderDirector.BuildActualList(Convert.ToInt32(ScanNumber), m_dataFileLocation);
                 var comparedList = m_builderDirector.BuildComparedList(m_mainForm.m_currentOptions.toleranceValue, m_mainForm.m_currentOptions.lowerToleranceValue, m_experimentalList, PrecursorMZ, ref theoreticalList);
 
@@ -438,7 +438,7 @@ namespace SpectrumLook
                 var newInstanceList = new List<LadderInstance>();
                 // Give Theoretical List the modified Peptide
                 // Assuming The Frag ladder will add the PeptideString of the modified thing.
-                var theoreticalList = m_builderDirector.BuildTheoryList(currentLadderInstances.PeptideString, m_isFragmentationModeETD, this.m_fragLadder.fragmentLadderOptions.modificationList);
+                var theoreticalList = m_builderDirector.BuildTheoryList(currentLadderInstances.PeptideString, m_isFragmentationModeETD, m_fragLadder.fragmentLadderOptions.modificationList);
                 // Give experimental List the original Peptide.
                 // WARNING : ASSUMEING THE SCAN NUMBER KEY IS AN INTERGER
                 // THIS MAY NOT BE THE CASE IF PARSER CHANGES
@@ -492,7 +492,7 @@ namespace SpectrumLook
                 {
                     // Give Theoretical List the modified Peptide
                     // Assuming The Frag ladder will add the PeptideString of the modified thing.
-                    var theoreticalList = m_builderDirector.BuildTheoryList(currentInstance.PeptideString, m_isFragmentationModeETD, this.m_fragLadder.fragmentLadderOptions.modificationList);
+                    var theoreticalList = m_builderDirector.BuildTheoryList(currentInstance.PeptideString, m_isFragmentationModeETD, m_fragLadder.fragmentLadderOptions.modificationList);
                     // Give experimental List the original Peptide.
                     // WARNING : ASSUMEING THE SCAN NUMBER KEY IS AN INTERGER
                     // THIS MAY NOT BE THE CASE IF PARSER CHANGES
@@ -548,7 +548,7 @@ namespace SpectrumLook
             m_currentInstance = ((List<LadderInstance>)m_ladderInstancesTable[m_currentScanNumber + m_currentPeptide])[newInstanceIndex];
             m_currentScanNumber = int.Parse(m_currentInstance.scanNumberString);
 
-            var theoreticalList = m_builderDirector.BuildTheoryList(m_currentInstance.PeptideString, m_isFragmentationModeETD, this.m_fragLadder.fragmentLadderOptions.modificationList);
+            var theoreticalList = m_builderDirector.BuildTheoryList(m_currentInstance.PeptideString, m_isFragmentationModeETD, m_fragLadder.fragmentLadderOptions.modificationList);
             var comparedList = m_builderDirector.BuildComparedList(m_mainForm.m_currentOptions.toleranceValue, m_mainForm.m_currentOptions.lowerToleranceValue, m_experimentalList, PrecursorMZ, ref theoreticalList);
             var peptide = m_currentInstance.PeptideString;
 
@@ -573,9 +573,9 @@ namespace SpectrumLook
         public void HandleSaveWorkFile(string fileLocation)
         {
             if (fileLocation != null && fileLocation != "")
-                m_workFileWriter.WriteLadderInstanceDictionary(fileLocation, this.m_ladderInstancesTable);
+                m_workFileWriter.WriteLadderInstanceDictionary(fileLocation, m_ladderInstancesTable);
             else
-                m_workFileWriter.WriteLadderInstanceDictionary(this.m_ladderInstancesTable);
+                m_workFileWriter.WriteLadderInstanceDictionary(m_ladderInstancesTable);
         }
 
         /// <summary>
@@ -587,7 +587,7 @@ namespace SpectrumLook
         {
             if(File.Exists(fileLocation))
             {
-                this.m_ladderInstancesTable = m_workFileWriter.ReadXmlWorkFile(fileLocation);
+                m_ladderInstancesTable = m_workFileWriter.ReadXmlWorkFile(fileLocation);
             }
         }
 
@@ -617,7 +617,7 @@ namespace SpectrumLook
                     var nextFileName = createNextFileName(nextFilebase, usePeptideAndScanName, row.Peptide, row.ScanNumber) + saveType;
                     updateLabelCallback("Saving \"" + nextFileName + "\"");
 
-                    this.HandleSelectScanAndPeptide(row.ScanNumber, row.Peptide);
+                    HandleSelectScanAndPeptide(row.ScanNumber, row.Peptide);
                     m_plot.SavePlotImageAs(Path.Combine(directory, nextFileName));
                 }
             }

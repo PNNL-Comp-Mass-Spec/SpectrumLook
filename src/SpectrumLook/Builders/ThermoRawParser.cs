@@ -27,7 +27,7 @@ namespace SpectrumLook.Builders
         /// <param name="fileLocation">This must be a file Location to a ".raw" file.</param>
         public ThermoRawParser(string filelocation)
         {
-            this.m_fileLocation = filelocation;
+            m_fileLocation = filelocation;
 
             var extension = Path.GetExtension(filelocation);
             extension = extension.ToLower();
@@ -63,7 +63,7 @@ namespace SpectrumLook.Builders
         {
             // m_fileOpened = true;        // TEST
 
-            if (this.m_fileOpened)
+            if (m_fileOpened)
             {
                 var values = new List<Element>();
 

@@ -14,7 +14,7 @@ namespace SpectrumLook.Views
     /// <param name="newPosition"></param>
     public delegate void UpdatePointDelegate(PointF newPosition);
 
-    public class MyZedGraph : ZedGraph.ZedGraphControl
+    public class MyZedGraph : ZedGraphControl
     {
         private int m_snapBoxSize = 5;
         private Color m_snapBoxColor = Color.Black;
@@ -52,9 +52,9 @@ namespace SpectrumLook.Views
         /// <param name="zgc"></param>
         private void InitializeGraph()
         {
-            this.GraphPane.Title.Text = "Scan: ";
-            this.GraphPane.XAxis.Title.Text = "m/z";
-            this.GraphPane.YAxis.Title.Text = "Relative Intensity";
+            GraphPane.Title.Text = "Scan: ";
+            GraphPane.XAxis.Title.Text = "m/z";
+            GraphPane.YAxis.Title.Text = "Relative Intensity";
         }
 
         /// <summary>
@@ -63,21 +63,21 @@ namespace SpectrumLook.Views
         public void SetSize(Point position, int width, int height)
         {
             // the top right corner location of the graph
-            this.Location = position;
+            Location = position;
 
-            this.Size = new Size(width, height);
+            Size = new Size(width, height);
         }
 
         private void InitializeComponent()
         {
-            this.SuspendLayout();
+            SuspendLayout();
             //
             // MyZedGraph
             //
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.Name = "MyZedGraph";
-            this.Size = new System.Drawing.Size(151, 150);
-            this.ResumeLayout(false);
+            AutoScaleDimensions = new SizeF(6F, 13F);
+            Name = "MyZedGraph";
+            Size = new Size(151, 150);
+            ResumeLayout(false);
         }
 
         /// <summary>
@@ -112,7 +112,7 @@ namespace SpectrumLook.Views
                 }
 
                 m_snapShowing = true;
-                this.Invalidate();
+                Invalidate();
             }
             else
             {
@@ -220,7 +220,7 @@ namespace SpectrumLook.Views
         {
             base.OnMouseLeave(e);
             m_snapShowing = false;
-            this.Invalidate();
+            Invalidate();
         }
 
         /// <summary>
@@ -394,40 +394,40 @@ namespace SpectrumLook.Views
                     var visibleMatchedPoints = GetVisiblePoints(pane.CurveList[matchedCurveName].Points, pane.CurveList[unmatchedCurveName].Points, minX, maxX, minY, maxY);
                     var minIntensityToDisplay = FindMinIntensityToDisplay(visibleMatchedPoints);
                     foreach (TextObj text in pane.GraphObjList)
-                {
-                    var pt = (PointPair)text.Tag;
-                    var customAnnotation = new Annotation();
-
-                    foreach (var annotation in m_manager.GetCurrentInstance().annotations)
                     {
-                        if ((annotation.m_point.X == pt.X) &&
-                         (annotation.m_point.Y == pt.Y))
+                        var pt = (PointPair)text.Tag;
+                        var customAnnotation = new Annotation();
+
+                        foreach (var annotation in m_manager.GetCurrentInstance().annotations)
                         {
-                            customAnnotation = annotation;
-                            break;
+                            if ((annotation.m_point.X == pt.X) &&
+                             (annotation.m_point.Y == pt.Y))
+                            {
+                                customAnnotation = annotation;
+                                break;
+                            }
+                        }
+
+                        if (customAnnotation.m_showHideAuto > 0)
+                        {
+                            // Always show this annotation
+                            text.IsVisible = true;
+                        }
+                        else if (customAnnotation.m_showHideAuto < 0)
+                        {
+                            // Always hide this annotation
+                            text.IsVisible = false;
+                        }
+                        else if (pt.Y <= minIntensityToDisplay)
+                        {
+                            // Auto Determine if we are going to show the annotation for this point
+                            text.IsVisible = false;
+                        }
+                        else
+                        {
+                            text.IsVisible = true;
                         }
                     }
-
-                    if (customAnnotation.m_showHideAuto > 0)
-                    {
-                        // Always show this annotation
-                        text.IsVisible = true;
-                    }
-                    else if (customAnnotation.m_showHideAuto < 0)
-                    {
-                        // Always hide this annotation
-                        text.IsVisible = false;
-                    }
-                    else if (pt.Y <= minIntensityToDisplay)
-                    {
-                        // Auto Determine if we are going to show the annotation for this point
-                        text.IsVisible = false;
-                    }
-                    else
-                    {
-                        text.IsVisible = true;
-                    }
-                }
                 }
                 catch
                 {
@@ -456,7 +456,7 @@ namespace SpectrumLook.Views
 
             if (points != null)
             {
-                for(var i = 0; i < points.Count; i++)
+                for (var i = 0; i < points.Count; i++)
                 {
                     var point = points[i];
 
@@ -528,7 +528,7 @@ namespace SpectrumLook.Views
             m_matchedPoints = matchedPointsList;
 
             // clear the masterPane
-            var master = this.MasterPane;
+            var master = MasterPane;
             master.GraphObjList.Clear();
             master.PaneList.Clear();
 
@@ -628,7 +628,7 @@ namespace SpectrumLook.Views
             }
 
             // Tell ZedGraph to refigure the axes since the data has changed
-            using (var g = this.CreateGraphics())
+            using (var g = CreateGraphics())
             {
                 // Align the GraphPanes vertically
                 if (m_options.numberOfPlots >= 4)
@@ -640,7 +640,7 @@ namespace SpectrumLook.Views
                     master.SetLayout(g, PaneLayout.SingleColumn);
                 }
                 master.AxisChange(g);
-                this.PerformAutoScale();
+                PerformAutoScale();
             }
         }
 
@@ -655,12 +655,12 @@ namespace SpectrumLook.Views
 
                 if (m_options.replot)
                 {
-                    PlotGraph(this.m_currentPeptide, this.m_currentScanNumber, this.m_unmatchedPoints, this.m_matchedPoints);
+                    PlotGraph(m_currentPeptide, m_currentScanNumber, m_unmatchedPoints, m_matchedPoints);
                     m_options.replot = false;
                 }
                 else
                 {
-                    foreach (var myPane in this.MasterPane.PaneList)
+                    foreach (var myPane in MasterPane.PaneList)
                     {
                         // PointPairList oldUnmatchedPoints = (PointPairList)myPane.CurveList["Unmatched Peaks"].Points;
                         // PointPairList oldMatchedPoints = (PointPairList)myPane.CurveList["Matched Peaks"].Points;
@@ -837,7 +837,7 @@ namespace SpectrumLook.Views
             }
             else
             {
-                if (e.Button == System.Windows.Forms.MouseButtons.Right)
+                if (e.Button == MouseButtons.Right)
                 {
                     if (m_manager.DataLoaded == true)
                     {
@@ -884,7 +884,7 @@ namespace SpectrumLook.Views
                 if (closestPane.ZoomStack.IsEmpty)
                 {
                     // for some reason, the stack can be empty when it should have a value... so we will just replot
-                    PlotGraph(this.m_currentPeptide, this.m_currentScanNumber, this.m_unmatchedPoints, this.m_matchedPoints);
+                    PlotGraph(m_currentPeptide, m_currentScanNumber, m_unmatchedPoints, m_matchedPoints);
                 }
                 else
                 {
@@ -907,7 +907,7 @@ namespace SpectrumLook.Views
             foreach (var pane in MasterPane.PaneList)
             {
                 var paneCenter = new PointPair(pane.Rect.Location.X + .5 * pane.Rect.Width, pane.Rect.Location.Y + .5 * pane.Rect.Height);
-                var paneDistance = this.CalculateDistance(paneCenter, new PointPair(mousePt));
+                var paneDistance = CalculateDistance(paneCenter, new PointPair(mousePt));
                 if (paneDistance < closestDistance)
                 {
                     closest = pane;

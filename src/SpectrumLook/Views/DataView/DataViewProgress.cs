@@ -17,7 +17,7 @@ namespace SpectrumLook.Views
 
         public void Start()
         {
-            this.Show();
+            Show();
 
             while (!readyToClose)
             {

@@ -33,7 +33,7 @@ namespace SpectrumLook.Builders
         /// <param name="fileLocation">This must be a file Location to a ".mzXML" or ".mzData" file.</param>
         public MzParser(string fileLocation)
         {
-            this.currentFileLocation = fileLocation;
+            currentFileLocation = fileLocation;
             if (currentFileLocation != null)
             {
                 if (currentFileLocation.ToLower().EndsWith(".mzXML".ToLower()) ||
@@ -44,13 +44,13 @@ namespace SpectrumLook.Builders
                 }
                 else
                 {
-                    throw new System.InvalidProgramException("Invalid File Type, must be .mzXML or .mzData");
+                    throw new InvalidProgramException("Invalid File Type, must be .mzXML or .mzData");
                 }
                 m_fileToRead.ReadAndCacheEntireFile();
             }
             else
             {
-                throw new System.InvalidOperationException("The file location passed was equal to null");
+                throw new InvalidOperationException("The file location passed was equal to null");
             }
         }
 
@@ -66,7 +66,7 @@ namespace SpectrumLook.Builders
         {
             var outputValues = new List<string>();
 
-            if (this.isFileOpened)
+            if (isFileOpened)
             {
                 // Load the entire file into memory.
                 // m_fileToRead.ReadAndCacheEntireFile();

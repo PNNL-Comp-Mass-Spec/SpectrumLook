@@ -17,7 +17,7 @@ namespace SpectrumLook.Builders
 
             if (headerRow == null)
             {
-                throw new System.InvalidProgramException("The synopsis file is empty");
+                throw new InvalidProgramException("The synopsis file is empty");
             }
 
             // First GetNextColumn actually gets First Row. Getting Peptide/Scan indices based off first row

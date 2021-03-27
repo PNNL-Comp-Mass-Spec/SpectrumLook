@@ -32,19 +32,19 @@ namespace SpectrumLook.Views
             SrtClm2.DropDownStyle = ComboBoxStyle.DropDownList;
             SrtClm3.DropDownStyle = ComboBoxStyle.DropDownList;
 
-            this.tabPage2.Hide();
-            this.tabPage3.Hide();
+            tabPage2.Hide();
+            tabPage3.Hide();
 
-            this.tabControl1.TabPages.Remove(tabPage2);
-            this.tabControl1.TabPages.Remove(tabPage3);
+            tabControl1.TabPages.Remove(tabPage2);
+            tabControl1.TabPages.Remove(tabPage3);
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             SeaFil_Pep1.SelectedIndex = -1;
             FilterComboBox1.SelectedIndex = -1;
-            this.Filter_Value1.Text = null;
-            this.AndOrComboBox1.SelectedIndex = -1;
+            Filter_Value1.Text = null;
+            AndOrComboBox1.SelectedIndex = -1;
             button4_Click(sender, e);
         }
 
@@ -52,8 +52,8 @@ namespace SpectrumLook.Views
         {
             SeaFil_Pep2.SelectedIndex = -1;
             FilterComboBox2.SelectedIndex = -1;
-            this.Filter_Value2.Text = null;
-            this.AndOrComboBox2.SelectedIndex = -1;
+            Filter_Value2.Text = null;
+            AndOrComboBox2.SelectedIndex = -1;
             button3_Click(sender, e);
         }
 
@@ -61,8 +61,8 @@ namespace SpectrumLook.Views
         {
             SeaFil_Pep3.SelectedIndex = -1;
             FilterComboBox3.SelectedIndex = -1;
-            this.Filter_Value3.Text = null;
-            this.AndOrComboBox3.SelectedIndex = -1;
+            Filter_Value3.Text = null;
+            AndOrComboBox3.SelectedIndex = -1;
             button5_Click(sender, e);
         }
 
@@ -70,7 +70,7 @@ namespace SpectrumLook.Views
         {
             SeaFil_Pep4.SelectedIndex = -1;
             FilterComboBox4.SelectedIndex = -1;
-            this.Filter_Value4.Text = null;
+            Filter_Value4.Text = null;
         }
 
         private void Filter_Value3_TextChanged(object sender, EventArgs e)
