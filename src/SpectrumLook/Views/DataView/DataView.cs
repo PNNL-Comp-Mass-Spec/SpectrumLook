@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
+using MolecularWeightCalculator;
 using PHRPReader;
 using SpectrumLook.Builders;
 
@@ -17,9 +18,13 @@ namespace SpectrumLook.Views
     {
         ////////private DataViewOptions m_dataViewOptions;
         Manager m_manager;
+
         public DataTable DataTableForDisplay;
         public DataViewAdvance DataAdvanceOption;
         public volatile bool shouldStop;
+
+        private readonly MolecularWeightTool mMolecularWeightTool = new MolecularWeightTool();
+
         private int ColNum;
         private int RowNum;
 
@@ -63,16 +68,21 @@ namespace SpectrumLook.Views
                     m_manager.DataFileName = selectedRow.Cells[mSynFileColumns.Dataset].Value.ToString();
                 }
 
+                if (mSynFileColumns.PrecursorMz >= 0)
                 {
                     m_manager.PrecursorMZ = double.Parse(selectedRow.Cells[mSynFileColumns.PrecursorMz].Value.ToString());
                 }
+                else if (mSynFileColumns.ParentMH >= 0 && mSynFileColumns.Charge >= 0)
+                {
+                    var parentMH = double.Parse(selectedRow.Cells[mSynFileColumns.ParentMH].Value.ToString());
+                    var charge = short.Parse(selectedRow.Cells[mSynFileColumns.Charge].Value.ToString());
 
-                string sequence;
-                string prefix;
-                string suffix;
-                PeptideCleavageStateCalculator.SplitPrefixAndSuffixFromSequence(Peptide, out sequence, out prefix, out suffix);
+                    m_manager.PrecursorMZ = mMolecularWeightTool.ConvoluteMass(parentMH, 1, charge);
+                }
 
-                m_manager.HandleSelectScanAndPeptide(ScanNumber, sequence);
+                PeptideCleavageStateCalculator.SplitPrefixAndSuffixFromSequence(peptide, out var sequence, out _, out _);
+
+                m_manager.HandleSelectScanAndPeptide(scanNumber, sequence);
                 m_manager.FocusOnControl(DataGridTable);
                 m_manager.callcombobox();
             }
