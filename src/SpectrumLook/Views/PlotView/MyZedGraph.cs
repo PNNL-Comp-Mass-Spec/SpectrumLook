@@ -81,7 +81,6 @@ namespace SpectrumLook.Views
             this.Name = "MyZedGraph";
             this.Size = new System.Drawing.Size(151, 150);
             this.ResumeLayout(false);
-
         }
         #endregion
 
@@ -628,7 +627,6 @@ namespace SpectrumLook.Views
                 myPaneT.YAxis.MinSpace = 80;
                 myPaneT.Y2Axis.MinSpace = 20;
 
-
                 // generate the lines
                 // Keep the matched points in front by drawing them first.
                 var matchedCurve = myPaneT.AddOHLCBar(matchedCurveName, matchedPointsSection[j], m_options.matchedColor);
@@ -789,7 +787,6 @@ namespace SpectrumLook.Views
         /// <param name="drawPoint">the graph coordinates of where to draw the arrow</param>
         public void PaintArrow(PointF graphPoint)
         {
-
             m_arrowShowing = true;
             m_arrowPoint.X = graphPoint.X;
             m_arrowPoint.Y = graphPoint.Y;
@@ -901,7 +898,6 @@ namespace SpectrumLook.Views
         /// </summary>
         public void HandleZoomOut()
         {
-
             var cursorPos = Cursor.Position;
             var cursorPosF = new PointF(cursorPos.X, cursorPos.Y);
             GraphPane closestPane;

@@ -5,8 +5,6 @@ using System.Collections.Generic;
 
 namespace SpectrumLookTests
 {
-    
-    
     /// <summary>
     ///This is a test class for ElementListBuilderTest and is intended
     ///to contain all ElementListBuilderTest Unit Tests
@@ -61,7 +59,6 @@ namespace SpectrumLookTests
         //}
         //
         #endregion
-
 
         internal virtual ElementListBuilder CreateElementListBuilder()
         {

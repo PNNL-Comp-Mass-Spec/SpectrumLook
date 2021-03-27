@@ -5,8 +5,6 @@ using System.Collections.Generic;
 
 namespace SpectrumLookTests
 {
-    
-    
     /// <summary>
     ///This is a test class for ComparedListBuilderTest and is intended
     ///to contain all ComparedListBuilderTest Unit Tests
@@ -14,8 +12,6 @@ namespace SpectrumLookTests
     [TestClass()]
     public class ComparedListBuilderTest
     {
-
-
         private TestContext testContextInstance;
 
         /// <summary>
@@ -63,7 +59,6 @@ namespace SpectrumLookTests
         //}
         //
         #endregion
-
 
         /// <summary>
         ///A test for BuildList

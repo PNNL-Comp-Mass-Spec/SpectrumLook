@@ -57,9 +57,7 @@ namespace SpectrumLook.Builders
                 }
 
                 m_actualBuilder.SetScanNumber(scanNumber);
-
             }
-
 
             m_actualBuilder.BuildList();
 
@@ -84,7 +82,6 @@ namespace SpectrumLook.Builders
 
         public List<Element> BuildComparedList(double possibleError, double lowerBoundPossibleError, List<Element> actualElementList, double precursor, ref List<Element> theoryElementList)
         {
-
             var copyOfActualElementList = new List<Element>(actualElementList);
 
             for (var i = 0; i < copyOfActualElementList.Count; ++i)

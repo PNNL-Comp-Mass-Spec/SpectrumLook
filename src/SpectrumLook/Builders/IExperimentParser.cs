@@ -29,5 +29,4 @@ namespace SpectrumLook.Builders
             set;
         }
     }
-
 }

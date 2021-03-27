@@ -14,7 +14,6 @@ namespace SpectrumLook.Builders
     /// </summary>
     public class ComparedListBuilder : ElementListBuilder
     {
-
         /// <summary>
         /// This is a reference to the actualElementList that was passed into the constructor.
         /// </summary>
@@ -215,7 +214,6 @@ namespace SpectrumLook.Builders
         //                    }
         //                }
 
-
         //                // Find the pre-cursor
 
         //                                if (m_actualElementList[highestIntensityIndex].intensity > m_actualElementList[absoluteHighestIntenistyIndex].intensity)
@@ -256,7 +254,6 @@ namespace SpectrumLook.Builders
         //        ElementList.Add(elementForCopying);
         //    }
         //}
-
 
         public override void BuildList()
         {

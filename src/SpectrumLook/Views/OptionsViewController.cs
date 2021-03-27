@@ -9,7 +9,6 @@ using System.Windows.Forms;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
-
 namespace SpectrumLook.Views
 {
     public partial class OptionsViewController : Form , SpectrumLook.Views.IObserver
@@ -43,7 +42,6 @@ namespace SpectrumLook.Views
         public OptionsViewController(SpectrumLook.Views.PlotOptions referencePlotOptions, SpectrumLook.Views.MainFormOptions referenceMainFormOptions, SpectrumLook.Views.Options.FragmentLadderOptions fragmentLadderOptions, string profileLocation, bool createProfile, Views.FragmentLadderView.FragmentLadderView m_fragmentLadder)
         {
             InitializeComponent();
-
 
             this.m_valuesForCancel = new object[m_numCancelOptions];
 
@@ -153,7 +151,6 @@ namespace SpectrumLook.Views
             mainUnmatchedColorSample.BackColor = m_plotOptions.unmatchedColor;
             lowerMatchingToleranceBox.Text = m_mainFormOptions.lowerToleranceValue.ToString();
             mainMatchingToleranceBox.Text = m_mainFormOptions.toleranceValue.ToString();
-
 
             //DATA VIEW
 
@@ -621,7 +618,6 @@ namespace SpectrumLook.Views
             }
         }
 
-
         //Returns a parent directory of a given file or directory.
         //i.e. "~Prototype4\\SpectrumLook\\bin\\Debug\\UserProfile.spuf"
         // goes to "~Prototype4\\SpectrumLook\\bin\\Debug"
@@ -653,7 +649,6 @@ namespace SpectrumLook.Views
         {
             openFileDialog.InitialDirectory = getParentDirectory(m_profileLocation);
             var openResult = openFileDialog.ShowDialog();
-
 
             if (openResult != DialogResult.Cancel)
             {

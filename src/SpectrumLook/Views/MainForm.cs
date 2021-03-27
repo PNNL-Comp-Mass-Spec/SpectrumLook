@@ -268,7 +268,6 @@ namespace SpectrumLook.Views
             //}
         }
 
-
         private void saveWorkStripMenuItem_Click(object sender, EventArgs e)
         {
             var saveWorkFileDialog = new SaveFileDialog();

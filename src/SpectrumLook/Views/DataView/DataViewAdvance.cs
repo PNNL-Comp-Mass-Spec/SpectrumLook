@@ -42,7 +42,6 @@ namespace SpectrumLook.Views
 
             this.tabControl1.TabPages.Remove(tabPage2);
             this.tabControl1.TabPages.Remove(tabPage3);
-
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -81,10 +80,6 @@ namespace SpectrumLook.Views
 
         private void Filter_Value3_TextChanged(object sender, EventArgs e)
         {
-
         }
-
-
-
     }
 }

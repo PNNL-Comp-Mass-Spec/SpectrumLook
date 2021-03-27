@@ -14,7 +14,6 @@ using SpectrumLook;
 using SpectrumLook.Views;
 using SpectrumLook.Builders;
 
-
 namespace SpectrumLook
 {
     public class Manager
@@ -56,7 +55,6 @@ namespace SpectrumLook
         /// <param name="mainForm">This should be the mainform that will contain the fragment ladder, plot and the dataview.</param>
         public Manager(MainForm mainForm)
         {
-
             //Plot
             m_plot = new SLPlot(this);
             m_plot.TopLevel = false;
@@ -81,7 +79,6 @@ namespace SpectrumLook
 
             //BuilderDirector
             m_builderDirector = new BuilderDirector();
-
 
             //For loading profile settings :
             FileStream reader = null;
@@ -202,7 +199,6 @@ namespace SpectrumLook
         private bool m_isFragmentationModeETD = false;
         private List<Element> m_experimentalList;
 
-
         /// <summary>
         /// RunOpenDialog will open the custom SLOpenFileDialog box and prompt the user to
         /// open a experimental file and a theoretical file.
@@ -220,7 +216,6 @@ namespace SpectrumLook
                 }
                 m_dataFileLocation = openDialog.m_dataPath;
                 m_synopsisFileLocation = openDialog.m_synopsisPath;
-
 
                 if (m_synopsisFileLocation != string.Empty)
                 {
@@ -242,9 +237,7 @@ namespace SpectrumLook
                     // select first row
                     m_dataView.HandleRowSelection();
                 }
-
             }
-
         }
 
         // This function simply calls the combo box function within m_fragLadder
@@ -365,7 +358,6 @@ namespace SpectrumLook
             }
 
             return false;
-
         }
 
         /// <summary>
@@ -380,7 +372,6 @@ namespace SpectrumLook
             //m_ladderInstancesTable.Remove(((List<LadderInstance>)m_ladderInstancesTable[m_currentScanNumber.ToString() + m_currentPeptide])[index]);
             m_dataView.HandleRowSelection();
         }
-
 
         /// <summary>
         /// This function handle is called from both the fragmentladder and the dataview.
@@ -482,7 +473,6 @@ namespace SpectrumLook
                 //Add List Of Instances to the HashTable.
                 m_ladderInstancesTable.Add(currentKey, newInstanceList);
             }
-
 
             //Going to delete all the values and recalculate the original.
             m_ladderInstancesTable.Remove(m_currentScanNumber.ToString() + m_currentPeptide);
@@ -591,7 +581,6 @@ namespace SpectrumLook
         {
             return m_currentInstance;
         }
-
 
         /// <summary>
         /// This function calls the HashtableXmlSerializer.WriteHashTable fuction and requests a write to the given or save location.

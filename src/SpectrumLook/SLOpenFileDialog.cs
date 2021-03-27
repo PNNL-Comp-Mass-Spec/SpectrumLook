@@ -78,12 +78,10 @@ namespace SpectrumLook
 
         private void textBoxSynopsis_TextChanged(object sender, EventArgs e)
         {
-
         }
 
         private void textBoxData_TextChanged(object sender, EventArgs e)
         {
-
         }
     }
 }

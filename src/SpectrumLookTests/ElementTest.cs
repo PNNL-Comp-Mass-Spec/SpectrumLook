@@ -4,8 +4,6 @@ using System;
 
 namespace SpectrumLookTests
 {
-    
-    
     /// <summary>
     ///This is a test class for ElementTest and is intended
     ///to contain all ElementTest Unit Tests
@@ -13,8 +11,6 @@ namespace SpectrumLookTests
     [TestClass()]
     public class ElementTest
     {
-
-
         private TestContext testContextInstance;
 
         /// <summary>
@@ -62,7 +58,6 @@ namespace SpectrumLookTests
         //}
         //
         #endregion
-
 
         /// <summary>
         ///A test for Element Constructor

@@ -56,7 +56,6 @@ namespace SpectrumLook.Builders
         /// <returns>List of theoretical ions as key/value pairs (key is ion abbreviation, value is m/z value)</returns>
         public List<KeyValuePair<string, double>> GetTheoreticalDataByPeptideSequence(string peptide, bool fragmentationModeETD)
         {
-
             // Set the element mode
             mMolecularWeightTool.SetElementMode(ElementMassMode.Isotopic);
 

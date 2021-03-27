@@ -60,7 +60,6 @@ namespace SpectrumLook.Views
             {
                 var selectedRow = DataGridTable.SelectedRows[0];
 
-
                 var peptide = selectedRow.Cells[mSynFileColumns.Peptide].Value.ToString();
                 var scanNumber = selectedRow.Cells[mSynFileColumns.Scan].Value.ToString();
                 if (mSynFileColumns.Dataset >= 0)
@@ -161,7 +160,6 @@ namespace SpectrumLook.Views
                 Menu.MenuItems.Add(DataGridTable.Columns[i].ToString(), Menu_Click);
             }
 
-
             DataAdvanceOption = new DataViewAdvance();
             this.SetAdvancedOptions();
             DataAdvanceOption.Visible = false;
@@ -194,7 +192,6 @@ namespace SpectrumLook.Views
             {
                 InsertItem = (ToolStripMenuItem)ColcontextMenuStrip.Items[i];
                 DataGridTable.Columns[i].Visible = InsertItem.Checked;
-
             }
         }
         public void SetAdvancedOptions()
@@ -212,7 +209,6 @@ namespace SpectrumLook.Views
             {
                 MessageBox.Show("The File should be loaded first");
             }
-
         }
         public void SimpleSearch(string inputS)
         {
@@ -256,7 +252,6 @@ namespace SpectrumLook.Views
                             VisibleRows = true;
                         }
                     }
-
 
                     if (VisibleRows == true)
                     {
@@ -382,7 +377,6 @@ namespace SpectrumLook.Views
                                 }
                             }
                         }
-
                     }
                 }
                 else//DataGridTable.Rows[indexR].Visible != AND --> OR
@@ -411,7 +405,6 @@ namespace SpectrumLook.Views
             {
                 if (AND)
                 {
-
                     if (Double.TryParse(Input_lower, out InputDoubleValue))
                     {
                         if (Double.TryParse(DataGridTable.Rows[indexR].Cells[CellCount].Value.ToString().ToLower(), out SelDoubleValue))
@@ -426,16 +419,12 @@ namespace SpectrumLook.Views
                                 {
                                     DataGridTable.Rows[indexR].Visible = false;
                                 }
-
                             }
                         }
                     }
-
-
                 }
                 else//OR
                 {
-
                     if (Double.TryParse(Input_lower, out InputDoubleValue))
                     {
                         if (Double.TryParse(DataGridTable.Rows[indexR].Cells[CellCount].Value.ToString().ToLower(), out SelDoubleValue))
@@ -446,7 +435,6 @@ namespace SpectrumLook.Views
                             }
                         }
                     }
-
                 }
             }
         }
@@ -461,7 +449,6 @@ namespace SpectrumLook.Views
             {
                 if (AND)
                 {
-
                     if (Double.TryParse(Input_lower, out InputDoubleValue))
                     {
                         if (Double.TryParse(DataGridTable.Rows[indexR].Cells[CellCount].Value.ToString().ToLower(), out SelDoubleValue))
@@ -480,11 +467,9 @@ namespace SpectrumLook.Views
                             }
                         }
                     }
-
                 }
                 else
                 {
-
                     if (Double.TryParse(Input_lower, out InputDoubleValue))
                     {
                         if (Double.TryParse(DataGridTable.Rows[indexR].Cells[CellCount].Value.ToString(), out SelDoubleValue))
@@ -495,16 +480,11 @@ namespace SpectrumLook.Views
                             }
                         }
                     }
-
                 }
             }
-
-
-
         }
         private void AdvancedSearchClick(object sender, EventArgs e)
         {
-
             if (DataGridTable.Rows.Count > 0)
             {
                 /* for (int i = 0; i < ColNum; i++)
@@ -540,7 +520,6 @@ namespace SpectrumLook.Views
                                 }
                             }
                         }
-
                     }
                     DataAdvanceOption.Visible = false;
                 }
@@ -625,9 +604,7 @@ namespace SpectrumLook.Views
         {
             if (DataGridTable.Rows.Count != 0)
             {
-
                 DataAdvanceOption.Visible = true;
-
             }
             else
             {
@@ -647,22 +624,18 @@ namespace SpectrumLook.Views
                 //show context menu
                 list.ContextMenu = Menu;
             }
-
         }
 
         private void Menu_Click(object sender, EventArgs e)
         {
-
             var item = sender as MenuItem;
 
             MessageBox.Show(item.Text);
-
         }
 
         private void DataGridTable_ColumnHeaderMouseClick_1(object sender, DataGridViewCellMouseEventArgs e)
         {
             var Column_index = e.ColumnIndex;
-
 
             if (e.Button == MouseButtons.Right)
             {
@@ -670,7 +643,6 @@ namespace SpectrumLook.Views
             }
             else if (e.Button == MouseButtons.Left)
             {
-
             }
             else
             {

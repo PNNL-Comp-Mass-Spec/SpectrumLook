@@ -102,7 +102,6 @@ namespace SpectrumLook.Builders
                         modPeptide.Append(modSym);
                     }
                 }
-
             }
             return modPeptide.ToString();
         }

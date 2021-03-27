@@ -44,7 +44,6 @@ namespace SpectrumLook.Builders
                 dataTable.Columns[headerName].ReadOnly = headerName.IndexOf("peptide_p", StringComparison.OrdinalIgnoreCase) <= 0;
             }
 
-
             while (true)
             {
                 var dataLine = synopsisParser.GetNextRow();
@@ -82,6 +81,5 @@ namespace SpectrumLook.Builders
 
             return -1;
         }
-
     }
 }

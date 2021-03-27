@@ -4,8 +4,6 @@ using System;
 
 namespace SpectrumLookTests
 {
-    
-    
     /// <summary>
     ///This is a test class for SequestParserTest and is intended
     ///to contain all SequestParserTest Unit Tests

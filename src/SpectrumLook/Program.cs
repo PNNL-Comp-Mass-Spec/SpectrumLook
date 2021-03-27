@@ -41,8 +41,6 @@ namespace SpectrumLook
         // Handles the Exception by displaying an error message to the user
         private static void HandeException(Exception e)
         {
-
-
             var result = DialogResult.Cancel;
             try
             {
@@ -82,6 +80,5 @@ namespace SpectrumLook
             return MessageBox.Show(errorMsg, title, MessageBoxButtons.AbortRetryIgnore,
                 MessageBoxIcon.Stop);
         }
-
     }
 }

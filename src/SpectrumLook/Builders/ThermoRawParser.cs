@@ -34,7 +34,6 @@ namespace SpectrumLook.Builders
             }
         }
 
-
         #endregion
 
         #endregion
@@ -111,8 +110,6 @@ namespace SpectrumLook.Builders
                 return null;
             }
         }
-
-
 
         #endregion
 

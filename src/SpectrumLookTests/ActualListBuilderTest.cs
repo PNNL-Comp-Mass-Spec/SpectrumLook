@@ -4,8 +4,6 @@ using System;
 
 namespace SpectrumLookTests
 {
-    
-    
     /// <summary>
     ///This is a test class for ActualListBuilderTest and is intended
     ///to contain all ActualListBuilderTest Unit Tests
@@ -13,8 +11,6 @@ namespace SpectrumLookTests
     [TestClass()]
     public class ActualListBuilderTest
     {
-
-
         private TestContext testContextInstance;
 
         /// <summary>
@@ -62,7 +58,6 @@ namespace SpectrumLookTests
         //}
         //
         #endregion
-
 
         /// <summary>
         ///A test for ActualListBuilder Constructor

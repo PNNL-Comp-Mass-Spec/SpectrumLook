@@ -83,7 +83,6 @@ namespace SpectrumLook.Views.FragmentLadderView
         public void setPeptideTextBox(string peptide)
         {
             peptideEditorTextBox.Text = peptide.ToString();
-
         }
 
         public void markIonSeriesHeaders()
@@ -161,7 +160,6 @@ namespace SpectrumLook.Views.FragmentLadderView
                 if (indexOfFirstHalfEnd == 0 && columnCheckedListBox.CheckedItems[columnCheckedListBox.CheckedItems.Count - 1].ToString()[0] == 'b')
                 {
                     indexOfFirstHalfEnd = columnCheckedListBox.CheckedItems.Count;
-
                 }
             }
 
@@ -277,7 +275,6 @@ namespace SpectrumLook.Views.FragmentLadderView
                         tabControl1.TabPages[i].CreateControl();
                         tabControl1.TabPages[i].Controls.Add(tempListBox);
                     }
-
 
                     //print the index from the front of the peptide sequence
                     tempListBox = new System.Windows.Forms.ListBox();
@@ -497,7 +494,6 @@ namespace SpectrumLook.Views.FragmentLadderView
                             xListBoxPosition += (int)largestSize.Width + 3;
                         tabControl1.TabPages[i].CreateControl();
                         tabControl1.TabPages[i].Controls.Add(tempListBox);
-
                     }
 
                     tabControl1.TabPages[i].AutoScroll = true;
@@ -575,7 +571,6 @@ namespace SpectrumLook.Views.FragmentLadderView
                 var textToPrint = listBoxHandler.Items[itemIndex].ToString();
                 var g = e.Graphics;
 
-
                 Color color;
                 if (selected)
                 {
@@ -598,10 +593,8 @@ namespace SpectrumLook.Views.FragmentLadderView
                 {
                     g.DrawString(textToPrint, e.Font, unmatchedItem, listBoxHandler.GetItemRectangle(itemIndex).Location);
                 }
-
             }
             e.DrawFocusRectangle();
-
         }
 
         /// <summary>
@@ -651,7 +644,6 @@ namespace SpectrumLook.Views.FragmentLadderView
             }
             catch (Exception ex)
             {
-
             }
         }
 
@@ -671,7 +663,6 @@ namespace SpectrumLook.Views.FragmentLadderView
             }
             catch (Exception ex)
             {
-
             }
         }
 
@@ -690,7 +681,6 @@ namespace SpectrumLook.Views.FragmentLadderView
                     peptide_exists = true;
                     break;
                 }
-
             }
             if (peptide_exists == false)
             {
@@ -775,8 +765,6 @@ namespace SpectrumLook.Views.FragmentLadderView
             }
         }
 
-
-
         private void changeTab(object sender, EventArgs e)
         {
             if(!m_currentlyDrawing)
@@ -785,7 +773,6 @@ namespace SpectrumLook.Views.FragmentLadderView
                 m_manager.UpdateCurrentInstance(this.tabControl1.SelectedIndex);
             }
         }
-
 
         #endregion
 
@@ -798,7 +785,6 @@ namespace SpectrumLook.Views.FragmentLadderView
 
         private void FragmentLadderView_Load(object sender, EventArgs e)
         {
-
         }
 
         private void ClearSingleMod_Click(object sender, EventArgs e)
@@ -823,7 +809,6 @@ namespace SpectrumLook.Views.FragmentLadderView
 
         private void columnLabel_Click(object sender, EventArgs e)
         {
-
         }
 
         private void peptideEditorTextBox_KeyDown_1(object sender, KeyEventArgs e)
@@ -844,5 +829,4 @@ namespace SpectrumLook.Views.FragmentLadderView
             }
         }
     }
-
 }

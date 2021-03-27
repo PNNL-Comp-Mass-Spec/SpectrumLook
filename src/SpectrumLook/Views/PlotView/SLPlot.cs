@@ -259,7 +259,6 @@ namespace SpectrumLook.Views
         #region Batch Save
 
         ///The following is copied from ZedGraph... use this to figure out how to save an image File
-
         public readonly List<string> SaveAsImageTypes = new List<string>() { ".emf", ".png", ".gif", ".jpg", ".tif", ".bmp" };
 
         /// <summary>
@@ -351,9 +350,7 @@ namespace SpectrumLook.Views
 
                 g.ReleaseHdc(hdc);
             }
-
         }
-
 
         #endregion
 
@@ -388,7 +385,6 @@ namespace SpectrumLook.Views
         /// <param name="e"></param>
         private void trackBarAnnotationPercent_Scroll(object sender, EventArgs e)
         {
-
             msPlot.m_options.annotationPercent = trackBarAnnotationPercent.Value;
             msPlot.ReevaluateAnnotations();
             msPlot.Invalidate();

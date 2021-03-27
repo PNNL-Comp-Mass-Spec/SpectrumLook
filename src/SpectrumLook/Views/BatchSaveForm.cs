@@ -28,7 +28,6 @@ namespace SpectrumLook
             m_manager = manager;
             m_statusLabelUpdate = UpdateStatusLabel;
             InitializeFields();
-
         }
 
         /// <summary>

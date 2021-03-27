@@ -5,8 +5,6 @@ using System.Collections.Generic;
 
 namespace SpectrumLookTests
 {
-    
-    
     /// <summary>
     ///This is a test class for MzParserTest and is intended
     ///to contain all MzParserTest Unit Tests
