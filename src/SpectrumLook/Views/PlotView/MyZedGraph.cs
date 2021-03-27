@@ -286,11 +286,12 @@ namespace SpectrumLook.Views
                         var pt = pointsList[i];
 
                         // Create a text label from the Y data value
-                        text = new TextObj(customAnnotation.m_text, pt.X, pt.Y + offset,
-                            CoordType.AxisXYScale, AlignH.Left, AlignV.Center);
+                        text = new TextObj(customAnnotation.m_text, pt.X, pt.Y + offset, CoordType.AxisXYScale, AlignH.Left, AlignV.Center)
+                        {
+                            Tag = (object)pt
+                        };
 
                         // Store the point into the text object's tag
-                        text.Tag = (object)pt;
 
                         if (customAnnotation.m_showHideAuto > 0)
                         {
@@ -328,11 +329,12 @@ namespace SpectrumLook.Views
                         tagText = string.Empty;
                     }
 
-                    text = new TextObj(tagText, pt.X, pt.Y + offset,
-                        CoordType.AxisXYScale, AlignH.Left, AlignV.Center);
+                    text = new TextObj(tagText, pt.X, pt.Y + offset, CoordType.AxisXYScale, AlignH.Left, AlignV.Center)
+                    {
+                        Tag = (object)pt
+                    };
 
                     // Store the point into the text object's tag
-                    text.Tag = (object)pt;
 
                     // Determine if we are going to show the annotation for this point
                     if (pt.Y <= minIntensityToDisplay)
@@ -358,7 +360,7 @@ namespace SpectrumLook.Views
         }
 
         /// <summary>
-        /// Fires just afer the form is done zooming.  Reevaluates the annotations for the new scale
+        /// Fires just after the form is done zooming.  Reevaluates the annotations for the new scale
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="oldState"></param>
