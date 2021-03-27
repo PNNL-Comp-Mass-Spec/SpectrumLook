@@ -11,21 +11,9 @@ namespace SpectrumLook.Builders
     public class SequestParser : ISynopsisParser
     {
         /// <summary>
-        /// This stores the current location of the file that
-        /// is passed into the constructor.
-        /// </summary>
-        private string m_fileLocation;
-
-        /// <summary>
         /// This is used to read from the input file.
         /// </summary>
-        private TextReader m_fileReader;
-
-        public string fileLocation
-        {
-            get => fileLocation;
-            internal set => fileLocation = value;
-        }
+        private readonly TextReader m_fileReader;
 
         /// <summary>
         /// This is used to store the current row count when reading from the file.
@@ -43,17 +31,15 @@ namespace SpectrumLook.Builders
         /// <param name="fileLocation">The location of the sequest file. (.txt format)</param>
         public SequestParser(string fileLocation)
         {
-            m_fileLocation = fileLocation;
-
             currentRowCount = 0;
 
-            if (m_fileLocation != null)
+            if (fileLocation != null)
             {
                 try
                 {
                     m_fileReader = File.OpenText(fileLocation);
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     throw e; // If the File can not be opened for some reason.
                 }
