@@ -9,7 +9,7 @@ namespace SpectrumLook.Builders
     /// This defines the functions of what the parser should return and in what format they should be returned to.
     /// By Patrick Tobin
     /// </summary>
-    public interface ISynopsysParser
+    public interface ISynopsisParser
     {
         /// <summary>
         /// Each time this function is called is should return a string array corresponding to the current row of data.

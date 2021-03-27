@@ -70,7 +70,7 @@ namespace SpectrumLookTests
 
             string fileLocation = "..\\..\\..\\TestData\\QC_Standards_Excerpt_syn.txt";
 
-            ISynopsysParser target = new SequestParser(fileLocation);
+            ISynopsisParser target = new SequestParser(fileLocation);
 
             string[] expected = "HitNum	ScanNum_s	ScanCount	ChargeState	MH	XCorr	DelCn	Sp	Reference	MultiProtein	Peptide_p	DelCn2	RankSp	RankXc	DelM	XcRatio	PassFilt	MScore	NumTrypticEnds".Split('\t');
                                 //Copied straight from QC file.

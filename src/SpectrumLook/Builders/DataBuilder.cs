@@ -10,7 +10,7 @@ namespace SpectrumLook.Builders
     static class DataBuilder
     {
         public static DataTable GetDataTable(
-            ISynopsysParser synopsisParser,
+            ISynopsisParser synopsisParser,
             out Manager.SynFileColumnIndices synFileColumns)
         {
             synFileColumns = new Manager.SynFileColumnIndices();

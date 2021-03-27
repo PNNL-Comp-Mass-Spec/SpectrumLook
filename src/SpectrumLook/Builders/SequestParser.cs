@@ -12,7 +12,7 @@ namespace SpectrumLook.Builders
     /// This class defines how to read from a Sequest file.
     /// By Patrick Tobin
     /// </summary>
-    public class SequestParser : ISynopsysParser
+    public class SequestParser : ISynopsisParser
     {
         #region MEMBERS
 
@@ -121,7 +121,7 @@ namespace SpectrumLook.Builders
         /// connection between the synopsis file and the experiment file.
         /// </summary>
         /// <returns></returns>
-        string[] ISynopsysParser.GetNextRow()
+        string[] ISynopsisParser.GetNextRow()
         {
             var currentLine = m_fileReader.ReadLine();
             if ((currentLine != null) && (currentLine != ""))

@@ -7,7 +7,7 @@ using SpectrumLook.Views.Options;
 
 namespace SpectrumLook.Builders
 {
-    public class PHRPReaderParser : ISynopsysParser
+    public class PHRPReaderParser : ISynopsisParser
     {
         private ReaderFactory m_reader;
         private FragmentLadderOptions m_fragLadderOptions;
