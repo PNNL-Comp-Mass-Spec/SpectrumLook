@@ -11,32 +11,30 @@ namespace SpectrumLook.Views
 {
     public partial class EditAddModification : Form
     {
-        private string m_modificationString;
-        private string m_massString;
         private string m_usedSymbols;
         private string m_validSymbols = "!#$%&'*+?@^_`~-"; // Allow use of '-'
         //    string allowedSymbols = "!#$%&'*+?@^_`~"; // bby molecular weight calculator
         private string m_availableSymbols;
         private string m_symbolRegex;
 
-        public string ModificationString => m_modificationString;
+        public string ModificationString { get; private set; }
 
-        public string MassString => m_massString;
+        public string MassString { get; private set; }
 
         public EditAddModification(string editedModString, string editedMassString, string usedSymbols = "")
         {
             InitializeComponent();
 
-            this.m_modificationString = editedModString;
-            this.m_massString = editedMassString;
+            this.ModificationString = editedModString;
+            this.MassString = editedMassString;
 
-            this.symbolTextBox.Text = this.m_modificationString;
-            this.massTextBox.Text = this.m_massString;
+            this.symbolTextBox.Text = this.ModificationString;
+            this.massTextBox.Text = this.MassString;
 
             m_usedSymbols = usedSymbols;
             if (!string.IsNullOrWhiteSpace(editedModString))
             {
-                m_usedSymbols = usedSymbols.Remove(usedSymbols.IndexOf(m_modificationString[0]), 1);
+                m_usedSymbols = usedSymbols.Remove(usedSymbols.IndexOf(ModificationString[0]), 1);
             }
             foreach (var c in m_validSymbols)
             {
@@ -58,8 +56,8 @@ namespace SpectrumLook.Views
             if (double.TryParse(massTextBox.Text, out outValue))
             {
                 this.DialogResult = System.Windows.Forms.DialogResult.OK;
-                this.m_modificationString = this.symbolTextBox.Text;
-                this.m_massString = outValue.ToString();
+                this.ModificationString = this.symbolTextBox.Text;
+                this.MassString = outValue.ToString();
                 this.Close();
             }
         }
@@ -68,11 +66,11 @@ namespace SpectrumLook.Views
         {
             if (System.Text.RegularExpressions.Regex.IsMatch(this.symbolTextBox.Text, m_symbolRegex))
             {
-                m_modificationString = this.symbolTextBox.Text;
+                ModificationString = this.symbolTextBox.Text;
             }
             else
             {
-                this.symbolTextBox.Text = m_modificationString;
+                this.symbolTextBox.Text = ModificationString;
             }
 
             this.symbolTextBox.SelectAll();
@@ -84,18 +82,18 @@ namespace SpectrumLook.Views
             var pos = this.massTextBox.SelectionStart;
             if (this.massTextBox.Text.Length == 0)
             {
-                m_massString = this.massTextBox.Text;
+                MassString = this.massTextBox.Text;
             }
             else
             {
                 double tempVal = 0;
                 if (double.TryParse(this.massTextBox.Text, out tempVal))
                 {
-                    m_massString = this.massTextBox.Text;
+                    MassString = this.massTextBox.Text;
                 }
                 else
                 {
-                    this.massTextBox.Text = m_massString;
+                    this.massTextBox.Text = MassString;
                     this.massTextBox.SelectionStart = pos - 1;
                     this.massTextBox.SelectionLength = selLength;
                 }

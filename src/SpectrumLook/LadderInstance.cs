@@ -23,37 +23,21 @@ namespace SpectrumLook
     /// </summary>
     public class LadderInstance
     {
+        public List<string[]> mzValue { get; set; }
 
-        private string m_currentMode;
-        private string m_scanAndPeptide;
-        private List<string[]> m_mzValues;
-        private List<string> m_mzValueHeaders;
-        private List<Annotation> m_annotations;
+        public List<string> mzValueHeaders { get; set; }
 
-        public List<string[]> mzValue
-        {
-            get => m_mzValues;
-            set => m_mzValues = value;
-        }
-        public List<string> mzValueHeaders
-        {
-            get => m_mzValueHeaders;
-            set => m_mzValueHeaders = value;
-        }
-        public string scanAndPeptide
-        {
-            get => m_scanAndPeptide;
-            set => m_scanAndPeptide = value;
-        }
+        public string scanAndPeptide { get; set; }
+
         public string scanNumberString
         {
             get
             {
                 var outString = "";
                 var i = 0;
-                while (m_scanAndPeptide[i] != '|')
+                while (scanAndPeptide[i] != '|')
                 {
-                    outString += m_scanAndPeptide[i].ToString();
+                    outString += scanAndPeptide[i].ToString();
                     ++i;
                 }
 
@@ -65,12 +49,12 @@ namespace SpectrumLook
             get
             {
                 var outString = "";
-                var startIndex = m_scanAndPeptide.IndexOf('|');
+                var startIndex = scanAndPeptide.IndexOf('|');
                 ++startIndex;
 
-                while (startIndex < m_scanAndPeptide.Length)
+                while (startIndex < scanAndPeptide.Length)
                 {
-                    outString += m_scanAndPeptide[startIndex].ToString();
+                    outString += scanAndPeptide[startIndex].ToString();
                     ++startIndex;
                 }
 
@@ -78,28 +62,21 @@ namespace SpectrumLook
             }
             set
             {
-                var splittedString = m_scanAndPeptide.Split('|');
-                m_scanAndPeptide =  splittedString[0] + "|" + value;
+                var splittedString = scanAndPeptide.Split('|');
+                scanAndPeptide =  splittedString[0] + "|" + value;
             }
         }
-        public string currentMode
-        {
-            get => m_currentMode;
-            set => m_currentMode = value;
-        }
-        public List<Annotation> annotations
-        {
-            get => m_annotations;
-            set => m_annotations = value;
-        }
+        public string currentMode { get; set; }
+
+        public List<Annotation> annotations { get; set; }
 
         public LadderInstance()
         {
-            m_currentMode = "";
-            m_scanAndPeptide = "";
-            m_mzValueHeaders = new List<string>();
-            m_mzValues = new List<string[]>();
-            m_annotations = new List<Annotation>();
+            currentMode = "";
+            scanAndPeptide = "";
+            mzValueHeaders = new List<string>();
+            mzValue = new List<string[]>();
+            annotations = new List<Annotation>();
         }
     }
 }

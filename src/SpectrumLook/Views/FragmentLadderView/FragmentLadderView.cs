@@ -18,8 +18,6 @@ namespace SpectrumLook.Views.FragmentLadderView
     {
         private Manager m_manager;
 
-        private FragmentLadderOptions m_fragmentLadderOptions;
-
         private double m_currentParentMZ;
         private List<LadderInstance> m_currentInstances;
 
@@ -27,11 +25,7 @@ namespace SpectrumLook.Views.FragmentLadderView
 
         private bool m_currentlyDrawing;
 
-        public FragmentLadderOptions fragmentLadderOptions
-        {
-            get => m_fragmentLadderOptions;
-            set => m_fragmentLadderOptions = value;
-        }
+        public FragmentLadderOptions fragmentLadderOptions { get; set; }
 
         public FragmentLadderView(Manager manager)
         {
@@ -39,7 +33,7 @@ namespace SpectrumLook.Views.FragmentLadderView
 
             m_manager = manager;
 
-            m_fragmentLadderOptions = new Options.FragmentLadderOptions();
+            fragmentLadderOptions = new Options.FragmentLadderOptions();
 
             m_clearModifications = false;
 
@@ -67,7 +61,7 @@ namespace SpectrumLook.Views.FragmentLadderView
 
         public void markIonSeriesHeaders()
         {
-            foreach (var header in m_fragmentLadderOptions.checkedHeaders)
+            foreach (var header in fragmentLadderOptions.checkedHeaders)
             {
                 for (var i = 0; i < columnCheckedListBox.Items.Count; i++)
                 {

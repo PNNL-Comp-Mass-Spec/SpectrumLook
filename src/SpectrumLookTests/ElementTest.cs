@@ -11,17 +11,11 @@ namespace SpectrumLookTests
     [TestClass()]
     public class ElementTest
     {
-        private TestContext testContextInstance;
-
         /// <summary>
-        ///Gets or sets the test context which provides
-        ///information about and functionality for the current test run.
+        /// Gets or sets the test context which provides
+        /// information about and functionality for the current test run.
         ///</summary>
-        public TestContext TestContext
-        {
-            get => testContextInstance;
-            set => testContextInstance = value;
-        }
+        public TestContext TestContext { get; set; }
 
         //
         //You can use the following additional attributes as you write your tests:

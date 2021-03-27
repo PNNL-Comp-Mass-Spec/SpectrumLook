@@ -16,21 +16,16 @@ namespace SpectrumLook.Builders
         /// <summary>
         /// This is the List that each derived class will generate.
         /// </summary>
-        private List<Element> m_elementList;
-   
         public List<Element> ElementList
         {
-            get => m_elementList;
-            internal set//Should not be setable by outside objects except the derived class.
-                =>
-                    m_elementList = value;
+            get; internal set;
         }
-     
+
         public ElementListBuilder()
         {
-            this.m_elementList = new List<Element>();
+            this.ElementList = new List<Element>();
         }
-        
+
         /// <summary>
         /// This function must be overridden to define how the list must be built.
         /// </summary>

@@ -25,24 +25,18 @@ namespace SpectrumLook.Builders
         /// </summary>
         private TextReader m_fileReader;
 
-        /// <summary>
-        /// This is used to store the current row count when reading from the file.
-        /// This starts are zero and goes to N-1. Where N is the number of rows in
-        /// the current sequest file.
-        /// </summary>
-        private int m_currentRowCount;
-
         public string fileLocation
         {
             get => fileLocation;
             internal set => fileLocation = value;
         }
 
-        public int currentRowCount
-        {
-            get => m_currentRowCount;
-            internal set => m_currentRowCount = value;
-        }
+        /// <summary>
+        /// This is used to store the current row count when reading from the file.
+        /// This starts are zero and goes to N-1. Where N is the number of rows in
+        /// the current sequest file.
+        /// </summary>
+        public int currentRowCount { get; internal set; }
 
         /// <summary>
         /// The constructor will attempt to open the given file location
@@ -55,7 +49,7 @@ namespace SpectrumLook.Builders
         {
             this.m_fileLocation = fileLocation;
 
-            this.m_currentRowCount = 0;
+            this.currentRowCount = 0;
 
             if (m_fileLocation != null)
             {
@@ -96,7 +90,7 @@ namespace SpectrumLook.Builders
                     splicedRow[1] = splicedRow[1] + "_s";
                     splicedRow[10] = splicedRow[10] + "_p";
                 }*/
-                ++m_currentRowCount;
+                ++currentRowCount;
                 return splicedRow;
             }
             return null;

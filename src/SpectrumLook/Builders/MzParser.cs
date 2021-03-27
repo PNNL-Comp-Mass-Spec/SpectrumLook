@@ -16,27 +16,15 @@ namespace SpectrumLook.Builders
     {
         private clsMSDataFileReaderBaseClass m_fileToRead;
 
-        private string m_fileLocation;
-
-        private bool m_fileOpened;
-
         string IExperimentParser.Filename
         {
-            get => m_fileLocation;
-            set => m_fileLocation = value;
+            get => currentFileLocation;
+            set => currentFileLocation = value;
         }
 
-        public string currentFileLocation
-        {
-            get => m_fileLocation;
-            internal set => m_fileLocation = value;
-        }
+        public string currentFileLocation { get; internal set; }
 
-        public bool isFileOpened
-        {
-            get => m_fileOpened;
-            internal set => m_fileOpened = value;
-        }
+        public bool isFileOpened { get; internal set; }
 
         /// <summary>
         /// The constructor of this parser will attempt to open any files that
@@ -47,14 +35,14 @@ namespace SpectrumLook.Builders
         /// <param name="fileLocation">This must be a file Location to a ".mzXML" or ".mzData" file.</param>
         public MzParser(string fileLocation)
         {
-            this.m_fileLocation = fileLocation;
-            if (m_fileLocation != null)
+            this.currentFileLocation = fileLocation;
+            if (currentFileLocation != null)
             {
-                if (m_fileLocation.ToLower().EndsWith(".mzXML".ToLower()) ||
-                    m_fileLocation.ToLower().EndsWith(".mzData".ToLower()))
+                if (currentFileLocation.ToLower().EndsWith(".mzXML".ToLower()) ||
+                    currentFileLocation.ToLower().EndsWith(".mzData".ToLower()))
                 {
                     m_fileToRead = new clsMzXMLFileAccessor();
-                    m_fileOpened = m_fileToRead.OpenFile(m_fileLocation);
+                    isFileOpened = m_fileToRead.OpenFile(currentFileLocation);
                 }
                 else
                 {
@@ -81,7 +69,7 @@ namespace SpectrumLook.Builders
             var outputValues = new List<string>();
             clsSpectrumInfo currentSpectrum;
 
-            if (this.m_fileOpened)
+            if (this.isFileOpened)
             {
                 //Load the entire file into memory.
                 //m_fileToRead.ReadAndCacheEntireFile();

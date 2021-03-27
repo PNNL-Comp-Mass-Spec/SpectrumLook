@@ -14,10 +14,7 @@ namespace SpectrumLook
     /// </summary>
     public class LadderInstanceDictionaryXmlSerializer
     {
-
-        private string m_fileSaved;
-
-        public string fileSaved => m_fileSaved;
+        public string fileSaved { get; private set; }
 
         /// <summary>
         /// This object just set the m_fileSaved path to null.
@@ -25,7 +22,7 @@ namespace SpectrumLook
         /// </summary>
         public LadderInstanceDictionaryXmlSerializer()
         {
-            this.m_fileSaved = null;
+            this.fileSaved = null;
         }
 
         /// <summary>
@@ -34,8 +31,8 @@ namespace SpectrumLook
         /// <param name="tableToWrite">The hashtable that contains a List of LadderInstances.</param>
         public void WriteLadderInstanceDictionary(Dictionary<string, List<LadderInstance>> tableToWrite)
         {
-            if(m_fileSaved != null)
-                this.WriteLadderInstanceDictionary(m_fileSaved, tableToWrite);
+            if(fileSaved != null)
+                this.WriteLadderInstanceDictionary(fileSaved, tableToWrite);
         }
 
         /// <summary>
@@ -48,7 +45,7 @@ namespace SpectrumLook
             var serializer = new XmlSerializer(typeof(List<List<LadderInstance>>));
             TextWriter textWriter = new StreamWriter(location);
 
-            m_fileSaved = location;
+            fileSaved = location;
 
             ICollection keys = tableToWrite.Keys;
             var savingSchema = new List<List<LadderInstance>>();
@@ -75,7 +72,7 @@ namespace SpectrumLook
             var outputedHashTable = new Dictionary<string, List<LadderInstance>>();
             List<List<LadderInstance>> savedSchema;
 
-            m_fileSaved = location;
+            fileSaved = location;
 
             savedSchema = (List<List<LadderInstance>>)serializer.Deserialize(textReader);
             textReader.Close();
