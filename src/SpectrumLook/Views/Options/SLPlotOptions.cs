@@ -5,7 +5,7 @@ using System.Windows.Forms;
 namespace SpectrumLook.Views
 {
     /// <summary>
-    /// Holds all the various option information needed for the plot, this is passed inbetween the plot and the menu in order to communicate
+    /// Holds all the various option information needed for the plot, this is passed between the plot and the menu in order to communicate
     /// </summary>
     [Serializable]
     public class PlotOptions : Subject

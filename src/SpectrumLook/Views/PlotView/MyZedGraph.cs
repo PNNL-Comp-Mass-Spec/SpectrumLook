@@ -883,7 +883,7 @@ namespace SpectrumLook.Views
             {
                 if (closestPane.ZoomStack.IsEmpty)
                 {
-                    // for some reason, the stack can be empty when it should have a value... so we will just replot
+                    // for some reason, the stack can be empty when it should have a value... so we will just re-plot
                     PlotGraph(m_currentPeptide, m_currentScanNumber, m_unmatchedPoints, m_matchedPoints);
                 }
                 else

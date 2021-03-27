@@ -413,7 +413,7 @@ namespace SpectrumLook
         }
 
         /// <summary>
-        /// Focuses the plot on a specific point.  This is used for when the user clicks the fragment ladder and we want to hilight that point
+        /// Focuses the plot on a specific point.  This is used for when the user clicks the fragment ladder and we want to highlight that point
         /// </summary>
         /// <param name="focusValue">The x value to focus on in the plot</param>
         public void FocusPlotOnPoint(double focusValue)
@@ -422,7 +422,7 @@ namespace SpectrumLook
         }
 
         /// <summary>
-        /// Handles replotting the data when the fragment ladder peptide has changed without selecting a new set of data
+        /// Handles re-plotting the data when the fragment ladder peptide has changed without selecting a new set of data
         /// </summary>
         public void HandlefragmentLadderModeChange(bool setMode)
         {
@@ -440,7 +440,7 @@ namespace SpectrumLook
                 // Assuming The Frag ladder will add the PeptideString of the modified thing.
                 var theoreticalList = m_builderDirector.BuildTheoryList(currentLadderInstances.PeptideString, m_isFragmentationModeETD, m_fragLadder.fragmentLadderOptions.modificationList);
                 // Give experimental List the original Peptide.
-                // WARNING : ASSUMEING THE SCAN NUMBER KEY IS AN INTERGER
+                // WARNING : ASSUMING THE SCAN NUMBER KEY IS AN INTEGER
                 // THIS MAY NOT BE THE CASE IF PARSER CHANGES
                 var experimentalList = m_builderDirector.BuildActualList(int.Parse(currentLadderInstances.scanNumberString), m_dataFileLocation);
                 // build the compared list
@@ -494,7 +494,7 @@ namespace SpectrumLook
                     // Assuming The Frag ladder will add the PeptideString of the modified thing.
                     var theoreticalList = m_builderDirector.BuildTheoryList(currentInstance.PeptideString, m_isFragmentationModeETD, m_fragLadder.fragmentLadderOptions.modificationList);
                     // Give experimental List the original Peptide.
-                    // WARNING : ASSUMEING THE SCAN NUMBER KEY IS AN INTERGER
+                    // WARNING : ASSUMING THE SCAN NUMBER KEY IS AN INTEGER
                     // THIS MAY NOT BE THE CASE IF PARSER CHANGES
                     var experimentalList = m_builderDirector.BuildActualList(int.Parse(currentInstance.scanNumberString), m_dataFileLocation);
                     // build the compared list
@@ -567,7 +567,7 @@ namespace SpectrumLook
         }
 
         /// <summary>
-        /// This function calls the HashtableXmlSerializer.WriteHashTable fuction and requests a write to the given or save location.
+        /// This function calls the HashtableXmlSerializer.WriteHashTable function and requests a write to the given or save location.
         /// </summary>
         /// <param name="fileLocation">The location in which you want to save the .spwf</param>
         public void HandleSaveWorkFile(string fileLocation)
@@ -652,11 +652,11 @@ namespace SpectrumLook
             }
             else
             {
-                // Attach a unique number to the saved file, since we are not garenteed uniqueness from peptide or scan number alone.
+                // Attach a unique number to the saved file, since we are not guaranteed uniqueness from peptide or scan number alone.
                 nextFileName += "_" + String.Format("{0:0000}", m_batchSaveCounter);
             }
 
-            // Magic number 232, appears to be the max filename legth in Windows.  For now, just truncate what they have.
+            // Magic number 232, appears to be the max filename length in Windows.  For now, just truncate what they have.
             if (nextFileName.Length > 232)
             {
                 nextFileName = nextFileName.Remove(232);

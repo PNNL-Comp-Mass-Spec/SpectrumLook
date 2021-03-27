@@ -17,7 +17,7 @@ namespace SpectrumLook.Builders
         private string m_fileLocation;
 
         /// <summary>
-        /// This is used to read from the inputed file.
+        /// This is used to read from the input file.
         /// </summary>
         private TextReader m_fileReader;
 
