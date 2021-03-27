@@ -3,14 +3,11 @@
 // RYAN YOUR SOLUTION TO DISCUSS WITH THE GROUP IS IN FragmentLadderView.cs at the bottom
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
-using SpectrumLook;
 using SpectrumLook.Views;
 using SpectrumLook.Builders;
 

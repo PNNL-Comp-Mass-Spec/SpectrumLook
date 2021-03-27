@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Forms;
 using SpectrumLook.Views;
 using System.IO;
-using System.Text;
-using System.Text.RegularExpressions;
 
 namespace SpectrumLook
 {

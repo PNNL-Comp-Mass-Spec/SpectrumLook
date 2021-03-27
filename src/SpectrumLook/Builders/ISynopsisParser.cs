@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace SpectrumLook.Builders
+﻿namespace SpectrumLook.Builders
 {
     /// <summary>
     /// This defines the functions of what the parser should return and in what format they should be returned to.

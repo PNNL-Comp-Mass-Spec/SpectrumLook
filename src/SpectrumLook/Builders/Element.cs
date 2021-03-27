@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace SpectrumLook.Builders
+﻿namespace SpectrumLook.Builders
 {
     /// <summary>
     /// This class is used to define what kind of items that the list builders are going

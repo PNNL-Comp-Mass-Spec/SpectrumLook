@@ -1,6 +1,5 @@
 ﻿using SpectrumLook.Builders;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 
 namespace SpectrumLookTests
 {

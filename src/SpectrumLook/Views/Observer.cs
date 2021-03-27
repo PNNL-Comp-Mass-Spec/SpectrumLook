@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace SpectrumLook.Views
+﻿namespace SpectrumLook.Views
 {
     //TODO : I'm starting to wonder if I should make this an interface. Since this class only has one function
     //          and that function should not be the same for all classes.
