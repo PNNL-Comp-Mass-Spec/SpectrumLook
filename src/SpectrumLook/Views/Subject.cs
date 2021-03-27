@@ -47,7 +47,7 @@ namespace SpectrumLook.Views
         {
             if (m_observerList != null)
             {
-                foreach (IObserver observer in m_observerList)
+                foreach (var observer in m_observerList)
                 {
                     observer.UpdateObserver();
                 }

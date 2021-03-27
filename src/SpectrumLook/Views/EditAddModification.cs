@@ -60,7 +60,7 @@ namespace SpectrumLook.Views
 
         private void okModButton_Click(object sender, EventArgs e)
         {
-            double outValue = 0.0;
+            var outValue = 0.0;
             if (double.TryParse(massTextBox.Text, out outValue))
             {
                 this.DialogResult = System.Windows.Forms.DialogResult.OK;

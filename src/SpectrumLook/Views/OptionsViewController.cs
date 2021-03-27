@@ -47,7 +47,7 @@ namespace SpectrumLook.Views
 
             this.m_valuesForCancel = new object[m_numCancelOptions];
 
-            for (int i = 0; i < m_numCancelOptions; ++i)
+            for (var i = 0; i < m_numCancelOptions; ++i)
             {
                 m_valuesForCancel[i] = null;
             }
@@ -58,7 +58,7 @@ namespace SpectrumLook.Views
             this.m_fragLadder = m_fragmentLadder;
             Matched = m_plotOptions.matchedColor;
             Unmatched = m_plotOptions.unmatchedColor;
-            
+
             this.FillKeyOptions();
             this.SaveValuesForCancel();
             m_createProfile = createProfile;
@@ -89,12 +89,12 @@ namespace SpectrumLook.Views
 
                     try
                     {
-                        BinaryFormatter binaryFormatter = new BinaryFormatter();
-                        PlotOptions tmpPlotOptions = new PlotOptions(m_plotOptions);
+                        var binaryFormatter = new BinaryFormatter();
+                        var tmpPlotOptions = new PlotOptions(m_plotOptions);
                         binaryFormatter.Serialize(writer, tmpPlotOptions);
-                        MainFormOptions tmpMainOptions = new MainFormOptions(m_mainFormOptions);
+                        var tmpMainOptions = new MainFormOptions(m_mainFormOptions);
                         binaryFormatter.Serialize(writer, tmpMainOptions);
-                        Options.FragmentLadderOptions tmpFragLadder = new Options.FragmentLadderOptions(m_fragLadderOptions);
+                        var tmpFragLadder = new Options.FragmentLadderOptions(m_fragLadderOptions);
                         binaryFormatter.Serialize(writer, tmpFragLadder);
                     }
                     finally
@@ -153,7 +153,7 @@ namespace SpectrumLook.Views
             mainUnmatchedColorSample.BackColor = m_plotOptions.unmatchedColor;
             lowerMatchingToleranceBox.Text = m_mainFormOptions.lowerToleranceValue.ToString();
             mainMatchingToleranceBox.Text = m_mainFormOptions.toleranceValue.ToString();
-            
+
 
             //DATA VIEW
 
@@ -164,7 +164,7 @@ namespace SpectrumLook.Views
         public void UpdateModList()
         {
             dataGridViewModList.Rows.Clear();
-            foreach (KeyValuePair<char, double> modPair in this.m_fragLadderOptions.modificationList)
+            foreach (var modPair in this.m_fragLadderOptions.modificationList)
             {
                 dataGridViewModList.Rows.Add(new object[] {modPair.Key, modPair.Value});
             }
@@ -177,10 +177,10 @@ namespace SpectrumLook.Views
 
         private void FillKeyOptions()
         {
-            System.Type keyTypes = typeof(Keys);
-            Keys[] keyValues = (Keys[])keyTypes.GetEnumValues();
+            var keyTypes = typeof(Keys);
+            var keyValues = (Keys[])keyTypes.GetEnumValues();
 
-            foreach (Keys targetKey in keyValues)
+            foreach (var targetKey in keyValues)
             {
                 plotUnzoomKeyComboBox.Items.Add(targetKey);
             }
@@ -251,7 +251,7 @@ namespace SpectrumLook.Views
 
         private void plotFragLadderSelectBox_TextChanged(object sender, EventArgs e)
         {
-            int outputValue = 0;
+            var outputValue = 0;
             if (int.TryParse(plotFragLadderSelectBox.Text, out outputValue) == false)
             {
                 plotFragLadderSelectBox.Text = "";
@@ -273,7 +273,7 @@ namespace SpectrumLook.Views
         {
             try
             {
-                int newPercent = Convert.ToInt32(plotAnnotationPercentBox.Text);
+                var newPercent = Convert.ToInt32(plotAnnotationPercentBox.Text);
                 if (newPercent > 100 || newPercent < 0)
                 {
                     throw new Exception();
@@ -290,7 +290,7 @@ namespace SpectrumLook.Views
         {
             try
             {
-                int newSize = Convert.ToInt32(plotTextSize.Text);
+                var newSize = Convert.ToInt32(plotTextSize.Text);
                 if (newSize > 100 || newSize < 0)
                 {
                     throw new Exception();
@@ -305,7 +305,7 @@ namespace SpectrumLook.Views
 
         private void plotChangeColorOpenButton_Click(object sender, EventArgs e)
         {
-            DialogResult outputResult = this.colorDialog.ShowDialog();
+            var outputResult = this.colorDialog.ShowDialog();
             if (outputResult == DialogResult.OK)
             {
                 m_plotOptions.annotationColor = colorDialog.Color;
@@ -317,7 +317,7 @@ namespace SpectrumLook.Views
         {
             try
             {
-                int newAmmount = Convert.ToInt32(plotNumberOfPlotsTextBox.Text);
+                var newAmmount = Convert.ToInt32(plotNumberOfPlotsTextBox.Text);
                 if (newAmmount > 100 || newAmmount < 1)
                 {
                     throw new Exception();
@@ -335,7 +335,7 @@ namespace SpectrumLook.Views
         #region MAIN_OPTIONS_EVENTS
         private void mainMatchColorChangeButton_Click(object sender, EventArgs e)
         {
-            DialogResult outputResult = this.colorDialog.ShowDialog();
+            var outputResult = this.colorDialog.ShowDialog();
             if (outputResult == DialogResult.OK)
             {
                 Matched = colorDialog.Color;
@@ -346,7 +346,7 @@ namespace SpectrumLook.Views
 
         private void mainUnmatchColorChangeButton_Click(object sender, EventArgs e)
         {
-            DialogResult outputResult = this.colorDialog.ShowDialog();
+            var outputResult = this.colorDialog.ShowDialog();
             if (outputResult == DialogResult.OK)
             {
                 Unmatched = colorDialog.Color;
@@ -357,7 +357,7 @@ namespace SpectrumLook.Views
 
         private void mainMatchingToleranceBox_TextChanged(object sender, EventArgs e)
         {
-            double outputValue = 0.0;
+            var outputValue = 0.0;
             if (double.TryParse(mainMatchingToleranceBox.Text, out outputValue) == false)
             {
                 mainMatchingToleranceBox.Text = "";
@@ -377,7 +377,7 @@ namespace SpectrumLook.Views
 
         private void lowerMatchingToleranceBox_TextChanged(object sender, EventArgs e)
         {
-            double outputValue = 0.0;
+            var outputValue = 0.0;
             if (double.TryParse(lowerMatchingToleranceBox.Text, out outputValue) == false)
             {
                 lowerMatchingToleranceBox.Text = "";
@@ -394,7 +394,7 @@ namespace SpectrumLook.Views
                 m_mainFormOptions.lowerToleranceValue = outputValue;
             }
         }
-        
+
         #endregion
 
         #region DATA_VIEW_OPTIONS_EVENTS
@@ -406,13 +406,13 @@ namespace SpectrumLook.Views
         {
             var selectedCell = dataGridViewModList.CurrentCell;
             var row = selectedCell.RowIndex;
-            char? symbol = (char?)(dataGridViewModList.Rows[row].Cells[0].Value);
-            double? mass = (double?)(dataGridViewModList.Rows[row].Cells[1].Value);
+            var symbol = (char?)(dataGridViewModList.Rows[row].Cells[0].Value);
+            var mass = (double?)(dataGridViewModList.Rows[row].Cells[1].Value);
 
             // Configure values for and open a DialogBox for modifying modification data.
-            string strSymbol = symbol == null ? null : symbol.ToString();
-            string strMass = mass == null ? null : mass.ToString();
-            string usedSymbols = "";
+            var strSymbol = symbol == null ? null : symbol.ToString();
+            var strMass = mass == null ? null : mass.ToString();
+            var usedSymbols = "";
             foreach (DataGridViewRow rowData in dataGridViewModList.Rows)
             {
                 if (rowData.Cells[0].Value != null)
@@ -420,8 +420,8 @@ namespace SpectrumLook.Views
                     usedSymbols += rowData.Cells[0].Value.ToString();
                 }
             }
-            EditAddModification dialogBox = new EditAddModification(strSymbol, strMass, usedSymbols);
-            DialogResult tmpResult = dialogBox.ShowDialog();
+            var dialogBox = new EditAddModification(strSymbol, strMass, usedSymbols);
+            var tmpResult = dialogBox.ShowDialog();
 
             // Only if they click OK do we perform any updating of the DataGridView.
             if (tmpResult == DialogResult.OK)
@@ -450,7 +450,7 @@ namespace SpectrumLook.Views
         // TODO: This should be easily accomplished by populating all data accordingly when the dialog is opened, and then ONLY storing the data if/when "OK" is clicked.
         private void applyButton_Click(object sender, EventArgs e)
         {
-            int i = 0;
+            var i = 0;
             m_valuesForCancel = new object[m_numCancelOptions];
             for (i = 0; i < m_numCancelOptions; ++i)
             {
@@ -566,7 +566,7 @@ namespace SpectrumLook.Views
 
         private void SaveValuesForCancel()
         {
-            //PLOT 
+            //PLOT
             m_valuesForCancel[0] = m_plotOptions.showSnappingCursor;
             m_valuesForCancel[1] = m_plotOptions.showLegend;
             m_valuesForCancel[2] = m_plotOptions.hideUnmatched;
@@ -605,12 +605,12 @@ namespace SpectrumLook.Views
 
                     try
                     {
-                        BinaryFormatter binaryFormatter = new BinaryFormatter();
-                        PlotOptions tmpPlotOptions = new PlotOptions(m_plotOptions);
+                        var binaryFormatter = new BinaryFormatter();
+                        var tmpPlotOptions = new PlotOptions(m_plotOptions);
                         binaryFormatter.Serialize(writer, tmpPlotOptions);
-                        MainFormOptions tmpMainOptions = new MainFormOptions(m_mainFormOptions);
+                        var tmpMainOptions = new MainFormOptions(m_mainFormOptions);
                         binaryFormatter.Serialize(writer, tmpMainOptions);
-                        Options.FragmentLadderOptions tmpFragmentLadderOptions = new Options.FragmentLadderOptions(m_fragLadderOptions);
+                        var tmpFragmentLadderOptions = new Options.FragmentLadderOptions(m_fragLadderOptions);
                         binaryFormatter.Serialize(writer, tmpFragmentLadderOptions);
                     }
                     finally
@@ -627,10 +627,10 @@ namespace SpectrumLook.Views
         // goes to "~Prototype4\\SpectrumLook\\bin\\Debug"
         private string getParentDirectory(string directoryWithFile)
         {
-            string returnVal = "";
-            string[] words = directoryWithFile.Split('\\');
-            int i = 0;
-            foreach (string s in words)
+            var returnVal = "";
+            var words = directoryWithFile.Split('\\');
+            var i = 0;
+            foreach (var s in words)
             {
                 if (i == (words.Count() - 1)) //last word
                 {
@@ -645,14 +645,14 @@ namespace SpectrumLook.Views
                 }
                 i++;
             }
-            
+
             return returnVal;
         }
 
         private void mainUserBrowseButton_Click(object sender, EventArgs e)
         {
             openFileDialog.InitialDirectory = getParentDirectory(m_profileLocation);
-            DialogResult openResult = openFileDialog.ShowDialog();
+            var openResult = openFileDialog.ShowDialog();
 
 
             if (openResult != DialogResult.Cancel)
@@ -683,7 +683,7 @@ namespace SpectrumLook.Views
               //fixed issue 10 here
                 m_plotOptions.numberOfPlots = 1;
                 m_plotOptions.replot = true;
-                
+
                 m_plotOptions.CopyOptions(new PlotOptions());
             }
             else if (optionTabsPage.SelectedTab.Text == "General Options")

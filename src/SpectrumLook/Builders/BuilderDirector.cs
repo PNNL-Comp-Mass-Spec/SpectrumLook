@@ -12,7 +12,7 @@ namespace SpectrumLook.Builders
         ComparedListBuilder m_comparedBuilder;
         TheoryListBuilder m_theoryBuilder;
         IExperimentParser m_parser;
-        
+
         public BuilderDirector()
         {
         }
@@ -21,9 +21,9 @@ namespace SpectrumLook.Builders
 
         public List<Element> BuildActualList(int scanNumber, string fileLocation)       //Idea is to check the extension, call the right parser based on extension of file name.
         {
-            string mzXML = ".mzxml";
-            string raw = ".raw";
-            string extension = Path.GetExtension(fileLocation);
+            var mzXML = ".mzxml";
+            var raw = ".raw";
+            var extension = Path.GetExtension(fileLocation);
             extension = extension.ToLower();
             if (m_parser == null)
             {
@@ -68,7 +68,7 @@ namespace SpectrumLook.Builders
 
         public List<Element> GetActualList()
         {
-            List<Element> actualList = new List<Element>();
+            var actualList = new List<Element>();
 
             if (m_actualBuilder != null)
             {
@@ -85,9 +85,9 @@ namespace SpectrumLook.Builders
         public List<Element> BuildComparedList(double possibleError, double lowerBoundPossibleError, List<Element> actualElementList, double precursor, ref List<Element> theoryElementList)
         {
 
-            List<Element> copyOfActualElementList = new List<Element>(actualElementList);
+            var copyOfActualElementList = new List<Element>(actualElementList);
 
-            for (int i = 0; i < copyOfActualElementList.Count; ++i)
+            for (var i = 0; i < copyOfActualElementList.Count; ++i)
             {
                 copyOfActualElementList[i].Annotation = "";
                 copyOfActualElementList[i].Matched = false;
@@ -103,7 +103,7 @@ namespace SpectrumLook.Builders
 
         public List<Element> GetComparedList()
         {
-            List<Element> comparedList = new List<Element>();
+            var comparedList = new List<Element>();
 
             if (m_comparedBuilder != null)
             {
@@ -120,7 +120,7 @@ namespace SpectrumLook.Builders
         public List<Element> BuildTheoryList(string peptide, bool fragmentationModeETD, Dictionary<char, double> modificationList)
         {
             m_theoryBuilder = new TheoryListBuilder(peptide, fragmentationModeETD, new MolecularWeightCalculator(modificationList));
-            
+
             m_theoryBuilder.BuildList();
 
             return m_theoryBuilder.ElementList;
@@ -128,7 +128,7 @@ namespace SpectrumLook.Builders
 
         public List<Element> GetTheoryList()
         {
-            List<Element> theoryList = new List<Element>();
+            var theoryList = new List<Element>();
 
             if (m_theoryBuilder != null)
             {

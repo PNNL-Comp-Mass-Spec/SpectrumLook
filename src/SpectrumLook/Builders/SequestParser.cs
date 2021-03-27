@@ -78,7 +78,7 @@ namespace SpectrumLook.Builders
         /// <summary>
         /// The constructor will attempt to open the inputed file location
         /// that was passed into the constructor.  If the string passed in
-        /// is null or is an unreadable file location then an error will 
+        /// is null or is an unreadable file location then an error will
         /// be thrown.
         /// </summary>
         /// <param name="fileLocation">The location of the sequest file. (.txt format)</param>
@@ -123,10 +123,10 @@ namespace SpectrumLook.Builders
         /// <returns></returns>
         string[] ISynopsysParser.GetNextRow()
         {
-            string currentLine = m_fileReader.ReadLine();
+            var currentLine = m_fileReader.ReadLine();
             if ((currentLine != null) && (currentLine != ""))
             {
-                string[] splicedRow = currentLine.Split('\t');
+                var splicedRow = currentLine.Split('\t');
                 //This is where add "_p" and "_s" to the row that signifies the peptide sequence and connection to experiment data.
                 /*if (m_currentRowCount == 0) //if zero then we are currently looking at the headers of the columns
                 {

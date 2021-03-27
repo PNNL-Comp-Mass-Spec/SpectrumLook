@@ -45,7 +45,7 @@ namespace SpectrumLook
             {
                 openFileDialog.Title = "Open Data File";
                 openFileDialog.FileName = "mzXml File";
-                DialogResult result = openFileDialog.ShowDialog();
+                var result = openFileDialog.ShowDialog();
                 if (result == DialogResult.OK)
                 {
                     textBoxData.Text = openFileDialog.FileName;
@@ -64,7 +64,7 @@ namespace SpectrumLook
             {
                 openFileDialog.Title = "Open Synopsis File";
                 openFileDialog.FileName = "Synopsis File";
-                DialogResult result = openFileDialog.ShowDialog();
+                var result = openFileDialog.ShowDialog();
                 if (result == DialogResult.OK)
                 {
                     textBoxSynopsis.Text = openFileDialog.FileName;

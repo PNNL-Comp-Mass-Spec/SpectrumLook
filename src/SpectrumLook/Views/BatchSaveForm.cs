@@ -41,9 +41,9 @@ namespace SpectrumLook
                 cancelSearch = false;
                 SaveButton.Enabled = false;
 
-                string startDirectory = BaseFolderTextBox.Text;
-                string baseName = BaseName.Text;
-                string saveType = TypeComboBox.Text;
+                var startDirectory = BaseFolderTextBox.Text;
+                var baseName = BaseName.Text;
+                var saveType = TypeComboBox.Text;
 
                 if (SaveCurrentRadioButton.Checked)
                 {
@@ -51,9 +51,9 @@ namespace SpectrumLook
                 }
                 else
                 {
-                    bool saveOnlyInGrid = SaveGridRadioButton.Checked;
-                    bool usePeptideAndScanName = UsePeptideAndScanRadioButton.Checked;
-                    bool addDatasetName = AddDatasetNameCheckbox.Checked;
+                    var saveOnlyInGrid = SaveGridRadioButton.Checked;
+                    var usePeptideAndScanName = UsePeptideAndScanRadioButton.Checked;
+                    var addDatasetName = AddDatasetNameCheckbox.Checked;
 
                     m_manager.m_mainForm.Visible = false;
                     m_manager.HandleBatchSave(startDirectory, baseName, saveType,
@@ -115,7 +115,7 @@ namespace SpectrumLook
             UsePeptideAndScanRadioButton.Checked = true;
             StatusLabel.Text = "";
 
-            foreach (string imageType in m_manager.m_plot.SaveAsImageTypes)
+            foreach (var imageType in m_manager.m_plot.SaveAsImageTypes)
             {
                 TypeComboBox.Items.Add(imageType);
             }
@@ -128,7 +128,7 @@ namespace SpectrumLook
         /// <returns>true if the fields are valid, false otherwise</returns>
         private bool ValidateFields()
         {
-            bool success = true;
+            var success = true;
 
             success &= Directory.Exists(BaseFolderTextBox.Text);
             success &= !string.IsNullOrEmpty(BaseName.Text);

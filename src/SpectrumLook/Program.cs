@@ -41,14 +41,14 @@ namespace SpectrumLook
         // Handles the Exception by displaying an error message to the user
         private static void HandeException(Exception e)
         {
-            
 
-            DialogResult result = DialogResult.Cancel;
+
+            var result = DialogResult.Cancel;
             try
             {
                 //Writes bugs into  ~\spectrumlook\Prototype4\SpectrumLook\bin\buglog.txt before displaying
-                string exeFolder = System.IO.Path.GetDirectoryName(Application.ExecutablePath);
-                StreamWriter sw = new StreamWriter(exeFolder + "\\buglog.txt", true);
+                var exeFolder = System.IO.Path.GetDirectoryName(Application.ExecutablePath);
+                var sw = new StreamWriter(exeFolder + "\\buglog.txt", true);
                 sw.WriteLine("Bug Date: " + DateTime.Now.ToString());
                 sw.WriteLine(e.ToString() + "\n\n");
 
@@ -76,8 +76,8 @@ namespace SpectrumLook
         // Creates the error message and displays it.
         private static DialogResult ShowThreadExceptionDialog(string title, Exception e)
         {
-            string errorMsg = "An application error occurred. Please contact the adminstrator " +
-                "with the following information:\n\n";
+            var errorMsg = "An application error occurred. Please contact the adminstrator " +
+                           "with the following information:\n\n";
             errorMsg = errorMsg + e.Message + "\n\nStack Trace:\n" + e.StackTrace;
             return MessageBox.Show(errorMsg, title, MessageBoxButtons.AbortRetryIgnore,
                 MessageBoxIcon.Stop);

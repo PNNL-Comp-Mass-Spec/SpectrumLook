@@ -85,12 +85,12 @@ namespace SpectrumLook.Builders
             this.m_fileLocation = fileLocation;
             if (m_fileLocation != null)
             {
-                if (m_fileLocation.ToLower().EndsWith(".mzXML".ToLower()) || 
+                if (m_fileLocation.ToLower().EndsWith(".mzXML".ToLower()) ||
                     m_fileLocation.ToLower().EndsWith(".mzData".ToLower()))
                 {
                     m_fileToRead = new clsMzXMLFileAccessor();
                     m_fileOpened = m_fileToRead.OpenFile(m_fileLocation);
-                }              
+                }
                 else
                 {
                     throw new System.InvalidProgramException("Invalid File Type, must be .mzXML or .mzData");
@@ -118,20 +118,20 @@ namespace SpectrumLook.Builders
         /// <returns></returns>
         List<Element> IExperimentParser.GetExperimentDataByScanNumber(int scanNum)
         {
-            List<string> outputValues = new List<string>();
+            var outputValues = new List<string>();
             clsSpectrumInfo currentSpectrum;
 
             if (this.m_fileOpened)
             {
-                //Load the entire file into memory.                                
+                //Load the entire file into memory.
                 //m_fileToRead.ReadAndCacheEntireFile();
 
                 m_fileToRead.GetSpectrumByScanNumber(scanNum, out currentSpectrum);
 
-                List<Element> elements  = new List<Element>();
-                foreach (double currentMzValue in currentSpectrum.MZList)
+                var elements  = new List<Element>();
+                foreach (var currentMzValue in currentSpectrum.MZList)
                 {
-                    Element element     = new Element();
+                    var element     = new Element();
                     element.Mz          = currentMzValue;
                     element.Intensity   = Convert.ToDouble(currentSpectrum.LookupIonIntensityByMZ(currentMzValue, (float)0.0, (float)0.04));
                     element.Matched     = false;

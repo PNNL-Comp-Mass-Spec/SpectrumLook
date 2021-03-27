@@ -14,7 +14,7 @@ namespace SpectrumLook.Views
     /// Delegate used so that the plot can update the value of the snaping cursor position.
     /// </summary>
     /// <param name="newPosition"></param>
-    public delegate void UpdatePointDelegate(PointF newPosition); 
+    public delegate void UpdatePointDelegate(PointF newPosition);
 
     public class MyZedGraph : ZedGraph.ZedGraphControl
     {
@@ -67,16 +67,16 @@ namespace SpectrumLook.Views
         {
             //the top right corner location of the graph
             this.Location = position;
-            
+
             this.Size = new Size(width, height);
         }
 
         private void InitializeComponent()
         {
             this.SuspendLayout();
-            // 
+            //
             // MyZedGraph
-            // 
+            //
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.Name = "MyZedGraph";
             this.Size = new System.Drawing.Size(151, 150);
@@ -96,7 +96,7 @@ namespace SpectrumLook.Views
 
             if (m_options.showSnappingCursor)
             {
-                PointF mousePosition = new PointF(e.X, e.Y); 
+                var mousePosition = new PointF(e.X, e.Y);
                 UpdateSnappingCursor(mousePosition);
             }
         }
@@ -108,8 +108,8 @@ namespace SpectrumLook.Views
 
             if (FindClosestPoint(mousePosition, out closestPoint, out closestPane))
             {
-                PointF graphPoint = new PointF((float)closestPoint.X, (float)closestPoint.Y);
-                PointF boxPoint = closestPane.GeneralTransform(graphPoint, CoordType.AxisXYScale);
+                var graphPoint = new PointF((float)closestPoint.X, (float)closestPoint.Y);
+                var boxPoint = closestPane.GeneralTransform(graphPoint, CoordType.AxisXYScale);
                 m_snapBoxPosition.X = (int)boxPoint.X - (m_snapBoxSize / 2);
                 m_snapBoxPosition.Y = (int)boxPoint.Y - (m_snapBoxSize / 2);
 
@@ -130,7 +130,7 @@ namespace SpectrumLook.Views
                 }
             }
         }
-        
+
         /// <summary>
         /// Finds the closest point in the plot to the mouse position and assigns it to closestPoint
         /// </summary>
@@ -144,20 +144,20 @@ namespace SpectrumLook.Views
             closestPoint = null;
             closestPane = null;
 
-            PointPair unmatchedClosest = new PointPair();
-            PointPair matchedClosest = new PointPair();
+            var unmatchedClosest = new PointPair();
+            var matchedClosest = new PointPair();
 
             closestPane = MasterPane.FindPane(mousePosition);
 
             if (closestPane == null)
             {  //if we couldn't get the pane then we can't find the point
-                return false; 
+                return false;
             }
 
             // reverseTransform converts the mouse position to the point on a graph
             closestPane.ReverseTransform(mousePosition, out graphX, out graphY);
 
-            PointPair mousePositionPP = new PointPair(graphX, graphY);
+            var mousePositionPP = new PointPair(graphX, graphY);
 
             matchedClosest = GetClosestPointInCurve(mousePositionPP, closestPane.CurveList[matchedCurveName]);
             if (!m_options.hideUnmatched)
@@ -179,28 +179,28 @@ namespace SpectrumLook.Views
                 m_snapBoxColor = m_options.matchedColor;
             }
 
-            bool foundClosest = (closestPoint.X != 0 || closestPoint.Y != 0);
+            var foundClosest = (closestPoint.X != 0 || closestPoint.Y != 0);
 
             return foundClosest;
         }
-        
+
         /// <summary>
         /// Retrieves the closest point to the mouse point in the curve
         /// </summary>
         private PointPair GetClosestPointInCurve(PointPair mousePoint, CurveItem curve)
         {
-            PointPair closestPoint = new PointPair();
+            var closestPoint = new PointPair();
             if (curve != null)
             {
-                IPointList toSearch = curve.Points;
-                double closestDistance = GraphPane.XAxis.Scale.Max;
+                var toSearch = curve.Points;
+                var closestDistance = GraphPane.XAxis.Scale.Max;
 
                 if (toSearch != null && toSearch.Count > 0)
                 {
-                    for (int i = 0; i < toSearch.Count; i++)
+                    for (var i = 0; i < toSearch.Count; i++)
                     {
-                        PointPair point = toSearch[i];
-                        double tempDist = CalculateDistance(mousePoint, point);
+                        var point = toSearch[i];
+                        var tempDist = CalculateDistance(mousePoint, point);
                         if (tempDist < closestDistance)
                         {
                             closestDistance = tempDist;
@@ -239,8 +239,8 @@ namespace SpectrumLook.Views
         /// <param name="ycoord">The y coordinate on the form where the snapping point will go</param>
         public void DrawSnapCursor(Point boxPosition, PaintEventArgs e)
         {
-            SolidBrush snapBrush = new SolidBrush(m_snapBoxColor);
-            Rectangle snapRect = new Rectangle(boxPosition.X, boxPosition.Y, m_snapBoxSize, m_snapBoxSize);
+            var snapBrush = new SolidBrush(m_snapBoxColor);
+            var snapRect = new Rectangle(boxPosition.X, boxPosition.Y, m_snapBoxSize, m_snapBoxSize);
 
             e.Graphics.FillRectangle(snapBrush, snapRect);
         }
@@ -267,7 +267,7 @@ namespace SpectrumLook.Views
             //edit annotation?
             //System.Windows.Forms.MessageBox.Show("Edit annotations not implemented yet");
         }
-        
+
         /// <summary>
         /// Adds annotations from the matchedPoints to the Graph Pane
         /// Plot Options specify how much of the top % of annotations to display, along with size and color.
@@ -278,23 +278,23 @@ namespace SpectrumLook.Views
         {
             //add the annotations for the matched items
             double offset = 5;
-            double minIntensityToDisplay = FindMinIntensityToDisplay(pointsList);
-            LadderInstance currentInstance = m_manager.GetCurrentInstance();
+            var minIntensityToDisplay = FindMinIntensityToDisplay(pointsList);
+            var currentInstance = m_manager.GetCurrentInstance();
 
-            for (int i = 0; i < pointsList.Count; i++)
+            for (var i = 0; i < pointsList.Count; i++)
             {
-                bool usingCustomAnnotation = false;
-                TextObj text = new TextObj();
+                var usingCustomAnnotation = false;
+                var text = new TextObj();
 
                 //look for if the user has defined a custom annotation if they have we deal with that instead of making a new one
-                for (int j = 0; j < currentInstance.annotations.Count; j++)
+                for (var j = 0; j < currentInstance.annotations.Count; j++)
                 {
                     if ((currentInstance.annotations[j].m_point.X == pointsList[i].X) &&
                         (currentInstance.annotations[j].m_point.Y == pointsList[i].Y))
                     {
                         usingCustomAnnotation = true;
-                        Annotation customAnnotation = currentInstance.annotations[j];
-                        PointPair pt = pointsList[i];
+                        var customAnnotation = currentInstance.annotations[j];
+                        var pt = pointsList[i];
 
                         // Create a text label from the Y data value
                         text = new TextObj(customAnnotation.m_text, pt.X, pt.Y + offset,
@@ -326,7 +326,7 @@ namespace SpectrumLook.Views
                 if (!usingCustomAnnotation)
                 {
                     // Get the pointpair
-                    PointPair pt = pointsList[i];
+                    var pt = pointsList[i];
 
                     // Create a text label from the Y data value
                     string tagText;
@@ -388,28 +388,28 @@ namespace SpectrumLook.Views
         /// </summary>
         public void ReevaluateAnnotations()
         {
-            foreach (GraphPane pane in MasterPane.PaneList)
+            foreach (var pane in MasterPane.PaneList)
             {
-                double minY = pane.YAxis.Scale.Min;
+                var minY = pane.YAxis.Scale.Min;
                 if (m_options.zoomHorizontal == false) //For box zoom (non horizontal zoom) change the YAxis to 0 to keep the X axis
                 {
                     pane.YAxis.Scale.Min = 0;
                     minY = 0;
                 }
-                double minX = pane.XAxis.Scale.Min;
-                double maxX = pane.XAxis.Scale.Max;
-                
-                double maxY = pane.YAxis.Scale.Max;
+                var minX = pane.XAxis.Scale.Min;
+                var maxX = pane.XAxis.Scale.Max;
+
+                var maxY = pane.YAxis.Scale.Max;
                 try
                 {
-                    PointPairList visibleMatchedPoints = GetVisiblePoints(pane.CurveList[matchedCurveName].Points, pane.CurveList[unmatchedCurveName].Points, minX, maxX, minY, maxY);
-                    double minIntensityToDisplay = FindMinIntensityToDisplay(visibleMatchedPoints);
+                    var visibleMatchedPoints = GetVisiblePoints(pane.CurveList[matchedCurveName].Points, pane.CurveList[unmatchedCurveName].Points, minX, maxX, minY, maxY);
+                    var minIntensityToDisplay = FindMinIntensityToDisplay(visibleMatchedPoints);
                     foreach (TextObj text in pane.GraphObjList)
                 {
-                    PointPair pt = (PointPair)text.Tag;
-                    Annotation customAnnotation = new Annotation();
+                    var pt = (PointPair)text.Tag;
+                    var customAnnotation = new Annotation();
 
-                    foreach (Annotation annotation in m_manager.GetCurrentInstance().annotations)
+                    foreach (var annotation in m_manager.GetCurrentInstance().annotations)
                     {
                         if ((annotation.m_point.X == pt.X) &&
                          (annotation.m_point.Y == pt.Y))
@@ -452,7 +452,7 @@ namespace SpectrumLook.Views
         /// </summary>
         private PointPairList GetVisiblePoints(IPointList unmatchedPoints, IPointList matchedPoints, double minX, double maxX, double minY, double maxY)
         {
-            PointPairList visiblePointsList = GetVisiblePoints(matchedPoints, minX, maxX, minY, maxY);
+            var visiblePointsList = GetVisiblePoints(matchedPoints, minX, maxX, minY, maxY);
             visiblePointsList.AddRange(GetVisiblePoints(unmatchedPoints, minX, maxX, minY, maxY));
 
             return visiblePointsList;
@@ -463,13 +463,13 @@ namespace SpectrumLook.Views
         /// </summary>
         private PointPairList GetVisiblePoints(IPointList points, double minX, double maxX, double minY, double maxY)
         {
-            PointPairList visibleList = new PointPairList();
+            var visibleList = new PointPairList();
 
             if (points != null)
             {
-                for(int i = 0; i < points.Count; i++)
+                for(var i = 0; i < points.Count; i++)
                 {
-                    PointPair point = points[i];
+                    var point = points[i];
 
                     if ((point.X < maxX) && (point.X > minX) && (point.Y < maxY) && (point.Y > minY))
                     {
@@ -483,25 +483,25 @@ namespace SpectrumLook.Views
 
         /// <summary>
         /// From a list of matched points, finds the lowest value of relative intensity that will satisfy the top percentage requirement
-        /// 
+        ///
         /// Example, if our set was { 1, 5, 7, 3} and we wanted the top 50% of values, this method would return 5.
         /// </summary>
         /// <param name="pointsList"></param>
         /// <returns></returns>
         private double FindMinIntensityToDisplay(IPointList pointsList)
         {
-            double minIntensity = 0.0;
+            var minIntensity = 0.0;
 
-            int numAnnotationsToHide = Convert.ToInt32(pointsList.Count * ((double)m_options.annotationPercent / 100.0));
-            List<double> values = new List<double>();
+            var numAnnotationsToHide = Convert.ToInt32(pointsList.Count * ((double)m_options.annotationPercent / 100.0));
+            var values = new List<double>();
 
-            for (int i = 0; i < pointsList.Count; i++)
+            for (var i = 0; i < pointsList.Count; i++)
             {
                 values.Add(pointsList[i].Y);
             }
             values.Sort();
 
-            int selectIndex = values.Count - numAnnotationsToHide - 1;
+            var selectIndex = values.Count - numAnnotationsToHide - 1;
             if (selectIndex >= 0)
             {
                 minIntensity = values[selectIndex];
@@ -520,8 +520,8 @@ namespace SpectrumLook.Views
         /// </summary>
         public void PlotGraph(string peptide, string scanNumber, List<Element> unmatchedPointsList, List<Element> matchedPointsList)
         {
-            PointPairList unmatchedPoints = MakePointPairList(unmatchedPointsList);
-            PointPairList matchedPoints = MakePointPairList(matchedPointsList);
+            var unmatchedPoints = MakePointPairList(unmatchedPointsList);
+            var matchedPoints = MakePointPairList(matchedPointsList);
 
             PlotGraph(peptide, scanNumber, unmatchedPoints, matchedPoints);
         }
@@ -542,17 +542,17 @@ namespace SpectrumLook.Views
             m_matchedPoints = matchedPointsList;
 
             //clear the masterPane
-            ZedGraph.MasterPane master = this.MasterPane;
+            var master = this.MasterPane;
             master.GraphObjList.Clear();
             master.PaneList.Clear();
 
             // split the points into groups
             List<PointPairList> unmatchedPointsSection;
             List<PointPairList> matchedPointsSection;
-            
+
             // Divides the points into sections, this is used when we create more than one plot
             DividePointsIntoSections(m_options.numberOfPlots, m_matchedPoints, m_unmatchedPoints, out matchedPointsSection, out unmatchedPointsSection);
-            
+
             // Show the masterpane title
             master.Title.IsVisible = true;
             master.Title.Text = "Peptide: " + peptide + " Scan: " + scanNumber;
@@ -561,10 +561,10 @@ namespace SpectrumLook.Views
             master.Margin.All = 10;
             master.InnerPaneGap = 5;
 
-            for (int j = 0; j < m_options.numberOfPlots; j++)
+            for (var j = 0; j < m_options.numberOfPlots; j++)
             {
                 // Create a new graph -- dimensions to be set later by MasterPane Layout
-                GraphPane myPaneT = new GraphPane(new Rectangle(10, 10, 10, 10),
+                var myPaneT = new GraphPane(new Rectangle(10, 10, 10, 10),
                    "",
                    "m/z",
                    "Relative Intensity");
@@ -583,8 +583,8 @@ namespace SpectrumLook.Views
                 // Restrict the scale to go right up to the last data point
                 double matchedMax = 0;
                 double unmatchedMax = 0;
-                double matchedMin = double.MaxValue;
-                double unmatchedMin = double.MaxValue;
+                var matchedMin = double.MaxValue;
+                var unmatchedMin = double.MaxValue;
 
                 if (matchedPointsSection[j].Count > 0)
                 {
@@ -631,12 +631,12 @@ namespace SpectrumLook.Views
 
                 // generate the lines
                 // Keep the matched points in front by drawing them first.
-                OHLCBarItem matchedCurve = myPaneT.AddOHLCBar(matchedCurveName, matchedPointsSection[j], m_options.matchedColor);
+                var matchedCurve = myPaneT.AddOHLCBar(matchedCurveName, matchedPointsSection[j], m_options.matchedColor);
                 matchedCurve.Bar.Width = 2;
                 AddAnnotations(matchedCurve.Points, myPaneT);
                 if (!m_options.hideUnmatched)
                 {
-                    OHLCBarItem unmatchedCurve = myPaneT.AddOHLCBar(unmatchedCurveName, unmatchedPointsSection[j], m_options.unmatchedColor);
+                    var unmatchedCurve = myPaneT.AddOHLCBar(unmatchedCurveName, unmatchedPointsSection[j], m_options.unmatchedColor);
                     AddAnnotations(unmatchedCurve.Points, myPaneT);
                 }
 
@@ -645,7 +645,7 @@ namespace SpectrumLook.Views
             }
 
             //Tell ZedGraph to refigure the axes since the data has changed
-            using (Graphics g = this.CreateGraphics())
+            using (var g = this.CreateGraphics())
             {
                 // Align the GraphPanes vertically
                 if (m_options.numberOfPlots >= 4)
@@ -677,7 +677,7 @@ namespace SpectrumLook.Views
                 }
                 else
                 {
-                    foreach (GraphPane myPane in this.MasterPane.PaneList)
+                    foreach (var myPane in this.MasterPane.PaneList)
                     {
                         //PointPairList oldUnmatchedPoints = (PointPairList)myPane.CurveList["Unmatched Peaks"].Points;
                         //PointPairList oldMatchedPoints = (PointPairList)myPane.CurveList["Matched Peaks"].Points;
@@ -687,10 +687,10 @@ namespace SpectrumLook.Views
 
                         if (!m_options.hideUnmatched)
                         {
-                            OHLCBarItem unmatchedCurve = myPane.AddOHLCBar("Unmatched Peaks", m_unmatchedPoints, m_options.unmatchedColor);
+                            var unmatchedCurve = myPane.AddOHLCBar("Unmatched Peaks", m_unmatchedPoints, m_options.unmatchedColor);
                             AddAnnotations(unmatchedCurve.Points, myPane);
                         }
-                        OHLCBarItem matchedCurve = myPane.AddOHLCBar("Matched Peaks", m_matchedPoints, m_options.matchedColor);
+                        var matchedCurve = myPane.AddOHLCBar("Matched Peaks", m_matchedPoints, m_options.matchedColor);
                         AddAnnotations(matchedCurve.Points, myPane);
                     }
                 }
@@ -704,7 +704,7 @@ namespace SpectrumLook.Views
             //for now just to see how this looks, we are going to just duplicate the matched + unmatched lists into the sections
             unmatchedSections = new List<PointPairList>();
             matchedSections = new List<PointPairList>();
-            
+
             //since this will be very common, we will make a quick getaway with it
             if (numberSections <= 1)
             {
@@ -713,20 +713,20 @@ namespace SpectrumLook.Views
                 return;
             }
 
-            int totNumOfPoints = originalMatched.Count + originalUnmatched.Count;
-            int pointsPerSection = totNumOfPoints / numberSections;
+            var totNumOfPoints = originalMatched.Count + originalUnmatched.Count;
+            var pointsPerSection = totNumOfPoints / numberSections;
             int unmatchedIndex = 0, matchedIndex = 0;
 
-            for (int i = 0; i < numberSections; i++)
+            for (var i = 0; i < numberSections; i++)
             {
-                PointPairList tempUnmatched = new PointPairList();
-                PointPairList tempMatched = new PointPairList();
+                var tempUnmatched = new PointPairList();
+                var tempMatched = new PointPairList();
 
                 //here goes hoping that the lists are sorted...
-                for (int j = 0; j < pointsPerSection; j++)
+                for (var j = 0; j < pointsPerSection; j++)
                 {
-                    double nextMatched = (matchedIndex < originalMatched.Count) ? originalMatched[matchedIndex].X : originalUnmatched[originalUnmatched.Count - 1].X + 1;
-                    double nextUnmatched = (unmatchedIndex < originalUnmatched.Count) ? originalUnmatched[unmatchedIndex].X : originalMatched[originalMatched.Count - 1].X + 1;
+                    var nextMatched = (matchedIndex < originalMatched.Count) ? originalMatched[matchedIndex].X : originalUnmatched[originalUnmatched.Count - 1].X + 1;
+                    var nextUnmatched = (unmatchedIndex < originalUnmatched.Count) ? originalUnmatched[unmatchedIndex].X : originalMatched[originalMatched.Count - 1].X + 1;
 
                     if (nextUnmatched < nextMatched)
                     {
@@ -764,9 +764,9 @@ namespace SpectrumLook.Views
         /// <returns></returns>
         PointPairList MakePointPairList(List<Element> points)
         {
-            PointPairList newList = new PointPairList();
+            var newList = new PointPairList();
 
-            foreach (Element point in points)
+            foreach (var point in points)
             {
                 if (string.IsNullOrEmpty(point.Annotation))
                 {
@@ -789,7 +789,7 @@ namespace SpectrumLook.Views
         /// <param name="drawPoint">the graph coordinates of where to draw the arrow</param>
         public void PaintArrow(PointF graphPoint)
         {
-           
+
             m_arrowShowing = true;
             m_arrowPoint.X = graphPoint.X;
             m_arrowPoint.Y = graphPoint.Y;
@@ -802,7 +802,7 @@ namespace SpectrumLook.Views
         public void DrawArrow(PointF arrowPoint, PaintEventArgs e)
         {
             const int penThickness = 7;
-            bool Draw = true;
+            var Draw = true;
 
             if (arrowPoint.X > GraphPane.XAxis.Scale.Max || arrowPoint.X < GraphPane.XAxis.Scale.Min ||
                 arrowPoint.Y > GraphPane.YAxis.Scale.Max || arrowPoint.Y < GraphPane.YAxis.Scale.Min)
@@ -812,18 +812,18 @@ namespace SpectrumLook.Views
 
             if (Draw)
             {
-                Graphics g = e.Graphics;
-                PointF drawPoint = GraphPane.GeneralTransform(arrowPoint, CoordType.AxisXYScale);
+                var g = e.Graphics;
+                var drawPoint = GraphPane.GeneralTransform(arrowPoint, CoordType.AxisXYScale);
 
                 g.SmoothingMode = SmoothingMode.AntiAlias;
 
-                Pen p = new Pen(Color.Black, penThickness);
+                var p = new Pen(Color.Black, penThickness);
                 p.StartCap = LineCap.Square;
                 p.EndCap = LineCap.ArrowAnchor;
 
                 //These are the coordinates on the screen of where the arrow will start and End
-                Point pointStart = new Point((int)(drawPoint.X + .5), (int)(drawPoint.Y + 20.5));
-                Point pointEnd = new Point((int)(drawPoint.X + .5), (int)(drawPoint.Y + .5));
+                var pointStart = new Point((int)(drawPoint.X + .5), (int)(drawPoint.Y + 20.5));
+                var pointEnd = new Point((int)(drawPoint.X + .5), (int)(drawPoint.Y + .5));
 
                 g.DrawLine(p, pointStart, pointEnd);
 
@@ -851,7 +851,7 @@ namespace SpectrumLook.Views
         #endregion
 
         #region Right Click
-        
+
         protected override void OnMouseClick(MouseEventArgs e)
         {
             if (!m_options.rightClickUnzoom)
@@ -902,8 +902,8 @@ namespace SpectrumLook.Views
         public void HandleZoomOut()
         {
 
-            Point cursorPos = Cursor.Position;
-            PointF cursorPosF = new PointF(cursorPos.X, cursorPos.Y);
+            var cursorPos = Cursor.Position;
+            var cursorPosF = new PointF(cursorPos.X, cursorPos.Y);
             GraphPane closestPane;
 
             closestPane = FindNearestPane(cursorPosF);
@@ -929,13 +929,13 @@ namespace SpectrumLook.Views
         /// <returns></returns>
         GraphPane FindNearestPane(PointF mousePt)
         {
-            double closestDistance = double.MaxValue;
+            var closestDistance = double.MaxValue;
             GraphPane closest = null;
-            
-            foreach (GraphPane pane in MasterPane.PaneList)
+
+            foreach (var pane in MasterPane.PaneList)
             {
-                PointPair paneCenter = new PointPair(pane.Rect.Location.X + .5 * pane.Rect.Width, pane.Rect.Location.Y + .5 * pane.Rect.Height);
-                double paneDistance = this.CalculateDistance(paneCenter, new PointPair(mousePt));
+                var paneCenter = new PointPair(pane.Rect.Location.X + .5 * pane.Rect.Width, pane.Rect.Location.Y + .5 * pane.Rect.Height);
+                var paneDistance = this.CalculateDistance(paneCenter, new PointPair(mousePt));
                 if (paneDistance < closestDistance)
                 {
                     closest = pane;

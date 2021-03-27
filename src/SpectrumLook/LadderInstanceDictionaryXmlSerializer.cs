@@ -66,13 +66,13 @@ namespace SpectrumLook
         /// <param name="tableToWrite">The hashtable that contains a List of LadderInstances.</param>
         public void WriteLadderInstanceDictionary(string location, Dictionary<string, List<LadderInstance>> tableToWrite)
         {
-            XmlSerializer serializer = new XmlSerializer(typeof(List<List<LadderInstance>>));
+            var serializer = new XmlSerializer(typeof(List<List<LadderInstance>>));
             TextWriter textWriter = new StreamWriter(location);
 
             m_fileSaved = location;
 
             ICollection keys = tableToWrite.Keys;
-            List<List<LadderInstance>> savingSchema = new List<List<LadderInstance>>();
+            var savingSchema = new List<List<LadderInstance>>();
 
             foreach (string currentKey in keys)
             {
@@ -91,9 +91,9 @@ namespace SpectrumLook
         /// <returns></returns>
         public Dictionary<string, List<LadderInstance>> ReadXmlWorkFile(string location)
         {
-            XmlSerializer serializer = new XmlSerializer(typeof(List<List<LadderInstance>>));
+            var serializer = new XmlSerializer(typeof(List<List<LadderInstance>>));
             TextReader textReader = new StreamReader(location);
-            Dictionary<string, List<LadderInstance>> outputedHashTable = new Dictionary<string, List<LadderInstance>>();
+            var outputedHashTable = new Dictionary<string, List<LadderInstance>>();
             List<List<LadderInstance>> savedSchema;
 
             m_fileSaved = location;
@@ -101,7 +101,7 @@ namespace SpectrumLook
             savedSchema = (List<List<LadderInstance>>)serializer.Deserialize(textReader);
             textReader.Close();
 
-            foreach (List<LadderInstance> currentLadderList in savedSchema)
+            foreach (var currentLadderList in savedSchema)
             {
                 outputedHashTable.Add((currentLadderList[0].scanNumberString + currentLadderList[0].PeptideString), currentLadderList);
             }

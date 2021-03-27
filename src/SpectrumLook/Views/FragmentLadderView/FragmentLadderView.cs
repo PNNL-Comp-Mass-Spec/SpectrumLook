@@ -88,9 +88,9 @@ namespace SpectrumLook.Views.FragmentLadderView
 
         public void markIonSeriesHeaders()
         {
-            foreach (string header in m_fragmentLadderOptions.checkedHeaders)
+            foreach (var header in m_fragmentLadderOptions.checkedHeaders)
             {
-                for (int i = 0; i < columnCheckedListBox.Items.Count; i++)
+                for (var i = 0; i < columnCheckedListBox.Items.Count; i++)
                 {
                     if (header == columnCheckedListBox.Items[i].ToString())
                     {
@@ -134,20 +134,20 @@ namespace SpectrumLook.Views.FragmentLadderView
             m_currentlyDrawing = true;
 
             // This is a counter the fragment ladder instances
-            int i = 0;
+            var i = 0;
 
             // This is a counter for the list boxes.
-            int listBoxCounter = 0;
+            var listBoxCounter = 0;
 
             //this.columnCheckedListBox.Items.AddRange(currentListInstances[0].mzValueHeaders.ToArray());
             tabControl1.TabPages.Clear();
             tabControl1.Visible = false;
             tabControl1.TabPages.Add("Original");
 
-            int indexOfFirstHalfEnd = 0;
+            var indexOfFirstHalfEnd = 0;
 
             //find index of first non "b" checked item
-            for (int j = 0; j < columnCheckedListBox.CheckedItems.Count; j++)
+            for (var j = 0; j < columnCheckedListBox.CheckedItems.Count; j++)
             {
                 if (columnCheckedListBox.CheckedItems[j].ToString()[0] != 'b' && columnCheckedListBox.CheckedItems[j].ToString()[0] != 'c')
                 {
@@ -161,27 +161,27 @@ namespace SpectrumLook.Views.FragmentLadderView
                 if (indexOfFirstHalfEnd == 0 && columnCheckedListBox.CheckedItems[columnCheckedListBox.CheckedItems.Count - 1].ToString()[0] == 'b')
                 {
                     indexOfFirstHalfEnd = columnCheckedListBox.CheckedItems.Count;
-                
+
                 }
             }
 
             if (currentListInstances != null)
-                foreach (LadderInstance currentInstance in currentListInstances)
+                foreach (var currentInstance in currentListInstances)
                 {
                     // If plot is detached this value is incremented for each list box that represents
                     // an ion series.  For vertical fragment ladder orientation.
-                    int xListBoxPosition = 6;
+                    var xListBoxPosition = 6;
 
                     // If plot is detached this value is incremented for each list box that represents
                     // an ion series.  For horizontal fragment ladder orientation.
-                    int yListBoxPosition = 6;
+                    var yListBoxPosition = 6;
 
                     if (i > 0)
                         tabControl1.TabPages.Add("Modified" + i.ToString());
-                    ListBox tempListBox = new System.Windows.Forms.ListBox();
+                    var tempListBox = new System.Windows.Forms.ListBox();
 
                     //print all b or c ions that exist before the peptide sequence
-                    for (int index = 0; index < indexOfFirstHalfEnd; index++)
+                    for (var index = 0; index < indexOfFirstHalfEnd; index++)
                     {
                         //if (i == tabControl1.SelectedIndex)
                         peptideEditorTextBox.Text = currentInstance.PeptideString.ToString();
@@ -203,7 +203,7 @@ namespace SpectrumLook.Views.FragmentLadderView
                         tempListBox.DoubleClick += new EventHandler(tempListBox_DoubleClick);
                         tempListBox.Items.Add(columnCheckedListBox.CheckedItems[index].ToString());
 
-                        for (int ind = 0; ind < currentInstance.mzValueHeaders.Count; ind++)
+                        for (var ind = 0; ind < currentInstance.mzValueHeaders.Count; ind++)
                         {
                             if (currentInstance.mzValueHeaders[ind] == columnCheckedListBox.CheckedItems[index].ToString())
                                 listBoxCounter = ind;
@@ -233,7 +233,7 @@ namespace SpectrumLook.Views.FragmentLadderView
                         }
                         else
                         {*/
-                            int currentLadderValueIndex = 0;
+                            var currentLadderValueIndex = 0;
                             while (currentLadderValueIndex < currentInstance.mzValue[listBoxCounter].Length)
                             {
                                 if (currentInstance.mzValue[listBoxCounter][currentLadderValueIndex] == "")
@@ -249,13 +249,13 @@ namespace SpectrumLook.Views.FragmentLadderView
                         //}
 
                         /**************This is to find the largest string. **************/
-                        Graphics g = tempListBox.CreateGraphics();
+                        var g = tempListBox.CreateGraphics();
 
-                        SizeF largestSize = g.MeasureString(tempListBox.Items[0].ToString(), tempListBox.Font);
+                        var largestSize = g.MeasureString(tempListBox.Items[0].ToString(), tempListBox.Font);
 
-                        for (int k = 1; k < tempListBox.Items.Count; ++k)
+                        for (var k = 1; k < tempListBox.Items.Count; ++k)
                         {
-                            string tempString = tempListBox.Items[k].ToString();
+                            var tempString = tempListBox.Items[k].ToString();
                             if (tempString != "")
                                 if (largestSize.Width < g.MeasureString(tempString.Split('|')[0], tempListBox.Font).Width)
                                 {
@@ -295,11 +295,11 @@ namespace SpectrumLook.Views.FragmentLadderView
                     tempListBox.Click += new EventHandler(tempListBox_Click);
                     tempListBox.Items.Add((object)(" "));
 
-                    int lengthMinusMods = 0;
-                    String modificationList = "*+@!&#$%~`";
+                    var lengthMinusMods = 0;
+                    var modificationList = "*+@!&#$%~`";
 
                     //calculate length of string minus modifications
-                    foreach (char curChar in currentInstance.PeptideString.ToCharArray())
+                    foreach (var curChar in currentInstance.PeptideString.ToCharArray())
                     {
                         if (!modificationList.Contains(curChar))
                         {
@@ -307,9 +307,9 @@ namespace SpectrumLook.Views.FragmentLadderView
                         }
                     }
 
-                    for (int peptideIndex = 0; peptideIndex < lengthMinusMods; peptideIndex++)
+                    for (var peptideIndex = 0; peptideIndex < lengthMinusMods; peptideIndex++)
                     {
-                        String indexStr = (peptideIndex + 1).ToString();
+                        var indexStr = (peptideIndex + 1).ToString();
                         tempListBox.Items.Add((object)indexStr);
                     }
 
@@ -339,12 +339,12 @@ namespace SpectrumLook.Views.FragmentLadderView
                     tempListBox.Size = new System.Drawing.Size(45, 15);
                     tempListBox.BorderStyle = BorderStyle.None;
                     tempListBox.Click += new EventHandler(tempListBox_Click);
-                    char[] peptide = currentInstance.PeptideString.ToCharArray();
+                    var peptide = currentInstance.PeptideString.ToCharArray();
                     tempListBox.Items.Add(" ");
 
-                    for (int peptideStringIndex = 0; peptideStringIndex < peptide.Length; ++peptideStringIndex)
+                    for (var peptideStringIndex = 0; peptideStringIndex < peptide.Length; ++peptideStringIndex)
                     {
-                        string aminoAcidCode = " " + peptide[peptideStringIndex];
+                        var aminoAcidCode = " " + peptide[peptideStringIndex];
                         if ((peptideStringIndex + 1) < peptide.Length &&
                             this.fragmentLadderOptions.modificationList.ContainsKey(peptide[(peptideStringIndex + 1)]))
                         {
@@ -383,9 +383,9 @@ namespace SpectrumLook.Views.FragmentLadderView
                     tempListBox.Click += new EventHandler(tempListBox_Click);
                     tempListBox.Items.Add((object)(" "));
 
-                    for (int peptideIndex = 0; peptideIndex < lengthMinusMods; peptideIndex++)
+                    for (var peptideIndex = 0; peptideIndex < lengthMinusMods; peptideIndex++)
                     {
-                        String indexStr = (lengthMinusMods - peptideIndex).ToString();
+                        var indexStr = (lengthMinusMods - peptideIndex).ToString();
                         tempListBox.Items.Add((object)indexStr);
                     }
 
@@ -402,7 +402,7 @@ namespace SpectrumLook.Views.FragmentLadderView
                         xListBoxPosition += 40 + 3;
 
                     //draw the y or z ions that occur after the peptide sequence
-                    for (int index = indexOfFirstHalfEnd; index < columnCheckedListBox.CheckedItems.Count; index++)
+                    for (var index = indexOfFirstHalfEnd; index < columnCheckedListBox.CheckedItems.Count; index++)
                     {
                         //if (i == tabControl1.SelectedIndex)
                         peptideEditorTextBox.Text = currentInstance.PeptideString.ToString();
@@ -424,7 +424,7 @@ namespace SpectrumLook.Views.FragmentLadderView
                         tempListBox.DoubleClick += new EventHandler(tempListBox_DoubleClick);
                         tempListBox.Items.Add(columnCheckedListBox.CheckedItems[index].ToString());
 
-                        for (int ind = 0; ind < currentInstance.mzValueHeaders.Count; ind++)
+                        for (var ind = 0; ind < currentInstance.mzValueHeaders.Count; ind++)
                         {
                             if (currentInstance.mzValueHeaders[ind] == columnCheckedListBox.CheckedItems[index].ToString())
                                 listBoxCounter = ind;
@@ -435,14 +435,14 @@ namespace SpectrumLook.Views.FragmentLadderView
                         /*if ((columnCheckedListBox.CheckedItems[index].ToString().Contains("y")) ||
                             (columnCheckedListBox.CheckedItems[index].ToString().Contains("z")))
                         {*/
-                            string[] tempArray = currentInstance.mzValue[listBoxCounter];
-                            int findNonNull = 0;
+                            var tempArray = currentInstance.mzValue[listBoxCounter];
+                            var findNonNull = 0;
                             while ((findNonNull < tempArray.Length) && (tempArray[findNonNull] == ""))
                                 ++findNonNull;
-                            string[] splittedSubArrayOne = tempArray[findNonNull].Split('|');
-                            string[] splittedSubArrayTwo = tempArray[(findNonNull + 1)].Split('|');
-                            double outValue1 = 0.0;
-                            double outValue2 = 0.0;
+                            var splittedSubArrayOne = tempArray[findNonNull].Split('|');
+                            var splittedSubArrayTwo = tempArray[(findNonNull + 1)].Split('|');
+                            var outValue1 = 0.0;
+                            var outValue2 = 0.0;
 
                             double.TryParse(splittedSubArrayOne[0], out outValue1);
                             double.TryParse(splittedSubArrayTwo[0], out outValue2);
@@ -470,13 +470,13 @@ namespace SpectrumLook.Views.FragmentLadderView
                         }*/
 
                         /**************This is to find the largest string. **************/
-                        Graphics g = tempListBox.CreateGraphics();
+                        var g = tempListBox.CreateGraphics();
 
-                        SizeF largestSize = g.MeasureString(tempListBox.Items[0].ToString(), tempListBox.Font);
+                        var largestSize = g.MeasureString(tempListBox.Items[0].ToString(), tempListBox.Font);
 
-                        for (int k = 1; k < tempListBox.Items.Count; ++k)
+                        for (var k = 1; k < tempListBox.Items.Count; ++k)
                         {
-                            string tempString = tempListBox.Items[k].ToString();
+                            var tempString = tempListBox.Items[k].ToString();
                             if (tempString != "")
                                 if (largestSize.Width < g.MeasureString(tempString.Split('|')[0], tempListBox.Font).Width)
                                 {
@@ -516,13 +516,13 @@ namespace SpectrumLook.Views.FragmentLadderView
         /// <param name="e"></param>
         void tempListBox_DoubleClick(object sender, EventArgs e)
         {
-            ListBox selectedBox = (ListBox)sender;
+            var selectedBox = (ListBox)sender;
             double selectedValue = -1;
 
             try
-            {  
-                string selectedItem = (string)selectedBox.Items[selectedBox.SelectedIndex];
-                string selectedMZ = selectedItem.Substring(0, selectedItem.IndexOf('|'));
+            {
+                var selectedItem = (string)selectedBox.Items[selectedBox.SelectedIndex];
+                var selectedMZ = selectedItem.Substring(0, selectedItem.IndexOf('|'));
                 selectedValue = Convert.ToDouble(selectedMZ);
             }
             catch { }
@@ -540,13 +540,13 @@ namespace SpectrumLook.Views.FragmentLadderView
         /// <param name="e"></param>
         void tempListBox_Click(object sender, EventArgs e)
         {
-            ListBox selectedBox = (ListBox)sender;
-            int selectedIndex = selectedBox.SelectedIndex;
-            TabPage currentTab = tabControl1.TabPages[tabControl1.SelectedIndex];
+            var selectedBox = (ListBox)sender;
+            var selectedIndex = selectedBox.SelectedIndex;
+            var currentTab = tabControl1.TabPages[tabControl1.SelectedIndex];
 
             foreach (Control ctrl in currentTab.Controls)
             {
-                ListBox box = (ListBox)ctrl;
+                var box = (ListBox)ctrl;
                 box.ClearSelected();
             }
 
@@ -563,17 +563,17 @@ namespace SpectrumLook.Views.FragmentLadderView
         {
             e.DrawBackground();
 
-            bool selected = ((e.State & DrawItemState.Selected) == DrawItemState.Selected);
-            int itemIndex = e.Index;
-            SolidBrush matchedItem = new SolidBrush(this.m_manager.m_plot.m_options.matchedColor);
-            SolidBrush unmatchedItem = new SolidBrush(this.m_manager.m_plot.m_options.unmatchedColor);
+            var selected = ((e.State & DrawItemState.Selected) == DrawItemState.Selected);
+            var itemIndex = e.Index;
+            var matchedItem = new SolidBrush(this.m_manager.m_plot.m_options.matchedColor);
+            var unmatchedItem = new SolidBrush(this.m_manager.m_plot.m_options.unmatchedColor);
 
-            ListBox listBoxHandler = (ListBox)sender;
+            var listBoxHandler = (ListBox)sender;
 
             if (itemIndex >= 0 && itemIndex < listBoxHandler.Items.Count)
             {
-                string textToPrint = listBoxHandler.Items[itemIndex].ToString();
-                Graphics g = e.Graphics;
+                var textToPrint = listBoxHandler.Items[itemIndex].ToString();
+                var g = e.Graphics;
 
 
                 Color color;
@@ -682,8 +682,8 @@ namespace SpectrumLook.Views.FragmentLadderView
         /// <param name="e"></param>
         private void generateLadderFromPeptideInput(object sender, EventArgs e)
         {
-            bool peptide_exists = false;
-            for (int i = 0; i < peptideEditorTextBox.Text.Length; i++)
+            var peptide_exists = false;
+            for (var i = 0; i < peptideEditorTextBox.Text.Length; i++)
             {
                 if (Char.IsUpper(peptideEditorTextBox.Text[i]))
                 {
@@ -697,11 +697,11 @@ namespace SpectrumLook.Views.FragmentLadderView
                 peptideEditorTextBox.Text = peptideEditorTextBox.Text.ToUpper();
             }
 
-            int newTabIndex = tabControl1.TabCount;
+            var newTabIndex = tabControl1.TabCount;
             if (peptideEditorTextBox.Text == "")
                 return;
 
-            bool changeTab = false;
+            var changeTab = false;
 
             changeTab = m_manager.HandleInputPeptide(peptideEditorTextBox.Text);
             if (changeTab)
@@ -775,7 +775,7 @@ namespace SpectrumLook.Views.FragmentLadderView
             }
         }
 
-       
+
 
         private void changeTab(object sender, EventArgs e)
         {
@@ -803,7 +803,7 @@ namespace SpectrumLook.Views.FragmentLadderView
 
         private void ClearSingleMod_Click(object sender, EventArgs e)
         {
-            int index = tabControl1.SelectedIndex;
+            var index = tabControl1.SelectedIndex;
             if (index > 0)
             {
                 m_manager.RemoveModificationFromList(index);
@@ -823,18 +823,18 @@ namespace SpectrumLook.Views.FragmentLadderView
 
         private void columnLabel_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void peptideEditorTextBox_KeyDown_1(object sender, KeyEventArgs e)
         {
-            int newTabIndex = tabControl1.TabCount;
+            var newTabIndex = tabControl1.TabCount;
             if (e.KeyCode == Keys.Enter)
             {
                 if (peptideEditorTextBox.Text == "")
                     return;
 
-                bool changeTab = false;
+                var changeTab = false;
                 changeTab = m_manager.HandleInputPeptide(peptideEditorTextBox.Text);
 
                 if (changeTab)

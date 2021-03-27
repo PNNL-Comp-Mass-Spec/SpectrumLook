@@ -33,7 +33,7 @@ namespace SpectrumLook.Builders
                 m_fileLocation = value;
             }
         }
-        
+
 
         #endregion
 
@@ -51,7 +51,7 @@ namespace SpectrumLook.Builders
         {
             this.m_fileLocation = filelocation;
 
-            string extension = Path.GetExtension(filelocation);
+            var extension = Path.GetExtension(filelocation);
             extension = extension.ToLower();
 
             if (m_fileLocation != null)
@@ -89,17 +89,17 @@ namespace SpectrumLook.Builders
         List<Element> IExperimentParser.GetExperimentDataByScanNumber(int scanNum)   //Have GetExperimentDataByScanNumberRaw commented out, checking without the raw...
         {
             //m_fileOpened = true;        //TEST
-            
+
             if (this.m_fileOpened)
             {
-                List<Element> values = new List<Element>();
+                var values = new List<Element>();
                 double[,] mzIntensityPairList;
-                int dataPairCount = -1;
+                var dataPairCount = -1;
 
                 dataPairCount = m_fileToRead.GetScanData2D(scanNum, out mzIntensityPairList, 0, true);
 
                 //Step through mzList and intensityList and assign them.
-                for (int i = 0; i < dataPairCount; ++i)
+                for (var i = 0; i < dataPairCount; ++i)
                 {
                     values.Add(new Element(mzIntensityPairList[0,i], mzIntensityPairList[1,i]));
                 }
@@ -112,7 +112,7 @@ namespace SpectrumLook.Builders
             }
         }
 
-        
+
 
         #endregion
 

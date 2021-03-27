@@ -76,8 +76,8 @@ namespace SpectrumLook
         {
             get
             {
-                string outString = "";
-                int i = 0;
+                var outString = "";
+                var i = 0;
                 while (m_scanAndPeptide[i] != '|')
                 {
                     outString += m_scanAndPeptide[i].ToString();
@@ -91,8 +91,8 @@ namespace SpectrumLook
         {
             get
             {
-                string outString = "";
-                int startIndex = m_scanAndPeptide.IndexOf('|');
+                var outString = "";
+                var startIndex = m_scanAndPeptide.IndexOf('|');
                 ++startIndex;
 
                 while (startIndex < m_scanAndPeptide.Length)
@@ -105,7 +105,7 @@ namespace SpectrumLook
             }
             set
             {
-                string[] splittedString = m_scanAndPeptide.Split('|');
+                var splittedString = m_scanAndPeptide.Split('|');
                 m_scanAndPeptide =  splittedString[0] + "|" + value;
             }
         }
@@ -145,6 +145,6 @@ namespace SpectrumLook
         }
 
         #endregion
-        
+
     }
 }

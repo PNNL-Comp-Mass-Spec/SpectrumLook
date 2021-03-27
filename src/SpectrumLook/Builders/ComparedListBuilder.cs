@@ -19,7 +19,7 @@ namespace SpectrumLook.Builders
         /// This is a reference to the actualElementList that was passed into the constructor.
         /// </summary>
         private List<Element> m_actualElementList;
-        
+
         /// <summary>
         /// This is a reference to the theoryElementList that was passed into the constructor.
         /// </summary>
@@ -112,7 +112,7 @@ namespace SpectrumLook.Builders
         //        {
 
         //            if ((((m_theoryElementList[currentTheoryIndex].mzValue) <= (m_actualElementList[currentActualIndex].mzValue * (1.00 + (possibleError / 100.0)))) &&
-        //                ((m_theoryElementList[currentTheoryIndex].mzValue) >= (m_actualElementList[currentActualIndex].mzValue * (1.00 - (lowerBoundPossibleError / 100.0)))))) 
+        //                ((m_theoryElementList[currentTheoryIndex].mzValue) >= (m_actualElementList[currentActualIndex].mzValue * (1.00 - (lowerBoundPossibleError / 100.0))))))
         //            {
         //                if (highestIntensityIndex == -1)
         //                {
@@ -155,7 +155,7 @@ namespace SpectrumLook.Builders
 
         //    // Tag a precursor onto the hightes Intensity Index
         //    m_actualElementList[absoluteHighestIntenistyIndex].annotation = m_actualElementList[absoluteHighestIntenistyIndex].annotation + " - PRECURSOR";
-            
+
         //    //When all is said and done the compared list will just be a copy of the actual list.
         //    for (int i = 0; i < m_actualElementList.Count; ++i )
         //    {
@@ -164,7 +164,7 @@ namespace SpectrumLook.Builders
         //        elementForCopying.annotation    = currentElement.annotation;
         //        elementForCopying.matched       = currentElement.matched;
         //        elementForCopying.intensity     = currentElement.intensity;
-        //        elementForCopying.mzValue       = currentElement.mzValue;                
+        //        elementForCopying.mzValue       = currentElement.mzValue;
         //        ElementList.Add(elementForCopying);
         //    }
         //}
@@ -187,7 +187,7 @@ namespace SpectrumLook.Builders
         //        while (currentActualIndex < this.m_actualElementList.Count)
         //        {
         //            double actualMz         = m_actualElementList[currentActualIndex].mzValue;
-        //            double actualIntensity  = m_actualElementList[currentActualIndex].intensity;                    
+        //            double actualIntensity  = m_actualElementList[currentActualIndex].intensity;
         //            double upperActualMz    = actualMz + possibleError;
         //            double lowerActualMz    = actualMz - possibleError;
 
@@ -195,16 +195,16 @@ namespace SpectrumLook.Builders
         //            {
         //                double diffMz = Math.Abs(actualMz - theoryMz);
 
-        //                // If highestIntensityIndex == -1, then this is the first peak we have seen, select it 
-        //                // else 
+        //                // If highestIntensityIndex == -1, then this is the first peak we have seen, select it
+        //                // else
         //                //     look at other things that are close...select the biggest peak
-        //                //     
+        //                //
         //                if (highestIntensityIndex == -1)
         //                {
         //                    highestIntensityIndex = currentActualIndex;
         //                }
         //                else if (Math.Abs(m_actualElementList[highestIntensityIndex].mzValue - theoryMz) > diffMz)
-        //                {                            
+        //                {
         //                    highestIntensityIndex = currentActualIndex;
         //                }
         //                else if (Math.Abs(m_actualElementList[highestIntensityIndex].mzValue - theoryMz) == diffMz)
@@ -259,13 +259,13 @@ namespace SpectrumLook.Builders
 
 
         public override void BuildList()
-        {            
-            foreach(Element theoryElement in m_theoryElementList)
-            {                
+        {
+            foreach(var theoryElement in m_theoryElementList)
+            {
                 var pairs = from actualElement in m_actualElementList
                             where
                                 (Math.Abs(theoryElement.Mz - actualElement.Mz) <= m_upperBoundTolerance) && (Math.Abs(theoryElement.Mz  - actualElement.Mz) >= m_lowerBoundTolerance)
-                                
+
                             select new { actualElement };
 
                 // Should make this a LINQ query...
@@ -278,8 +278,8 @@ namespace SpectrumLook.Builders
                     }
                     else
                     {
-                        double theoryDiff = Math.Abs(item.actualElement.Mz - theoryElement.Mz);
-                        double maxDiff    = Math.Abs(item.actualElement.Mz - maxElement.Mz);
+                        var theoryDiff = Math.Abs(item.actualElement.Mz - theoryElement.Mz);
+                        var maxDiff    = Math.Abs(item.actualElement.Mz - maxElement.Mz);
                         if (theoryDiff < maxDiff)
                         {
                             maxElement = item.actualElement;
@@ -300,12 +300,12 @@ namespace SpectrumLook.Builders
                     {
                         maxElement.Annotation = theoryElement.Annotation;
                     }
-                }                
+                }
             }
 
             Element maxIntensity = null;
             Element precursor = null;
-            foreach (Element item in m_actualElementList)
+            foreach (var item in m_actualElementList)
             {
                 if (Math.Abs(item.Mz - m_precursor) <= m_upperBoundTolerance &&
                     Math.Abs(item.Mz - m_precursor) >= m_lowerBoundTolerance)
@@ -339,9 +339,9 @@ namespace SpectrumLook.Builders
             //}
 
             //When all is said and done the compared list will just be a copy of the actual list.
-            foreach (Element currentElement in m_actualElementList) 
+            foreach (var currentElement in m_actualElementList)
             {
-                Element elementForCopying       = new Element();                
+                var elementForCopying       = new Element();
                 elementForCopying.Annotation    = currentElement.Annotation;
                 elementForCopying.Matched       = currentElement.Matched;
                 elementForCopying.Intensity     = currentElement.Intensity;

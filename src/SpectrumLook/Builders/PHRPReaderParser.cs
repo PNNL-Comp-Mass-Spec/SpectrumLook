@@ -22,7 +22,7 @@ namespace SpectrumLook.Builders
             using (var reader = new StreamReader(synopsisFilePath))
             {
                 m_firstLine = reader.ReadLine().Split('\t');
-                for (int i = 0; i < m_firstLine.Length; i++)
+                for (var i = 0; i < m_firstLine.Length; i++)
                 {
                     if (m_firstLine[i] == "Peptide")
                     {
@@ -52,12 +52,12 @@ namespace SpectrumLook.Builders
             }
             if (m_reader.MoveNext())
             {
-                string line = m_reader.CurrentPSM.DataLineText;
+                var line = m_reader.CurrentPSM.DataLineText;
                 var residues = m_reader.CurrentPSM.ModifiedResidues;
-                string cleanSequence = m_reader.CurrentPSM.PeptideCleanSequence;
-                string[] splitLine = line.Split('\t');
+                var cleanSequence = m_reader.CurrentPSM.PeptideCleanSequence;
+                var splitLine = line.Split('\t');
 
-                string modPeptide = PeptideWithAllMods(cleanSequence, residues);
+                var modPeptide = PeptideWithAllMods(cleanSequence, residues);
                 string prefix;
                 string suffix;
                 string sequence;
@@ -73,7 +73,7 @@ namespace SpectrumLook.Builders
 
         private string PeptideWithAllMods(string cleanSequence, List<AminoAcidModInfo> residues)
         {
-            StringBuilder modPeptide = new StringBuilder();
+            var modPeptide = new StringBuilder();
 
             // Add any new mods to the modification list
             foreach (var modInfo in residues)
@@ -86,7 +86,7 @@ namespace SpectrumLook.Builders
                 }
             }
 
-            for (int i = 0; i < cleanSequence.Length; i++)
+            for (var i = 0; i < cleanSequence.Length; i++)
             {
                 modPeptide.Append(cleanSequence[i]);
 
@@ -94,7 +94,7 @@ namespace SpectrumLook.Builders
                 foreach (var modInfo in residues)
                 {
                     var modSym = modInfo.ModDefinition.ModificationSymbol;
-                    int loc = modInfo.ResidueLocInPeptide;
+                    var loc = modInfo.ResidueLocInPeptide;
                     var term = modInfo.TerminusState;
 
                     if (i + 1 == loc)

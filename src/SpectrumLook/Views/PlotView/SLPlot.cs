@@ -45,11 +45,11 @@ namespace SpectrumLook.Views
             //Setup the parts of the form not involving zedgraph
             msPlot.m_updateCursorCallback = UpdateSnapPoint;
             trackBarAnnotationPercent.Value = msPlot.m_options.annotationPercent;
-            
+
             //set this true so that all keyboard events in any child control get processed by SLPlot first
             KeyPreview = true;
         }
-        
+
         /// <summary>
         /// The form Load event, initializes the graph and sets it's initial size
         /// </summary>
@@ -87,7 +87,7 @@ namespace SpectrumLook.Views
         /// </summary>
         private void ResizeForm()
         {
-			/*
+            /*
             bool setSnapBoxVisible = true;
             bool setAnnotationSliderVisible = true;
             bool setButtonDetachPlot = true;
@@ -119,7 +119,7 @@ namespace SpectrumLook.Views
             }
 
             ////Check the user options for if we need to hide something we have room for
-			if (m_options != null && msPlot.m_options.hidePlotTools)
+            if (m_options != null && msPlot.m_options.hidePlotTools)
             {
                 setSnapBoxVisible = false;
                 setAnnotationSliderVisible = false;
@@ -148,7 +148,7 @@ namespace SpectrumLook.Views
             {
                 msPlot.SetSize(new Point(10, 10), ClientRectangle.Width - 20, ClientRectangle.Height - (30 + buttonHidePlotOptions.Height));
             }
-			*/
+            */
         }
 
         private void buttonHidePlotOptions_Click(object sender, EventArgs e)
@@ -178,18 +178,18 @@ namespace SpectrumLook.Views
         /// <param name="e"></param>
         private void msPlot_DoubleClick(object sender, EventArgs e)
         {
-            bool usingCustomAnnotation = false;
-            MouseEventArgs mouseArgs = (MouseEventArgs)e;
-            Graphics g = msPlot.CreateGraphics();
+            var usingCustomAnnotation = false;
+            var mouseArgs = (MouseEventArgs)e;
+            var g = msPlot.CreateGraphics();
             GraphPane closestPane;
             PointPair closestPoint;
-            PointF mousePt = new PointF(mouseArgs.X, mouseArgs.Y);
+            var mousePt = new PointF(mouseArgs.X, mouseArgs.Y);
             TextObj selectedTextObj = null;
 
             //retrieve the text object that the user may have selected
             if (msPlot.FindClosestPoint(mousePt, out closestPoint, out closestPane))
             {
-                foreach (GraphObj textObject in closestPane.GraphObjList)
+                foreach (var textObject in closestPane.GraphObjList)
                 {
                     if (textObject.Tag == closestPoint)
                     {
@@ -209,9 +209,9 @@ namespace SpectrumLook.Views
                 return; //no obj, so don't do anything
 
             //see if we have a custom annotation for this annotation we selected
-            LadderInstance currentInstance = m_manager.GetCurrentInstance();
-            Annotation selectedAnnotation = new Annotation();
-            foreach (Annotation annotation in currentInstance.annotations)
+            var currentInstance = m_manager.GetCurrentInstance();
+            var selectedAnnotation = new Annotation();
+            foreach (var annotation in currentInstance.annotations)
             {
                 if (annotation.m_point == (PointPair)selectedTextObj.Tag)
                 {
@@ -229,7 +229,7 @@ namespace SpectrumLook.Views
             }
 
             // Open the AnnotationEdit form
-            PlotView.AnnotationEdit editForm = new PlotView.AnnotationEdit(selectedAnnotation);
+            var editForm = new PlotView.AnnotationEdit(selectedAnnotation);
             if (editForm.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 if (editForm.m_annotation.m_showHideAuto < 0)
@@ -269,13 +269,13 @@ namespace SpectrumLook.Views
         /// <returns>true if the save was successful, false otherwise</returns>
         public bool SavePlotImageAs(string fileName)
         {
-            bool success = true;
+            var success = true;
 
             try
             {
                 if (msPlot.MasterPane != null && !string.IsNullOrEmpty(fileName))
                 {
-                    String ext = System.IO.Path.GetExtension(fileName).ToLower();
+                    var ext = System.IO.Path.GetExtension(fileName).ToLower();
 
                     using (Stream myStream = new FileStream(fileName, FileMode.Create))
                     {
@@ -288,7 +288,7 @@ namespace SpectrumLook.Views
                             }
                             else
                             {
-                                ImageFormat format = ImageFormat.Png;
+                                var format = ImageFormat.Png;
                                 switch (ext)
                                 {
                                     case ("png"): format = ImageFormat.Png; break;
@@ -331,20 +331,20 @@ namespace SpectrumLook.Views
         /// </remarks>
         internal void SaveEmfFile(string fileName)
         {
-            using (Graphics g = this.CreateGraphics())
+            using (var g = this.CreateGraphics())
             {
-                IntPtr hdc = g.GetHdc();
-                Metafile metaFile = new Metafile(hdc, EmfType.EmfPlusOnly);
-                using (Graphics gMeta = Graphics.FromImage(metaFile))
+                var hdc = g.GetHdc();
+                var metaFile = new Metafile(hdc, EmfType.EmfPlusOnly);
+                using (var gMeta = Graphics.FromImage(metaFile))
                 {
                     msPlot.MasterPane.Draw(gMeta);
                 }
 
                 IntPtr hEMF;
-                hEMF = metaFile.GetHenhmetafile(); // invalidates mf 
+                hEMF = metaFile.GetHenhmetafile(); // invalidates mf
                 if (!hEMF.Equals(new IntPtr(0)))
                 {
-                    StringBuilder tempName = new StringBuilder(fileName);
+                    var tempName = new StringBuilder(fileName);
                     CopyEnhMetaFile(hEMF, tempName);
                     DeleteEnhMetaFile(hEMF);
                 }
@@ -428,10 +428,10 @@ namespace SpectrumLook.Views
             }
             else
             {
-                int offset = msPlot.m_options.focusOffset;
+                var offset = msPlot.m_options.focusOffset;
 
                 //change the zoom of the graph
-                ZoomState oldZoom = new ZoomState(msPlot.GraphPane, ZoomState.StateType.Zoom);
+                var oldZoom = new ZoomState(msPlot.GraphPane, ZoomState.StateType.Zoom);
                 msPlot.GraphPane.XAxis.Scale.Min = focusValue - offset;
                 msPlot.GraphPane.XAxis.Scale.Max = focusValue + offset;
                 msPlot.GraphPane.YAxis.Scale.MinAuto = true;
@@ -439,24 +439,24 @@ namespace SpectrumLook.Views
                 msPlot.GraphPane.ZoomStack.Add(oldZoom);
 
                 //place a cursor below the axis
-                PointF graphPoint = new PointF((float)focusValue, (float)msPlot.GraphPane.YAxis.Scale.Min);
+                var graphPoint = new PointF((float)focusValue, (float)msPlot.GraphPane.YAxis.Scale.Min);
                 msPlot.PaintArrow(graphPoint);
             }
             msPlot.Invalidate();
         }
 
         /// <summary>
-        /// Takes a list of compared elements and splits them into matched and unmatched elements, 
+        /// Takes a list of compared elements and splits them into matched and unmatched elements,
         /// then passes the information to msPlot to plot the actual graph
         /// </summary>
         /// <param name="Points"></param>
         /// <param name="scanNumber"></param>
         public void PlotData(List<Element> Points, string scanNumber, string peptide)
         {
-            List<Element> matchedPoints = new List<Element>();
-            List<Element> unmatchedPoints = new List<Element>();
+            var matchedPoints = new List<Element>();
+            var unmatchedPoints = new List<Element>();
 
-            foreach (Element point in Points)
+            foreach (var point in Points)
             {
                 if (point.Matched == true)
                 {
@@ -498,8 +498,8 @@ namespace SpectrumLook.Views
 
         private void numberOfPlots_TextChanged(object sender, EventArgs e)
         {
-            int numPlots = 0;
-            String str = numberOfPlots.Text.Trim();
+            var numPlots = 0;
+            var str = numberOfPlots.Text.Trim();
             if (int.TryParse(str, out numPlots))
             {
                 //m_manager.m_mainForm.m_currentOptions.numberOfPlotsChangedOnForm = numPlots;

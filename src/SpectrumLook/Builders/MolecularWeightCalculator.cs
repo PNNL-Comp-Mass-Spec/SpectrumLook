@@ -58,7 +58,7 @@ namespace SpectrumLook.Builders
             m_mMwtWin.SetElementMode(MwtWinDll.MWElementAndMassRoutines.emElementModeConstants.emIsotopicMass);
 
             // Initialize the options
-            MwtWinDll.MWPeptideClass.udtFragmentationSpectrumOptionsType udtFragSpectrumOptions = default(MwtWinDll.MWPeptideClass.udtFragmentationSpectrumOptionsType);
+            var udtFragSpectrumOptions = default(MwtWinDll.MWPeptideClass.udtFragmentationSpectrumOptionsType);
             udtFragSpectrumOptions.Initialize();
 
             // Initialize udtFragSpectrumOptions with the defaults
@@ -90,7 +90,7 @@ namespace SpectrumLook.Builders
                 udtFragSpectrumOptions.IonTypeOptions[(int)MwtWinDll.MWPeptideClass.itIonTypeConstants.itZIon].ShowIon = false;
                 udtFragSpectrumOptions.IonTypeOptions[(int)MwtWinDll.MWPeptideClass.itIonTypeConstants.itAIon].ShowIon = false;
             }
-            
+
             // MolecularWeightTool allowed modification symbols.
             // 33	!
             // 35	#
@@ -106,28 +106,28 @@ namespace SpectrumLook.Builders
             // 95	_
             // 96	`
             // 126	~
-            string allowedSymbols = "!#$%&'*+?@^_`~";
-            string usedSymbols = new string(m_modificationList.Keys.ToArray());
-            string availableSymbols = "";
-            foreach (char c in allowedSymbols)
+            var allowedSymbols = "!#$%&'*+?@^_`~";
+            var usedSymbols = new string(m_modificationList.Keys.ToArray());
+            var availableSymbols = "";
+            foreach (var c in allowedSymbols)
             {
                 if (!usedSymbols.Contains(c))
                 {
                     availableSymbols += c;
                 }
             }
-            Dictionary<char, char> badSymbolMap = new Dictionary<char, char>();
+            var badSymbolMap = new Dictionary<char, char>();
 
             //Add the modifications if needed.
             if (m_modificationList != null)
             {
                 m_mMwtWin.Peptide.RemoveAllModificationSymbols(); // Remove the default MWT modification symbols
-                foreach (KeyValuePair<char, double> modPair in m_modificationList)
+                foreach (var modPair in m_modificationList)
                 {
                     // Key is symbol, value is mzValue
-                    string modComment = string.Empty;
-                    bool indicatesPhospho = Math.Abs(modPair.Value - 79.9663326) < 0.005;
-                    int modResult = m_mMwtWin.Peptide.SetModificationSymbol(modPair.Key.ToString(), modPair.Value, indicatesPhospho,
+                    var modComment = string.Empty;
+                    var indicatesPhospho = Math.Abs(modPair.Value - 79.9663326) < 0.005;
+                    var modResult = m_mMwtWin.Peptide.SetModificationSymbol(modPair.Key.ToString(), modPair.Value, indicatesPhospho,
                         modComment);
 
                     if (modResult != 0) // A symbol that is not allowed, most likely
@@ -143,8 +143,8 @@ namespace SpectrumLook.Builders
                 }
             }
 
-            string peptideFix = peptide;
-            foreach (KeyValuePair<char, char> symfix in badSymbolMap)
+            var peptideFix = peptide;
+            foreach (var symfix in badSymbolMap)
             {
                 peptideFix = peptideFix.Replace(symfix.Key, symfix.Value);
             }
@@ -174,7 +174,7 @@ namespace SpectrumLook.Builders
             }
 
             // Obtain the list of ions
-            List<KeyValuePair<string, double>> theoryList = GetTheoryList(cleanPeptide, fragmentationModeETD, modeString1, udtFragSpectrum);
+            var theoryList = GetTheoryList(cleanPeptide, fragmentationModeETD, modeString1, udtFragSpectrum);
 
             return theoryList;
         }
@@ -194,7 +194,7 @@ namespace SpectrumLook.Builders
             // Generate the first b or c ion, as 1+, 2+, and 3+
             for (var charge = 1; charge <= 3; charge++)
             {
-                string ionDescription = modeString1 + "1";
+                var ionDescription = modeString1 + "1";
                 if (charge > 1)
                     ionDescription += new String('+', charge);
 
@@ -213,7 +213,7 @@ namespace SpectrumLook.Builders
                 cTerminusResidueMass = m_deNovoTableB[peptide.Last()];
 
             // Generate every other ion except the last of the b or c ion series
-            for (int i = 0; i < udtFragSpectrum.Length; i++)
+            for (var i = 0; i < udtFragSpectrum.Length; i++)
             {
                 try
                 {
@@ -237,7 +237,7 @@ namespace SpectrumLook.Builders
                         cTermMassesAdded = true;
                         for (var charge = 1; charge <= 3; charge++)
                         {
-                            string ionDescription = modeString1 + peptideResidueCount.ToString();
+                            var ionDescription = modeString1 + peptideResidueCount.ToString();
                             if (charge > 1)
                                 ionDescription += new String('+', charge);
 

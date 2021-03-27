@@ -44,7 +44,7 @@ namespace SpectrumLook.Views
             panelPlot.Controls.Add(m_manager.m_plot);
 			panelPlot.Controls[m_manager.m_plot.Name].Dock = DockStyle.Fill;
             panelPlot.Resize += new EventHandler(panel_Resize);
-            
+
             //////FileOpen
             ////FileOpen = new OpenMenu();
 
@@ -62,7 +62,7 @@ namespace SpectrumLook.Views
             Text = "Spectrum Look - " + GetAppVersion();
 
             KeyDown += new KeyEventHandler(MainForm_KeyDown);
-            KeyPreview = true; //set this true so we can get all the key events for child controls           
+            KeyPreview = true; //set this true so we can get all the key events for child controls
         }
 
         private static string GetAppVersion()
@@ -157,7 +157,7 @@ namespace SpectrumLook.Views
         private void MainForm_Resize(object sender, EventArgs e)
         {
 			//if (cmdShowHideFragmentIons.Text == "<<")
-			//{			
+			//{
 			//    if (m_currentOptions != null && m_currentOptions.isPlotInMainForm)
 			//    {
 			//        splitContainer2.Panel2Collapsed = false;
@@ -223,7 +223,7 @@ namespace SpectrumLook.Views
         #endregion
 
         #region MENU STRIP EVENTS
-        
+
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
             m_manager.RunOpenDialog();
@@ -271,7 +271,7 @@ namespace SpectrumLook.Views
 
         private void saveWorkStripMenuItem_Click(object sender, EventArgs e)
         {
-            SaveFileDialog saveWorkFileDialog = new SaveFileDialog();
+            var saveWorkFileDialog = new SaveFileDialog();
             saveWorkFileDialog.Filter = "SpectrumLook Work File (*.slwf)|*.slwf|All Files (*.*)|*.*";
             saveWorkFileDialog.Title = "Save Work File";
 
@@ -290,7 +290,7 @@ namespace SpectrumLook.Views
 
         private void openWorkStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenFileDialog openWorkFileDialog = new OpenFileDialog();
+            var openWorkFileDialog = new OpenFileDialog();
             openWorkFileDialog.Filter = "SpectrumLook Work File (*.slwf)|*.slwf|All Files (*.*)|*.*";
             openWorkFileDialog.Title = "Open Work File";
 
@@ -311,7 +311,7 @@ namespace SpectrumLook.Views
         {
             if (m_manager.SynopsisLoaded)
             {
-                BatchSaveForm batchSaveForm = new BatchSaveForm(m_manager);
+                var batchSaveForm = new BatchSaveForm(m_manager);
                 batchSaveForm.Show();
             }
             else

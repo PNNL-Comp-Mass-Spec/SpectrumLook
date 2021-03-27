@@ -31,12 +31,12 @@ namespace SpectrumLook.Views.FragmentLadderView
         /// <returns></returns>
         public LadderInstance GenerateInstance(List<SpectrumLook.Builders.Element> theoryList, string peptide, Dictionary<char, double> modificationValues)
         {
-            int i = 0;
-            List<string[]> tempListHolder = new List<string[]>();
-            List<string> tempListColumnOptions = new List<string>();
-            LadderInstance returnedLadderInstance = new LadderInstance();
+            var i = 0;
+            var tempListHolder = new List<string[]>();
+            var tempListColumnOptions = new List<string>();
+            var returnedLadderInstance = new LadderInstance();
 
-            foreach (SpectrumLook.Builders.Element currentElement in theoryList)
+            foreach (var currentElement in theoryList)
             {
                 i = 0;
                 if (!(tempListColumnOptions.Contains(spliceNumberFromAnnotation(currentElement.Annotation))))
@@ -50,7 +50,7 @@ namespace SpectrumLook.Views.FragmentLadderView
                 {
                     ++i;
                 }
-                string tempDoubleString = string.Format("{0:#.00}", currentElement.Mz);
+                var tempDoubleString = string.Format("{0:#.00}", currentElement.Mz);
                 try
                 {
                     tempListHolder[i][unformatAnnotation(currentElement.Annotation) - 1] = tempDoubleString + "|" + currentElement.Matched.ToString();
@@ -60,7 +60,7 @@ namespace SpectrumLook.Views.FragmentLadderView
 
             for (i = 0; i < tempListColumnOptions.Count; ++i)
             {
-                for (int j = 0; j < tempListHolder[i].Length; ++j)
+                for (var j = 0; j < tempListHolder[i].Length; ++j)
                 {
                     if (tempListHolder[i][j] == null)
                     {
@@ -86,8 +86,8 @@ namespace SpectrumLook.Views.FragmentLadderView
         /// <returns></returns>
         private string spliceNumberFromAnnotation(string annotation)
         {
-            int i = 1;
-            string outputString = annotation;
+            var i = 1;
+            var outputString = annotation;
             while (char.IsNumber(outputString, i))
             {
                 outputString = outputString.Remove(i, 1);
@@ -105,8 +105,8 @@ namespace SpectrumLook.Views.FragmentLadderView
         /// <returns></returns>
         private int unformatAnnotation(string annotation)
         {
-            string tmpNumberString = "";
-            int currentAnnotationIndex = 1;
+            var tmpNumberString = "";
+            var currentAnnotationIndex = 1;
             while (char.IsNumber(annotation, currentAnnotationIndex))
             {
                 tmpNumberString += annotation[currentAnnotationIndex];
@@ -122,8 +122,8 @@ namespace SpectrumLook.Views.FragmentLadderView
 
         private int peptideLength(string peptide, Dictionary<char, double> modificationList)
         {
-            int count = 0;
-            foreach (char c in peptide)
+            var count = 0;
+            foreach (var c in peptide)
             {
                 if (modificationList.ContainsKey(c))
                 {

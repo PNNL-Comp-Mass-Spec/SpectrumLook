@@ -53,11 +53,11 @@ namespace SpectrumLook.Views
         {
             if (DataGridTable.CurrentCell != null)
             {
-                DataGridViewRow selectedRow = DataGridTable.SelectedRows[0];
+                var selectedRow = DataGridTable.SelectedRows[0];
 
                 //ScanNumber and Peptide Need to be selected based off file type.
-                string Peptide = selectedRow.Cells[PetideStringColumn].Value.ToString();
-                string ScanNumber = selectedRow.Cells[ScanNumColumn].Value.ToString();
+                var Peptide = selectedRow.Cells[PetideStringColumn].Value.ToString();
+                var ScanNumber = selectedRow.Cells[ScanNumColumn].Value.ToString();
                 if (DatasetColumn != -1)
                 {
                     m_manager.DataFileName = selectedRow.Cells[DatasetColumn].Value.ToString();
@@ -77,7 +77,7 @@ namespace SpectrumLook.Views
 
         public void DisplayProgress()
         {
-            DataViewProgress ProgressWindow = new DataViewProgress();
+            var ProgressWindow = new DataViewProgress();
             ProgressWindow.Show();
             while (!shouldStop)
             {
@@ -103,7 +103,7 @@ namespace SpectrumLook.Views
         {
             //DataViewProgress ProgressWindow = new DataViewProgress();
             //ProgressWindow.Show();
-            Thread workerThread = new Thread(DisplayProgress);
+            var workerThread = new Thread(DisplayProgress);
             workerThread.Start();
 
             ToolStripMenuItem InsertItem = null;
@@ -118,14 +118,14 @@ namespace SpectrumLook.Views
             this.DataTableForDisplay = newTable;
             this.ColNum = DataTableForDisplay.Columns.Count;
             this.RowNum = DataTableForDisplay.Rows.Count;
-            for (int i = 0; i < ColNum; i++)
+            for (var i = 0; i < ColNum; i++)
             {
                 this.DataGridTable.Columns.Add(DataTableForDisplay.Columns[i].ColumnName, DataTableForDisplay.Columns[i].ColumnName);
             }
-            for (int i = 0; i < RowNum; i++)
+            for (var i = 0; i < RowNum; i++)
             {
                 DataGridTable.Rows.Add();
-                for (int j = 0; j < ColNum; j++)
+                for (var j = 0; j < ColNum; j++)
                 {
                     this.DataGridTable.Rows[i].Cells[j].Value = DataTableForDisplay.Rows[i][j].ToString();
                 }
@@ -135,7 +135,7 @@ namespace SpectrumLook.Views
             DataGridTable.AutoResizeColumns();
             DataGridTable.AllowUserToResizeColumns = true;
 
-            for (int i = 0; i < ColNum; i++)
+            for (var i = 0; i < ColNum; i++)
             {
                 HeaderList.Insert(i, DataTableForDisplay.Columns[i].ColumnName);
                 InsertItem = new ToolStripMenuItem();
@@ -146,7 +146,7 @@ namespace SpectrumLook.Views
                 InsertItem.CheckedChanged += new EventHandler(InsertItem_CheckedChanged);
                 this.ColcontextMenuStrip.Items.Insert(i, InsertItem);
             }
-            for (int i = 0; i < DataGridTable.ColumnCount; i++)
+            for (var i = 0; i < DataGridTable.ColumnCount; i++)
             {
                 Menu.MenuItems.Add(DataGridTable.Columns[i].ToString(), Menu_Click);
             }
@@ -180,7 +180,7 @@ namespace SpectrumLook.Views
         void InsertItem_CheckedChanged(object sender, EventArgs e)
         {
             ToolStripMenuItem InsertItem = null;
-            for (int i = 0; i < ColNum; i++)
+            for (var i = 0; i < ColNum; i++)
             {
                 InsertItem = (ToolStripMenuItem)ColcontextMenuStrip.Items[i];
                 DataGridTable.Columns[i].Visible = InsertItem.Checked;
@@ -193,7 +193,7 @@ namespace SpectrumLook.Views
         }
         public void SearchButton_Click(object sender, EventArgs e)
         {
-            string SearchSubString = this.SearchBox.Text;
+            var SearchSubString = this.SearchBox.Text;
             if (DataGridTable != null)
             {
                 SimpleSearch(SearchSubString);
@@ -207,10 +207,10 @@ namespace SpectrumLook.Views
         public void SimpleSearch(string inputS)
         {
             bool VisibleRows;
-            string SearchText = inputS.ToLower();
+            var SearchText = inputS.ToLower();
             string StringFromCell = null;
-            int j = 0;
-            int i = 0;
+            var j = 0;
+            var i = 0;
             if (SearchText == "")//Null string
             {
                 //show All the table
@@ -266,8 +266,8 @@ namespace SpectrumLook.Views
         public void AdvancedSearch(string AndOr, string SelCol, string SelOpt, string TextInput)
         {
             bool IsAnd;
-            int CellNumber = 0;
-            for (int i = 0; i < ColNum; i++)
+            var CellNumber = 0;
+            for (var i = 0; i < ColNum; i++)
             {
                 if (DataGridTable.Columns[i].HeaderText.Equals(SelCol))
                 {
@@ -280,7 +280,7 @@ namespace SpectrumLook.Views
             }
             else
             {
-                for (int i = 0; i < ColNum; i++)
+                for (var i = 0; i < ColNum; i++)
                 {
                     DataGridTable.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
                 }
@@ -309,7 +309,7 @@ namespace SpectrumLook.Views
                 {
                     Equal(CellNumber, TextInput, IsAnd);
                 }
-                for (int i = 0; i < ColNum; i++)
+                for (var i = 0; i < ColNum; i++)
                 {
                     DataGridTable.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.NotSet;
                 }
@@ -317,8 +317,8 @@ namespace SpectrumLook.Views
         }
         public void Contains(int CellCount, string Input, bool AND)
         {
-            int indexR = 0;
-            string SearchInput = Input.ToLower();
+            var indexR = 0;
+            var SearchInput = Input.ToLower();
             DataGridTable.CurrentCell = null;
             for (indexR = 0; indexR < RowNum; indexR++)
             {
@@ -349,8 +349,8 @@ namespace SpectrumLook.Views
         {
             double InputDoubleValue = 0;
             double SelDoubleValue = 0;
-            string Input_lower = Input.ToLower();
-            int indexR = 0;
+            var Input_lower = Input.ToLower();
+            var indexR = 0;
             DataGridTable.CurrentCell = null;
             for (indexR = 0; indexR < RowNum; indexR++)
             {
@@ -394,8 +394,8 @@ namespace SpectrumLook.Views
         {
             double InputDoubleValue;
             double SelDoubleValue;
-            string Input_lower = Input.ToLower();
-            int indexR = 0;
+            var Input_lower = Input.ToLower();
+            var indexR = 0;
             DataGridTable.CurrentCell = null;
             for (indexR = 0; indexR < RowNum; indexR++)
             {
@@ -444,8 +444,8 @@ namespace SpectrumLook.Views
         {
             double InputDoubleValue;
             double SelDoubleValue;
-            string Input_lower = Input.ToLower();
-            int indexR = 0;
+            var Input_lower = Input.ToLower();
+            var indexR = 0;
             DataGridTable.CurrentCell = null;
             for (indexR = 0; indexR < RowNum; indexR++)
             {
@@ -501,7 +501,7 @@ namespace SpectrumLook.Views
                 {
                     DataGridTable.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
                 }*/
-                for (int i = 0; i < RowNum; i++)
+                for (var i = 0; i < RowNum; i++)
                 {
                     DataGridTable.Rows[i].Visible = true;
                 }
@@ -547,11 +547,11 @@ namespace SpectrumLook.Views
         private void ColumnDisplayClick(object sender, EventArgs e)
         {
             int DisplaySelected;
-            for (int i = 0; i < ColNum; i++)
+            for (var i = 0; i < ColNum; i++)
             {
                 DataGridTable.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             }
-            for (int i = 0; i < ColNum; i++)
+            for (var i = 0; i < ColNum; i++)
             {
                 DataGridTable.Columns[i].Visible = true;
             }
@@ -561,7 +561,7 @@ namespace SpectrumLook.Views
                 DisplaySelected = int.Parse(drowVw[DataAdvanceOption.checkedListBox1.ValueMember].ToString());
                 DataGridTable.Columns[DisplaySelected].Visible = false;
             }
-            for (int i = 0; i < 19; i++)
+            for (var i = 0; i < 19; i++)
             {
                 DataGridTable.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.NotSet;
             }
@@ -643,7 +643,7 @@ namespace SpectrumLook.Views
         private void Menu_Click(object sender, EventArgs e)
         {
 
-            MenuItem item = sender as MenuItem;
+            var item = sender as MenuItem;
 
             MessageBox.Show(item.Text);
 
@@ -651,7 +651,7 @@ namespace SpectrumLook.Views
 
         private void DataGridTable_ColumnHeaderMouseClick_1(object sender, DataGridViewCellMouseEventArgs e)
         {
-            int Column_index = e.ColumnIndex;
+            var Column_index = e.ColumnIndex;
 
 
             if (e.Button == MouseButtons.Right)
@@ -673,7 +673,7 @@ namespace SpectrumLook.Views
             //MessageBox.Show("THe custom_sortcompare working");
             double InputDoubleValue;
             double SelDoubleValue;
-            int Column_index = e.Column.Index;
+            var Column_index = e.Column.Index;
             if (e.CellValue1 != null && e.CellValue2 != null)
             {
                 e.SortResult = System.String.Compare(e.CellValue1.ToString(), e.CellValue2.ToString());
@@ -697,13 +697,13 @@ namespace SpectrumLook.Views
 
         public List<ResultRowData> GetPeptidesAndScansInGrid(bool useOnlyVisible)
         {
-            List<ResultRowData> peptidesAndScans = new List<ResultRowData>();
+            var peptidesAndScans = new List<ResultRowData>();
 
             //calculate the indexes for scan numbers and peptides
             int scanNumIndex = 0, peptideIndex = 0;
-            int datasetIndex = -1;
-            int precursorIndex = 0;
-            for (int i = 0; i < ColNum; i++)
+            var datasetIndex = -1;
+            var precursorIndex = 0;
+            for (var i = 0; i < ColNum; i++)
             {
                 if (DataGridTable.Columns[i].HeaderText.ToLower().Contains("scan"))
                 {
@@ -728,10 +728,10 @@ namespace SpectrumLook.Views
             {
                 if (row.Visible || !useOnlyVisible)
                 {
-                    string scanNumber = row.Cells[scanNumIndex].Value.ToString();
-                    string peptide = row.Cells[peptideIndex].Value.ToString();
-                    string dataset = datasetIndex != -1 ? row.Cells[datasetIndex].Value.ToString() : null;
-                    string precursor = row.Cells[precursorIndex].Value.ToString();
+                    var scanNumber = row.Cells[scanNumIndex].Value.ToString();
+                    var peptide = row.Cells[peptideIndex].Value.ToString();
+                    var dataset = datasetIndex != -1 ? row.Cells[datasetIndex].Value.ToString() : null;
+                    var precursor = row.Cells[precursorIndex].Value.ToString();
 
                     string sequence;
                     string prefix;
@@ -766,7 +766,7 @@ namespace SpectrumLook.Views
         {
             if (e.KeyCode == Keys.Enter)
             {
-                string SearchSubString = this.SearchBox.Text;
+                var SearchSubString = this.SearchBox.Text;
                 if (DataGridTable != null)
                 {
                     SimpleSearch(SearchSubString);

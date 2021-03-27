@@ -69,17 +69,17 @@ namespace SpectrumLook.Builders
         /// derived List of Elements.
         /// </summary>
         public override void BuildList()
-        {            
-            List<Element> listToStore       = new List<Element>();
-            Element tempElement             = new Element();
-            List<Element> experimentDataStringArray = m_fileParser.GetExperimentDataByScanNumber(m_scanNumber);
-            experimentDataStringArray.ForEach(x => x.Matched = false);            
+        {
+            var listToStore       = new List<Element>();
+            var tempElement             = new Element();
+            var experimentDataStringArray = m_fileParser.GetExperimentDataByScanNumber(m_scanNumber);
+            experimentDataStringArray.ForEach(x => x.Matched = false);
             ElementList = experimentDataStringArray;
         }
 
         public bool SetScanNumber(int newScanNum)
         {
-            bool success = false;
+            var success = false;
             if (newScanNum >= 0)
             {
                 m_scanNumber = newScanNum;
