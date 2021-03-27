@@ -1,0 +1,2598 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MolecularWeightCalculator</name>
+    </assembly>
+    <members>
+        <member name="P:MolecularWeightCalculator.CapillaryFlow.CapillaryFlowParameters.BackPressure">
+            <summary>
+            Units: dynes/cm^2
+            </summary>
+        </member>
+        <member name="P:MolecularWeightCalculator.CapillaryFlow.CapillaryFlowParameters.ColumnLength">
+            <summary>
+            Units: cm
+            </summary>
+        </member>
+        <member name="P:MolecularWeightCalculator.CapillaryFlow.CapillaryFlowParameters.ColumnId">
+            <summary>
+            Units: cm
+            </summary>
+        </member>
+        <member name="P:MolecularWeightCalculator.CapillaryFlow.CapillaryFlowParameters.SolventViscosity">
+            <summary>
+            Units: poise
+            </summary>
+        </member>
+        <member name="P:MolecularWeightCalculator.CapillaryFlow.CapillaryFlowParameters.ParticleDiameter">
+            <summary>
+            Units: cm
+            </summary>
+        </member>
+        <member name="P:MolecularWeightCalculator.CapillaryFlow.CapillaryFlowParameters.VolumetricFlowRate">
+            <summary>
+            Units: mL/min
+            </summary>
+        </member>
+        <member name="P:MolecularWeightCalculator.CapillaryFlow.CapillaryFlowParameters.LinearVelocity">
+            <summary>
+            Units: cm/min
+            </summary>
+        </member>
+        <member name="P:MolecularWeightCalculator.CapillaryFlow.CapillaryFlowParameters.ColumnDeadTime">
+            <summary>
+            Units: min
+            </summary>
+        </member>
+        <member name="P:MolecularWeightCalculator.CapillaryFlow.MassRateParameters.SampleConcentration">
+            <summary>
+            Units: Molar
+            </summary>
+        </member>
+        <member name="P:MolecularWeightCalculator.CapillaryFlow.MassRateParameters.SampleMass">
+            <summary>
+            Units: g/mole
+            </summary>
+        </member>
+        <member name="P:MolecularWeightCalculator.CapillaryFlow.MassRateParameters.VolumetricFlowRate">
+            <summary>
+            Units: mL/min
+            </summary>
+        </member>
+        <member name="P:MolecularWeightCalculator.CapillaryFlow.MassRateParameters.InjectionTime">
+            <summary>
+            Units: min
+            </summary>
+        </member>
+        <member name="P:MolecularWeightCalculator.CapillaryFlow.MassRateParameters.MassFlowRate">
+            <summary>
+            Units: Moles/min
+            </summary>
+        </member>
+        <member name="P:MolecularWeightCalculator.CapillaryFlow.MassRateParameters.MolesInjected">
+            <summary>
+            Units: moles
+            </summary>
+        </member>
+        <member name="P:MolecularWeightCalculator.CapillaryFlow.ExtraColumnBroadeningParameters.LinearVelocity">
+            <summary>
+            Units: cm/min
+            </summary>
+        </member>
+        <member name="P:MolecularWeightCalculator.CapillaryFlow.ExtraColumnBroadeningParameters.DiffusionCoefficient">
+            <summary>
+            Units: cm^2/sec
+            </summary>
+        </member>
+        <member name="P:MolecularWeightCalculator.CapillaryFlow.ExtraColumnBroadeningParameters.OpenTubeLength">
+            <summary>
+            Units: cm
+            </summary>
+        </member>
+        <member name="P:MolecularWeightCalculator.CapillaryFlow.ExtraColumnBroadeningParameters.OpenTubeId">
+            <summary>
+            Units: cm
+            </summary>
+        </member>
+        <member name="P:MolecularWeightCalculator.CapillaryFlow.ExtraColumnBroadeningParameters.InitialPeakWidth">
+            <summary>
+            Units: sec
+            </summary>
+        </member>
+        <member name="P:MolecularWeightCalculator.CapillaryFlow.ExtraColumnBroadeningParameters.TemporalVariance">
+            <summary>
+            Units: sec^2
+            </summary>
+        </member>
+        <member name="P:MolecularWeightCalculator.CapillaryFlow.ExtraColumnBroadeningParameters.AdditionalTemporalVariance">
+            <summary>
+            Units: sec^2
+            </summary>
+        </member>
+        <member name="P:MolecularWeightCalculator.CapillaryFlow.ExtraColumnBroadeningParameters.ResultantPeakWidth">
+            <summary>
+            Units: sec
+            </summary>
+        </member>
+        <member name="F:MolecularWeightCalculator.CapillaryFlow.mAutoCompute">
+            <summary>
+            When true, automatically compute results whenever any value changes
+            </summary>
+        </member>
+        <member name="F:MolecularWeightCalculator.CapillaryFlow.mAutoComputeMode">
+            <summary>
+            The value to compute when mAutoCompute is true
+            </summary>
+        </member>
+        <member name="M:MolecularWeightCalculator.CapillaryFlow.ComputeBackPressure(MolecularWeightCalculator.UnitOfPressure)">
+            <summary>
+            Computes the back pressure, stores in .BackPressure, and returns it
+            </summary>
+            <param name="units"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.CapillaryFlow.ComputeColumnLength(MolecularWeightCalculator.UnitOfLength)">
+            <summary>
+            Computes the column length, stores in .ColumnLength, and returns it
+            </summary>
+            <param name="units"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.CapillaryFlow.ComputeColumnId(MolecularWeightCalculator.UnitOfLength)">
+            <summary>
+            Computes the column length, stores in .ColumnLength, and returns it
+            </summary>
+            <param name="units"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.CapillaryFlow.ComputeDeadTime(MolecularWeightCalculator.UnitOfTime,System.Boolean)">
+            <summary>
+            Computes the column dead time, stores in .ColumnDeadTime, and returns it
+            </summary>
+            <param name="units"></param>
+            <param name="recalculateVolFlowRate"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.CapillaryFlow.ComputeLinearVelocity(MolecularWeightCalculator.UnitOfLinearVelocity,System.Boolean)">
+            <summary>
+            Computes the Linear velocity, stores in .LinearVelocity, and returns it
+            </summary>
+            <param name="units"></param>
+            <param name="recalculateVolFlowRate"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.CapillaryFlow.ComputeMassFlowRate(MolecularWeightCalculator.UnitOfMassFlowRate)">
+            <summary>
+            Computes the MassFlowRate and Moles Injected, stores in .MassFlowRate and .MolesInjected, and returns MassFlowRate
+            </summary>
+            <param name="units"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.CapillaryFlow.ComputeMassRateMolesInjected(MolecularWeightCalculator.UnitOfMolarAmount)">
+            <summary>
+            Computes the MassFlowRate and Moles Injected, stores in .MassFlowRate and .MolesInjected, and returns MassFlowRate
+            </summary>
+            <param name="units"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.CapillaryFlow.ComputeOptimumLinearVelocityUsingParticleDiamAndDiffusionCoeff(MolecularWeightCalculator.UnitOfLinearVelocity)">
+            <summary>
+            Computes the optimum linear velocity, based on
+            mCapillaryFlowParameters.ParticleDiameter
+            and mExtraColumnBroadeningParameters.DiffusionCoefficient
+            </summary>
+            <param name="units"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.CapillaryFlow.ComputeVolFlowRate(MolecularWeightCalculator.UnitOfFlowRate)">
+            <summary>
+            Computes the Volumetric flow rate, stores in .VolumetricFlowRate, and returns it
+            </summary>
+            <param name="units"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.CapillaryFlow.ComputeVolFlowRateUsingDeadTime(System.Double@,MolecularWeightCalculator.UnitOfFlowRate,MolecularWeightCalculator.UnitOfPressure)">
+            <summary>
+            Computes the Volumetric flow rate using the dead time, stores in .VolumetricFlowRate, and returns it
+            This requires modifying the pressure value to give the computed volumetric flow rate
+            </summary>
+            <param name="newBackPressure">Output: new back pressure</param>
+            <param name="units"></param>
+            <param name="pressureUnits"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.CapillaryFlow.ConvertConcentration(System.Double,MolecularWeightCalculator.UnitOfConcentration,MolecularWeightCalculator.UnitOfConcentration)">
+            <summary>
+            Convert concentration
+            </summary>
+            <param name="concentrationIn"></param>
+            <param name="currentUnits"></param>
+            <param name="newUnits"></param>
+            <returns></returns>
+            <remarks>Duplicated function, in both CapillaryFlow and MoleMassDilution</remarks>
+        </member>
+        <member name="M:MolecularWeightCalculator.CapillaryFlow.FactorConcentration(MolecularWeightCalculator.UnitOfConcentration,System.Double)">
+            <summary>
+            Multiplication factor for converting from <paramref name="units"/> to M
+            <paramref name="sampleMass"/> is required for mass-based units
+            </summary>
+            <param name="units"></param>
+            <param name="sampleMass"></param>
+            <returns></returns>
+            <remarks>Duplicated function, in both CapillaryFlow and MoleMassDilution</remarks>
+        </member>
+        <member name="M:MolecularWeightCalculator.CapillaryFlow.FactorLength(MolecularWeightCalculator.UnitOfLength)">
+            <summary>
+            Multiplication factor for converting from <paramref name="units"/> to Cm
+            </summary>
+            <param name="units"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.CapillaryFlow.FactorLinearVelocity(MolecularWeightCalculator.UnitOfLinearVelocity)">
+            <summary>
+            Multiplication factor for converting from <paramref name="units"/> to Cm/Min
+            </summary>
+            <param name="units"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.CapillaryFlow.FactorMassFlowRate(MolecularWeightCalculator.UnitOfMassFlowRate)">
+            <summary>
+            Multiplication factor for converting from <paramref name="units"/> to moles/min
+            </summary>
+            <param name="units"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.CapillaryFlow.FactorMoles(MolecularWeightCalculator.UnitOfMolarAmount)">
+            <summary>
+            Multiplication factor for converting from <paramref name="units"/> to moles
+            </summary>
+            <param name="units"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.CapillaryFlow.FactorPressure(MolecularWeightCalculator.UnitOfPressure)">
+            <summary>
+            Multiplication factor for converting from <paramref name="units"/> to dynes per cm^2
+            </summary>
+            <param name="units"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.CapillaryFlow.FactorTime(MolecularWeightCalculator.UnitOfTime)">
+            <summary>
+            Multiplication factor for converting from <paramref name="units"/> to minutes
+            </summary>
+            <param name="units"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.CapillaryFlow.FactorDiffusionCoeff(MolecularWeightCalculator.UnitOfDiffusionCoefficient)">
+            <summary>
+            Multiplication factor for converting from <paramref name="units"/> to cm^2/sec
+            </summary>
+            <param name="units"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.CapillaryFlow.FactorViscosity(MolecularWeightCalculator.UnitOfViscosity)">
+            <summary>
+            Multiplication factor for converting from <paramref name="units"/> to poise
+            </summary>
+            <param name="units"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.CapillaryFlow.FactorVolFlowRate(MolecularWeightCalculator.UnitOfFlowRate)">
+            <summary>
+            Multiplication factor for converting from <paramref name="units"/> to mL/min
+            </summary>
+            <param name="units"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.CapillaryFlow.FactorVolume(MolecularWeightCalculator.UnitOfVolume)">
+            <summary>
+            Multiplication factor for converting from <paramref name="units"/> to mL
+            </summary>
+            <param name="units"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.COMInterfaces.ICapillaryFlow.ComputeBackPressure(MolecularWeightCalculator.UnitOfPressure)">
+            <summary>
+            Computes the back pressure, stores in .BackPressure, and returns it
+            </summary>
+            <param name="units"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.COMInterfaces.ICapillaryFlow.ComputeColumnLength(MolecularWeightCalculator.UnitOfLength)">
+            <summary>
+            Computes the column length, stores in .ColumnLength, and returns it
+            </summary>
+            <param name="units"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.COMInterfaces.ICapillaryFlow.ComputeColumnId(MolecularWeightCalculator.UnitOfLength)">
+            <summary>
+            Computes the column length, stores in .ColumnLength, and returns it
+            </summary>
+            <param name="units"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.COMInterfaces.ICapillaryFlow.ComputeDeadTime(MolecularWeightCalculator.UnitOfTime,System.Boolean)">
+            <summary>
+            Computes the column dead time, stores in .ColumnDeadTime, and returns it
+            </summary>
+            <param name="units"></param>
+            <param name="recalculateVolFlowRate"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.COMInterfaces.ICapillaryFlow.ComputeLinearVelocity(MolecularWeightCalculator.UnitOfLinearVelocity,System.Boolean)">
+            <summary>
+            Computes the Linear velocity, stores in .LinearVelocity, and returns it
+            </summary>
+            <param name="units"></param>
+            <param name="recalculateVolFlowRate"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.COMInterfaces.ICapillaryFlow.ComputeMassFlowRate(MolecularWeightCalculator.UnitOfMassFlowRate)">
+            <summary>
+            Computes the MassFlowRate and Moles Injected, stores in .MassFlowRate and .MolesInjected, and returns MassFlowRate
+            </summary>
+            <param name="units"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.COMInterfaces.ICapillaryFlow.ComputeMassRateMolesInjected(MolecularWeightCalculator.UnitOfMolarAmount)">
+            <summary>
+            Computes the MassFlowRate and Moles Injected, stores in .MassFlowRate and .MolesInjected, and returns MassFlowRate
+            </summary>
+            <param name="units"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.COMInterfaces.ICapillaryFlow.ComputeOptimumLinearVelocityUsingParticleDiamAndDiffusionCoeff(MolecularWeightCalculator.UnitOfLinearVelocity)">
+            <summary>
+            Computes the optimum linear velocity, based on
+            mCapillaryFlowParameters.ParticleDiameter
+            and mExtraColumnBroadeningParameters.DiffusionCoefficient
+            </summary>
+            <param name="units"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.COMInterfaces.ICapillaryFlow.ComputeVolFlowRate(MolecularWeightCalculator.UnitOfFlowRate)">
+            <summary>
+            Computes the Volumetric flow rate, stores in .VolumetricFlowRate, and returns it
+            </summary>
+            <param name="units"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.COMInterfaces.ICapillaryFlow.ComputeVolFlowRateUsingDeadTime(System.Double@,MolecularWeightCalculator.UnitOfFlowRate,MolecularWeightCalculator.UnitOfPressure)">
+            <summary>
+            Computes the Volumetric flow rate using the dead time, stores in .VolumetricFlowRate, and returns it
+            This requires modifying the pressure value to give the computed volumetric flow rate
+            </summary>
+            <param name="newBackPressure">Output: new back pressure</param>
+            <param name="units"></param>
+            <param name="pressureUnits"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.COMInterfaces.ICapillaryFlow.ConvertConcentration(System.Double,MolecularWeightCalculator.UnitOfConcentration,MolecularWeightCalculator.UnitOfConcentration)">
+            <summary>
+            Convert concentration
+            </summary>
+            <param name="concentrationIn"></param>
+            <param name="currentUnits"></param>
+            <param name="newUnits"></param>
+            <returns></returns>
+            <remarks>Duplicated function, in both CapillaryFlow and MoleMassDilution</remarks>
+        </member>
+        <member name="M:MolecularWeightCalculator.COMInterfaces.ICompound.GetPercentCompositionForAllElements2DArray">
+            <summary>
+            Get the percent composition for all elements in an empirical formula. This implementation is specifically for COM interop support
+            </summary>
+            <returns>
+            2D array of percent composition values; data[x,0] is element symbol, data[x,1] is percent composition
+            </returns>
+        </member>
+        <member name="P:MolecularWeightCalculator.COMInterfaces.IFormulaFinderSearchOptions.FindCharge">
+            <summary>
+            When true, compute the overall charge of each compound
+            </summary>
+            <remarks></remarks>
+        </member>
+        <member name="P:MolecularWeightCalculator.COMInterfaces.IFormulaFinderSearchOptions.LimitChargeRange">
+            <summary>
+            When true, filter the results by ChargeMin and ChargeMax
+            </summary>
+            <remarks>
+            Setting this to True auto-sets FindCharge to true
+            Setting this to False auto-sets FindTargetMZ to false</remarks>
+        </member>
+        <member name="P:MolecularWeightCalculator.COMInterfaces.IFormulaFinderSearchOptions.ChargeMin">
+            <summary>
+            When LimitChargeRange is true, results will be limited to the range ChargeMin to ChargeMax
+            </summary>
+            <remarks>Negative values are allowed</remarks>
+        </member>
+        <member name="P:MolecularWeightCalculator.COMInterfaces.IFormulaFinderSearchOptions.ChargeMax">
+            <summary>
+            When LimitChargeRange is true, results will be limited to the range ChargeMin to ChargeMax
+            </summary>
+            <remarks>Negative values are allowed</remarks>
+        </member>
+        <member name="P:MolecularWeightCalculator.COMInterfaces.IFormulaFinderSearchOptions.FindTargetMz">
+            <summary>
+            Set to true to search for a target m/z value instead of a target mass
+            </summary>
+            <remarks>Setting this to True auto-sets FindCharge and LimitChargeRange to True</remarks>
+        </member>
+        <member name="M:MolecularWeightCalculator.COMInterfaces.IFormulaFinderSearchResult.GetElementCounts(System.String[]@,System.Int32[]@)">
+            <summary>
+            Method to get data from CountsByElement that is compatible with COM interop
+            </summary>
+            <param name="symbols"></param>
+            <param name="counts"></param>
+            <returns>Count of symbols/counts returned</returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.COMInterfaces.IFormulaFinderSearchResult.GetPercentCompositions(System.String[]@,System.Double[]@)">
+            <summary>
+            Method to get data from PercentComposition that is compatible with COM interop
+            </summary>
+            <param name="symbols"></param>
+            <param name="percentCompositions"></param>
+            <returns>Count of symbols/percentCompositions returned</returns>
+        </member>
+        <member name="P:MolecularWeightCalculator.COMInterfaces.IFormulaSearcher.PercentComplete">
+            <summary>
+            Percent complete, between 0 and 100
+            </summary>
+            <remarks></remarks>
+        </member>
+        <member name="M:MolecularWeightCalculator.COMInterfaces.IFormulaSearcher.AbortProcessingNow">
+            <summary>
+            Abort processing
+            </summary>
+            <remarks>Only useful if the formula finder is running on a separate thread from the calling program</remarks>
+        </member>
+        <member name="M:MolecularWeightCalculator.COMInterfaces.IFormulaSearcher.AddCandidateElement(System.String)">
+            <summary>
+            Add a candidate element, abbreviation, or monoisotopic mass
+            </summary>
+            <param name="elementSymbolAbbrevOrMass">Element symbol, abbreviation symbol, or monoisotopic mass</param>
+            <remarks></remarks>
+        </member>
+        <member name="M:MolecularWeightCalculator.COMInterfaces.IFormulaSearcher.AddCandidateElement(System.String,System.Double)">
+            <summary>
+            Add a candidate element, abbreviation, or monoisotopic mass
+            </summary>
+            <param name="elementSymbolAbbrevOrMass">Element symbol, abbreviation symbol, or monoisotopic mass</param>
+            <param name="targetPercentComposition">Target percent composition</param>
+            <remarks></remarks>
+        </member>
+        <member name="M:MolecularWeightCalculator.COMInterfaces.IFormulaSearcher.AddCandidateElement(System.String,System.Int32,System.Int32)">
+            <summary>
+            Add a candidate element, abbreviation, or monoisotopic mass
+            </summary>
+            <param name="elementSymbolAbbrevOrMass">Element symbol, abbreviation symbol, or monoisotopic mass</param>
+            <param name="minimumCount">Minimum occurrence count</param>
+            <param name="maximumCount">Maximum occurrence count</param>
+            <remarks>This method should be used when defining elements for a bounded search</remarks>
+        </member>
+        <member name="M:MolecularWeightCalculator.COMInterfaces.IFormulaSearcher.AddCandidateElement(System.String,MolecularWeightCalculator.FormulaFinder.CandidateElementTolerances)">
+            <summary>
+            Add a candidate element, abbreviation, or monoisotopic mass
+            </summary>
+            <param name="elementSymbolAbbrevOrMass">Element symbol, abbreviation symbol, or monoisotopic mass</param>
+            <param name="elementTolerances">Search tolerances, including % composition range and Min/Max count when using a bounded search</param>
+            <remarks></remarks>
+        </member>
+        <member name="M:MolecularWeightCalculator.COMInterfaces.IFormulaSearcher.FindMatchesByMassPPMGetArray(System.Double,System.Double,MolecularWeightCalculator.FormulaFinder.SearchOptions)">
+            <summary>
+            Find empirical formulas that match the given target mass, with the given ppm tolerance, getting results in an array for COM interop support
+            </summary>
+            <param name="targetMass"></param>
+            <param name="massTolerancePPM"></param>
+            <param name="searchOptions">If null, uses default search options</param>
+            <returns></returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.COMInterfaces.IFormulaSearcher.FindMatchesByMassGetArray(System.Double,System.Double,MolecularWeightCalculator.FormulaFinder.SearchOptions)">
+            <summary>
+            Find empirical formulas that match the given target mass, with the given tolerance, getting results in an array for COM interop support
+            </summary>
+            <param name="targetMass"></param>
+            <param name="massToleranceDa"></param>
+            <param name="searchOptions">If null, uses default search options</param>
+            <returns></returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.COMInterfaces.IFormulaSearcher.Reset">
+            <summary>
+            Reset to defaults
+            </summary>
+            <remarks></remarks>
+        </member>
+        <member name="P:MolecularWeightCalculator.COMInterfaces.IMolecularWeightTool.ProgressPercentComplete">
+            <summary>
+            Percent complete: ranges from 0 to 100, but can contain decimal percentage values
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.COMInterfaces.IMolecularWeightTool.ComputeMass(System.String)">
+            <summary>
+            Compute the mass of a formula
+            </summary>
+            <param name="formula"></param>
+            <returns>Mass of the formula</returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.COMInterfaces.IMolecularWeightTool.ComputeIsotopicAbundances(System.String@,System.Int16,System.String@,System.Double[0:,0:]@,System.Int32@,System.Boolean,System.String,System.String,System.String,System.String)">
+            <summary>
+            Computes the Isotopic Distribution for a formula
+            </summary>
+            <param name="formulaIn">Input/output: The properly formatted formula to parse</param>
+            <param name="chargeState">0 for monoisotopic (uncharged) masses; 1 or higher for convoluted m/z values</param>
+            <param name="results">Output: Table of results</param>
+            <param name="convolutedMSData2DOneBased">2D array of MSData (mass and intensity pairs)</param>
+            <param name="convolutedMSDataCount">Number of data points in ConvolutedMSData2DOneBased</param>
+            <param name="addProtonChargeCarrier">If addProtonChargeCarrier is false, then still convolute by charge, but doesn't add a proton</param>
+            <param name="headerIsotopicAbundances">Header to use in <paramref name="results"/></param>
+            <param name="headerMassToCharge">Header to use in <paramref name="results"/></param>
+            <param name="headerFraction">Header to use in <paramref name="results"/></param>
+            <param name="headerIntensity">Header to use in <paramref name="results"/></param>
+            <returns>0 if success, -1 if an error</returns>
+            <remarks>
+            Returns uncharged mass values if <paramref name="chargeState"/>=0,
+            Returns M+H values if <paramref name="chargeState"/>=1
+            Returns convoluted m/z if <paramref name="chargeState"/> is &gt; 1
+            </remarks>
+        </member>
+        <member name="M:MolecularWeightCalculator.COMInterfaces.IMolecularWeightTool.ConvoluteMass(System.Double,System.Int16,System.Int16,System.Double)">
+            <summary>
+            Converts a given mass or m/z value to the MH+ m/z value
+            </summary>
+            <param name="massMz">Mass or m/z value</param>
+            <param name="currentCharge">Current charge (0 means neutral mass)</param>
+            <param name="desiredCharge">Desired charge (0 means neutral mass)</param>
+            <param name="chargeCarrierMass">Custom charge carrier mass (0 means use default, usually 1.00727649)</param>
+            <returns></returns>
+            <remarks></remarks>
+        </member>
+        <member name="M:MolecularWeightCalculator.COMInterfaces.IMolecularWeightTool.GetAbbreviation(System.Int32,System.String@,System.String@,System.Single@,System.Boolean@)">
+            <summary>
+            Get an abbreviation, by ID
+            </summary>
+            <param name="abbreviationId"></param>
+            <param name="symbol">Output: symbol</param>
+            <param name="formula">Output: empirical formula</param>
+            <param name="charge">Output: charge</param>
+            <param name="isAminoAcid">Output: true if an amino acid</param>
+            <returns> 0 if success, 1 if failure</returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.COMInterfaces.IMolecularWeightTool.GetAbbreviation(System.Int32,System.String@,System.String@,System.Single@,System.Boolean@,System.String@,System.String@)">
+            <summary>
+            Get an abbreviation, by ID
+            </summary>
+            <param name="abbreviationId"></param>
+            <param name="symbol">Output: symbol</param>
+            <param name="formula">Output: empirical formula</param>
+            <param name="charge">Output: charge</param>
+            <param name="isAminoAcid">Output: true if an amino acid</param>
+            <param name="oneLetterSymbol">Output: one letter symbol (only used by amino acids)</param>
+            <param name="comment">Output: comment</param>
+            <returns> 0 if success, 1 if failure</returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.COMInterfaces.IMolecularWeightTool.GetAbbreviation(System.Int32,System.String@,System.String@,System.Single@,System.Boolean@,System.String@,System.String@,System.Boolean@)">
+            <summary>
+            Get an abbreviation, by ID
+            </summary>
+            <param name="abbreviationId"></param>
+            <param name="symbol">Output: symbol</param>
+            <param name="formula">Output: empirical formula</param>
+            <param name="charge">Output: charge</param>
+            <param name="isAminoAcid">Output: true if an amino acid</param>
+            <param name="oneLetterSymbol">Output: one letter symbol (only used by amino acids)</param>
+            <param name="comment">Output: comment</param>
+            <param name="invalidSymbolOrFormula">Output: true if an invalid symbol or formula</param>
+            <returns> 0 if success, 1 if failure</returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.COMInterfaces.IMolecularWeightTool.GetAbbreviationCount">
+            <summary>
+            Get the number of abbreviations in memory
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.COMInterfaces.IMolecularWeightTool.GetAbbreviationId(System.String)">
+            <summary>
+            Get the abbreviation ID for the given abbreviation symbol
+            </summary>
+            <param name="symbol"></param>
+            <returns>ID if found, otherwise 0</returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.COMInterfaces.IMolecularWeightTool.GetCautionStatement(System.String,System.String@)">
+            <summary>
+            Get caution statement information
+            </summary>
+            <param name="symbolCombo">symbol combo for the caution statement</param>
+            <param name="cautionStatement">Output: caution statement text</param>
+            <returns>0 if success, 1 if an invalid ID</returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.COMInterfaces.IMolecularWeightTool.GetCautionStatementCount">
+            <summary>
+            Get the number of Caution Statements in memory
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.COMInterfaces.IMolecularWeightTool.GetCautionStatementSymbolsArray">
+            <summary>
+            Get the symbolCombos for Caution Statements in memory as an array. This version is for supporting COM interop because COM does not support generic types
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.COMInterfaces.IMolecularWeightTool.GetElement(System.Int16,System.String@,System.Double@,System.Double@,System.Single@,System.Int16@)">
+            <summary>
+            Returns the settings for the element with <paramref name="elementId"/> in the ByRef variables
+            </summary>
+            <param name="elementId"></param>
+            <param name="symbol"></param>
+            <param name="mass"></param>
+            <param name="uncertainty"></param>
+            <param name="charge"></param>
+            <param name="isotopeCount"></param>
+            <returns>0 if success, 1 if failure</returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.COMInterfaces.IMolecularWeightTool.GetElementCount">
+            <summary>
+            Returns the number of elements in memory
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.COMInterfaces.IMolecularWeightTool.GetElementId(System.String)">
+            <summary>
+            Get the element ID for the given symbol
+            </summary>
+            <param name="symbol"></param>
+            <returns>ID if found, otherwise 0</returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.COMInterfaces.IMolecularWeightTool.GetElementIsotopes(System.Int16,System.Int16@,System.Double[]@,System.Single[]@)">
+            <summary>
+            Returns the isotope masses and abundances for the element with <paramref name="elementId"/>
+            </summary>
+            <param name="elementId">Element ID, or atomic number</param>
+            <param name="isotopeCount"></param>
+            <param name="isotopeMasses"></param>
+            <param name="isotopeAbundances"></param>
+            <returns>0 if a valid ID, 1 if invalid</returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.COMInterfaces.IMolecularWeightTool.GetElementMode">
+            <summary>
+            Get the current element mode
+            </summary>
+            <returns>
+            emAverageMass  = 1
+            emIsotopicMass = 2
+            emIntegerMass  = 3
+            </returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.COMInterfaces.IMolecularWeightTool.GetElementSymbol(System.Int16)">
+            <summary>
+            Return the element symbol for the given element ID
+            </summary>
+            <param name="elementId"></param>
+            <returns></returns>
+            <remarks>1 is Hydrogen, 2 is Helium, etc.</remarks>
+        </member>
+        <member name="M:MolecularWeightCalculator.COMInterfaces.IMolecularWeightTool.GetElementStat(System.Int16,MolecularWeightCalculator.ElementStatsType)">
+            <summary>
+            Returns a single bit of information about a single element
+            </summary>
+            <param name="elementId">Element ID</param>
+            <param name="elementStat">Value to obtain: mass, charge, or uncertainty</param>
+            <returns></returns>
+            <remarks>Since a value may be negative, simply returns 0 if an error</remarks>
+        </member>
+        <member name="M:MolecularWeightCalculator.COMInterfaces.IMolecularWeightTool.GetMessageStatement(System.Int32,System.String)">
+            <summary>
+            Get message text using message ID
+            </summary>
+            <param name="messageId"></param>
+            <param name="appendText"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.COMInterfaces.IMolecularWeightTool.IsModSymbol(System.String)">
+            <summary>
+            Returns True if the first letter of <paramref name="symbol"/> is a ModSymbol
+            </summary>
+            <param name="symbol"></param>
+            <returns></returns>
+            <remarks>
+            Invalid Mod Symbols are letters, numbers, ., -, space, (, or )
+            Valid Mod Symbols are ! # $ % ampersand ' * + ? ^ ` ~
+            </remarks>
+        </member>
+        <member name="M:MolecularWeightCalculator.COMInterfaces.IMolecularWeightTool.RecomputeAbbreviationMasses">
+            <summary>
+            Recomputes the Mass for all of the loaded abbreviations
+            </summary>
+            <remarks>
+            Useful if we just finished setting lots of element masses, and
+            had recomputeAbbreviationMasses = false when calling .SetElement()
+            </remarks>
+        </member>
+        <member name="M:MolecularWeightCalculator.COMInterfaces.IMolecularWeightTool.SetAbbreviation(System.String,System.String,System.Single,System.Boolean,System.String,System.String,System.Boolean)">
+            <summary>
+            Adds a new abbreviation or updates an existing one (based on <paramref name="symbol"/>)
+            </summary>
+            <param name="symbol"></param>
+            <param name="formula"></param>
+            <param name="charge"></param>
+            <param name="isAminoAcid"></param>
+            <param name="oneLetterSymbol"></param>
+            <param name="comment"></param>
+            <param name="validateFormula">If true, make sure the formula is valid</param>
+            <returns>0 if successful, otherwise an error ID</returns>
+            <remarks>
+            It is useful to set <paramref name="validateFormula"/> = False when you're defining all of the abbreviations at once,
+            since one abbreviation can depend upon another, and if the second abbreviation hasn't yet been
+            defined, then the parsing of the first abbreviation will fail
+            </remarks>
+        </member>
+        <member name="M:MolecularWeightCalculator.COMInterfaces.IMolecularWeightTool.SetAbbreviationById(System.Int32,System.String,System.String,System.Single,System.Boolean,System.String,System.String,System.Boolean)">
+            <summary>
+            Adds a new abbreviation or updates an existing one (based on <paramref name="abbrevId"/>)
+            </summary>
+            <param name="abbrevId">If abbrevId is less than 1, adds as a new abbreviation</param>
+            <param name="symbol"></param>
+            <param name="formula"></param>
+            <param name="charge"></param>
+            <param name="isAminoAcid"></param>
+            <param name="oneLetterSymbol"></param>
+            <param name="comment"></param>
+            <param name="validateFormula">If true, make sure the formula is valid</param>
+            <returns>0 if successful, otherwise an error ID</returns>
+            <remarks>
+            It is useful to set <paramref name="validateFormula"/> = False when you're defining all of the abbreviations at once,
+            since one abbreviation can depend upon another, and if the second abbreviation hasn't yet been
+            defined, then the parsing of the first abbreviation will fail
+            </remarks>
+        </member>
+        <member name="M:MolecularWeightCalculator.COMInterfaces.IMolecularWeightTool.SetCautionStatement(System.String,System.String)">
+            <summary>
+            Adds a new caution statement or updates an existing one (based on <paramref name="symbolCombo"/>)
+            </summary>
+            <param name="symbolCombo"></param>
+            <param name="newCautionStatement"></param>
+            <returns>0 if successful, otherwise, returns an Error ID</returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.COMInterfaces.IMolecularWeightTool.SetElement(System.String,System.Double,System.Double,System.Single,System.Boolean)">
+            <summary>
+            Update the values for a single element (based on <paramref name="symbol"/>)
+            </summary>
+            <param name="symbol"></param>
+            <param name="mass"></param>
+            <param name="uncertainty"></param>
+            <param name="charge"></param>
+            <param name="recomputeAbbreviationMasses">Set to false if updating several elements</param>
+            <returns></returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.COMInterfaces.IMolecularWeightTool.SetElementIsotopes(System.String,System.Int16,System.Double[],System.Single[])">
+            <summary>
+            Set the isotopes for the element
+            </summary>
+            <param name="symbol"></param>
+            <param name="isotopeCount"></param>
+            <param name="isotopeMasses">0-based array</param>
+            <param name="isotopeAbundances">0-based array</param>
+            <returns></returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.COMInterfaces.IMolecularWeightTool.SetMessageStatement(System.Int32,System.String)">
+            <summary>
+            Used to replace the default message strings with foreign language equivalent ones
+            </summary>
+            <param name="messageId"></param>
+            <param name="newMessage"></param>
+            <returns>0 if success; 1 if failure</returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.COMInterfaces.IMolecularWeightTool.TextToRTF(System.String,System.Boolean,System.Boolean,System.Boolean,System.Int32)">
+            <summary>
+            Converts plain text to formatted RTF text
+            </summary>
+            <param name="textToConvert"></param>
+            <param name="calculatorMode">When true, does not superscript + signs and numbers following + signs</param>
+            <param name="highlightCharFollowingPercentSign">When true, change the character following a percent sign to red (and remove the percent sign)</param>
+            <param name="overrideErrorId"></param>
+            <param name="errorIdOverride"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.COMInterfaces.IMolecularWeightTool.ValidateAllAbbreviations">
+            <summary>
+            Checks the formula of all abbreviations to make sure it's valid
+            Marks any abbreviations as Invalid if a problem is found or a circular reference exists
+            </summary>
+            <returns>Count of the number of invalid abbreviations found</returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.COMInterfaces.IMoleMassDilution.ComputeDilutionFinalConcentration(MolecularWeightCalculator.UnitOfMoleMassConcentration)">
+            <summary>
+            Computes the Final Concentration, storing in .FinalConcentration, and returning it
+            </summary>
+            <param name="units"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.COMInterfaces.IMoleMassDilution.ComputeDilutionInitialConcentration(MolecularWeightCalculator.UnitOfMoleMassConcentration)">
+            <summary>
+            Computes the Initial Concentration, storing in .InitialConcentration, and returning it
+            </summary>
+            <param name="units"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.COMInterfaces.IMoleMassDilution.ComputeDilutionRequiredStockAndDilutingSolventVolumes(System.Double@,MolecularWeightCalculator.UnitOfExtendedVolume,MolecularWeightCalculator.UnitOfExtendedVolume)">
+            <summary>
+            Computes the required dilution volumes using initial concentration, final concentration
+            and total final volume, storing in .StockSolutionVolume and .DilutingSolventVolume,
+            and returning .StockSolutionVolume
+            </summary>
+            <param name="newDilutingSolventVolume">Output: diluting solvent volume</param>
+            <param name="stockSolutionUnits"></param>
+            <param name="dilutingSolventUnits"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.COMInterfaces.IMoleMassDilution.ComputeDilutionTotalVolume(System.Double@,MolecularWeightCalculator.UnitOfExtendedVolume,MolecularWeightCalculator.UnitOfExtendedVolume)">
+            <summary>
+            Compute the total volume following the dilution, storing in .TotalFinalVolume, and returning it
+            </summary>
+            <param name="newDilutingSolventVolume">Output: diluting solvent volume</param>
+            <param name="totalVolumeUnits"></param>
+            <param name="dilutingSolventUnits"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.COMInterfaces.IMoleMassDilution.ComputeQuantityAmount(MolecularWeightCalculator.Unit)">
+            <summary>
+            Computes mQuantity.Amount using mQuantity.Volume and mQuantity.Concentration, storing the result in mQuantity.Amount
+            </summary>
+            <param name="units"></param>
+            <returns>mQuantity.Amount, with the specified units</returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.COMInterfaces.IMoleMassDilution.ComputeQuantityConcentration(MolecularWeightCalculator.UnitOfMoleMassConcentration)">
+            <summary>
+            Computes mQuantity.Concentration using mQuantity.Amount and mQuantity.Volume, storing the result in mQuantity.Concentration
+            </summary>
+            <param name="units"></param>
+            <returns>mQuantity.Concentration, with the specified units</returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.COMInterfaces.IMoleMassDilution.ComputeQuantityVolume(MolecularWeightCalculator.UnitOfExtendedVolume)">
+            <summary>
+            Computes mQuantity.Volume using mQuantity.Amount and mQuantity.Concentration, storing the result in mQuantity.Volume
+            </summary>
+            <param name="units"></param>
+            <returns>mQuantity.Volume, with the specified units</returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.COMInterfaces.IMoleMassDilution.ConvertAmount(System.Double,MolecularWeightCalculator.Unit,MolecularWeightCalculator.Unit)">
+            <summary>
+            This function uses .SampleMass and .SampleDensity if the units are mass and/or volume-based
+            </summary>
+            <param name="amountIn"></param>
+            <param name="currentUnits"></param>
+            <param name="newUnits"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.COMInterfaces.IMoleMassDilution.ConvertConcentration(System.Double,MolecularWeightCalculator.UnitOfMoleMassConcentration,MolecularWeightCalculator.UnitOfMoleMassConcentration)">
+            <summary>
+            Convert concentration
+            </summary>
+            <param name="concentrationIn"></param>
+            <param name="currentUnits"></param>
+            <param name="newUnits"></param>
+            <returns></returns>
+            <remarks>Duplicated function, in both CapillaryFlow and MoleMassDilution</remarks>
+        </member>
+        <member name="M:MolecularWeightCalculator.COMInterfaces.IPeptide.GetFragmentationMasses(MolecularWeightCalculator.Sequence.FragmentationSpectrumData[]@)">
+            <summary>
+            Get fragmentation masses
+            </summary>
+            <param name="fragSpectrum"></param>
+            <returns>The number of ions in fragSpectrum[]</returns>
+            <remarks></remarks>
+        </member>
+        <member name="M:MolecularWeightCalculator.COMInterfaces.IPeptide.GetTrypticName(System.String,System.String,System.Int32@,System.Int32@,System.Boolean,System.String,System.String,System.String,System.Boolean,System.Int32)">
+            <summary>
+            Examines <paramref name="peptideResidues"/> to see where they exist in <paramref name="proteinResidues"/>
+            Constructs a name string based on their position and based on whether the fragment is truly tryptic
+            In addition, returns the position of the first and last residue in <paramref name="returnResidueStart"/> and <paramref name="returnResidueEnd"/>
+            </summary>
+            <param name="proteinResidues"></param>
+            <param name="peptideResidues"></param>
+            <param name="returnResidueStart">Output: start peptides of the peptide residues in the protein</param>
+            <param name="returnResidueEnd">Output: end peptides of the peptide residues in the protein</param>
+            <param name="ICR2LSCompatible"></param>
+            <param name="ruleResidues"></param>
+            <param name="exceptionResidues"></param>
+            <param name="terminiiSymbol"></param>
+            <param name="ignoreCase"></param>
+            <param name="proteinSearchStartLoc"></param>
+            <returns></returns>
+            <remarks></remarks>
+        </member>
+        <member name="M:MolecularWeightCalculator.COMInterfaces.IPeptide.GetTrypticNameMultipleMatches(System.String,System.String,System.Int32@,System.Int32@,System.Int32@,System.Boolean,System.String,System.String,System.String,System.Boolean,System.Int32,System.String)">
+            <summary>
+            Examines <paramref name="peptideResidues"/> to see where they exist in <paramref name="proteinResidues"/>
+            Looks for all possible matches, returning them as a comma separated list
+            </summary>
+            <param name="proteinResidues"></param>
+            <param name="peptideResidues"></param>
+            <param name="returnMatchCount"></param>
+            <param name="returnResidueStart"></param>
+            <param name="returnResidueEnd"></param>
+            <param name="ICR2LSCompatible"></param>
+            <param name="ruleResidues"></param>
+            <param name="exceptionResidues"></param>
+            <param name="terminiiSymbol"></param>
+            <param name="ignoreCase"></param>
+            <param name="proteinSearchStartLoc"></param>
+            <param name="listDelimiter"></param>
+            <returns>The number of matches</returns>
+            <remarks></remarks>
+        </member>
+        <member name="M:MolecularWeightCalculator.COMInterfaces.IPeptide.SetResidue(System.Int32,System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Set the residue at the specified index
+            </summary>
+            <param name="residueIndex">0-based index of residue</param>
+            <param name="symbol"></param>
+            <param name="is3LetterCode"></param>
+            <param name="phosphorylated"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.COMInterfaces.IPeptide.SetResidueModifications(System.Int32,System.Int16,System.Int32[])">
+            <summary>
+            Sets modifications on a residue
+            </summary>
+            <param name="residueIndex">0-based index of residue</param>
+            <param name="modificationCount"></param>
+            <param name="modificationIDs">0-based array</param>
+            <returns></returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.COMInterfaces.IPeptide.SetSequence1LetterSymbol(System.String)">
+            <summary>
+            Defines the peptide sequence
+            </summary>
+            <param name="sequence">Peptide sequence using 1-letter amino acid symbols</param>
+            <returns>0 if success or 1 if an error</returns>
+            <remarks>If <paramref name="sequence"/> is blank or contains no valid residues, then will still return 0</remarks>
+        </member>
+        <member name="M:MolecularWeightCalculator.COMInterfaces.IPeptide.SetSequence(System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Defines the peptide sequence
+            </summary>
+            <param name="sequence">Peptide sequence</param>
+            <param name="is3LetterCode">Set to true for 3-letter amino acid symbols, false for 1-letter symbols (for example, R.ABCDEF.R)</param>
+            <param name="oneLetterCheckForPrefixAndSuffixResidues">Set to true to check for and remove prefix and suffix residues when <paramref name="is3LetterCode"/> = false</param>
+            <returns>0 if success or 1 if an error</returns>
+            <remarks>If <paramref name="sequence"/> is blank or contains no valid residues, then will still return 0</remarks>
+        </member>
+        <member name="M:MolecularWeightCalculator.COMInterfaces.IPeptide.SetSequence(System.String,MolecularWeightCalculator.Sequence.NTerminusGroupType,MolecularWeightCalculator.Sequence.CTerminusGroupType,System.Boolean,System.Boolean,System.Boolean,System.Boolean)">
+            <summary>
+            Defines the peptide sequence
+            </summary>
+            <param name="sequence">Peptide sequence, using 3-letter amino acid symbols (unless <paramref name="is3LetterCode"/> = false)</param>
+            <param name="nTerminus">N-terminus group</param>
+            <param name="cTerminus">C-terminus group</param>
+            <param name="is3LetterCode">Set to true for 3-letter amino acid symbols, false for 1-letter symbols (for example, R.ABCDEF.R)</param>
+            <param name="oneLetterCheckForPrefixAndSuffixResidues">Set to true to check for and remove prefix and suffix residues when <paramref name="is3LetterCode"/> = false</param>
+            <param name="threeLetterCheckForPrefixHandSuffixOH">Set to true to check for and remove prefix H and OH when <paramref name="is3LetterCode"/> = true</param>
+            <param name="addMissingModificationSymbols">Set to true to automatically add missing modification symbols (though the mod masses will be 0)</param>
+            <returns>0 if success or 1 if an error</returns>
+            <remarks>If <paramref name="sequence" /> is blank or contains no valid residues, then will still return 0</remarks>
+        </member>
+        <member name="T:MolecularWeightCalculator.ProgressChangedEventHandler">
+            <summary>
+            Progress changed event
+            </summary>
+            <param name="taskDescription"></param>
+            <param name="percentComplete">Ranges from 0 to 100, but can contain decimal percentage values</param>
+        </member>
+        <member name="P:MolecularWeightCalculator.Formula.AbbrevStatsData.Symbol">
+            <summary>
+            The symbol for the abbreviation, e.g. Ph for the phenyl group or Ala for alanine (3 letter codes for amino acids)
+            </summary>
+        </member>
+        <member name="P:MolecularWeightCalculator.Formula.AbbrevStatsData.Formula">
+            <summary>
+            Empirical formula
+            Cannot contain other abbreviations
+            </summary>
+        </member>
+        <member name="P:MolecularWeightCalculator.Formula.AbbrevStatsData.Mass">
+            <summary>
+            Computed mass for quick reference
+            </summary>
+        </member>
+        <member name="P:MolecularWeightCalculator.Formula.AbbrevStatsData.Charge">
+            <summary>
+            Charge state
+            </summary>
+        </member>
+        <member name="P:MolecularWeightCalculator.Formula.AbbrevStatsData.IsAminoAcid">
+            <summary>
+            True if an amino acid
+            </summary>
+        </member>
+        <member name="P:MolecularWeightCalculator.Formula.AbbrevStatsData.OneLetterSymbol">
+            <summary>
+            One letter symbol (only used for amino acids)
+            </summary>
+        </member>
+        <member name="P:MolecularWeightCalculator.Formula.AbbrevStatsData.Comment">
+            <summary>
+            Description of the abbreviation
+            </summary>
+        </member>
+        <member name="P:MolecularWeightCalculator.Formula.AbbrevStatsData.InvalidSymbolOrFormula">
+            <summary>
+            True if this abbreviation has an invalid symbol or formula
+            </summary>
+        </member>
+        <member name="M:MolecularWeightCalculator.Formula.Compound.GetPercentCompositionForAllElements">
+            <summary>
+            Get the percent composition for all elements in an empirical formula
+            </summary>
+            <returns>
+            Dictionary of percent composition values
+            Keys are element symbols; values are the percent composition
+            </returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.Formula.Compound.GetPercentCompositionForAllElements2DArray">
+            <summary>
+            Get the percent composition for all elements in an empirical formula. This implementation is specifically for COM interop support
+            </summary>
+            <returns>
+            2D array of percent composition values; first dimension is element symbols, second dimension is percent compositions
+            </returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.Formula.ElementAndMassInMemoryData.MemoryLoadCautionStatementsEnglish(System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+            Define the caution statements
+            </summary>
+            <remarks>Use ClearCautionStatements and AddCautionStatement to set these based on language</remarks>
+        </member>
+        <member name="M:MolecularWeightCalculator.Formula.ElementAndMassInMemoryData.MemoryLoadElements">
+            <summary>
+            Loads the element data and return it.
+            </summary>
+        </member>
+        <member name="M:MolecularWeightCalculator.Formula.ElementAndMassInMemoryData.MemoryLoadIsotopes(MolecularWeightCalculator.Formula.ElementInfo[])">
+            <summary>
+            Stores isotope information in elementStats[]
+            </summary>
+        </member>
+        <member name="M:MolecularWeightCalculator.Formula.ElementAndMassInMemoryData.MemoryLoadMessageStatementsEnglish(System.Collections.Generic.Dictionary{System.Int32,System.String})">
+            <summary>
+            Replaces the current message statements with the default messages
+            </summary>
+            <param name="messages"></param>
+        </member>
+        <member name="M:MolecularWeightCalculator.Formula.ElementAndMassTools.#ctor">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="M:MolecularWeightCalculator.Formula.ElementAndMassTools.AbbrevSymbolStack.Add(System.Int16)">
+            <summary>
+            Update the abbreviation symbol stack
+            </summary>
+            <param name="symbolReference"></param>
+        </member>
+        <member name="M:MolecularWeightCalculator.Formula.ElementAndMassTools.AbbrevSymbolStack.RemoveMostRecent">
+            <summary>
+            Update the abbreviation symbol stack
+            </summary>
+        </member>
+        <member name="T:MolecularWeightCalculator.Formula.ElementAndMassTools.SymbolLookupInfo">
+            <summary>
+            struct for data for mMasterSymbolsList; using a struct because it means less space, and we don't edit the struct
+            </summary>
+        </member>
+        <member name="F:MolecularWeightCalculator.Formula.ElementAndMassTools.SymbolLookupInfo.Symbol">
+            <summary>
+            Symbol to match - can be an abbreviation or a chemical/atomic symbol for an element
+            </summary>
+        </member>
+        <member name="F:MolecularWeightCalculator.Formula.ElementAndMassTools.SymbolLookupInfo.MatchType">
+            <summary>
+            Basically, a reference to which list <see cref="F:MolecularWeightCalculator.Formula.ElementAndMassTools.SymbolLookupInfo.Index"/> contains this symbol
+            </summary>
+        </member>
+        <member name="F:MolecularWeightCalculator.Formula.ElementAndMassTools.SymbolLookupInfo.Index">
+            <summary>
+            The index of this symbol in the list referred to by <see cref="F:MolecularWeightCalculator.Formula.ElementAndMassTools.SymbolLookupInfo.MatchType"/>
+            </summary>
+        </member>
+        <member name="F:MolecularWeightCalculator.Formula.ElementAndMassTools.mElementAlph">
+            <summary>
+            Stores the elements in alphabetical order, with Key==Symbol, and Value==Index in <see cref="F:MolecularWeightCalculator.Formula.ElementAndMassTools.mElementStats"/>
+            Used for constructing empirical formulas
+            0 to ELEMENT_COUNT - 1
+            </summary>
+        </member>
+        <member name="F:MolecularWeightCalculator.Formula.ElementAndMassTools.mElementStats">
+            <summary>
+            Element stats
+            1 to ELEMENT_COUNT, 0 is basically 'invalid element'
+            Leaving '0' as an invalid element allows indexing this array with the atomic number of the element
+            </summary>
+        </member>
+        <member name="F:MolecularWeightCalculator.Formula.ElementAndMassTools.mMasterSymbolsList">
+            <summary>
+            Stores the element symbols, abbreviations, and amino acids in order of longest symbol length to shortest length, non-alphabetized,
+            for use in symbol matching when parsing a formula
+            0 To .Count - 1
+            </summary>
+        </member>
+        <member name="F:MolecularWeightCalculator.Formula.ElementAndMassTools.mAbbrevStats">
+            <summary>
+            Includes both abbreviations and amino acids
+            </summary>
+        </member>
+        <member name="F:MolecularWeightCalculator.Formula.ElementAndMassTools.mCautionStatements">
+            <summary>
+            CautionStatements.Key holds the symbol combo to look for
+            CautionStatements.Value holds the caution statement
+            </summary>
+        </member>
+        <member name="F:MolecularWeightCalculator.Formula.ElementAndMassTools.mMessageStatements">
+            <summary>
+            Error messages
+            </summary>
+        </member>
+        <member name="F:MolecularWeightCalculator.Formula.ElementAndMassTools.mChargeCarrierMass">
+            <summary>
+            Charge carrier mass
+            1.00727649 for monoisotopic mass or 1.00739 for average mass
+            </summary>
+        </member>
+        <member name="F:MolecularWeightCalculator.Formula.ElementAndMassTools.mLogFolderPath">
+            <summary>
+            Log file folder
+            If blank, mOutputFolderPath will be used
+            If mOutputFolderPath is also blank,  the log is created in the same folder as the executing assembly
+            </summary>
+        </member>
+        <member name="F:MolecularWeightCalculator.Formula.ElementAndMassTools.mProgressPercentComplete">
+            <summary>
+            Ranges from 0 to 100, but can contain decimal percentage values
+            </summary>
+        </member>
+        <member name="P:MolecularWeightCalculator.Formula.ElementAndMassTools.ProgressPercentComplete">
+            <summary>
+            Percent complete; ranges from 0 to 100, but can contain decimal percentage values
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.Formula.ElementAndMassTools.AddAbbreviationWork(System.Int16,System.String,System.String,System.Single,System.Boolean,System.String,System.String,System.Boolean)">
+            <summary>
+            Add an abbreviation
+            </summary>
+            <param name="abbrevIndex"></param>
+            <param name="symbol"></param>
+            <param name="formula"></param>
+            <param name="charge"></param>
+            <param name="isAminoAcid"></param>
+            <param name="oneLetter"></param>
+            <param name="comment"></param>
+            <param name="invalidSymbolOrFormula"></param>
+            <returns><paramref name="formula"/> with format standardized by ParseFormulaPublic</returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.Formula.ElementAndMassTools.CheckElemAndAbbrev(System.String,System.Int16@)">
+            <summary>
+            Examines the formula excerpt to determine if it is an element, abbreviation, amino acid, or unknown
+            </summary>
+            <param name="formulaExcerpt"></param>
+            <param name="symbolReference">Output: index of the matched element or abbreviation in mMasterSymbolsList[]</param>
+            <returns>
+            Element if matched an element
+            Abbreviation if matched an abbreviation or amino acid
+            Unknown if no match
+            </returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.Formula.ElementAndMassTools.ComputeFormulaWeight(System.String)">
+            <summary>
+            Compute the weight of a formula (or abbreviation)
+            </summary>
+            <param name="formula">Input</param>
+            <returns>The formula mass, or -1 if an error occurs</returns>
+            <remarks>Error information is stored in ErrorParams</remarks>
+        </member>
+        <member name="M:MolecularWeightCalculator.Formula.ElementAndMassTools.ComputeFormulaWeight(System.String@)">
+            <summary>
+            Compute the weight of a formula (or abbreviation)
+            </summary>
+            <param name="formula">Input/output: updated by ParseFormulaPublic</param>
+            <returns>The formula mass, or -1 if an error occurs</returns>
+            <remarks>Error information is stored in ErrorParams</remarks>
+        </member>
+        <member name="M:MolecularWeightCalculator.Formula.ElementAndMassTools.ComputeIsotopicAbundancesInternal(System.String@,System.Int16,System.String@,System.Double[0:,0:]@,System.Int32@,System.Boolean,System.String,System.String,System.String,System.String,System.Boolean)">
+            <summary>
+            Computes the Isotopic Distribution for a formula
+            </summary>
+            <param name="formulaIn">Input/output: The properly formatted formula to parse</param>
+            <param name="chargeState">0 for monoisotopic (uncharged) masses; 1 or higher for convoluted m/z values</param>
+            <param name="results">Output: Table of results</param>
+            <param name="convolutedMSData2D">2D array of MSData (mass and intensity pairs)</param>
+            <param name="convolutedMSDataCount">Number of data points in ConvolutedMSData2DOneBased</param>
+            <param name="addProtonChargeCarrier">If addProtonChargeCarrier is False, then still convolute by charge, but doesn't add a proton</param>
+            <param name="headerIsotopicAbundances">Header to use in <paramref name="results"/></param>
+            <param name="headerMassToCharge">Header to use in <paramref name="results"/></param>
+            <param name="headerFraction">Header to use in <paramref name="results"/></param>
+            <param name="headerIntensity">Header to use in <paramref name="results"/></param>
+            <param name="useFactorials">Set to true to use Factorial math, which is typically slower; default is False</param>
+            <returns>0 if success, -1 if an error</returns>
+            <remarks>
+            Returns uncharged mass values if <paramref name="chargeState"/>=0,
+            Returns M+H values if <paramref name="chargeState"/>=1
+            Returns convoluted m/z if <paramref name="chargeState"/> is &gt; 1
+            </remarks>
+        </member>
+        <member name="M:MolecularWeightCalculator.Formula.ElementAndMassTools.ComputePercentComposition(MolecularWeightCalculator.Formula.ComputationStats)">
+            <summary>
+            Compute percent composition of the elements defined in <paramref name="computationStats"/>
+            </summary>
+            <param name="computationStats">Input/output</param>
+        </member>
+        <member name="M:MolecularWeightCalculator.Formula.ElementAndMassTools.ConvertStickDataToGaussian2DArray(System.Collections.Generic.List{System.Collections.Generic.KeyValuePair{System.Double,System.Double}},System.Int32,System.Double,System.Int32)">
+            <summary>
+            Convert the centroided data (stick data) in XYVals to a Gaussian representation
+            </summary>
+            <param name="xyVals">XY data, as key-value pairs</param>
+            <param name="resolution">Effective instrument resolution (e.g. 1000 or 20000)</param>
+            <param name="resolutionMass">The m/z value at which the resolution applies</param>
+            <param name="qualityFactor">Gaussian quality factor (between 1 and 75, default is 50)</param>
+            <returns>Gaussian spectrum data</returns>
+            <remarks></remarks>
+        </member>
+        <member name="M:MolecularWeightCalculator.Formula.ElementAndMassTools.ConvoluteMassInternal(System.Double,System.Int16,System.Int16,System.Double)">
+            <summary>
+            Converts <paramref name="massMz"/> to the MZ that would appear at the given <paramref name="desiredCharge"/>
+            </summary>
+            <param name="massMz"></param>
+            <param name="currentCharge"></param>
+            <param name="desiredCharge"></param>
+            <param name="chargeCarrierMass">Charge carrier mass.  If 0, this function will use mChargeCarrierMass instead</param>
+            <returns>The new m/z value</returns>
+            <remarks>To return the neutral mass, set <paramref name="desiredCharge"/> to 0</remarks>
+        </member>
+        <member name="M:MolecularWeightCalculator.Formula.ElementAndMassTools.ConvertFormulaToEmpirical(System.String)">
+            <summary>
+            Converts <paramref name="formula"/> to its corresponding empirical formula
+            </summary>
+            <param name="formula"></param>
+            <returns>The empirical formula, or -1 if an error</returns>
+            <remarks></remarks>
+        </member>
+        <member name="M:MolecularWeightCalculator.Formula.ElementAndMassTools.ExpandAbbreviationsInFormula(System.String)">
+            <summary>
+            Expands abbreviations in formula to their elemental equivalent
+            </summary>
+            <param name="formula"></param>
+            <returns>Returns the result, or -1 if an error</returns>
+            <remarks></remarks>
+        </member>
+        <member name="M:MolecularWeightCalculator.Formula.ElementAndMassTools.ConvoluteMasses(MolecularWeightCalculator.Formula.ElementAndMassTools.IsoResultsOverallData[],System.Int32,System.Collections.Generic.List{MolecularWeightCalculator.Formula.ElementAndMassTools.IsoResultsByElement},System.Int32,System.Single,System.Int32,System.Int32,System.Int64)">
+            <summary>
+            Recursive function to Convolute the Results in <paramref name="isoStats"/> and store in <paramref name="convolutedAbundances"/>; 1-based array
+            </summary>
+            <param name="convolutedAbundances"></param>
+            <param name="convolutedAbundanceStartMass"></param>
+            <param name="isoStats"></param>
+            <param name="workingRow"></param>
+            <param name="workingAbundance"></param>
+            <param name="workingMassTotal"></param>
+            <param name="isoStatsIndex"></param>
+            <param name="iterations"></param>
+        </member>
+        <member name="M:MolecularWeightCalculator.Formula.ElementAndMassTools.FindCombosPredictIterations(System.Int32,System.Int16)">
+            <summary>
+            Determines the number of Combo results (iterations) for the given
+            number of Atoms for an element with the given number of Isotopes
+            </summary>
+            <param name="atomCount"></param>
+            <param name="isotopeCount"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.Formula.ElementAndMassTools.FindCombosRecurse(System.Int32[0:,0:],System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32[])">
+            <summary>
+            Recursive function to find all the combinations
+            of a number of atoms with the given maximum isotopic count
+            </summary>
+            <param name="comboResults"></param>
+            <param name="atomCount"></param>
+            <param name="maxIsotopeCount"></param>
+            <param name="currentIsotopeCount"></param>
+            <param name="currentRow"></param>
+            <param name="currentCol"></param>
+            <param name="atomTrackHistory"></param>
+            <returns>Last modified index</returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.Formula.ElementAndMassTools.GetAbbreviationCountInternal">
+            <summary>
+            Get the number of abbreviations in memory
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.Formula.ElementAndMassTools.GetAbbreviationIdInternal(System.String,System.Boolean)">
+            <summary>
+            Get the abbreviation ID for the given abbreviation symbol
+            </summary>
+            <param name="symbol"></param>
+            <param name="aminoAcidsOnly"></param>
+            <returns>ID if found, otherwise -1</returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.Formula.ElementAndMassTools.GetAbbreviationInternal(System.Int32,System.String@,System.String@,System.Single@,System.Boolean@,System.String@,System.String@,System.Boolean@)">
+            <summary>
+            Get an abbreviation, by ID
+            </summary>
+            <param name="abbreviationId"></param>
+            <param name="symbol">Output: symbol</param>
+            <param name="formula">Output: empirical formula</param>
+            <param name="charge">Output: charge</param>
+            <param name="isAminoAcid">Output: true if an amino acid</param>
+            <param name="oneLetterSymbol">Output: one letter symbol (only used by amino acids)</param>
+            <param name="comment">Output: comment</param>
+            <param name="invalidSymbolOrFormula">Output: true if an invalid symbol or formula</param>
+            <returns> 0 if success, 1 if failure</returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.Formula.ElementAndMassTools.GetCautionStatementInternal(System.String,System.String@)">
+            <summary>
+            Get a caution statement for the given symbol combo
+            </summary>
+            <param name="symbolCombo">symbol combo for the caution statement</param>
+            <param name="cautionStatement">Output: caution statement text</param>
+            <returns>0 if success, 1 if an invalid ID</returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.Formula.ElementAndMassTools.GetElementInternal(System.Int16,System.String@,System.Double@,System.Double@,System.Single@,System.Int16@)">
+            <summary>
+            Returns the settings for the element with <paramref name="elementId"/> in the ByRef variables
+            </summary>
+            <param name="elementId"></param>
+            <param name="symbol"></param>
+            <param name="mass"></param>
+            <param name="uncertainty"></param>
+            <param name="charge"></param>
+            <param name="isotopeCount"></param>
+            <returns>0 if success, 1 if failure</returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.Formula.ElementAndMassTools.GetElementIdInternal(System.String)">
+            <summary>
+            Get the element ID for the given symbol
+            </summary>
+            <param name="symbol"></param>
+            <returns>ID if found, otherwise 0</returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.Formula.ElementAndMassTools.GetElementIsotopesInternal(System.Int16,System.Int16@,System.Double[]@,System.Single[]@)">
+            <summary>
+            Returns the isotope masses and abundances for the element with <paramref name="elementId"/>
+            </summary>
+            <param name="elementId">Element ID, or atomic number</param>
+            <param name="isotopeCount"></param>
+            <param name="isotopeMasses">output, 0-based array</param>
+            <param name="isotopeAbundances">output, 0-based array</param>
+            <returns>0 if a valid ID, 1 if invalid</returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.Formula.ElementAndMassTools.GetElementModeInternal">
+            <summary>
+            Get the current element mode
+            </summary>
+            <returns>
+            ElementMassMode.Average  = 1
+            ElementMassMode.Isotopic = 2
+            ElementMassMode.Integer  = 3
+            </returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.Formula.ElementAndMassTools.GetElementSymbolInternal(System.Int16)">
+            <summary>
+            Return the element symbol for the given element ID
+            </summary>
+            <param name="elementId"></param>
+            <returns></returns>
+            <remarks>1 is Hydrogen, 2 is Helium, etc.</remarks>
+        </member>
+        <member name="M:MolecularWeightCalculator.Formula.ElementAndMassTools.GetElementStatInternal(System.Int16,MolecularWeightCalculator.ElementStatsType)">
+            <summary>
+            Returns a single bit of information about a single element
+            </summary>
+            <param name="elementId">Element ID</param>
+            <param name="elementStat">Value to obtain: mass, charge, or uncertainty</param>
+            <returns></returns>
+            <remarks>Since a value may be negative, simply returns 0 if an error</remarks>
+        </member>
+        <member name="M:MolecularWeightCalculator.Formula.ElementAndMassTools.GetMessageStatementInternal(System.Int32,System.String)">
+            <summary>
+            Get message text using message ID
+            </summary>
+            <param name="messageId"></param>
+            <param name="appendText"></param>
+            <returns></returns>
+            <remarks>
+            GetMessageStringInternal simply returns the message for <paramref name="messageId"/>
+            LookupMessage formats the message, and possibly combines multiple messages, depending on the message number
+            </remarks>
+        </member>
+        <member name="M:MolecularWeightCalculator.Formula.ElementAndMassTools.IsPresentInAbbrevSymbolStack(MolecularWeightCalculator.Formula.ElementAndMassTools.AbbrevSymbolStack,System.Int16)">
+            <summary>
+            Checks for presence of <paramref name="symbolReference"/> in <paramref name="abbrevSymbolStack"/>
+            If found, returns true
+            </summary>
+            <param name="abbrevSymbolStack"></param>
+            <param name="symbolReference"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.Formula.ElementAndMassTools.IsModSymbolInternal(System.String)">
+            <summary>
+            Returns True if the first letter of <paramref name="testChar"/> is a ModSymbol
+            </summary>
+            <param name="testChar"></param>
+            <returns></returns>
+            <remarks>
+            Invalid Mod Symbols are letters, numbers, ., -, space, (, or )
+            Valid Mod Symbols are ! # $ % ampersand ' * + ? ^ ` ~
+            </remarks>
+        </member>
+        <member name="M:MolecularWeightCalculator.Formula.ElementAndMassTools.IsStringAllLetters(System.String)">
+            <summary>
+            Tests if all of the characters in <paramref name="test"/> are letters
+            </summary>
+            <param name="test"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.Formula.ElementAndMassTools.LookupMessage(System.Int32,System.String)">
+            <summary>
+            Looks up the message for <paramref name="messageId"/>
+            Also appends any data in <paramref name="appendText"/> to the message
+            </summary>
+            <param name="messageId"></param>
+            <param name="appendText"></param>
+            <returns>The complete message</returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.Formula.ElementAndMassTools.MassToPPMInternal(System.Double,System.Double)">
+            <summary>
+            Converts <paramref name="massToConvert"/> to ppm, based on the value of <paramref name="currentMz"/>
+            </summary>
+            <param name="massToConvert"></param>
+            <param name="currentMz"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.Formula.ElementAndMassTools.MonoMassToMzInternal(System.Double,System.Int16,System.Double)">
+            <summary>
+            Convert monoisotopic mass to m/z
+            </summary>
+            <param name="monoisotopicMass"></param>
+            <param name="charge"></param>
+            <param name="chargeCarrierMass">If this is 0, uses mChargeCarrierMass</param>
+            <returns></returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.Formula.ElementAndMassTools.MemoryLoadCautionStatements">
+            <summary>
+            Define the caution statements
+            </summary>
+            <remarks>Use ClearCautionStatements and AddCautionStatement to set these based on language</remarks>
+        </member>
+        <member name="M:MolecularWeightCalculator.Formula.ElementAndMassTools.MemoryLoadElements(MolecularWeightCalculator.Formula.ElementMassMode,System.Int16,MolecularWeightCalculator.ElementStatsType)">
+            <summary>
+            Load elements and isotopes
+            </summary>
+            <param name="elementMode">Element mode: 1 for average weights, 2 for monoisotopic weights, 3 for integer weights</param>
+            <param name="specificElement"></param>
+            <param name="specificStatToReset"></param>
+            <remarks>
+            <paramref name="specificElement"/> and <paramref name="specificStatToReset"/> are zero when updating all of the elements and isotopes.
+            nonzero <paramref name="specificElement"/> and <paramref name="specificStatToReset"/> values will set just that specific value to the default
+            </remarks>
+        </member>
+        <member name="M:MolecularWeightCalculator.Formula.ElementAndMassTools.ParseFormulaPublic(System.String@,MolecularWeightCalculator.Formula.ComputationStats,System.Boolean,System.Double)">
+            <summary>
+            Determines the molecular weight and elemental composition of <paramref name="formula"/>
+            </summary>
+            <param name="formula">Input/output: formula to parse</param>
+            <param name="computationStats">Output: additional information about the formula</param>
+            <param name="expandAbbreviations"></param>
+            <param name="valueForX"></param>
+            <returns>Computed molecular weight if no error; otherwise -1</returns>
+            <remarks>
+            ErrorParams will hold information on errors that occur (previous errors are cleared when this function is called)
+            Use ComputeFormulaWeight if you only want to know the weight of a formula (it calls this function)
+            </remarks>
+        </member>
+        <member name="M:MolecularWeightCalculator.Formula.ElementAndMassTools.ParseFormulaRecursive(System.String,MolecularWeightCalculator.Formula.ComputationStats,MolecularWeightCalculator.Formula.ElementAndMassTools.AbbrevSymbolStack,System.Boolean,System.Double@,System.Int32@,System.Double,System.Int32,System.Double,System.Double,System.Double,System.Int16)">
+            <summary>
+            Determine elements in an abbreviation or elements and abbreviations in a formula
+            Stores results in <paramref name="computationStats"/>
+            ErrorParams will hold information on errors that occur
+            </summary>
+            <param name="formula"></param>
+            <param name="computationStats"></param>
+            <param name="abbrevSymbolStack"></param>
+            <param name="expandAbbreviations"></param>
+            <param name="stdDevSum">Sum of the squares of the standard deviations</param>
+            <param name="carbonOrSiliconReturnCount">Tracks the number of carbon and silicon atoms found; used when correcting for charge inside parentheses or inside an abbreviation</param>
+            <param name="valueForX"></param>
+            <param name="charCountPrior"></param>
+            <param name="parenthMultiplier">The value to multiply all values by if inside parentheses</param>
+            <param name="dashMultiplierPrior"></param>
+            <param name="bracketMultiplierPrior"></param>
+            <param name="parenthLevelPrevious"></param>
+            <returns>Formatted formula</returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.Formula.ElementAndMassTools.ParseNum(System.String,System.Int32@,System.Boolean)">
+            <summary>
+            Looks for a number and returns it if found
+            </summary>
+            <param name="work">Input</param>
+            <param name="numLength">Output: length of the number</param>
+            <param name="allowNegative"></param>
+            <returns>
+            Parsed number if found
+            If not a number, returns a negative number for the error code and sets numLength = 0
+            </returns>
+            <remarks>
+            Error codes:
+            -1 = No number
+            -2 =                                             (unused)
+            -3 = No number at all or (more likely) no number after decimal point
+            -4 = More than one decimal point
+            </remarks>
+        </member>
+        <member name="M:MolecularWeightCalculator.Formula.ElementAndMassTools.PlainTextToRtfInternal(System.String,System.Boolean,System.Boolean,System.Boolean,System.Int32)">
+            <summary>
+            Converts plain text to formatted RTF text
+            </summary>
+            <param name="workText"></param>
+            <param name="calculatorMode">When true, does not superscript + signs and numbers following + signs</param>
+            <param name="highlightCharFollowingPercentSign">When true, change the character following a percent sign to red (and remove the percent sign)</param>
+            <param name="overrideErrorId"></param>
+            <param name="errorIdOverride"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.Formula.ElementAndMassTools.RecomputeAbbreviationMassesInternal">
+            <summary>
+            Recomputes the Mass for all of the loaded abbreviations
+            </summary>
+        </member>
+        <member name="M:MolecularWeightCalculator.Formula.ElementAndMassTools.RemoveAbbreviationInternal(System.String)">
+            <summary>
+            Look for the abbreviation and remove it
+            </summary>
+            <param name="abbreviationSymbol"></param>
+            <returns>0 if found and removed; 1 if error</returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.Formula.ElementAndMassTools.RemoveAbbreviationByIdInternal(System.Int32)">
+            <summary>
+            Remove the abbreviation at index <paramref name="abbreviationId"/>
+            </summary>
+            <param name="abbreviationId"></param>
+            <returns>0 if found and removed; 1 if error</returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.Formula.ElementAndMassTools.RemoveCautionStatementInternal(System.String)">
+            <summary>
+            Look for the caution statement and remove it
+            </summary>
+            <param name="cautionSymbol"></param>
+            <returns>0 if found and removed; 1 if error</returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.Formula.ElementAndMassTools.SetAbbreviationInternal(System.String,System.String,System.Single,System.Boolean,System.String,System.String,System.Boolean)">
+            <summary>
+            Adds a new abbreviation or updates an existing one (based on <paramref name="symbol"/>)
+            </summary>
+            <param name="symbol"></param>
+            <param name="formula"></param>
+            <param name="charge"></param>
+            <param name="isAminoAcid"></param>
+            <param name="oneLetterSymbol"></param>
+            <param name="comment"></param>
+            <param name="validateFormula">If true, make sure the formula is valid</param>
+            <returns>0 if successful, otherwise an error ID</returns>
+            <remarks>
+            It is useful to set <paramref name="validateFormula"/> = false when you're defining all of the abbreviations at once,
+            since one abbreviation can depend upon another, and if the second abbreviation hasn't yet been
+            defined, then the parsing of the first abbreviation will fail
+            </remarks>
+        </member>
+        <member name="M:MolecularWeightCalculator.Formula.ElementAndMassTools.SetAbbreviationByIdInternal(System.Int16,System.String,System.String,System.Single,System.Boolean,System.String,System.String,System.Boolean)">
+            <summary>
+            Adds a new abbreviation or updates an existing one (based on <paramref name="abbrevId"/>)
+            </summary>
+            <param name="abbrevId">If abbrevId is less than 1, adds as a new abbreviation</param>
+            <param name="symbol"></param>
+            <param name="formula"></param>
+            <param name="charge"></param>
+            <param name="isAminoAcid"></param>
+            <param name="oneLetterSymbol"></param>
+            <param name="comment"></param>
+            <param name="validateFormula"></param>
+            <returns>0 if successful, otherwise an error ID</returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.Formula.ElementAndMassTools.SetCautionStatementInternal(System.String,System.String)">
+            <summary>
+            Adds a new caution statement or updates an existing one (based on <paramref name="symbolCombo"/>)
+            </summary>
+            <param name="symbolCombo"></param>
+            <param name="newCautionStatement"></param>
+            <returns>0 if successful, otherwise, returns an Error ID</returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.Formula.ElementAndMassTools.SetElementInternal(System.String,System.Double,System.Double,System.Single,System.Boolean)">
+            <summary>
+            Update the values for a single element (based on <paramref name="symbol"/>)
+            </summary>
+            <param name="symbol"></param>
+            <param name="mass"></param>
+            <param name="uncertainty"></param>
+            <param name="charge"></param>
+            <param name="recomputeAbbreviationMasses">Set to False if updating several elements</param>
+            <returns></returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.Formula.ElementAndMassTools.SetElementIsotopesInternal(System.String,System.Int16,System.Double[],System.Single[])">
+            <summary>
+            Set the isotopes for the element
+            </summary>
+            <param name="symbol"></param>
+            <param name="isotopeCount"></param>
+            <param name="isotopeMasses">0-based array</param>
+            <param name="isotopeAbundances">0-based array</param>
+            <returns>0 if successful, 1 if symbol not found</returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.Formula.ElementAndMassTools.SetElementModeInternal(MolecularWeightCalculator.Formula.ElementMassMode,System.Boolean)">
+            <summary>
+            Set the element mode
+            </summary>
+            <param name="newElementMode"></param>
+            <param name="forceMemoryLoadElementValues">Set to true if you want to force a reload of element weights, even if not changing element modes</param>
+        </member>
+        <member name="M:MolecularWeightCalculator.Formula.ElementAndMassTools.SetMessageStatementInternal(System.Int32,System.String)">
+            <summary>
+            Used to replace the default message strings with foreign language equivalent ones
+            </summary>
+            <param name="messageId"></param>
+            <param name="newMessage"></param>
+            <returns>0 if success; 1 if failure</returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.Formula.ElementAndMassTools.SpacePad(System.String,System.Int16)">
+            <summary>
+            Adds spaces to <paramref name="work"/> until the length is <paramref name="length"/>
+            </summary>
+            <param name="work"></param>
+            <param name="length"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.Formula.ElementAndMassTools.UpdateProgress(System.String)">
+            <summary>
+            Update the progress description
+            </summary>
+            <param name="progressStepDescription">Description of the current processing occurring</param>
+            <remarks></remarks>
+        </member>
+        <member name="M:MolecularWeightCalculator.Formula.ElementAndMassTools.UpdateProgress(System.Single)">
+            <summary>
+            Update the progress
+            </summary>
+            <param name="percentComplete">Value between 0 and 100, indicating percent complete</param>
+            <remarks></remarks>
+        </member>
+        <member name="M:MolecularWeightCalculator.Formula.ElementAndMassTools.UpdateProgress(System.String,System.Single)">
+            <summary>
+            Update the progress
+            </summary>
+            <param name="progressStepDescription">Description of the current processing occurring</param>
+            <param name="percentComplete">Value between 0 and 100, indicating percent complete</param>
+            <remarks></remarks>
+        </member>
+        <member name="M:MolecularWeightCalculator.Formula.ElementAndMassTools.ValidateAllAbbreviationsInternal">
+            <summary>
+            Checks the formula of all abbreviations to make sure it's valid
+            Marks any abbreviations as Invalid if a problem is found or a circular reference exists
+            </summary>
+            <returns>Count of the number of invalid abbreviations found</returns>
+        </member>
+        <member name="P:MolecularWeightCalculator.Formula.ElementUseStats.Used">
+            <summary>
+            True if the element is present
+            </summary>
+        </member>
+        <member name="P:MolecularWeightCalculator.Formula.ElementUseStats.Count">
+            <summary>
+            Number of atoms of this element; can have a non-integer count, e.g., C5.5
+            </summary>
+        </member>
+        <member name="P:MolecularWeightCalculator.Formula.ElementUseStats.Isotopes">
+            <summary>
+            Specific isotopes of the atom
+            </summary>
+        </member>
+        <member name="T:MolecularWeightCalculator.FormulaFinder.CandidateElementTolerances">
+            <summary>
+            Search tolerances for each element
+            </summary>
+            <remarks>
+            Target percent composition values must be between 0 and 100; they are only used when calling FindMatchesByPercentComposition
+            MinimumCount and MaximumCount are only used when the search mode is Bounded; they are ignored for Thorough search
+            </remarks>
+        </member>
+        <member name="F:MolecularWeightCalculator.FormulaFinder.FormulaSearcher.mCandidateElements">
+            <summary>
+            Keys are element symbols, abbreviations, or even simply a mass value
+            Values are target percent composition values, between 0 and 100
+            </summary>
+            <remarks>The target percent composition values are only used when FindMatchesByPercentComposition is called</remarks>
+        </member>
+        <member name="P:MolecularWeightCalculator.FormulaFinder.FormulaSearcher.CandidateElements">
+            <summary>
+            Element symbols to consider when finding empirical formulas
+            </summary>
+            <value></value>
+            <returns></returns>
+            <remarks>The values in the dictionary are target percent composition values; only used if you call FindMatchesByPercentComposition</remarks>
+        </member>
+        <member name="P:MolecularWeightCalculator.FormulaFinder.FormulaSearcher.PercentComplete">
+            <summary>
+            Percent complete, between 0 and 100
+            </summary>
+            <remarks></remarks>
+        </member>
+        <member name="M:MolecularWeightCalculator.FormulaFinder.FormulaSearcher.#ctor(MolecularWeightCalculator.Formula.ElementAndMassTools)">
+            <summary>
+            Constructor
+            </summary>
+            <remarks></remarks>
+        </member>
+        <member name="M:MolecularWeightCalculator.FormulaFinder.FormulaSearcher.AbortProcessingNow">
+            <summary>
+            Abort processing
+            </summary>
+            <remarks>Only useful if the formula finder is running on a separate thread from the calling program</remarks>
+        </member>
+        <member name="M:MolecularWeightCalculator.FormulaFinder.FormulaSearcher.AddCandidateElement(System.String)">
+            <summary>
+            Add a candidate element, abbreviation, or monoisotopic mass
+            </summary>
+            <param name="elementSymbolAbbrevOrMass">Element symbol, abbreviation symbol, or monoisotopic mass</param>
+            <remarks></remarks>
+        </member>
+        <member name="M:MolecularWeightCalculator.FormulaFinder.FormulaSearcher.AddCandidateElement(System.String,System.Double)">
+            <summary>
+            Add a candidate element, abbreviation, or monoisotopic mass
+            </summary>
+            <param name="elementSymbolAbbrevOrMass">Element symbol, abbreviation symbol, or monoisotopic mass</param>
+            <param name="targetPercentComposition">Target percent composition</param>
+            <remarks></remarks>
+        </member>
+        <member name="M:MolecularWeightCalculator.FormulaFinder.FormulaSearcher.AddCandidateElement(System.String,System.Int32,System.Int32)">
+            <summary>
+            Add a candidate element, abbreviation, or monoisotopic mass
+            </summary>
+            <param name="elementSymbolAbbrevOrMass">Element symbol, abbreviation symbol, or monoisotopic mass</param>
+            <param name="minimumCount">Minimum occurrence count</param>
+            <param name="maximumCount">Maximum occurrence count</param>
+            <remarks>This method should be used when defining elements for a bounded search</remarks>
+        </member>
+        <member name="M:MolecularWeightCalculator.FormulaFinder.FormulaSearcher.AddCandidateElement(System.String,MolecularWeightCalculator.FormulaFinder.CandidateElementTolerances)">
+            <summary>
+            Add a candidate element, abbreviation, or monoisotopic mass
+            </summary>
+            <param name="elementSymbolAbbrevOrMass">Element symbol, abbreviation symbol, or monoisotopic mass</param>
+            <param name="elementTolerances">Search tolerances, including % composition range and Min/Max count when using a bounded search</param>
+            <remarks></remarks>
+        </member>
+        <member name="M:MolecularWeightCalculator.FormulaFinder.FormulaSearcher.FindMatchesByMassPPM(System.Double,System.Double,MolecularWeightCalculator.FormulaFinder.SearchOptions)">
+            <summary>
+            Find empirical formulas that match the given target mass, with the given ppm tolerance
+            </summary>
+            <param name="targetMass"></param>
+            <param name="massTolerancePPM"></param>
+            <param name="searchOptions">If null, uses default search options</param>
+            <returns></returns>
+            <remarks></remarks>
+        </member>
+        <member name="M:MolecularWeightCalculator.FormulaFinder.FormulaSearcher.FindMatchesByMassPPMGetArray(System.Double,System.Double,MolecularWeightCalculator.FormulaFinder.SearchOptions)">
+            <summary>
+            Find empirical formulas that match the given target mass, with the given ppm tolerance, getting results in an array for COM interop support
+            </summary>
+            <param name="targetMass"></param>
+            <param name="massTolerancePPM"></param>
+            <param name="searchOptions">If null, uses default search options</param>
+            <returns></returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.FormulaFinder.FormulaSearcher.FindMatchesByMass(System.Double,System.Double,MolecularWeightCalculator.FormulaFinder.SearchOptions)">
+            <summary>
+            Find empirical formulas that match the given target mass, with the given tolerance
+            </summary>
+            <param name="targetMass"></param>
+            <param name="massToleranceDa"></param>
+            <param name="searchOptions">If null, uses default search options</param>
+            <returns></returns>
+            <remarks></remarks>
+        </member>
+        <member name="M:MolecularWeightCalculator.FormulaFinder.FormulaSearcher.FindMatchesByMassGetArray(System.Double,System.Double,MolecularWeightCalculator.FormulaFinder.SearchOptions)">
+            <summary>
+            Find empirical formulas that match the given target mass, with the given tolerance, getting results in an array for COM interop support
+            </summary>
+            <param name="targetMass"></param>
+            <param name="massToleranceDa"></param>
+            <param name="searchOptions">If null, uses default search options</param>
+            <returns></returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.FormulaFinder.FormulaSearcher.Reset">
+            <summary>
+            Reset to defaults
+            </summary>
+            <remarks></remarks>
+        </member>
+        <member name="M:MolecularWeightCalculator.FormulaFinder.FormulaSearcher.BoundedSearch(System.Double,System.Double,System.Double,MolecularWeightCalculator.FormulaFinder.SearchOptions,System.Boolean,MolecularWeightCalculator.FormulaFinder.FormulaSearcher.CalculationMode,System.Collections.Generic.IList{MolecularWeightCalculator.FormulaFinder.CandidateElement})">
+             <summary>
+            
+             </summary>
+             <param name="targetMass">Only used when calculationMode is MatchMolecularWeight</param>
+             <param name="massToleranceDa">Only used when calculationMode is MatchMolecularWeigh</param>
+             <param name="maximumFormulaMass">Only used when calculationMode is MatchPercentComposition</param>
+             <param name="searchOptions"></param>
+             <param name="ppmMode"></param>
+             <param name="calculationMode"></param>
+             <param name="sortedElementStats"></param>
+             <returns></returns>
+             <remarks></remarks>
+        </member>
+        <member name="M:MolecularWeightCalculator.FormulaFinder.FormulaSearcher.CheckMtoZWithTarget(System.Double,System.Double,System.Double,System.Double,System.Int32)">
+            <summary>
+            Compare m/z to target
+            </summary>
+            <param name="totalMass"></param>
+            <param name="totalCharge"></param>
+            <param name="targetMass"></param>
+            <param name="massToleranceDa"></param>
+            <param name="multipleMtoZCharge"></param>
+            <remarks>True if the m/z is within tolerance of the target</remarks>
+        </member>
+        <member name="M:MolecularWeightCalculator.FormulaFinder.FormulaSearcher.ConstructAndVerifyCompound(MolecularWeightCalculator.FormulaFinder.SearchOptions,System.Text.StringBuilder,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Collections.Generic.IList{MolecularWeightCalculator.FormulaFinder.CandidateElement},System.Double,System.Double,System.Double,System.Double,System.Int32,System.Collections.Generic.Dictionary{System.String,System.Int32}@,System.Double@)">
+            <summary>
+            Construct the empirical formula and verify hydrogens
+            </summary>
+            <param name="searchOptions"></param>
+            <param name="empiricalFormula"></param>
+            <param name="count1"></param>
+            <param name="count2"></param>
+            <param name="count3"></param>
+            <param name="count4"></param>
+            <param name="count5"></param>
+            <param name="count6"></param>
+            <param name="count7"></param>
+            <param name="count8"></param>
+            <param name="count9"></param>
+            <param name="count10"></param>
+            <param name="sortedElementStats"></param>
+            <param name="totalMass"></param>
+            <param name="targetMass">Only used when searchOptions.FindTargetMZ is true, and that is only valid when matching a target mass, not when matching percent composition values</param>
+            <param name="massToleranceDa">Only used when searchOptions.FindTargetMZ is true</param>
+            <param name="totalCharge"></param>
+            <param name="multipleMtoZCharge">When searchOptions.FindTargetMZ is false, this will be 1; otherwise, the current charge being searched for</param>
+            <param name="empiricalResultSymbols"></param>
+            <param name="correctedCharge"></param>
+            <returns>False if compound has too many hydrogens AND hydrogen checking is on, otherwise returns true</returns>
+            <remarks>Common function to both molecular weight and percent composition matching</remarks>
+        </member>
+        <member name="M:MolecularWeightCalculator.FormulaFinder.FormulaSearcher.ConstructAndVerifyCompoundRecursive(MolecularWeightCalculator.FormulaFinder.SearchOptions,System.Text.StringBuilder,System.Collections.Generic.IList{MolecularWeightCalculator.FormulaFinder.CandidateElement},System.Collections.Generic.IEnumerable{System.Int32},System.Double,System.Double,System.Double,System.Double,System.Int32,System.Collections.Generic.Dictionary{System.String,System.Int32}@,System.Double@)">
+            <summary>
+            Construct the empirical formula and verify hydrogens
+            </summary>
+            <param name="searchOptions"></param>
+            <param name="empiricalFormula"></param>
+            <param name="sortedElementStats"></param>
+            <param name="potentialElementPointers"></param>
+            <param name="totalMass"></param>
+            <param name="targetMass">Only used when searchOptions.FindTargetMZ is true, and that is only valid when matching a target mass, not when matching percent composition values</param>
+            <param name="massToleranceDa">Only used when searchOptions.FindTargetMZ is true</param>
+            <param name="totalCharge"></param>
+            <param name="multipleMtoZCharge">When searchOptions.FindTargetMZ is false, this will be 0; otherwise, the current charge being searched for</param>
+            <param name="empiricalResultSymbols"></param>
+            <param name="correctedCharge"></param>
+            <returns>False if compound has too many hydrogens AND hydrogen checking is on, otherwise returns true</returns>
+            <remarks>Common function to both molecular weight and percent composition matching</remarks>
+        </member>
+        <member name="M:MolecularWeightCalculator.FormulaFinder.FormulaSearcher.CorrectChargeEmpirical(MolecularWeightCalculator.FormulaFinder.SearchOptions,System.Double,MolecularWeightCalculator.FormulaFinder.FormulaSearcher.ElementNum,System.Boolean@)">
+            <summary>
+            Correct charge using rules for an empirical formula
+            </summary>
+            <param name="searchOptions"></param>
+            <param name="totalCharge"></param>
+            <param name="elementCounts"></param>
+            <param name="chargeOk"></param>
+            <returns>Corrected charge</returns>
+            <remarks></remarks>
+        </member>
+        <member name="M:MolecularWeightCalculator.FormulaFinder.FormulaSearcher.EmpiricalFormulaHasElementCounts(System.Collections.Generic.IDictionary{System.String,System.Int32},System.Collections.Generic.Dictionary{System.String,System.Int32})">
+            <summary>
+            Search empiricalResultSymbols for the elements in targetCountStats
+            </summary>
+            <param name="empiricalResultSymbols"></param>
+            <param name="targetCountStats"></param>
+            <returns>True if all of the elements are present in the given counts (extra elements may also be present),
+            false one or more is not found or has the wrong occurrence count</returns>
+            <remarks></remarks>
+        </member>
+        <member name="M:MolecularWeightCalculator.FormulaFinder.FormulaSearcher.GetSearchResult(MolecularWeightCalculator.FormulaFinder.SearchOptions,System.Boolean,System.Text.StringBuilder,System.Double,System.Double,System.Double,System.Collections.Generic.Dictionary{System.String,System.Int32})">
+            <summary>
+            Initializes a new search result
+            </summary>
+            <param name="searchOptions"></param>
+            <param name="ppmMode"></param>
+            <param name="empiricalFormula"></param>
+            <param name="totalMass">If 0 or negative, means matching percent compositions</param>
+            <param name="targetMass"></param>
+            <param name="totalCharge"></param>
+            <param name="empiricalResultSymbols"></param>
+            <remarks></remarks>
+        </member>
+        <member name="M:MolecularWeightCalculator.FormulaFinder.FormulaSearcher.MultipleSearchMath(System.Int32,MolecularWeightCalculator.FormulaFinder.SearchOptions,System.Int32@,System.Int32@)">
+            <summary>
+            Estimate the number of operations required to search for a target m/z rather than a target mass
+            </summary>
+            <param name="potentialElementCount"></param>
+            <param name="searchOptions"></param>
+            <param name="mzSearchChargeMin"></param>
+            <param name="mzSearchChargeMax"></param>
+            <remarks>searchOptions is passed ByRef because it is a value type and .MzChargeMin and .MzChargeMax are updated</remarks>
+        </member>
+        <member name="M:MolecularWeightCalculator.FormulaFinder.FormulaSearcher.OldFormulaFinder(MolecularWeightCalculator.FormulaFinder.SearchOptions,System.Boolean,MolecularWeightCalculator.FormulaFinder.FormulaSearcher.CalculationMode,System.Collections.Generic.IList{MolecularWeightCalculator.FormulaFinder.CandidateElement},System.Double,System.Double,System.Double)">
+            <summary>
+            Formula finder that uses a series of nested for loops and is thus slow when a large number of candidate elements
+            or when elements have a large range of potential counts
+            </summary>
+            <param name="searchOptions"></param>
+            <param name="ppmMode"></param>
+            <param name="calculationMode"></param>
+            <param name="sortedElementStats"></param>
+            <param name="targetMass">Only used when calculationMode is MatchMolecularWeight</param>
+            <param name="massToleranceDa">Only used when calculationMode is MatchMolecularWeigh</param>
+            <param name="maximumFormulaMass">Only used when calculationMode is MatchPercentComposition</param>
+            <returns></returns>
+            <remarks></remarks>
+        </member>
+        <member name="M:MolecularWeightCalculator.FormulaFinder.FormulaSearcher.RecursiveMWFinder(System.Collections.Generic.ICollection{MolecularWeightCalculator.FormulaFinder.SearchResult},MolecularWeightCalculator.FormulaFinder.SearchOptions,System.Boolean,System.Collections.Generic.IList{MolecularWeightCalculator.FormulaFinder.CandidateElement},System.Int32,System.Double,System.Double,System.Double,System.Double,System.Int32,System.Collections.Generic.IReadOnlyCollection{System.Int32})">
+            <summary>
+            Recursively search for a target mass
+            </summary>
+            <param name="results"></param>
+            <param name="searchOptions"></param>
+            <param name="ppmMode"></param>
+            <param name="sortedElementStats">Candidate elements, including mass and charge. Sorted by descending mass</param>
+            <param name="startIndex">Index in candidateElementsStats to start at</param>
+            <param name="potentialMassTotal">Weight of the potential formula</param>
+            <param name="targetMass"></param>
+            <param name="massToleranceDa"></param>
+            <param name="potentialChargeTotal"></param>
+            <param name="multipleMtoZCharge">When searchOptions.FindTargetMZ is false, this will be 0; otherwise, the current charge being searched for</param>
+            <param name="potentialElementPointers">Pointers to the elements that have been added to the potential formula so far</param>
+            <remarks></remarks>
+        </member>
+        <member name="M:MolecularWeightCalculator.FormulaFinder.FormulaSearcher.RecursivePCompFinder(System.Collections.Generic.ICollection{MolecularWeightCalculator.FormulaFinder.SearchResult},MolecularWeightCalculator.FormulaFinder.SearchOptions,System.Collections.Generic.IList{MolecularWeightCalculator.FormulaFinder.CandidateElement},System.Int32,System.Collections.Generic.ICollection{System.Int32},System.Double,System.Double,System.Double)">
+            <summary>
+            Recursively search for target percent composition values
+            </summary>
+            <param name="results"></param>
+            <param name="sortedElementStats"></param>
+            <param name="startIndex"></param>
+            <param name="potentialElementPointers">Pointers to the elements that have been added to the potential formula so far</param>
+            <param name="potentialMassTotal">>Weight of the potential formula</param>
+            <param name="maximumFormulaMass"></param>
+            <param name="potentialChargeTotal"></param>
+            <param name="searchOptions"></param>
+            <remarks></remarks>
+        </member>
+        <member name="P:MolecularWeightCalculator.FormulaFinder.SearchOptions.FindCharge">
+            <summary>
+            When true, compute the overall charge of each compound
+            </summary>
+            <remarks></remarks>
+        </member>
+        <member name="P:MolecularWeightCalculator.FormulaFinder.SearchOptions.LimitChargeRange">
+            <summary>
+            When true, filter the results by ChargeMin and ChargeMax
+            </summary>
+            <remarks>
+            Setting this to True auto-sets FindCharge to true
+            Setting this to False auto-sets FindTargetMZ to false</remarks>
+        </member>
+        <member name="P:MolecularWeightCalculator.FormulaFinder.SearchOptions.ChargeMin">
+            <summary>
+            When LimitChargeRange is true, results will be limited to the range ChargeMin to ChargeMax
+            </summary>
+            <remarks>Negative values are allowed</remarks>
+        </member>
+        <member name="P:MolecularWeightCalculator.FormulaFinder.SearchOptions.ChargeMax">
+            <summary>
+            When LimitChargeRange is true, results will be limited to the range ChargeMin to ChargeMax
+            </summary>
+            <remarks>Negative values are allowed</remarks>
+        </member>
+        <member name="P:MolecularWeightCalculator.FormulaFinder.SearchOptions.FindTargetMz">
+            <summary>
+            Set to true to search for a target m/z value instead of a target mass
+            </summary>
+            <remarks>Setting this to True auto-sets FindCharge and LimitChargeRange to True</remarks>
+        </member>
+        <member name="M:MolecularWeightCalculator.FormulaFinder.SearchOptions.#ctor">
+            <summary>
+            Constructor
+            </summary>
+            <remarks></remarks>
+        </member>
+        <member name="P:MolecularWeightCalculator.FormulaFinder.SearchResult.PercentComposition">
+            <summary>
+            Percent composition results (only valid if matching percent compositions)
+            </summary>
+            <remarks>Keys are element or abbreviation symbols, values are percent composition, between 0 and 100</remarks>
+        </member>
+        <member name="M:MolecularWeightCalculator.FormulaFinder.SearchResult.GetElementCounts(System.String[]@,System.Int32[]@)">
+            <summary>
+            Method to get data from CountsByElement that is compatible with COM interop
+            </summary>
+            <param name="symbols"></param>
+            <param name="counts"></param>
+            <returns>Count of symbols/counts returned</returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.FormulaFinder.SearchResult.GetPercentCompositions(System.String[]@,System.Double[]@)">
+            <summary>
+            Method to get data from PercentComposition that is compatible with COM interop
+            </summary>
+            <param name="symbols"></param>
+            <param name="percentCompositions"></param>
+            <returns>Count of symbols/percentCompositions returned</returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.MathUtils.Factorial(System.Int32)">
+            <summary>
+            Compute the factorial of a number; uses recursion
+            </summary>
+            <param name="number">Integer number between 0 and 170</param>
+            <returns>The factorial, or -1 if an error</returns>
+            <remarks></remarks>
+        </member>
+        <member name="M:MolecularWeightCalculator.MoleMassDilution.CheckAutoComputeDilution">
+            <summary>
+            Checks if AutoCompute Dilution is enabled
+            If yes, calls the appropriate function
+            </summary>
+        </member>
+        <member name="M:MolecularWeightCalculator.MoleMassDilution.CheckAutoComputeQuantity">
+            <summary>
+            Checks if AutoCompute Quantity is enabled
+            If yes, calls the appropriate function
+            </summary>
+        </member>
+        <member name="M:MolecularWeightCalculator.MoleMassDilution.ComputeDilutionFinalConcentration(MolecularWeightCalculator.UnitOfMoleMassConcentration)">
+            <summary>
+            Computes the Final Concentration, storing in .FinalConcentration, and returning it
+            </summary>
+            <param name="units"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.MoleMassDilution.ComputeDilutionInitialConcentration(MolecularWeightCalculator.UnitOfMoleMassConcentration)">
+            <summary>
+            Computes the Initial Concentration, storing in .InitialConcentration, and returning it
+            </summary>
+            <param name="units"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.MoleMassDilution.ComputeDilutionRequiredStockAndDilutingSolventVolumes(System.Double@,MolecularWeightCalculator.UnitOfExtendedVolume,MolecularWeightCalculator.UnitOfExtendedVolume)">
+            <summary>
+            Computes the required dilution volumes using initial concentration, final concentration
+            and total final volume, storing in .StockSolutionVolume and .DilutingSolventVolume,
+            and returning .StockSolutionVolume
+            </summary>
+            <param name="newDilutingSolventVolume">Output: diluting solvent volume</param>
+            <param name="stockSolutionUnits"></param>
+            <param name="dilutingSolventUnits"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.MoleMassDilution.ComputeDilutionTotalVolume(System.Double@,MolecularWeightCalculator.UnitOfExtendedVolume,MolecularWeightCalculator.UnitOfExtendedVolume)">
+            <summary>
+            Compute the total volume following the dilution, storing in .TotalFinalVolume, and returning it
+            </summary>
+            <param name="newDilutingSolventVolume">Output: diluting solvent volume</param>
+            <param name="totalVolumeUnits"></param>
+            <param name="dilutingSolventUnits"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.MoleMassDilution.ComputeQuantityAmount(MolecularWeightCalculator.Unit)">
+            <summary>
+            Computes mQuantity.Amount using mQuantity.Volume and mQuantity.Concentration, storing the result in mQuantity.Amount
+            </summary>
+            <param name="units"></param>
+            <returns>mQuantity.Amount, with the specified units</returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.MoleMassDilution.ComputeQuantityConcentration(MolecularWeightCalculator.UnitOfMoleMassConcentration)">
+            <summary>
+            Computes mQuantity.Concentration using mQuantity.Amount and mQuantity.Volume, storing the result in mQuantity.Concentration
+            </summary>
+            <param name="units"></param>
+            <returns>mQuantity.Concentration, with the specified units</returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.MoleMassDilution.ComputeQuantityVolume(MolecularWeightCalculator.UnitOfExtendedVolume)">
+            <summary>
+            Computes mQuantity.Volume using mQuantity.Amount and mQuantity.Concentration, storing the result in mQuantity.Volume
+            </summary>
+            <param name="units"></param>
+            <returns>mQuantity.Volume, with the specified units</returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.MoleMassDilution.ConvertAmount(System.Double,MolecularWeightCalculator.Unit,MolecularWeightCalculator.Unit)">
+            <summary>
+            This function uses .SampleMass and .SampleDensity if the units are mass and/or volume-based
+            </summary>
+            <param name="amountIn"></param>
+            <param name="currentUnits"></param>
+            <param name="newUnits"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.MoleMassDilution.ConvertConcentration(System.Double,MolecularWeightCalculator.UnitOfMoleMassConcentration,MolecularWeightCalculator.UnitOfMoleMassConcentration)">
+            <summary>
+            Convert concentration
+            </summary>
+            <param name="concentrationIn"></param>
+            <param name="currentUnits"></param>
+            <param name="newUnits"></param>
+            <returns></returns>
+            <remarks>Duplicated function, in both CapillaryFlow and MoleMassDilution</remarks>
+        </member>
+        <member name="M:MolecularWeightCalculator.MoleMassDilution.FactorAmount(MolecularWeightCalculator.Unit,System.Double,System.Double)">
+            <summary>
+            Multiplication factor for converting from <paramref name="units"/> to Moles
+            </summary>
+            <param name="units"></param>
+            <param name="sampleMass">required for mass-based units</param>
+            <param name="sampleDensity">required for volume-based units</param>
+            <returns></returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.MoleMassDilution.FactorConcentration(MolecularWeightCalculator.UnitOfMoleMassConcentration,System.Double)">
+            <summary>
+            Multiplication factor for converting from <paramref name="units"/> to M
+            </summary>
+            <param name="units"></param>
+            <param name="sampleMass">required for mass-based units</param>
+            <returns></returns>
+            <remarks>Duplicated function, in both CapillaryFlow and MoleMassDilution</remarks>
+        </member>
+        <member name="M:MolecularWeightCalculator.MoleMassDilution.FactorVolumeExtended(MolecularWeightCalculator.UnitOfExtendedVolume)">
+            <summary>
+            Multiplication factor for converting from <paramref name="units"/> to mL
+            </summary>
+            <param name="units"></param>
+            <returns></returns>
+            <remarks>An extended version of the FactorVolume function in CapillaryFlow</remarks>
+        </member>
+        <member name="M:MolecularWeightCalculator.MolecularWeightTool.#ctor">
+            <summary>
+            Constructor, assumes the elements are using average masses
+            </summary>
+        </member>
+        <member name="M:MolecularWeightCalculator.MolecularWeightTool.#ctor(MolecularWeightCalculator.Formula.ElementMassMode)">
+            <summary>
+            Constructor where the element mode can be defined
+            </summary>
+            <param name="elementMode">Mass mode for elements (average, monoisotopic, or integer)</param>
+        </member>
+        <member name="P:MolecularWeightCalculator.MolecularWeightTool.ProgressPercentComplete">
+            <summary>
+            Percent complete: ranges from 0 to 100, but can contain decimal percentage values
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.MolecularWeightTool.ComputeMass(System.String)">
+            <summary>
+            Compute the mass of a formula
+            </summary>
+            <param name="formula"></param>
+            <returns>Mass of the formula</returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.MolecularWeightTool.ComputeIsotopicAbundances(System.String@,System.Int16,System.String@,System.Double[0:,0:]@,System.Int32@,System.Boolean,System.String,System.String,System.String,System.String)">
+            <summary>
+            Computes the Isotopic Distribution for a formula
+            </summary>
+            <param name="formulaIn">Input/output: The properly formatted formula to parse</param>
+            <param name="chargeState">0 for monoisotopic (uncharged) masses; 1 or higher for convoluted m/z values</param>
+            <param name="results">Output: Table of results</param>
+            <param name="convolutedMSData2D">2D array of MSData (mass and intensity pairs)</param>
+            <param name="convolutedMSDataCount">Number of data points in ConvolutedMSData2DOneBased</param>
+            <param name="addProtonChargeCarrier">If addProtonChargeCarrier is false, then still convolute by charge, but doesn't add a proton</param>
+            <param name="headerIsotopicAbundances">Header to use in <paramref name="results"/></param>
+            <param name="headerMassToCharge">Header to use in <paramref name="results"/></param>
+            <param name="headerFraction">Header to use in <paramref name="results"/></param>
+            <param name="headerIntensity">Header to use in <paramref name="results"/></param>
+            <returns>0 if success, -1 if an error</returns>
+            <remarks>
+            Returns uncharged mass values if <paramref name="chargeState"/>=0,
+            Returns M+H values if <paramref name="chargeState"/>=1
+            Returns convoluted m/z if <paramref name="chargeState"/> is &gt; 1
+            </remarks>
+        </member>
+        <member name="M:MolecularWeightCalculator.MolecularWeightTool.ConvertStickDataToGaussian2DArray(System.Collections.Generic.List{System.Collections.Generic.KeyValuePair{System.Double,System.Double}},System.Int32,System.Double,System.Int32)">
+            <summary>
+            Convert the centroided data (stick data) in xyVals to a Gaussian representation
+            </summary>
+            <param name="xyVals">XY data, as key-value pairs</param>
+            <param name="resolution">Effective instrument resolution (e.g. 1000 or 20000)</param>
+            <param name="resolutionMass">The m/z value at which the resolution applies</param>
+            <param name="qualityFactor">Gaussian quality factor (between 1 and 75, default is 50)</param>
+            <returns>Gaussian spectrum data</returns>
+            <remarks></remarks>
+        </member>
+        <member name="M:MolecularWeightCalculator.MolecularWeightTool.ConvoluteMass(System.Double,System.Int16,System.Int16,System.Double)">
+            <summary>
+            Converts a given mass or m/z value to the MH+ m/z value
+            </summary>
+            <param name="massMz">Mass or m/z value</param>
+            <param name="currentCharge">Current charge (0 means neutral mass)</param>
+            <param name="desiredCharge">Desired charge (0 means neutral mass)</param>
+            <param name="chargeCarrierMass">Custom charge carrier mass (0 means use default, usually 1.00727649)</param>
+            <returns></returns>
+            <remarks></remarks>
+        </member>
+        <member name="M:MolecularWeightCalculator.MolecularWeightTool.DetermineDecimalPoint">
+            <summary>
+            Determine the decimal point symbol (period or comma)
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.MolecularWeightTool.GetAbbreviation(System.Int32,System.String@,System.String@,System.Single@,System.Boolean@)">
+            <summary>
+            Get an abbreviation, by ID
+            </summary>
+            <param name="abbreviationId"></param>
+            <param name="symbol">Output: symbol</param>
+            <param name="formula">Output: empirical formula</param>
+            <param name="charge">Output: charge</param>
+            <param name="isAminoAcid">Output: true if an amino acid</param>
+            <returns> 0 if success, 1 if failure</returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.MolecularWeightTool.GetAbbreviation(System.Int32,System.String@,System.String@,System.Single@,System.Boolean@,System.String@,System.String@)">
+            <summary>
+            Get an abbreviation, by ID
+            </summary>
+            <param name="abbreviationId"></param>
+            <param name="symbol">Output: symbol</param>
+            <param name="formula">Output: empirical formula</param>
+            <param name="charge">Output: charge</param>
+            <param name="isAminoAcid">Output: true if an amino acid</param>
+            <param name="oneLetterSymbol">Output: one letter symbol (only used by amino acids)</param>
+            <param name="comment">Output: comment</param>
+            <returns> 0 if success, 1 if failure</returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.MolecularWeightTool.GetAbbreviation(System.Int32,System.String@,System.String@,System.Single@,System.Boolean@,System.String@,System.String@,System.Boolean@)">
+            <summary>
+            Get an abbreviation, by ID
+            </summary>
+            <param name="abbreviationId"></param>
+            <param name="symbol">Output: symbol</param>
+            <param name="formula">Output: empirical formula</param>
+            <param name="charge">Output: charge</param>
+            <param name="isAminoAcid">Output: true if an amino acid</param>
+            <param name="oneLetterSymbol">Output: one letter symbol (only used by amino acids)</param>
+            <param name="comment">Output: comment</param>
+            <param name="invalidSymbolOrFormula">Output: true if an invalid symbol or formula</param>
+            <returns> 0 if success, 1 if failure</returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.MolecularWeightTool.GetAbbreviationCount">
+            <summary>
+            Get the number of abbreviations in memory
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.MolecularWeightTool.GetAbbreviationId(System.String)">
+            <summary>
+            Get the abbreviation ID for the given abbreviation symbol
+            </summary>
+            <param name="symbol"></param>
+            <returns>ID if found, otherwise -1</returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.MolecularWeightTool.GetCautionStatement(System.String,System.String@)">
+            <summary>
+            Get caution statement information
+            </summary>
+            <param name="symbolCombo">symbol combo for the caution statement</param>
+            <param name="cautionStatement">Output: caution statement text</param>
+            <returns>0 if success, 1 if an invalid ID</returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.MolecularWeightTool.GetCautionStatementCount">
+            <summary>
+            Get the number of Caution Statements in memory
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.MolecularWeightTool.GetCautionStatementSymbols">
+            <summary>
+            Get the symbolCombos for Caution Statements in memory
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.MolecularWeightTool.GetCautionStatementSymbolsArray">
+            <summary>
+            Get the symbolCombos for Caution Statements in memory as an array. This version is for supporting COM interop because COM does not support generic types
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.MolecularWeightTool.GetElement(System.Int16,System.String@,System.Double@,System.Double@,System.Single@,System.Int16@)">
+            <summary>
+            Returns the settings for the element with <paramref name="elementId"/> in the ByRef variables
+            </summary>
+            <param name="elementId"></param>
+            <param name="symbol"></param>
+            <param name="mass"></param>
+            <param name="uncertainty"></param>
+            <param name="charge"></param>
+            <param name="isotopeCount"></param>
+            <returns>0 if success, 1 if failure</returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.MolecularWeightTool.GetElementCount">
+            <summary>
+            Returns the number of elements in memory
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.MolecularWeightTool.GetElementId(System.String)">
+            <summary>
+            Get the element ID for the given symbol
+            </summary>
+            <param name="symbol"></param>
+            <returns>ID if found, otherwise 0</returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.MolecularWeightTool.GetElementIsotopes(System.Int16,System.Int16@,System.Double[]@,System.Single[]@)">
+            <summary>
+            Returns the isotope masses and abundances for the element with <paramref name="elementId"/>
+            </summary>
+            <param name="elementId">Element ID, or atomic number</param>
+            <param name="isotopeCount"></param>
+            <param name="isotopeMasses"></param>
+            <param name="isotopeAbundances"></param>
+            <returns>0 if a valid ID, 1 if invalid</returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.MolecularWeightTool.GetElementMode">
+            <summary>
+            Get the current element mode
+            </summary>
+            <returns>
+            ElementMassMode.Average  = 1
+            ElementMassMode.Isotopic = 2
+            ElementMassMode.Integer  = 3
+            </returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.MolecularWeightTool.GetElementSymbol(System.Int16)">
+            <summary>
+            Return the element symbol for the given element ID
+            </summary>
+            <param name="elementId"></param>
+            <returns></returns>
+            <remarks>1 is Hydrogen, 2 is Helium, etc.</remarks>
+        </member>
+        <member name="M:MolecularWeightCalculator.MolecularWeightTool.GetElementStat(System.Int16,MolecularWeightCalculator.ElementStatsType)">
+            <summary>
+            Returns a single bit of information about a single element
+            </summary>
+            <param name="elementId">Element ID</param>
+            <param name="elementStat">Value to obtain: mass, charge, or uncertainty</param>
+            <returns></returns>
+            <remarks>Since a value may be negative, simply returns 0 if an error</remarks>
+        </member>
+        <member name="M:MolecularWeightCalculator.MolecularWeightTool.GetMessageStatement(System.Int32,System.String)">
+            <summary>
+            Get message text using message ID
+            </summary>
+            <param name="messageId"></param>
+            <param name="appendText"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.MolecularWeightTool.IsModSymbol(System.String)">
+            <summary>
+            Returns True if the first letter of <paramref name="symbol"/> is a ModSymbol
+            </summary>
+            <param name="symbol"></param>
+            <returns></returns>
+            <remarks>
+            Invalid Mod Symbols are letters, numbers, ., -, space, (, or )
+            Valid Mod Symbols are ! # $ % ampersand ' * + ? ^ ` ~
+            </remarks>
+        </member>
+        <member name="M:MolecularWeightCalculator.MolecularWeightTool.RecomputeAbbreviationMasses">
+            <summary>
+            Recomputes the Mass for all of the loaded abbreviations
+            </summary>
+            <remarks>
+            Useful if we just finished setting lots of element masses, and
+            had recomputeAbbreviationMasses = false when calling .SetElement()
+            </remarks>
+        </member>
+        <member name="M:MolecularWeightCalculator.MolecularWeightTool.SetAbbreviation(System.String,System.String,System.Single,System.Boolean,System.String,System.String,System.Boolean)">
+            <summary>
+            Adds a new abbreviation or updates an existing one (based on <paramref name="symbol"/>)
+            </summary>
+            <param name="symbol"></param>
+            <param name="formula"></param>
+            <param name="charge"></param>
+            <param name="isAminoAcid"></param>
+            <param name="oneLetterSymbol"></param>
+            <param name="comment"></param>
+            <param name="validateFormula">If true, make sure the formula is valid</param>
+            <returns>0 if successful, otherwise an error ID</returns>
+            <remarks>
+            It is useful to set <paramref name="validateFormula"/> = False when you're defining all of the abbreviations at once,
+            since one abbreviation can depend upon another, and if the second abbreviation hasn't yet been
+            defined, then the parsing of the first abbreviation will fail
+            </remarks>
+        </member>
+        <member name="M:MolecularWeightCalculator.MolecularWeightTool.SetAbbreviationById(System.Int32,System.String,System.String,System.Single,System.Boolean,System.String,System.String,System.Boolean)">
+            <summary>
+            Adds a new abbreviation or updates an existing one (based on <paramref name="abbrevId"/>)
+            </summary>
+            <param name="abbrevId">If abbrevId is less than 1, adds as a new abbreviation</param>
+            <param name="symbol"></param>
+            <param name="formula"></param>
+            <param name="charge"></param>
+            <param name="isAminoAcid"></param>
+            <param name="oneLetterSymbol"></param>
+            <param name="comment"></param>
+            <param name="validateFormula">If true, make sure the formula is valid</param>
+            <returns>0 if successful, otherwise an error ID</returns>
+            <remarks>
+            It is useful to set <paramref name="validateFormula"/> = False when you're defining all of the abbreviations at once,
+            since one abbreviation can depend upon another, and if the second abbreviation hasn't yet been
+            defined, then the parsing of the first abbreviation will fail
+            </remarks>
+        </member>
+        <member name="M:MolecularWeightCalculator.MolecularWeightTool.SetCautionStatement(System.String,System.String)">
+            <summary>
+            Adds a new caution statement or updates an existing one (based on <paramref name="symbolCombo"/>)
+            </summary>
+            <param name="symbolCombo"></param>
+            <param name="newCautionStatement"></param>
+            <returns>0 if successful, otherwise, returns an Error ID</returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.MolecularWeightTool.SetElement(System.String,System.Double,System.Double,System.Single,System.Boolean)">
+            <summary>
+            Update the values for a single element (based on <paramref name="symbol"/>)
+            </summary>
+            <param name="symbol"></param>
+            <param name="mass"></param>
+            <param name="uncertainty"></param>
+            <param name="charge"></param>
+            <param name="recomputeAbbreviationMasses">Set to false if updating several elements</param>
+            <returns></returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.MolecularWeightTool.SetElementIsotopes(System.String,System.Int16,System.Double[],System.Single[])">
+            <summary>
+            Set the isotopes for the element
+            </summary>
+            <param name="symbol"></param>
+            <param name="isotopeCount"></param>
+            <param name="isotopeMasses">0-based array</param>
+            <param name="isotopeAbundances">0-based array</param>
+            <returns></returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.MolecularWeightTool.SetElementMode(MolecularWeightCalculator.Formula.ElementMassMode,System.Boolean)">
+            <summary>
+            Set the element mode used for mass calculations
+            </summary>
+            <param name="elementMode"></param>
+            <param name="forceMemoryLoadElementValues">Set to true if you want to force a reload of element weights, even if not changing element modes</param>
+        </member>
+        <member name="M:MolecularWeightCalculator.MolecularWeightTool.SetMessageStatement(System.Int32,System.String)">
+            <summary>
+            Used to replace the default message strings with foreign language equivalent ones
+            </summary>
+            <param name="messageId"></param>
+            <param name="newMessage"></param>
+            <returns>0 if success; 1 if failure</returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.MolecularWeightTool.TextToRTF(System.String,System.Boolean,System.Boolean,System.Boolean,System.Int32)">
+            <summary>
+            Converts plain text to formatted RTF text
+            </summary>
+            <param name="textToConvert"></param>
+            <param name="calculatorMode">When true, does not superscript + signs and numbers following + signs</param>
+            <param name="highlightCharFollowingPercentSign">When true, change the character following a percent sign to red (and remove the percent sign)</param>
+            <param name="overrideErrorId"></param>
+            <param name="errorIdOverride"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.MolecularWeightTool.ValidateAllAbbreviations">
+            <summary>
+            Checks the formula of all abbreviations to make sure it's valid
+            Marks any abbreviations as Invalid if a problem is found or a circular reference exists
+            </summary>
+            <returns>Count of the number of invalid abbreviations found</returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.Sequence.Peptide.#ctor(MolecularWeightCalculator.Formula.ElementAndMassTools)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="elementAndMassTools"></param>
+        </member>
+        <member name="M:MolecularWeightCalculator.Sequence.Peptide.GetFragmentationMasses(MolecularWeightCalculator.Sequence.FragmentationSpectrumData[]@)">
+            <summary>
+            Get fragmentation masses
+            </summary>
+            <param name="fragSpectrum"></param>
+            <returns>The number of ions in fragSpectrum[]</returns>
+            <remarks></remarks>
+        </member>
+        <member name="M:MolecularWeightCalculator.Sequence.Peptide.GetTrypticName(System.String,System.String,System.Int32@,System.Int32@,System.Boolean,System.String,System.String,System.String,System.Boolean,System.Int32)">
+            <summary>
+            Examines <paramref name="peptideResidues"/> to see where they exist in <paramref name="proteinResidues"/>
+            Constructs a name string based on their position and based on whether the fragment is truly tryptic
+            In addition, returns the position of the first and last residue in <paramref name="returnResidueStart"/> and <paramref name="returnResidueEnd"/>
+            </summary>
+            <param name="proteinResidues"></param>
+            <param name="peptideResidues"></param>
+            <param name="returnResidueStart">Output: start peptides of the peptide residues in the protein</param>
+            <param name="returnResidueEnd">Output: end peptides of the peptide residues in the protein</param>
+            <param name="ICR2LSCompatible"></param>
+            <param name="ruleResidues"></param>
+            <param name="exceptionResidues"></param>
+            <param name="terminiiSymbol"></param>
+            <param name="ignoreCase"></param>
+            <param name="proteinSearchStartLoc"></param>
+            <returns></returns>
+            <remarks></remarks>
+        </member>
+        <member name="M:MolecularWeightCalculator.Sequence.Peptide.GetTrypticNameMultipleMatches(System.String,System.String,System.Int32@,System.Int32@,System.Int32@,System.Boolean,System.String,System.String,System.String,System.Boolean,System.Int32,System.String)">
+            <summary>
+            Examines <paramref name="peptideResidues"/> to see where they exist in <paramref name="proteinResidues"/>
+            Looks for all possible matches, returning them as a comma separated list
+            </summary>
+            <param name="proteinResidues"></param>
+            <param name="peptideResidues"></param>
+            <param name="returnMatchCount"></param>
+            <param name="returnResidueStart"></param>
+            <param name="returnResidueEnd"></param>
+            <param name="ICR2LSCompatible"></param>
+            <param name="ruleResidues"></param>
+            <param name="exceptionResidues"></param>
+            <param name="terminiiSymbol"></param>
+            <param name="ignoreCase"></param>
+            <param name="proteinSearchStartLoc"></param>
+            <param name="listDelimiter"></param>
+            <returns>The number of matches</returns>
+            <remarks></remarks>
+        </member>
+        <member name="M:MolecularWeightCalculator.Sequence.Peptide.SetResidue(System.Int32,System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Set the residue at the specified index
+            </summary>
+            <param name="residueIndex">0-based index of residue</param>
+            <param name="symbol"></param>
+            <param name="is3LetterCode"></param>
+            <param name="phosphorylated"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.Sequence.Peptide.SetResidueModifications(System.Int32,System.Int16,System.Int32[])">
+            <summary>
+            Sets modifications on a residue
+            </summary>
+            <param name="residueIndex">0-based index of residue</param>
+            <param name="modificationCount"></param>
+            <param name="modificationIDs">0-based array</param>
+            <returns></returns>
+        </member>
+        <member name="M:MolecularWeightCalculator.Sequence.Peptide.SetSequence1LetterSymbol(System.String)">
+            <summary>
+            Defines the peptide sequence
+            </summary>
+            <param name="sequence">Peptide sequence using 1-letter amino acid symbols</param>
+            <returns>0 if success or 1 if an error</returns>
+            <remarks>If <paramref name="sequence"/> is blank or contains no valid residues, then will still return 0</remarks>
+        </member>
+        <member name="M:MolecularWeightCalculator.Sequence.Peptide.SetSequence(System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Defines the peptide sequence
+            </summary>
+            <param name="sequence">Peptide sequence</param>
+            <param name="is3LetterCode">Set to true for 3-letter amino acid symbols, false for 1-letter symbols (for example, R.ABCDEF.R)</param>
+            <param name="oneLetterCheckForPrefixAndSuffixResidues">Set to true to check for and remove prefix and suffix residues when <paramref name="is3LetterCode"/> = false</param>
+            <returns>0 if success or 1 if an error</returns>
+            <remarks>If <paramref name="sequence"/> is blank or contains no valid residues, then will still return 0</remarks>
+        </member>
+        <member name="M:MolecularWeightCalculator.Sequence.Peptide.SetSequence(System.String,MolecularWeightCalculator.Sequence.NTerminusGroupType,MolecularWeightCalculator.Sequence.CTerminusGroupType,System.Boolean,System.Boolean,System.Boolean,System.Boolean)">
+            <summary>
+            Defines the peptide sequence
+            </summary>
+            <param name="sequence">Peptide sequence, using 3-letter amino acid symbols (unless <paramref name="is3LetterCode"/> = false)</param>
+            <param name="nTerminus">N-terminus group</param>
+            <param name="cTerminus">C-terminus group</param>
+            <param name="is3LetterCode">Set to true for 3-letter amino acid symbols, false for 1-letter symbols (for example, R.ABCDEF.R)</param>
+            <param name="oneLetterCheckForPrefixAndSuffixResidues">Set to true to check for and remove prefix and suffix residues when <paramref name="is3LetterCode"/> = false</param>
+            <param name="threeLetterCheckForPrefixHandSuffixOH">Set to true to check for and remove prefix H and OH when <paramref name="is3LetterCode"/> = true</param>
+            <param name="addMissingModificationSymbols">Set to true to automatically add missing modification symbols (though the mod masses will be 0)</param>
+            <returns>0 if success or 1 if an error</returns>
+            <remarks>If <paramref name="sequence" /> is blank or contains no valid residues, then will still return 0</remarks>
+        </member>
+    </members>
+</doc>
