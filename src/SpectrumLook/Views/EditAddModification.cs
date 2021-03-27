@@ -52,8 +52,7 @@ namespace SpectrumLook.Views
 
         private void okModButton_Click(object sender, EventArgs e)
         {
-            var outValue = 0.0;
-            if (double.TryParse(massTextBox.Text, out outValue))
+            if (double.TryParse(massTextBox.Text, out var outValue))
             {
                 DialogResult = DialogResult.OK;
                 ModificationString = symbolTextBox.Text;
@@ -86,8 +85,7 @@ namespace SpectrumLook.Views
             }
             else
             {
-                double tempVal = 0;
-                if (double.TryParse(massTextBox.Text, out tempVal))
+                if (double.TryParse(massTextBox.Text, out _))
                 {
                     MassString = massTextBox.Text;
                 }
