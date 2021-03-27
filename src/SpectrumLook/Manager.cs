@@ -637,10 +637,9 @@ namespace SpectrumLook
         /// Generates a new filename to use based off of the users options and the information used in the plot
         /// </summary>
         /// <param name="baseName"></param>
+        /// <param name="usePeptideAndScanName"></param>
         /// <param name="peptide"></param>
-        /// <param name="usePeptide"></param>
         /// <param name="scanNumber"></param>
-        /// <param name="useScanNumber"></param>
         /// <returns></returns>
         private static string createNextFileName(string baseName, bool usePeptideAndScanName, string peptide, string scanNumber)
         {
