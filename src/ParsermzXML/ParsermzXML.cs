@@ -25,10 +25,9 @@ namespace SpectrumLook
     /// By:          Patrick Tobin
     /// Group:       WSU Senior Design
     /// </summary>
-    /// 
+    ///
     public class mzXMLreader
     {
-        #region MEMBERS
         /// <summary>
         /// Name:        m_fileToRead
         /// Description: This is an object that holds and reads a given file and allows access to the experimental information.
@@ -66,9 +65,7 @@ namespace SpectrumLook
         /// Description: This is the current experimental code that is used to find data within the given mz experiment file.
         /// </summary>
         private int m_experimentCode;
-        #endregion
-        
-        #region PROPERTIES
+
 
         /// <summary>
         /// Name:        GetsMotherMzReader
@@ -93,10 +90,6 @@ namespace SpectrumLook
         }
         private static mzXMLreader _instance;
 
-        #endregion
-
-        #region CONSTRUCTOR
-
         //TODO: Rename this class to MzReader
         /// <summary>
         /// Name:        MzReader
@@ -109,14 +102,6 @@ namespace SpectrumLook
             m_mZIndex = 0;
         }
 
-        #endregion
-
-        #region FUNCTIONS
-
-        #region PRIVATE
-        #endregion
-
-        #region PUBLIC
         /// <summary>
         /// Name:        OpenMZXMLFile
         /// Description: After giving a valid file location, if a file is not already loaded, is loaded into m_fileToRead and the
@@ -212,8 +197,5 @@ namespace SpectrumLook
             this.m_currentSpectrum = null;
         }
 
-        #endregion
-
-        #endregion
     }
 }

@@ -13,12 +13,6 @@ namespace SpectrumLook.Builders
         TheoryListBuilder m_theoryBuilder;
         IExperimentParser m_parser;
 
-        public BuilderDirector()
-        {
-        }
-
-        #region ActualList
-
         public List<Element> BuildActualList(int scanNumber, string fileLocation)       //Idea is to check the extension, call the right parser based on extension of file name.
         {
             var mzXML = ".mzxml";
@@ -76,10 +70,6 @@ namespace SpectrumLook.Builders
             return actualList;
         }
 
-        #endregion
-
-        #region ComparedList
-
         public List<Element> BuildComparedList(double possibleError, double lowerBoundPossibleError, List<Element> actualElementList, double precursor, ref List<Element> theoryElementList)
         {
             var copyOfActualElementList = new List<Element>(actualElementList);
@@ -90,7 +80,7 @@ namespace SpectrumLook.Builders
                 copyOfActualElementList[i].Matched = false;
             }
 
-            ///Need to add the lowerBoundPossibleError into the function call below.
+            // Need to add the lowerBoundPossibleError into the function call below.
             m_comparedBuilder = new ComparedListBuilder(possibleError, lowerBoundPossibleError, copyOfActualElementList, precursor, ref theoryElementList);
 
             m_comparedBuilder.BuildList();
@@ -109,10 +99,6 @@ namespace SpectrumLook.Builders
 
             return comparedList;
         }
-
-        #endregion
-
-        #region TheoryList
 
         public List<Element> BuildTheoryList(string peptide, bool fragmentationModeETD, Dictionary<char, double> modificationList)
         {
@@ -134,8 +120,5 @@ namespace SpectrumLook.Builders
 
             return theoryList;
         }
-
-        #endregion
-
     }
 }

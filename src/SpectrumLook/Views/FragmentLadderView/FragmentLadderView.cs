@@ -16,8 +16,6 @@ namespace SpectrumLook.Views.FragmentLadderView
     //CHECKED OUT FOR EDIT TO ROLL BACK TO PREVIOUS VERSION
     public partial class FragmentLadderView : Form, IObserver
     {
-        #region MEMBERS
-
         private Manager m_manager;
 
         private FragmentLadderOptions m_fragmentLadderOptions;
@@ -28,10 +26,6 @@ namespace SpectrumLook.Views.FragmentLadderView
         private bool m_clearModifications;
 
         private bool m_currentlyDrawing;
-
-        #endregion
-
-        #region PROPERTIES
 
         public FragmentLadderOptions fragmentLadderOptions
         {
@@ -44,10 +38,6 @@ namespace SpectrumLook.Views.FragmentLadderView
                 m_fragmentLadderOptions = value;
             }
         }
-
-        #endregion
-
-        #region CONSTRUCTOR
 
         public FragmentLadderView(Manager manager)
         {
@@ -63,10 +53,6 @@ namespace SpectrumLook.Views.FragmentLadderView
 
             markIonSeriesHeaders();
         }
-
-        #endregion
-
-        #region PUBLIC FUNCTIONS
 
         /// <summary>
         /// This is required for the observer pattern.
@@ -773,8 +759,6 @@ namespace SpectrumLook.Views.FragmentLadderView
                 m_manager.UpdateCurrentInstance(this.tabControl1.SelectedIndex);
             }
         }
-
-        #endregion
 
         private void button1_Click(object sender, EventArgs e)
         {

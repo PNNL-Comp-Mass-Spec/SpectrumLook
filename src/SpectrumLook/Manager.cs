@@ -28,8 +28,6 @@ namespace SpectrumLook
             public int Charge;
         }
 
-        #region MEMBERS
-
         public MainForm m_mainForm;
         public SLPlot m_plot;
         public DataView m_dataView;
@@ -44,10 +42,6 @@ namespace SpectrumLook
         private LadderInstance m_currentInstance;
 
         private LadderInstanceDictionaryXmlSerializer m_workFileWriter;
-
-        #endregion
-
-        #region CONSTRUCTOR
 
         /// <summary>
         /// Ths is the main class the manages the interactions between the plot, dataview, mainform, and fragment ladder.
@@ -87,7 +81,7 @@ namespace SpectrumLook
             // check to see if data is loaded
             DataLoaded = false;
 
-            /*********************This is to read the UserProfile for spectrumLook**********************/
+            // This is to read the UserProfile for spectrumLook
             try
             {
                 reader = new FileStream(System.IO.Directory.GetCurrentDirectory() + "\\UserProfile.spuf", FileMode.Open, FileAccess.Read);
@@ -112,7 +106,7 @@ namespace SpectrumLook
                     reader.Close();
                 }
             }
-            /***************************************************************/
+
             //This is used to read and write the the .spuf
             m_workFileWriter = new LadderInstanceDictionaryXmlSerializer();
 
@@ -152,9 +146,6 @@ namespace SpectrumLook
             m_options.Hide();
         }
 
-        #endregion
-
-        #region HOTKEY MANAGEMENT
         /// <summary>
         /// This is a handle that is hooked to the keyboard.
         /// If the key that invoked this Handle is equal to the
@@ -174,10 +165,6 @@ namespace SpectrumLook
                 }
             }
         }
-
-        #endregion
-
-        #region CALLBACK FUCNTIONS
 
         public bool SynopsisLoaded { get; private set; }
         public bool DataLoaded { get; private set; }
@@ -684,7 +671,5 @@ namespace SpectrumLook
         private static int m_batchSaveCounter = 0;
 
         public delegate void UpdateLabelDelegate(string newText);
-
-        #endregion
     }
 }

@@ -14,13 +14,6 @@ namespace SpectrumLook.Builders
     /// </summary>
     public class SequestParser : ISynopsisParser
     {
-        #region MEMBERS
-
-        #region PUBLIC
-        #endregion
-
-        #region PRIVATE
-
         /// <summary>
         /// This stores the current location of the file that
         /// is passed into the constructor.
@@ -39,13 +32,6 @@ namespace SpectrumLook.Builders
         /// </summary>
         private int m_currentRowCount;
 
-        #endregion
-
-        #endregion
-
-        #region PROPERTIES
-
-        #region PUBLIC
         public string fileLocation
         {
             get
@@ -69,14 +55,9 @@ namespace SpectrumLook.Builders
                 m_currentRowCount = value;
             }
         }
-        #endregion
-
-        #endregion
-
-        #region CONSTRUCTOR
 
         /// <summary>
-        /// The constructor will attempt to open the inputed file location
+        /// The constructor will attempt to open the given file location
         /// that was passed into the constructor.  If the string passed in
         /// is null or is an unreadable file location then an error will
         /// be thrown.
@@ -106,12 +87,6 @@ namespace SpectrumLook.Builders
             }
         }
 
-        #endregion
-
-        #region FUNCTIONS
-
-        #region PUBLIC
-
         /// <summary>
         /// This function will needed to be called multiple times in order to read
         /// all data from the file.  If this is the first time this function is called
@@ -138,12 +113,5 @@ namespace SpectrumLook.Builders
             }
             return null;
         }
-
-        #endregion
-
-        #region PRIVATE
-        #endregion
-
-        #endregion
     }
 }

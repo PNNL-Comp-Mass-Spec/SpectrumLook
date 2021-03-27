@@ -183,7 +183,6 @@ namespace SpectrumLook.Views
             }
         }
 
-        #region PLOT_OPTIONS_EVENTS
         private void mainDetachPlotCheckBox_CheckedChanged_1(object sender, EventArgs e)
         {
             m_mainFormOptions.isPlotInMainForm = !(mainDetachPlotCheckBox.Checked);
@@ -327,9 +326,7 @@ namespace SpectrumLook.Views
                 plotNumberOfPlotsTextBox.Text = m_plotOptions.numberOfPlots.ToString();
             }
         }
-        #endregion
 
-        #region MAIN_OPTIONS_EVENTS
         private void mainMatchColorChangeButton_Click(object sender, EventArgs e)
         {
             var outputResult = this.colorDialog.ShowDialog();
@@ -392,13 +389,6 @@ namespace SpectrumLook.Views
             }
         }
 
-        #endregion
-
-        #region DATA_VIEW_OPTIONS_EVENTS
-        #endregion
-
-        #region FRAGMENT_LADDER_OPTIONS_EVENTS
-
         private void dataGridViewModList_Click(object sender, EventArgs e)
         {
             var selectedCell = dataGridViewModList.CurrentCell;
@@ -439,8 +429,6 @@ namespace SpectrumLook.Views
                 }
             }
         }
-
-        #endregion
 
         // TODO: Don't actually store any values to objects until this handler is called.
         // TODO: This will remove all need for the "cancel button handler" "data restore" (that doesn't restore any data).

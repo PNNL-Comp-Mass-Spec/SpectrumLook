@@ -14,13 +14,6 @@ namespace SpectrumLook.Builders
     /// </summary>
     public class MzParser : IExperimentParser
     {
-        #region MEMBERS
-
-        #region PUBLIC
-        #endregion
-
-        #region PRIVATE
-
         private clsMSDataFileReaderBaseClass m_fileToRead;
 
         private string m_fileLocation;
@@ -38,12 +31,6 @@ namespace SpectrumLook.Builders
                 m_fileLocation = value;
             }
         }
-
-        #endregion
-
-        #endregion
-
-        #region PROPERTIES
 
         public string currentFileLocation
         {
@@ -68,10 +55,6 @@ namespace SpectrumLook.Builders
                 m_fileOpened = value;
             }
         }
-
-        #endregion
-
-        #region CONSTRUCTOR
 
         /// <summary>
         /// The constructor of this parser will attempt to open any files that
@@ -103,11 +86,6 @@ namespace SpectrumLook.Builders
             }
         }
 
-        #endregion
-
-        #region FUCTIONS
-
-        #region PUBLIC
         /// <summary>
         /// This function returns an array of strings where the odd index's are intensities
         /// and even index's are mz Values.  The function takes advantage of the MSDataFileReader
@@ -144,12 +122,5 @@ namespace SpectrumLook.Builders
                 return null;
             }
         }
-        #endregion
-
-        #region PRIVATE
-        #endregion
-
-        #endregion
-
     }
 }

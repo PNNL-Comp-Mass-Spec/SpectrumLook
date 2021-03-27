@@ -20,8 +20,6 @@
             base.Dispose(disposing);
         }
 
-        #region Windows Form Designer generated code
-
         /// <summary>
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
@@ -96,9 +94,9 @@
             this.mainMatchingPropertiesGroup.SuspendLayout();
             this.mainUserProfileGroup.SuspendLayout();
             this.SuspendLayout();
-            // 
+            //
             // defaultButton
-            // 
+            //
             this.defaultButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.defaultButton.Location = new System.Drawing.Point(13, 422);
             this.defaultButton.Name = "defaultButton";
@@ -107,9 +105,9 @@
             this.defaultButton.Text = "Default";
             this.defaultButton.UseVisualStyleBackColor = true;
             this.defaultButton.Click += new System.EventHandler(this.defaultButton_Click);
-            // 
+            //
             // applyButton
-            // 
+            //
             this.applyButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.applyButton.Location = new System.Drawing.Point(352, 422);
             this.applyButton.Name = "applyButton";
@@ -118,9 +116,9 @@
             this.applyButton.Text = "Ok";
             this.applyButton.UseVisualStyleBackColor = true;
             this.applyButton.Click += new System.EventHandler(this.applyButton_Click);
-            // 
+            //
             // cancelButton
-            // 
+            //
             this.cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cancelButton.Location = new System.Drawing.Point(271, 422);
             this.cancelButton.Name = "cancelButton";
@@ -129,9 +127,9 @@
             this.cancelButton.Text = "Cancel";
             this.cancelButton.UseVisualStyleBackColor = true;
             this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
-            // 
+            //
             // PlotOptionsView
-            // 
+            //
             this.PlotOptionsView.Controls.Add(this.mainWindowOptionsGroup);
             this.PlotOptionsView.Controls.Add(this.multiplePlotGroup);
             this.PlotOptionsView.Controls.Add(this.plotAnnotationOptionsGroup);
@@ -144,9 +142,9 @@
             this.PlotOptionsView.TabIndex = 0;
             this.PlotOptionsView.Text = "Plot Options";
             this.PlotOptionsView.UseVisualStyleBackColor = true;
-            // 
+            //
             // mainWindowOptionsGroup
-            // 
+            //
             this.mainWindowOptionsGroup.Controls.Add(this.mainDetachPlotCheckBox);
             this.mainWindowOptionsGroup.Location = new System.Drawing.Point(201, 298);
             this.mainWindowOptionsGroup.Name = "mainWindowOptionsGroup";
@@ -154,9 +152,9 @@
             this.mainWindowOptionsGroup.TabIndex = 5;
             this.mainWindowOptionsGroup.TabStop = false;
             this.mainWindowOptionsGroup.Text = "Window Options";
-            // 
+            //
             // mainDetachPlotCheckBox
-            // 
+            //
             this.mainDetachPlotCheckBox.AutoSize = true;
             this.mainDetachPlotCheckBox.Location = new System.Drawing.Point(6, 29);
             this.mainDetachPlotCheckBox.Name = "mainDetachPlotCheckBox";
@@ -165,9 +163,9 @@
             this.mainDetachPlotCheckBox.Text = "Detach Plot";
             this.mainDetachPlotCheckBox.UseVisualStyleBackColor = true;
             this.mainDetachPlotCheckBox.CheckedChanged += new System.EventHandler(this.mainDetachPlotCheckBox_CheckedChanged_1);
-            // 
+            //
             // multiplePlotGroup
-            // 
+            //
             this.multiplePlotGroup.Controls.Add(this.numberOfPlotsLabel);
             this.multiplePlotGroup.Controls.Add(this.plotNumberOfPlotsTextBox);
             this.multiplePlotGroup.Location = new System.Drawing.Point(7, 298);
@@ -176,26 +174,26 @@
             this.multiplePlotGroup.TabIndex = 4;
             this.multiplePlotGroup.TabStop = false;
             this.multiplePlotGroup.Text = "Multiple Plot Options";
-            // 
+            //
             // numberOfPlotsLabel
-            // 
+            //
             this.numberOfPlotsLabel.AutoSize = true;
             this.numberOfPlotsLabel.Location = new System.Drawing.Point(7, 30);
             this.numberOfPlotsLabel.Name = "numberOfPlotsLabel";
             this.numberOfPlotsLabel.Size = new System.Drawing.Size(85, 13);
             this.numberOfPlotsLabel.TabIndex = 1;
             this.numberOfPlotsLabel.Text = "Number of Plots:";
-            // 
+            //
             // plotNumberOfPlotsTextBox
-            // 
+            //
             this.plotNumberOfPlotsTextBox.Location = new System.Drawing.Point(95, 27);
             this.plotNumberOfPlotsTextBox.Name = "plotNumberOfPlotsTextBox";
             this.plotNumberOfPlotsTextBox.Size = new System.Drawing.Size(43, 20);
             this.plotNumberOfPlotsTextBox.TabIndex = 13;
             this.plotNumberOfPlotsTextBox.Leave += new System.EventHandler(this.numberOfPlotsTextBox_Leave);
-            // 
+            //
             // plotAnnotationOptionsGroup
-            // 
+            //
             this.plotAnnotationOptionsGroup.Controls.Add(this.plotChangeColorOpenButton);
             this.plotAnnotationOptionsGroup.Controls.Add(this.plotAnnotationColor);
             this.plotAnnotationOptionsGroup.Controls.Add(this.plotAnnotatioColorLabel);
@@ -210,9 +208,9 @@
             this.plotAnnotationOptionsGroup.TabIndex = 2;
             this.plotAnnotationOptionsGroup.TabStop = false;
             this.plotAnnotationOptionsGroup.Text = "Annotation Options";
-            // 
+            //
             // plotChangeColorOpenButton
-            // 
+            //
             this.plotChangeColorOpenButton.Location = new System.Drawing.Point(98, 65);
             this.plotChangeColorOpenButton.Name = "plotChangeColorOpenButton";
             this.plotChangeColorOpenButton.Size = new System.Drawing.Size(86, 23);
@@ -220,69 +218,69 @@
             this.plotChangeColorOpenButton.Text = "Change Color";
             this.plotChangeColorOpenButton.UseVisualStyleBackColor = true;
             this.plotChangeColorOpenButton.Click += new System.EventHandler(this.plotChangeColorOpenButton_Click);
-            // 
+            //
             // plotAnnotationColor
-            // 
+            //
             this.plotAnnotationColor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.plotAnnotationColor.Location = new System.Drawing.Point(68, 70);
             this.plotAnnotationColor.Name = "plotAnnotationColor";
             this.plotAnnotationColor.Size = new System.Drawing.Size(15, 15);
             this.plotAnnotationColor.TabIndex = 11;
-            // 
+            //
             // plotAnnotatioColorLabel
-            // 
+            //
             this.plotAnnotatioColorLabel.AutoSize = true;
             this.plotAnnotatioColorLabel.Location = new System.Drawing.Point(14, 70);
             this.plotAnnotatioColorLabel.Name = "plotAnnotatioColorLabel";
             this.plotAnnotatioColorLabel.Size = new System.Drawing.Size(31, 13);
             this.plotAnnotatioColorLabel.TabIndex = 5;
             this.plotAnnotatioColorLabel.Text = "Color";
-            // 
+            //
             // plotTextSize
-            // 
+            //
             this.plotTextSize.Location = new System.Drawing.Point(68, 41);
             this.plotTextSize.Name = "plotTextSize";
             this.plotTextSize.Size = new System.Drawing.Size(31, 20);
             this.plotTextSize.TabIndex = 10;
             this.plotTextSize.Leave += new System.EventHandler(this.plotTextSize_TextChanged);
-            // 
+            //
             // plotAnnotationTextSizeLabel
-            // 
+            //
             this.plotAnnotationTextSizeLabel.AutoSize = true;
             this.plotAnnotationTextSizeLabel.Location = new System.Drawing.Point(11, 44);
             this.plotAnnotationTextSizeLabel.Name = "plotAnnotationTextSizeLabel";
             this.plotAnnotationTextSizeLabel.Size = new System.Drawing.Size(51, 13);
             this.plotAnnotationTextSizeLabel.TabIndex = 3;
             this.plotAnnotationTextSizeLabel.Text = "Text Size";
-            // 
+            //
             // plotAnnotationPercentLabel2
-            // 
+            //
             this.plotAnnotationPercentLabel2.AutoSize = true;
             this.plotAnnotationPercentLabel2.Location = new System.Drawing.Point(215, 20);
             this.plotAnnotationPercentLabel2.Name = "plotAnnotationPercentLabel2";
             this.plotAnnotationPercentLabel2.Size = new System.Drawing.Size(106, 13);
             this.plotAnnotationPercentLabel2.TabIndex = 2;
             this.plotAnnotationPercentLabel2.Text = "% of matched peaks.";
-            // 
+            //
             // plotAnnotationPercentBox
-            // 
+            //
             this.plotAnnotationPercentBox.Location = new System.Drawing.Point(179, 17);
             this.plotAnnotationPercentBox.Name = "plotAnnotationPercentBox";
             this.plotAnnotationPercentBox.Size = new System.Drawing.Size(29, 20);
             this.plotAnnotationPercentBox.TabIndex = 9;
             this.plotAnnotationPercentBox.Leave += new System.EventHandler(this.plotAnnotationPercentBox_TextChanged);
-            // 
+            //
             // plotAnnotationPercentLabel1
-            // 
+            //
             this.plotAnnotationPercentLabel1.AutoSize = true;
             this.plotAnnotationPercentLabel1.Location = new System.Drawing.Point(11, 20);
             this.plotAnnotationPercentLabel1.Name = "plotAnnotationPercentLabel1";
             this.plotAnnotationPercentLabel1.Size = new System.Drawing.Size(162, 13);
             this.plotAnnotationPercentLabel1.TabIndex = 0;
             this.plotAnnotationPercentLabel1.Text = "Show only Annotations in the top";
-            // 
+            //
             // plotZoomOptionsGroup
-            // 
+            //
             this.plotZoomOptionsGroup.Controls.Add(this.plotRightClickUnzoom);
             this.plotZoomOptionsGroup.Controls.Add(this.plotFragLadderSelectBox);
             this.plotZoomOptionsGroup.Controls.Add(this.plotFragLadderSelectLabel);
@@ -296,9 +294,9 @@
             this.plotZoomOptionsGroup.TabIndex = 1;
             this.plotZoomOptionsGroup.TabStop = false;
             this.plotZoomOptionsGroup.Text = "Zoom Options";
-            // 
+            //
             // plotRightClickUnzoom
-            // 
+            //
             this.plotRightClickUnzoom.AutoSize = true;
             this.plotRightClickUnzoom.Location = new System.Drawing.Point(6, 43);
             this.plotRightClickUnzoom.Name = "plotRightClickUnzoom";
@@ -307,44 +305,44 @@
             this.plotRightClickUnzoom.Text = "Enable Right Click Unzooming";
             this.plotRightClickUnzoom.UseVisualStyleBackColor = true;
             this.plotRightClickUnzoom.CheckedChanged += new System.EventHandler(this.checkBoxRightClickUnzoom_CheckedChanged);
-            // 
+            //
             // plotFragLadderSelectBox
-            // 
+            //
             this.plotFragLadderSelectBox.Location = new System.Drawing.Point(196, 69);
             this.plotFragLadderSelectBox.Name = "plotFragLadderSelectBox";
             this.plotFragLadderSelectBox.Size = new System.Drawing.Size(100, 20);
             this.plotFragLadderSelectBox.TabIndex = 8;
             this.plotFragLadderSelectBox.Leave += new System.EventHandler(this.plotFragLadderSelectBox_TextChanged);
-            // 
+            //
             // plotFragLadderSelectLabel
-            // 
+            //
             this.plotFragLadderSelectLabel.AutoSize = true;
             this.plotFragLadderSelectLabel.Location = new System.Drawing.Point(6, 72);
             this.plotFragLadderSelectLabel.Name = "plotFragLadderSelectLabel";
             this.plotFragLadderSelectLabel.Size = new System.Drawing.Size(191, 13);
             this.plotFragLadderSelectLabel.TabIndex = 4;
             this.plotFragLadderSelectLabel.Text = "Fragment Ladder auto zoom select size";
-            // 
+            //
             // plotUnzoomKeyLabel
-            // 
+            //
             this.plotUnzoomKeyLabel.AutoSize = true;
             this.plotUnzoomKeyLabel.Location = new System.Drawing.Point(193, 44);
             this.plotUnzoomKeyLabel.Name = "plotUnzoomKeyLabel";
             this.plotUnzoomKeyLabel.Size = new System.Drawing.Size(67, 13);
             this.plotUnzoomKeyLabel.TabIndex = 3;
             this.plotUnzoomKeyLabel.Text = "Unzoom Key";
-            // 
+            //
             // plotUnzoomKeyComboBox
-            // 
+            //
             this.plotUnzoomKeyComboBox.FormattingEnabled = true;
             this.plotUnzoomKeyComboBox.Location = new System.Drawing.Point(266, 41);
             this.plotUnzoomKeyComboBox.Name = "plotUnzoomKeyComboBox";
             this.plotUnzoomKeyComboBox.Size = new System.Drawing.Size(121, 21);
             this.plotUnzoomKeyComboBox.TabIndex = 7;
             this.plotUnzoomKeyComboBox.Leave += new System.EventHandler(this.plotUnzoomKeyComboBox_Leave);
-            // 
+            //
             // plotBoxZoom
-            // 
+            //
             this.plotBoxZoom.AutoSize = true;
             this.plotBoxZoom.Location = new System.Drawing.Point(115, 20);
             this.plotBoxZoom.Name = "plotBoxZoom";
@@ -354,9 +352,9 @@
             this.plotBoxZoom.Text = "Box Zoom";
             this.plotBoxZoom.UseVisualStyleBackColor = true;
             this.plotBoxZoom.CheckedChanged += new System.EventHandler(this.plotBoxZoom_CheckedChanged);
-            // 
+            //
             // plotHorizontalZoom
-            // 
+            //
             this.plotHorizontalZoom.AutoSize = true;
             this.plotHorizontalZoom.Location = new System.Drawing.Point(7, 20);
             this.plotHorizontalZoom.Name = "plotHorizontalZoom";
@@ -366,9 +364,9 @@
             this.plotHorizontalZoom.Text = "Horizontal Zoom";
             this.plotHorizontalZoom.UseVisualStyleBackColor = true;
             this.plotHorizontalZoom.CheckedChanged += new System.EventHandler(this.plotHorizontalZoom_CheckedChanged);
-            // 
+            //
             // plotGeneralOptionsGroup
-            // 
+            //
             this.plotGeneralOptionsGroup.Controls.Add(this.plotHidePlotTools);
             this.plotGeneralOptionsGroup.Controls.Add(this.plotHideUnmatchedData);
             this.plotGeneralOptionsGroup.Controls.Add(this.plotSnappingCursor);
@@ -379,9 +377,9 @@
             this.plotGeneralOptionsGroup.TabIndex = 0;
             this.plotGeneralOptionsGroup.TabStop = false;
             this.plotGeneralOptionsGroup.Text = "General Options";
-            // 
+            //
             // plotHidePlotTools
-            // 
+            //
             this.plotHidePlotTools.AutoSize = true;
             this.plotHidePlotTools.Location = new System.Drawing.Point(153, 44);
             this.plotHidePlotTools.Name = "plotHidePlotTools";
@@ -390,9 +388,9 @@
             this.plotHidePlotTools.Text = "Hide Plot Tools Area";
             this.plotHidePlotTools.UseVisualStyleBackColor = true;
             this.plotHidePlotTools.CheckedChanged += new System.EventHandler(this.checkBoxHidePlotTools_CheckedChanged);
-            // 
+            //
             // plotHideUnmatchedData
-            // 
+            //
             this.plotHideUnmatchedData.AutoSize = true;
             this.plotHideUnmatchedData.Location = new System.Drawing.Point(153, 20);
             this.plotHideUnmatchedData.Name = "plotHideUnmatchedData";
@@ -402,9 +400,9 @@
             this.plotHideUnmatchedData.UseVisualStyleBackColor = true;
             this.plotHideUnmatchedData.Visible = false;
             this.plotHideUnmatchedData.CheckedChanged += new System.EventHandler(this.plotHideUnmatchedData_CheckedChanged);
-            // 
+            //
             // plotSnappingCursor
-            // 
+            //
             this.plotSnappingCursor.AutoSize = true;
             this.plotSnappingCursor.Location = new System.Drawing.Point(7, 44);
             this.plotSnappingCursor.Name = "plotSnappingCursor";
@@ -413,9 +411,9 @@
             this.plotSnappingCursor.Text = "Show Snapping Cursor";
             this.plotSnappingCursor.UseVisualStyleBackColor = true;
             this.plotSnappingCursor.CheckedChanged += new System.EventHandler(this.plotSnappingCursor_CheckedChanged);
-            // 
+            //
             // plotShowLegend
-            // 
+            //
             this.plotShowLegend.AutoSize = true;
             this.plotShowLegend.Location = new System.Drawing.Point(7, 20);
             this.plotShowLegend.Name = "plotShowLegend";
@@ -424,9 +422,9 @@
             this.plotShowLegend.Text = "Show Legend";
             this.plotShowLegend.UseVisualStyleBackColor = true;
             this.plotShowLegend.CheckedChanged += new System.EventHandler(this.plotShowLegend_CheckedChanged);
-            // 
+            //
             // optionTabsPage
-            // 
+            //
             this.optionTabsPage.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
@@ -438,9 +436,9 @@
             this.optionTabsPage.SelectedIndex = 0;
             this.optionTabsPage.Size = new System.Drawing.Size(414, 403);
             this.optionTabsPage.TabIndex = 0;
-            // 
+            //
             // fragLadderTab
-            // 
+            //
             this.fragLadderTab.Controls.Add(this.groupBox1);
             this.fragLadderTab.Location = new System.Drawing.Point(4, 22);
             this.fragLadderTab.Name = "fragLadderTab";
@@ -448,17 +446,17 @@
             this.fragLadderTab.TabIndex = 2;
             this.fragLadderTab.Text = "Fragment Ladder Options";
             this.fragLadderTab.UseVisualStyleBackColor = true;
-            // 
+            //
             // dataGridViewModList
-            // 
+            //
             this.dataGridViewModList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewModList.Location = new System.Drawing.Point(6, 19);
             this.dataGridViewModList.Name = "dataGridViewModList";
             this.dataGridViewModList.Size = new System.Drawing.Size(191, 345);
             this.dataGridViewModList.TabIndex = 1;
-            // 
+            //
             // groupBox1
-            // 
+            //
             this.groupBox1.Controls.Add(this.dataGridViewModList);
             this.groupBox1.Location = new System.Drawing.Point(4, 4);
             this.groupBox1.Name = "groupBox1";
@@ -466,9 +464,9 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Modifications";
-            // 
+            //
             // MainOptionsView
-            // 
+            //
             this.MainOptionsView.Controls.Add(this.mainDataPropertiesGroup);
             this.MainOptionsView.Controls.Add(this.mainMatchingPropertiesGroup);
             this.MainOptionsView.Controls.Add(this.mainUserProfileGroup);
@@ -478,9 +476,9 @@
             this.MainOptionsView.TabIndex = 1;
             this.MainOptionsView.Text = "General Options";
             this.MainOptionsView.UseVisualStyleBackColor = true;
-            // 
+            //
             // mainDataPropertiesGroup
-            // 
+            //
             this.mainDataPropertiesGroup.Controls.Add(this.mainUnmatchColorChangeButton);
             this.mainDataPropertiesGroup.Controls.Add(this.mainUnmatchedColorSample);
             this.mainDataPropertiesGroup.Controls.Add(this.mainUnmatchedColorLabel);
@@ -493,9 +491,9 @@
             this.mainDataPropertiesGroup.TabIndex = 1;
             this.mainDataPropertiesGroup.TabStop = false;
             this.mainDataPropertiesGroup.Text = "Data Properties";
-            // 
+            //
             // mainUnmatchColorChangeButton
-            // 
+            //
             this.mainUnmatchColorChangeButton.Location = new System.Drawing.Point(129, 38);
             this.mainUnmatchColorChangeButton.Name = "mainUnmatchColorChangeButton";
             this.mainUnmatchColorChangeButton.Size = new System.Drawing.Size(86, 23);
@@ -503,26 +501,26 @@
             this.mainUnmatchColorChangeButton.Text = "Change Color";
             this.mainUnmatchColorChangeButton.UseVisualStyleBackColor = true;
             this.mainUnmatchColorChangeButton.Click += new System.EventHandler(this.mainUnmatchColorChangeButton_Click);
-            // 
+            //
             // mainUnmatchedColorSample
-            // 
+            //
             this.mainUnmatchedColorSample.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.mainUnmatchedColorSample.Location = new System.Drawing.Point(95, 43);
             this.mainUnmatchedColorSample.Name = "mainUnmatchedColorSample";
             this.mainUnmatchedColorSample.Size = new System.Drawing.Size(15, 15);
             this.mainUnmatchedColorSample.TabIndex = 6;
-            // 
+            //
             // mainUnmatchedColorLabel
-            // 
+            //
             this.mainUnmatchedColorLabel.AutoSize = true;
             this.mainUnmatchedColorLabel.Location = new System.Drawing.Point(6, 43);
             this.mainUnmatchedColorLabel.Name = "mainUnmatchedColorLabel";
             this.mainUnmatchedColorLabel.Size = new System.Drawing.Size(89, 13);
             this.mainUnmatchedColorLabel.TabIndex = 11;
             this.mainUnmatchedColorLabel.Text = "Unmatched Color";
-            // 
+            //
             // mainMatchColorChangeButton
-            // 
+            //
             this.mainMatchColorChangeButton.Location = new System.Drawing.Point(129, 11);
             this.mainMatchColorChangeButton.Name = "mainMatchColorChangeButton";
             this.mainMatchColorChangeButton.Size = new System.Drawing.Size(86, 23);
@@ -530,26 +528,26 @@
             this.mainMatchColorChangeButton.Text = "Change Color";
             this.mainMatchColorChangeButton.UseVisualStyleBackColor = true;
             this.mainMatchColorChangeButton.Click += new System.EventHandler(this.mainMatchColorChangeButton_Click);
-            // 
+            //
             // mainMatchedColorSample
-            // 
+            //
             this.mainMatchedColorSample.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.mainMatchedColorSample.Location = new System.Drawing.Point(95, 16);
             this.mainMatchedColorSample.Name = "mainMatchedColorSample";
             this.mainMatchedColorSample.Size = new System.Drawing.Size(15, 15);
             this.mainMatchedColorSample.TabIndex = 4;
-            // 
+            //
             // mainMatchedColorLabel
-            // 
+            //
             this.mainMatchedColorLabel.AutoSize = true;
             this.mainMatchedColorLabel.Location = new System.Drawing.Point(6, 16);
             this.mainMatchedColorLabel.Name = "mainMatchedColorLabel";
             this.mainMatchedColorLabel.Size = new System.Drawing.Size(76, 13);
             this.mainMatchedColorLabel.TabIndex = 8;
             this.mainMatchedColorLabel.Text = "Matched Color";
-            // 
+            //
             // mainMatchingPropertiesGroup
-            // 
+            //
             this.mainMatchingPropertiesGroup.Controls.Add(this.lowerMatchingToleranceBox);
             this.mainMatchingPropertiesGroup.Controls.Add(this.lowerMatchingToleranceLabel);
             this.mainMatchingPropertiesGroup.Controls.Add(this.mainMatchingToleranceBox);
@@ -560,43 +558,43 @@
             this.mainMatchingPropertiesGroup.TabIndex = 2;
             this.mainMatchingPropertiesGroup.TabStop = false;
             this.mainMatchingPropertiesGroup.Text = "Matching Properties";
-            // 
+            //
             // lowerMatchingToleranceBox
-            // 
+            //
             this.lowerMatchingToleranceBox.Location = new System.Drawing.Point(12, 32);
             this.lowerMatchingToleranceBox.Name = "lowerMatchingToleranceBox";
             this.lowerMatchingToleranceBox.Size = new System.Drawing.Size(100, 20);
             this.lowerMatchingToleranceBox.TabIndex = 10;
             this.lowerMatchingToleranceBox.Leave += new System.EventHandler(this.lowerMatchingToleranceBox_TextChanged);
-            // 
+            //
             // lowerMatchingToleranceLabel
-            // 
+            //
             this.lowerMatchingToleranceLabel.AutoSize = true;
             this.lowerMatchingToleranceLabel.Location = new System.Drawing.Point(9, 16);
             this.lowerMatchingToleranceLabel.Name = "lowerMatchingToleranceLabel";
             this.lowerMatchingToleranceLabel.Size = new System.Drawing.Size(87, 13);
             this.lowerMatchingToleranceLabel.TabIndex = 9;
             this.lowerMatchingToleranceLabel.Text = "Lower Tolerance";
-            // 
+            //
             // mainMatchingToleranceBox
-            // 
+            //
             this.mainMatchingToleranceBox.Location = new System.Drawing.Point(162, 32);
             this.mainMatchingToleranceBox.Name = "mainMatchingToleranceBox";
             this.mainMatchingToleranceBox.Size = new System.Drawing.Size(100, 20);
             this.mainMatchingToleranceBox.TabIndex = 8;
             this.mainMatchingToleranceBox.Leave += new System.EventHandler(this.mainMatchingToleranceBox_TextChanged);
-            // 
+            //
             // mainMatchingToleranceLabel
-            // 
+            //
             this.mainMatchingToleranceLabel.AutoSize = true;
             this.mainMatchingToleranceLabel.Location = new System.Drawing.Point(159, 16);
             this.mainMatchingToleranceLabel.Name = "mainMatchingToleranceLabel";
             this.mainMatchingToleranceLabel.Size = new System.Drawing.Size(87, 13);
             this.mainMatchingToleranceLabel.TabIndex = 0;
             this.mainMatchingToleranceLabel.Text = "Upper Tolerance";
-            // 
+            //
             // mainUserProfileGroup
-            // 
+            //
             this.mainUserProfileGroup.Controls.Add(this.mainUserBrowseButton);
             this.mainUserProfileGroup.Controls.Add(this.mainProfileFileLocationBox);
             this.mainUserProfileGroup.Location = new System.Drawing.Point(4, 4);
@@ -605,9 +603,9 @@
             this.mainUserProfileGroup.TabIndex = 0;
             this.mainUserProfileGroup.TabStop = false;
             this.mainUserProfileGroup.Text = "User Profile";
-            // 
+            //
             // mainUserBrowseButton
-            // 
+            //
             this.mainUserBrowseButton.Location = new System.Drawing.Point(318, 18);
             this.mainUserBrowseButton.Name = "mainUserBrowseButton";
             this.mainUserBrowseButton.Size = new System.Drawing.Size(75, 23);
@@ -615,24 +613,24 @@
             this.mainUserBrowseButton.Text = "Browse";
             this.mainUserBrowseButton.UseVisualStyleBackColor = true;
             this.mainUserBrowseButton.Click += new System.EventHandler(this.mainUserBrowseButton_Click);
-            // 
+            //
             // mainProfileFileLocationBox
-            // 
+            //
             this.mainProfileFileLocationBox.Location = new System.Drawing.Point(7, 20);
             this.mainProfileFileLocationBox.Name = "mainProfileFileLocationBox";
             this.mainProfileFileLocationBox.Size = new System.Drawing.Size(305, 20);
             this.mainProfileFileLocationBox.TabIndex = 1;
-            // 
+            //
             // openFileDialog
-            // 
+            //
             this.openFileDialog.DefaultExt = "( *.spuf ) | .spuf";
             this.openFileDialog.FileName = "User Profile";
             this.openFileDialog.Filter = "SpectrumLook User File|*.spuf";
             this.openFileDialog.InitialDirectory = "c:\\";
             this.openFileDialog.Title = "Choose the User Profile";
-            // 
+            //
             // OptionsViewController
-            // 
+            //
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(439, 457);
@@ -673,8 +671,6 @@
             this.ResumeLayout(false);
 
         }
-
-        #endregion
 
         private System.Windows.Forms.Button defaultButton;
         private System.Windows.Forms.Button applyButton;

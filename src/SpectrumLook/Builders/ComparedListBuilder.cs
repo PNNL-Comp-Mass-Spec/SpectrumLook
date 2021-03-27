@@ -66,7 +66,6 @@ namespace SpectrumLook.Builders
             }
         }
 
-        #region CONSTRUCTOR
         /// <summary>
         /// This constructor sets the initial value for the BuildList Function.
         /// </summary>
@@ -83,11 +82,6 @@ namespace SpectrumLook.Builders
             m_upperBoundTolerance       = possibleError;
             m_lowerBoundTolerance       = lowerBoundPossibleError;
         }
-        #endregion
-
-        #region FUNCTIONS
-
-        #region PUBLIC
 
         /// <summary>
         /// BuildElement builds a List of elements based on the actualElementList, theoryElementList
@@ -347,12 +341,5 @@ namespace SpectrumLook.Builders
                 ElementList.Add(elementForCopying);
             }
         }
-
-        #endregion
-
-        #region PRIVATE
-        #endregion
-
-        #endregion
     }
 }

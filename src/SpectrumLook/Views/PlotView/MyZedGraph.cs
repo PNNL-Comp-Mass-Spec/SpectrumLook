@@ -35,7 +35,6 @@ namespace SpectrumLook.Views
         private const string unmatchedCurveName = "Unmatched Peaks";
         private const string matchedCurveName = "Matched Peaks";
 
-        #region Initialization
         /// <summary>
         /// The constructor for our custom ZedGraph
         /// </summary>
@@ -82,9 +81,7 @@ namespace SpectrumLook.Views
             this.Size = new System.Drawing.Size(151, 150);
             this.ResumeLayout(false);
         }
-        #endregion
 
-        #region Snapping Cursor
         /// <summary>
         /// zedgraph event that fires when the mouse moves.  We use this to paint the snapping cursor over the graph.
         /// </summary>
@@ -251,9 +248,7 @@ namespace SpectrumLook.Views
         {
             return m_snapBoxPosition;
         }
-        #endregion
 
-        #region Annotations
         /// <summary>
         /// Double click event for the graph when we want to edit annotations
         /// </summary>
@@ -508,9 +503,6 @@ namespace SpectrumLook.Views
 
             return minIntensity;
         }
-        #endregion
-
-        #region Plotting
 
         private const float m_standardBaseDemension = 7.0F;
 
@@ -778,9 +770,7 @@ namespace SpectrumLook.Views
 
             return newList;
         }
-        #endregion
 
-        #region Drawing
         /// <summary>
         /// Sets the drawArrow flag to true so that the plot knows to draw the arrow, also sets the point the arrow is drawn at
         /// </summary>
@@ -845,9 +835,6 @@ namespace SpectrumLook.Views
                 DrawArrow(m_arrowPoint, e);
             }
         }
-        #endregion
-
-        #region Right Click
 
         protected override void OnMouseClick(MouseEventArgs e)
         {
@@ -870,10 +857,6 @@ namespace SpectrumLook.Views
                 }
             }
         }
-
-        #endregion
-
-        #region Form Events
 
         /// <summary>
         /// Event that fires when the control is resized
@@ -940,7 +923,5 @@ namespace SpectrumLook.Views
 
             return closest;
         }
-
-        #endregion
     }
 }

@@ -30,7 +30,6 @@ namespace SpectrumLook.Views
             }
         }
 
-        #region Initialization
         /// <summary>
         /// The constructor for the form
         /// </summary>
@@ -59,9 +58,7 @@ namespace SpectrumLook.Views
         {
             // msPlot.SetSize(new Point(10, 10), ClientRectangle.Width - 20, ClientRectangle.Height - 20);
         }
-        #endregion
 
-        #region Keyboard Shortcuts
         protected override void OnKeyDown(KeyEventArgs e)
         {
             base.OnKeyDown(e);
@@ -71,9 +68,7 @@ namespace SpectrumLook.Views
                 m_manager.HandleKeyboardShortcuts(e);
             }
         }
-        #endregion
 
-        #region Form Sizing
         /// <summary>
         /// The resize event for the form, resizes the graph at the same time
         /// </summary>
@@ -167,9 +162,6 @@ namespace SpectrumLook.Views
                 m_options.hidePlotTools = true;
             }
         }
-        #endregion
-
-        #region Annotation Editing
 
         /// <summary>
         /// Handles selecting the nearest peptide to edit the annotation for, and showing the editAnnotation form
@@ -254,9 +246,6 @@ namespace SpectrumLook.Views
             msPlot.Invalidate();
             return;
         }
-        #endregion
-
-        #region Batch Save
 
         ///The following is copied from ZedGraph... use this to figure out how to save an image File
         public readonly List<string> SaveAsImageTypes = new List<string>() { ".emf", ".png", ".gif", ".jpg", ".tif", ".bmp" };
@@ -352,9 +341,6 @@ namespace SpectrumLook.Views
             }
         }
 
-        #endregion
-
-        #region Options
         /// <summary>
         /// Extra event for the closing of the options form so that we can update the plot to the user's new options
         /// </summary>
@@ -389,9 +375,7 @@ namespace SpectrumLook.Views
             msPlot.ReevaluateAnnotations();
             msPlot.Invalidate();
         }
-        #endregion
 
-        #region Public Methods
         /// <summary>
         /// Updates information on the form about the Snapping Point's Position.  This is used as a callback in the myZedGraph plotter.
         /// </summary>
@@ -484,8 +468,6 @@ namespace SpectrumLook.Views
                 buttonDetachPlot.Text = "Detach Plot";
             }
         }
-
-        #endregion
 
         private void buttonPlotOptions_Click(object sender, EventArgs e)
         {

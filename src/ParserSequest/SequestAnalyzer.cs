@@ -49,8 +49,7 @@ namespace SpectrumLook.ParserSequest
     /// </summary>
     public class SequestAnalyzer
     {
-        #region MEMBERS
-        //TODO: Add Comments to fields  
+        //TODO: Add Comments to fields
         public DataTable FileStructure
         {
             get
@@ -68,10 +67,6 @@ namespace SpectrumLook.ParserSequest
         private double m_massOfProton;
         private List<PeptideTuple> m_sequestListData;
         private string[] m_columnHeaders;
-        #endregion
-
-        #region FUNCTION
-        #region PUBLIC
 
         //TODO: Make it so this can ready any type of File format, as long as it has Scan numbers.
         /// <summary>
@@ -243,11 +238,6 @@ namespace SpectrumLook.ParserSequest
             return ReturnedDataTable;
         }
 
-        #endregion
-        #endregion
-
-        #region ENUMS
-        #region PRIVATE
         /// <summary>
         /// Name: DataColumn
         /// Description: These are defined numbers for looking through the data table.
@@ -274,7 +264,5 @@ namespace SpectrumLook.ParserSequest
             MScore = 17,
             NumberTrypicEnds = 18
         }
-        #endregion
-        #endregion
     }
 }

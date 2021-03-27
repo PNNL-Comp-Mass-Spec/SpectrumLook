@@ -19,8 +19,7 @@ namespace SpectrumLook.Views
 
         public MainFormOptions m_currentOptions;
         private const string PROGRAM_DATE = "March 26, 2021";
-
-        #region CONSTRUCTOR
+        
         public MainForm()
         {
             InitializeComponent();
@@ -83,9 +82,7 @@ namespace SpectrumLook.Views
             }
              */
         }
-        #endregion
-
-        #region HOTKEY MANAGEMENT
+      
         /// <summary>
         /// Handles any keyPress within the SpectrumLook Form
         /// </summary>
@@ -93,9 +90,6 @@ namespace SpectrumLook.Views
         {
             m_manager.HandleKeyboardShortcuts(e);
         }
-        #endregion
-
-        #region RESIZE WINDOW AND PANEL
 
         private void detachPlotFromMainForm()
         {
@@ -220,10 +214,6 @@ namespace SpectrumLook.Views
              */
         }
 
-        #endregion
-
-        #region MENU STRIP EVENTS
-
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
             m_manager.RunOpenDialog();
@@ -318,8 +308,6 @@ namespace SpectrumLook.Views
                 MessageBox.Show("Please open a File before attempting to batch save.", "Open A File First", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-        #endregion
 
         public void UpdateObserver()
         {

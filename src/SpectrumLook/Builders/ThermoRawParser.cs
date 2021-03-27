@@ -9,13 +9,6 @@ namespace SpectrumLook.Builders
 {
     public class ThermoRawParser : IExperimentParser
     {
-        #region MEMBERS
-
-        #region PUBLIC
-        #endregion
-
-        #region PRIVATE
-
         XRawFileIO m_fileToRead;
 
         private string m_fileLocation;
@@ -34,11 +27,6 @@ namespace SpectrumLook.Builders
             }
         }
 
-        #endregion
-
-        #endregion
-
-        #region CONSTRUCTOR
         /// <summary>
         /// The constructor of this parser will attempt to open any files that
         /// end in ".RAW".  If a null string is passed in or a
@@ -71,11 +59,6 @@ namespace SpectrumLook.Builders
             }
         }
 
-        #endregion
-
-        #region FUNCTIONS
-
-        #region PUBLIC
          /// <summary>
         /// This function returns an array of strings where the odd index's are intensities
         /// and even index's are mz Values.  The function takes advantage of the MSDataFileReader
@@ -110,13 +93,5 @@ namespace SpectrumLook.Builders
                 return null;
             }
         }
-
-        #endregion
-
-        #region PRIVATE
-
-        #endregion
-
-        #endregion
     }
 }

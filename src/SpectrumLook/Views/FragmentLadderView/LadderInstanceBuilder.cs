@@ -11,17 +11,9 @@ namespace SpectrumLook.Views.FragmentLadderView
     /// </summary>
     public class LadderInstanceBuilder
     {
-        #region CONSTRUCTOR
-
         public LadderInstanceBuilder()
         {
         }
-
-        #endregion
-
-        #region FUNCTIONS
-
-        #region PUBLIC
 
         /// <summary>
         /// This function generates a LadderInstance based upon the given theoryList and the given peptide.
@@ -73,10 +65,6 @@ namespace SpectrumLook.Views.FragmentLadderView
             returnedLadderInstance.mzValueHeaders = tempListColumnOptions;
             return returnedLadderInstance;
         }
-
-        #endregion
-
-        #region PRIVATE
 
         /// <summary>
         /// This function parses out a given annotation and outputs the proper ion catagory.
@@ -132,9 +120,5 @@ namespace SpectrumLook.Views.FragmentLadderView
             }
             return peptide.Length - count;
         }
-
-        #endregion
-
-        #endregion
     }
 }

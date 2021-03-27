@@ -13,12 +13,6 @@ namespace SpectrumLook.Builders
     /// </summary>
     public class ActualListBuilder : ElementListBuilder
     {
-        #region MEMBERS
-
-        #region PUBLIC
-        #endregion
-
-        #region PRIVATE
         /// <summary>
         /// This stores the inputed experiment parser, so that this class can
         /// retive data from the experiment files.
@@ -31,14 +25,6 @@ namespace SpectrumLook.Builders
         /// </summary>
         private int m_scanNumber;
 
-        #endregion
-
-        #endregion
-
-        #region PROPERTIES
-        #endregion
-
-        #region CONSTRUCTOR
         /// <summary>
         /// This constructor takes in a scan number of the desired experiment data with a provided parser that is not null.
         /// </summary>
@@ -57,11 +43,7 @@ namespace SpectrumLook.Builders
                 //Throw Exception?
             }
         }
-        #endregion
-
-        #region FUNCTIONS
-
-        #region PUBLIC
+     
         /// <summary>
         /// This function is derived from the ElementListBuilder Class.
         /// This version of the function uses the given scan number and given experiment parser to
@@ -87,11 +69,5 @@ namespace SpectrumLook.Builders
             }
             return success;
         }
-        #endregion
-
-        #region PRIVATE
-        #endregion
-
-        #endregion
     }
 }

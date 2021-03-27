@@ -23,21 +23,12 @@ namespace SpectrumLook
     /// </summary>
     public class LadderInstance
     {
-        #region MEMBERS
-
-        #region PRIVATE
 
         private string m_currentMode;
         private string m_scanAndPeptide;
         private List<string[]> m_mzValues;
         private List<string> m_mzValueHeaders;
         private List<Annotation> m_annotations;
-
-        #endregion
-
-        #endregion
-
-        #region PROPERTIES
 
         public List<string[]> mzValue
         {
@@ -131,9 +122,6 @@ namespace SpectrumLook
                 m_annotations = value;
             }
         }
-        #endregion
-
-        #region CONSTRUCTOR
 
         public LadderInstance()
         {
@@ -143,8 +131,5 @@ namespace SpectrumLook
             m_mzValues = new List<string[]>();
             m_annotations = new List<Annotation>();
         }
-
-        #endregion
-
     }
 }

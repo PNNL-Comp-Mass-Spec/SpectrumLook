@@ -71,16 +71,15 @@ namespace SpectrumLook.Builders
                     }
                 }
 
-
              }
         }
 
-        
+
         /// <summary>
         /// Get the information from the Advanced Search Options and Search under the condition
         /// </summary>
         /// <param name="AndOr"></param> User select either 'And' or 'Or' for searching in several columns
-        /// <param name="SelCol"></param> 
+        /// <param name="SelCol"></param>
         /// <param name="SelOpt"></param> 'contains' means the string is included '=' exact match string or number '<' larger than the value user input the '>' less than the user input
         /// <param name="TextInput"></param>
         public void AdvancedSearch(bool AndOr, string SelCol, string SelOpt, string TextInput)

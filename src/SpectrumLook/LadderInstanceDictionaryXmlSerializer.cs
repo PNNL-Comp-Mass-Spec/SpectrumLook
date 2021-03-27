@@ -14,16 +14,9 @@ namespace SpectrumLook
     /// </summary>
     public class LadderInstanceDictionaryXmlSerializer
     {
-        #region MEMEBERS
 
-        #region PRIVATE
         private string m_fileSaved;
-        #endregion
 
-        #endregion
-
-        #region PROPERTIES
-        #region PUBLIC
         public string fileSaved
         {
             get
@@ -31,10 +24,7 @@ namespace SpectrumLook
                 return m_fileSaved;
             }
         }
-        #endregion
-        #endregion
 
-        #region CONSTRUCTOR
         /// <summary>
         /// This object just set the m_fileSaved path to null.
         /// WriteHashTable(string location, Hashtable tableToWrite) must first be called.
@@ -43,11 +33,6 @@ namespace SpectrumLook
         {
             this.m_fileSaved = null;
         }
-        #endregion
-
-        #region FUNCTIONS
-
-        #region PUBLIC
 
         /// <summary>
         /// This a function that just rewrites the file, if a file location has already been given to the HashtableXmlSerializer.
@@ -108,8 +93,5 @@ namespace SpectrumLook
 
             return outputedHashTable;
         }
-        #endregion
-
-        #endregion
     }
 }

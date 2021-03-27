@@ -20,8 +20,6 @@
             base.Dispose(disposing);
         }
 
-        #region Windows Form Designer generated code
-
         /// <summary>
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
@@ -36,13 +34,13 @@
             this.ColcontextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.DataGridTable)).BeginInit();
             this.SuspendLayout();
-            // 
+            //
             // DataGridTable
-            // 
+            //
             this.DataGridTable.AllowUserToAddRows = false;
             this.DataGridTable.AllowUserToDeleteRows = false;
-            this.DataGridTable.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.DataGridTable.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.DataGridTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DataGridTable.Location = new System.Drawing.Point(0, 39);
@@ -55,9 +53,9 @@
             this.DataGridTable.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridTable_ColumnHeaderMouseClick_1);
             this.DataGridTable.SelectionChanged += new System.EventHandler(this.DataGridTable_SelectionChanged);
             this.DataGridTable.Click += new System.EventHandler(this.DataGridTable_Click);
-            // 
+            //
             // SearchButton
-            // 
+            //
             this.SearchButton.Location = new System.Drawing.Point(130, 11);
             this.SearchButton.Name = "SearchButton";
             this.SearchButton.Size = new System.Drawing.Size(75, 23);
@@ -65,17 +63,17 @@
             this.SearchButton.Text = "Search";
             this.SearchButton.UseVisualStyleBackColor = true;
             this.SearchButton.Click += new System.EventHandler(this.SearchButton_Click);
-            // 
+            //
             // SearchBox
-            // 
+            //
             this.SearchBox.Location = new System.Drawing.Point(12, 12);
             this.SearchBox.Name = "SearchBox";
             this.SearchBox.Size = new System.Drawing.Size(112, 20);
             this.SearchBox.TabIndex = 0;
             this.SearchBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.SearchBox_KeyDown);
-            // 
+            //
             // AdvFilter
-            // 
+            //
             this.AdvFilter.Enabled = false;
             this.AdvFilter.Location = new System.Drawing.Point(211, 11);
             this.AdvFilter.Name = "AdvFilter";
@@ -85,15 +83,15 @@
             this.AdvFilter.UseVisualStyleBackColor = true;
             this.AdvFilter.Visible = false;
             this.AdvFilter.Click += new System.EventHandler(this.AdvFilter_Click);
-            // 
+            //
             // ColcontextMenuStrip
-            // 
+            //
             this.ColcontextMenuStrip.ImeMode = System.Windows.Forms.ImeMode.Disable;
             this.ColcontextMenuStrip.Name = "ColcontextMenuStrip";
             this.ColcontextMenuStrip.Size = new System.Drawing.Size(61, 4);
-            // 
+            //
             // DataView
-            // 
+            //
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(518, 262);
@@ -108,8 +106,6 @@
             this.PerformLayout();
 
         }
-
-        #endregion
 
         private System.Windows.Forms.DataGridView DataGridTable;
         private System.Windows.Forms.Button SearchButton;

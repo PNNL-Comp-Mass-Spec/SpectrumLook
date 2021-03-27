@@ -30,8 +30,7 @@ namespace SpectrumLookTests
             }
         }
 
-        #region Additional test attributes
-        // 
+        //
         //You can use the following additional attributes as you write your tests:
         //
         //Use ClassInitialize to run code before running the first test in the class
@@ -58,7 +57,6 @@ namespace SpectrumLookTests
         //{
         //}
         //
-        #endregion
 
         /// <summary>
         ///A test for BuildList

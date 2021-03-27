@@ -20,8 +20,6 @@
             base.Dispose(disposing);
         }
 
-        #region Windows Form Designer generated code
-
         /// <summary>
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
@@ -62,19 +60,19 @@
             this.tabControl1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
-            // 
+            //
             // peptideEditorTextBox
-            // 
-            this.peptideEditorTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            //
+            this.peptideEditorTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.peptideEditorTextBox.Location = new System.Drawing.Point(13, 29);
             this.peptideEditorTextBox.Name = "peptideEditorTextBox";
             this.peptideEditorTextBox.Size = new System.Drawing.Size(287, 20);
             this.peptideEditorTextBox.TabIndex = 3;
             this.peptideEditorTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.peptideEditorTextBox_KeyDown_1);
-            // 
+            //
             // recalculateMatchesButton
-            // 
+            //
             this.recalculateMatchesButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.recalculateMatchesButton.Location = new System.Drawing.Point(305, 29);
             this.recalculateMatchesButton.Name = "recalculateMatchesButton";
@@ -83,9 +81,9 @@
             this.recalculateMatchesButton.Text = "Calculate";
             this.recalculateMatchesButton.UseVisualStyleBackColor = true;
             this.recalculateMatchesButton.Click += new System.EventHandler(this.generateLadderFromPeptideInput);
-            // 
+            //
             // parentMZLabel
-            // 
+            //
             this.parentMZLabel.AutoSize = true;
             this.parentMZLabel.Location = new System.Drawing.Point(13, 13);
             this.parentMZLabel.Name = "parentMZLabel";
@@ -93,9 +91,9 @@
             this.parentMZLabel.TabIndex = 4;
             this.parentMZLabel.Text = "Parent m/z=";
             this.parentMZLabel.Visible = false;
-            // 
+            //
             // parentMZValue
-            // 
+            //
             this.parentMZValue.AutoSize = true;
             this.parentMZValue.Location = new System.Drawing.Point(75, 13);
             this.parentMZValue.Name = "parentMZValue";
@@ -103,9 +101,9 @@
             this.parentMZValue.TabIndex = 5;
             this.parentMZValue.Text = "0.0";
             this.parentMZValue.Visible = false;
-            // 
+            //
             // pMZ98Label
-            // 
+            //
             this.pMZ98Label.AutoSize = true;
             this.pMZ98Label.Location = new System.Drawing.Point(116, 13);
             this.pMZ98Label.Name = "pMZ98Label";
@@ -113,9 +111,9 @@
             this.pMZ98Label.TabIndex = 6;
             this.pMZ98Label.Text = "Pm/z-98=";
             this.pMZ98Label.Visible = false;
-            // 
+            //
             // pMZ98Value
-            // 
+            //
             this.pMZ98Value.AutoSize = true;
             this.pMZ98Value.Location = new System.Drawing.Point(166, 13);
             this.pMZ98Value.Name = "pMZ98Value";
@@ -123,9 +121,9 @@
             this.pMZ98Value.TabIndex = 7;
             this.pMZ98Value.Text = "0";
             this.pMZ98Value.Visible = false;
-            // 
+            //
             // pMZ49Label
-            // 
+            //
             this.pMZ49Label.AutoSize = true;
             this.pMZ49Label.Location = new System.Drawing.Point(207, 13);
             this.pMZ49Label.Name = "pMZ49Label";
@@ -133,9 +131,9 @@
             this.pMZ49Label.TabIndex = 8;
             this.pMZ49Label.Text = "Pm/z-49=";
             this.pMZ49Label.Visible = false;
-            // 
+            //
             // pMZ49Value
-            // 
+            //
             this.pMZ49Value.AutoSize = true;
             this.pMZ49Value.Location = new System.Drawing.Point(257, 13);
             this.pMZ49Value.Name = "pMZ49Value";
@@ -143,9 +141,9 @@
             this.pMZ49Value.TabIndex = 9;
             this.pMZ49Value.Text = "0";
             this.pMZ49Value.Visible = false;
-            // 
+            //
             // pMZ32Label
-            // 
+            //
             this.pMZ32Label.AutoSize = true;
             this.pMZ32Label.Location = new System.Drawing.Point(302, 13);
             this.pMZ32Label.Name = "pMZ32Label";
@@ -153,9 +151,9 @@
             this.pMZ32Label.TabIndex = 10;
             this.pMZ32Label.Text = "Pm/z-32=";
             this.pMZ32Label.Visible = false;
-            // 
+            //
             // pMZ32Value
-            // 
+            //
             this.pMZ32Value.AutoSize = true;
             this.pMZ32Value.Location = new System.Drawing.Point(353, 13);
             this.pMZ32Value.Name = "pMZ32Value";
@@ -163,9 +161,9 @@
             this.pMZ32Value.TabIndex = 11;
             this.pMZ32Value.Text = "0";
             this.pMZ32Value.Visible = false;
-            // 
+            //
             // ionsLabel
-            // 
+            //
             this.ionsLabel.AutoSize = true;
             this.ionsLabel.Location = new System.Drawing.Point(116, 35);
             this.ionsLabel.Name = "ionsLabel";
@@ -173,9 +171,9 @@
             this.ionsLabel.TabIndex = 12;
             this.ionsLabel.Text = "Ions=";
             this.ionsLabel.Visible = false;
-            // 
+            //
             // ionsValue
-            // 
+            //
             this.ionsValue.AutoSize = true;
             this.ionsValue.Location = new System.Drawing.Point(144, 35);
             this.ionsValue.Name = "ionsValue";
@@ -183,9 +181,9 @@
             this.ionsValue.TabIndex = 13;
             this.ionsValue.Text = "0";
             this.ionsValue.Visible = false;
-            // 
+            //
             // neuLIonsLabel
-            // 
+            //
             this.neuLIonsLabel.AutoSize = true;
             this.neuLIonsLabel.Location = new System.Drawing.Point(207, 35);
             this.neuLIonsLabel.Name = "neuLIonsLabel";
@@ -193,9 +191,9 @@
             this.neuLIonsLabel.TabIndex = 14;
             this.neuLIonsLabel.Text = "NeuL Ions=";
             this.neuLIonsLabel.Visible = false;
-            // 
+            //
             // neuLIonsValue
-            // 
+            //
             this.neuLIonsValue.AutoSize = true;
             this.neuLIonsValue.Location = new System.Drawing.Point(266, 35);
             this.neuLIonsValue.Name = "neuLIonsValue";
@@ -203,9 +201,9 @@
             this.neuLIonsValue.TabIndex = 15;
             this.neuLIonsValue.Text = "0";
             this.neuLIonsValue.Visible = false;
-            // 
+            //
             // lengthLabel
-            // 
+            //
             this.lengthLabel.AutoSize = true;
             this.lengthLabel.Location = new System.Drawing.Point(306, 35);
             this.lengthLabel.Name = "lengthLabel";
@@ -213,9 +211,9 @@
             this.lengthLabel.TabIndex = 16;
             this.lengthLabel.Text = "Length=";
             this.lengthLabel.Visible = false;
-            // 
+            //
             // lengthValue
-            // 
+            //
             this.lengthValue.AutoSize = true;
             this.lengthValue.Location = new System.Drawing.Point(353, 35);
             this.lengthValue.Name = "lengthValue";
@@ -223,9 +221,9 @@
             this.lengthValue.TabIndex = 17;
             this.lengthValue.Text = "0";
             this.lengthValue.Visible = false;
-            // 
+            //
             // columnPanel
-            // 
+            //
             this.columnPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.columnPanel.Controls.Add(this.columnClearButton);
             this.columnPanel.Controls.Add(this.columnLabel);
@@ -236,9 +234,9 @@
             this.columnPanel.Size = new System.Drawing.Size(119, 293);
             this.columnPanel.TabIndex = 21;
             this.columnPanel.Visible = false;
-            // 
+            //
             // columnClearButton
-            // 
+            //
             this.columnClearButton.Location = new System.Drawing.Point(8, 254);
             this.columnClearButton.Name = "columnClearButton";
             this.columnClearButton.Size = new System.Drawing.Size(48, 32);
@@ -247,9 +245,9 @@
             this.columnClearButton.UseVisualStyleBackColor = true;
             this.columnClearButton.Visible = false;
             this.columnClearButton.Click += new System.EventHandler(this.columnClearButton_Click);
-            // 
+            //
             // columnLabel
-            // 
+            //
             this.columnLabel.AutoSize = true;
             this.columnLabel.Location = new System.Drawing.Point(19, 3);
             this.columnLabel.Name = "columnLabel";
@@ -258,9 +256,9 @@
             this.columnLabel.Text = "Column Display";
             this.columnLabel.Visible = false;
             this.columnLabel.Click += new System.EventHandler(this.columnLabel_Click);
-            // 
+            //
             // columnCheckedListBox
-            // 
+            //
             this.columnCheckedListBox.CheckOnClick = true;
             this.columnCheckedListBox.FormattingEnabled = true;
             this.columnCheckedListBox.Items.AddRange(new object[] {
@@ -287,9 +285,9 @@
             this.columnCheckedListBox.Size = new System.Drawing.Size(102, 229);
             this.columnCheckedListBox.TabIndex = 2;
             this.columnCheckedListBox.Visible = false;
-            // 
+            //
             // columnSaveButton
-            // 
+            //
             this.columnSaveButton.Location = new System.Drawing.Point(61, 254);
             this.columnSaveButton.Name = "columnSaveButton";
             this.columnSaveButton.Size = new System.Drawing.Size(48, 32);
@@ -298,11 +296,11 @@
             this.columnSaveButton.UseVisualStyleBackColor = true;
             this.columnSaveButton.Visible = false;
             this.columnSaveButton.Click += new System.EventHandler(this.columnSaveButton_Click);
-            // 
+            //
             // tabControl1
-            // 
-            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            //
+            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Location = new System.Drawing.Point(4, 101);
@@ -312,9 +310,9 @@
             this.tabControl1.TabIndex = 7;
             this.tabControl1.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.changeTab);
             this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.changeTab);
-            // 
+            //
             // tabPage1
-            // 
+            //
             this.tabPage1.AutoScroll = true;
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
@@ -323,9 +321,9 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Original";
             this.tabPage1.UseVisualStyleBackColor = true;
-            // 
+            //
             // comboBox1
-            // 
+            //
             this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox1.Enabled = false;
             this.comboBox1.FormattingEnabled = true;
@@ -337,9 +335,9 @@
             this.comboBox1.Size = new System.Drawing.Size(102, 21);
             this.comboBox1.TabIndex = 19;
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.changeFragmentLadderMode);
-            // 
+            //
             // columnButton
-            // 
+            //
             this.columnButton.Location = new System.Drawing.Point(131, 3);
             this.columnButton.Name = "columnButton";
             this.columnButton.Size = new System.Drawing.Size(59, 23);
@@ -347,9 +345,9 @@
             this.columnButton.Text = "Ions";
             this.columnButton.UseVisualStyleBackColor = true;
             this.columnButton.Click += new System.EventHandler(this.columnButton_Click);
-            // 
+            //
             // button1
-            // 
+            //
             this.button1.Location = new System.Drawing.Point(131, 72);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(108, 23);
@@ -357,9 +355,9 @@
             this.button1.Text = "Clear All";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
+            //
             // ClearSingleMod
-            // 
+            //
             this.ClearSingleMod.Location = new System.Drawing.Point(12, 72);
             this.ClearSingleMod.Name = "ClearSingleMod";
             this.ClearSingleMod.Size = new System.Drawing.Size(102, 23);
@@ -367,18 +365,18 @@
             this.ClearSingleMod.Text = "Clear ";
             this.ClearSingleMod.UseVisualStyleBackColor = true;
             this.ClearSingleMod.Click += new System.EventHandler(this.ClearSingleMod_Click);
-            // 
+            //
             // Unmatched_Label
-            // 
+            //
             this.Unmatched_Label.AutoSize = true;
             this.Unmatched_Label.Location = new System.Drawing.Point(23, 16);
             this.Unmatched_Label.Name = "Unmatched_Label";
             this.Unmatched_Label.Size = new System.Drawing.Size(95, 13);
             this.Unmatched_Label.TabIndex = 22;
             this.Unmatched_Label.Text = "Unmatched Peaks";
-            // 
+            //
             // Matched_Label
-            // 
+            //
             this.Matched_Label.AutoSize = true;
             this.Matched_Label.ForeColor = System.Drawing.Color.Red;
             this.Matched_Label.Location = new System.Drawing.Point(23, 29);
@@ -386,9 +384,9 @@
             this.Matched_Label.Size = new System.Drawing.Size(82, 13);
             this.Matched_Label.TabIndex = 23;
             this.Matched_Label.Text = "Matched Peaks";
-            // 
+            //
             // groupBox1
-            // 
+            //
             this.groupBox1.Controls.Add(this.Unmatched_Label);
             this.groupBox1.Controls.Add(this.Matched_Label);
             this.groupBox1.Location = new System.Drawing.Point(243, 51);
@@ -397,9 +395,9 @@
             this.groupBox1.TabIndex = 24;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "key";
-            // 
+            //
             // FragmentLadderView
-            // 
+            //
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(393, 411);
@@ -438,8 +436,6 @@
             this.PerformLayout();
 
         }
-
-        #endregion
 
         private System.Windows.Forms.TextBox peptideEditorTextBox;
         private System.Windows.Forms.Button recalculateMatchesButton;

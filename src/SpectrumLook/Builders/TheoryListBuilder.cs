@@ -7,7 +7,6 @@ namespace SpectrumLook.Builders
 {
     class TheoryListBuilder : ElementListBuilder
     {
-        #region MEMBERS
         /// <summary>
         /// the peptide that was passed into this builder that the theory set is calculated from
         /// </summary>
@@ -22,10 +21,6 @@ namespace SpectrumLook.Builders
         /// The theory calculator that handles the brunt of calculating peptides
         /// </summary>
         private ITheoryCalculator m_theoryCalculator;
-        
-        #endregion
-
-        #region CONSTRUCTOR
 
         /// <summary>
         /// Constructor for the TheoryListBuilder
@@ -38,10 +33,6 @@ namespace SpectrumLook.Builders
             m_fragmentationModeETD = fragmentationModeCID;
             m_theoryCalculator = theoryCalculator;
         }
-        
-        #endregion
-
-        #region FUNCTIONS
 
         /// <summary>
         /// Builds the theory List from the data given in the constructor for this class
@@ -65,7 +56,5 @@ namespace SpectrumLook.Builders
                 ElementList.Add(newElement);
             }
         }
-
-        #endregion
     }
 }

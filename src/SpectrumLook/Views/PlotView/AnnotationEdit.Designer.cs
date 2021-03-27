@@ -20,8 +20,6 @@
             base.Dispose(disposing);
         }
 
-        #region Windows Form Designer generated code
-
         /// <summary>
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
@@ -41,9 +39,9 @@
             this.radioButtonVisibleAlways = new System.Windows.Forms.RadioButton();
             this.groupBox.SuspendLayout();
             this.SuspendLayout();
-            // 
+            //
             // buttonApply
-            // 
+            //
             this.buttonApply.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonApply.Location = new System.Drawing.Point(180, 117);
             this.buttonApply.Name = "buttonApply";
@@ -52,9 +50,9 @@
             this.buttonApply.Text = "Apply";
             this.buttonApply.UseVisualStyleBackColor = true;
             this.buttonApply.Click += new System.EventHandler(this.buttonApply_Click);
-            // 
+            //
             // buttonCancel
-            // 
+            //
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.Location = new System.Drawing.Point(261, 117);
             this.buttonCancel.Name = "buttonCancel";
@@ -63,35 +61,35 @@
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
             this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
-            // 
+            //
             // textBox1
-            // 
+            //
             this.textBox1.Location = new System.Drawing.Point(44, 26);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(205, 20);
             this.textBox1.TabIndex = 0;
             this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
-            // 
+            //
             // labelAnnotation
-            // 
+            //
             this.labelAnnotation.AutoSize = true;
             this.labelAnnotation.Location = new System.Drawing.Point(6, 29);
             this.labelAnnotation.Name = "labelAnnotation";
             this.labelAnnotation.Size = new System.Drawing.Size(31, 13);
             this.labelAnnotation.TabIndex = 4;
             this.labelAnnotation.Text = "Text:";
-            // 
+            //
             // labelVisibility
-            // 
+            //
             this.labelVisibility.AutoSize = true;
             this.labelVisibility.Location = new System.Drawing.Point(6, 68);
             this.labelVisibility.Name = "labelVisibility";
             this.labelVisibility.Size = new System.Drawing.Size(46, 13);
             this.labelVisibility.TabIndex = 5;
             this.labelVisibility.Text = "Visibility:";
-            // 
+            //
             // groupBox
-            // 
+            //
             this.groupBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
@@ -108,9 +106,9 @@
             this.groupBox.TabIndex = 8;
             this.groupBox.TabStop = false;
             this.groupBox.Text = "Annotation Options";
-            // 
+            //
             // buttonResetAnnotation
-            // 
+            //
             this.buttonResetAnnotation.Location = new System.Drawing.Point(255, 24);
             this.buttonResetAnnotation.Name = "buttonResetAnnotation";
             this.buttonResetAnnotation.Size = new System.Drawing.Size(62, 23);
@@ -118,9 +116,9 @@
             this.buttonResetAnnotation.Text = "Restore";
             this.buttonResetAnnotation.UseVisualStyleBackColor = true;
             this.buttonResetAnnotation.Click += new System.EventHandler(this.buttonResetAnnotation_Click);
-            // 
+            //
             // radioButtonVisibleAuto
-            // 
+            //
             this.radioButtonVisibleAuto.AutoSize = true;
             this.radioButtonVisibleAuto.Location = new System.Drawing.Point(242, 68);
             this.radioButtonVisibleAuto.Name = "radioButtonVisibleAuto";
@@ -130,9 +128,9 @@
             this.radioButtonVisibleAuto.Text = "Auto Show";
             this.radioButtonVisibleAuto.UseVisualStyleBackColor = true;
             this.radioButtonVisibleAuto.CheckedChanged += new System.EventHandler(this.radioButtonVisibleAuto_CheckedChanged);
-            // 
+            //
             // radioButtonVisibleNever
-            // 
+            //
             this.radioButtonVisibleNever.AutoSize = true;
             this.radioButtonVisibleNever.Location = new System.Drawing.Point(151, 68);
             this.radioButtonVisibleNever.Name = "radioButtonVisibleNever";
@@ -142,9 +140,9 @@
             this.radioButtonVisibleNever.Text = "Always Hide";
             this.radioButtonVisibleNever.UseVisualStyleBackColor = true;
             this.radioButtonVisibleNever.CheckedChanged += new System.EventHandler(this.checkBoxVisibleNo_CheckedChanged);
-            // 
+            //
             // radioButtonVisibleAlways
-            // 
+            //
             this.radioButtonVisibleAlways.AutoSize = true;
             this.radioButtonVisibleAlways.Location = new System.Drawing.Point(57, 68);
             this.radioButtonVisibleAlways.Name = "radioButtonVisibleAlways";
@@ -154,9 +152,9 @@
             this.radioButtonVisibleAlways.Text = "Always Show";
             this.radioButtonVisibleAlways.UseVisualStyleBackColor = true;
             this.radioButtonVisibleAlways.CheckedChanged += new System.EventHandler(this.checkBoxVisibleYes_CheckedChanged);
-            // 
+            //
             // AnnotationEdit
-            // 
+            //
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(349, 147);
@@ -172,8 +170,6 @@
             this.ResumeLayout(false);
 
         }
-
-        #endregion
 
         private System.Windows.Forms.Button buttonApply;
         private System.Windows.Forms.Button buttonCancel;
