@@ -36,8 +36,8 @@ namespace SpectrumLook.Builders
             currentFileLocation = fileLocation;
             if (currentFileLocation != null)
             {
-                if (currentFileLocation.ToLower().EndsWith(".mzXML".ToLower()) ||
-                    currentFileLocation.ToLower().EndsWith(".mzData".ToLower()))
+                if (currentFileLocation.EndsWith(".mzXML", StringComparison.OrdinalIgnoreCase) ||
+                    currentFileLocation.EndsWith(".mzData", StringComparison.OrdinalIgnoreCase))
                 {
                     m_fileToRead = new clsMzXMLFileAccessor();
                     isFileOpened = m_fileToRead.OpenFile(currentFileLocation);
