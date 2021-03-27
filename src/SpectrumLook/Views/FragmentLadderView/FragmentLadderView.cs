@@ -16,8 +16,6 @@ namespace SpectrumLook.Views.FragmentLadderView
         private double m_currentParentMZ;
         private List<LadderInstance> m_currentInstances;
 
-        private bool m_clearModifications;
-
         private bool m_currentlyDrawing;
 
         public FragmentLadderOptions fragmentLadderOptions { get; set; }
@@ -29,8 +27,6 @@ namespace SpectrumLook.Views.FragmentLadderView
             m_manager = manager;
 
             fragmentLadderOptions = new FragmentLadderOptions();
-
-            m_clearModifications = false;
 
             m_currentlyDrawing = false;
 

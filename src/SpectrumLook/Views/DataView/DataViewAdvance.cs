@@ -13,7 +13,7 @@ namespace SpectrumLook.Views
         }
         public void SetAdvance(List<string> inputList)
         {
-            for (var i=0;i<inputList.Count;i++)
+            for (var i = 0; i < inputList.Count; i++)
             {
                 SeaFil_Pep1.Items.Insert(i, inputList[i]);
                 SeaFil_Pep2.Items.Insert(i, inputList[i]);
