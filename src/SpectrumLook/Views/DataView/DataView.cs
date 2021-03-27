@@ -22,12 +22,12 @@ namespace SpectrumLook.Views
         public volatile bool shouldStop;
         private int ColNum;
         private int RowNum;
+
         List<string> HeaderList = new List<string>();
+
         private ContextMenu Menu = new ContextMenu();
-        private int ScanNumColumn;
-        private int PetideStringColumn;
-        private int DatasetColumn = -1;
-        private int PrecursorMzColumn;
+
+        private Manager.SynFileColumnIndices mSynFileColumns;
 
         public DataView(Manager manager)
         {
@@ -55,14 +55,17 @@ namespace SpectrumLook.Views
             {
                 var selectedRow = DataGridTable.SelectedRows[0];
 
-                //ScanNumber and Peptide Need to be selected based off file type.
-                var Peptide = selectedRow.Cells[PetideStringColumn].Value.ToString();
-                var ScanNumber = selectedRow.Cells[ScanNumColumn].Value.ToString();
-                if (DatasetColumn != -1)
+
+                var peptide = selectedRow.Cells[mSynFileColumns.Peptide].Value.ToString();
+                var scanNumber = selectedRow.Cells[mSynFileColumns.Scan].Value.ToString();
+                if (mSynFileColumns.Dataset >= 0)
                 {
-                    m_manager.DataFileName = selectedRow.Cells[DatasetColumn].Value.ToString();
+                    m_manager.DataFileName = selectedRow.Cells[mSynFileColumns.Dataset].Value.ToString();
                 }
-                m_manager.PrecursorMZ = double.Parse(selectedRow.Cells[PrecursorMzColumn].Value.ToString());
+
+                {
+                    m_manager.PrecursorMZ = double.Parse(selectedRow.Cells[mSynFileColumns.PrecursorMz].Value.ToString());
+                }
 
                 string sequence;
                 string prefix;
@@ -91,12 +94,9 @@ namespace SpectrumLook.Views
             shouldStop = true;
         }
 
-        public void SetScanIndexAndPeptideIndex(int peptideIndex, int scanIndex, int precursorIndex, int datasetIndex = -1)
+        public void SetColumnIndices(Manager.SynFileColumnIndices synFileColumns)
         {
-            ScanNumColumn = scanIndex;
-            PetideStringColumn = peptideIndex;
-            DatasetColumn = datasetIndex;
-            PrecursorMzColumn = precursorIndex;
+            mSynFileColumns = synFileColumns;
         }
 
         public void SetDataTable(DataTable newTable)

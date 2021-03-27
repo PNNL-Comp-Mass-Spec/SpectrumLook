@@ -19,7 +19,18 @@ namespace SpectrumLook
 {
     public class Manager
     {
+        public struct SynFileColumnIndices
+        {
+            public int Scan;
+            public int Peptide;
+            public int Dataset;
+            public int PrecursorMz;
+            public int ParentMH;
+            public int Charge;
+        }
+
         #region MEMBERS
+
         public MainForm m_mainForm;
         public SLPlot m_plot;
         public DataView m_dataView;
@@ -38,7 +49,6 @@ namespace SpectrumLook
         #endregion
 
         #region CONSTRUCTOR
-
 
         /// <summary>
         /// Ths is the main class the manages the interactions between the plot, dataview, mainform, and fragment ladder.
@@ -216,15 +226,11 @@ namespace SpectrumLook
                 {
                     try
                     {
-                        int PeptideCol = 0, ScanCol = 0, PrecursorCol = 0;
-                        var DatasetCol = -1;
                         // New code, uses PHRPReader
                         var reader = new PHRPReaderParser(m_synopsisFileLocation, m_fragLadder.fragmentLadderOptions);
-                        m_dataView.SetDataTable(DataBuilder.GetDataTable(reader, ref PeptideCol, ref ScanCol, ref PrecursorCol, ref DatasetCol));
-                        // Old code, doesn't use PHRPReader
-                        //SequestParser sqParser = new SequestParser(m_synopsisFileLocation);
-                        //m_dataView.SetDataTable(DataBuilder.GetDataTable(sqParser, ref PeptideCol, ref ScanCol));
-                        m_dataView.SetScanIndexAndPeptideIndex(PeptideCol, ScanCol, PrecursorCol, DatasetCol);
+                        m_dataView.SetDataTable(DataBuilder.GetDataTable(reader, out var synFileColumns));
+
+                        m_dataView.SetColumnIndices(synFileColumns);
                         SynopsisLoaded = true;
                     }
                     catch (Exception ex)
