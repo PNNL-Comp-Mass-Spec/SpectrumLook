@@ -8,7 +8,7 @@ namespace SpectrumLookTests
     ///This is a test class for SequestParserTest and is intended
     ///to contain all SequestParserTest Unit Tests
     ///</summary>
-    [TestClass()]
+    [TestClass]
     public class SequestParserTest
     {
         /// <summary>
@@ -20,7 +20,7 @@ namespace SpectrumLookTests
         /// <summary>
         ///A test for SequestParser Constructor
         ///</summary>
-        [TestMethod()]
+        [TestMethod]
         public void SequestParserConstructorTest()
         {
             var fileLocation = "..\\..\\..\\TestData\\QC_Standards_Excerpt_syn.txt";
@@ -48,7 +48,7 @@ namespace SpectrumLookTests
         /// <summary>
         ///A test for SpectrumLook.Builders.ISynopsisParser.GetNextColumn
         ///</summary>
-        [TestMethod()]
+        [TestMethod]
         [DeploymentItem("SpectrumLook.exe")]
         public void GetNextColumnTest()
         {

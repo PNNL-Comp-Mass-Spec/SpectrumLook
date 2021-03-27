@@ -8,7 +8,7 @@ namespace SpectrumLookTests
     ///This is a test class for ActualListBuilderTest and is intended
     ///to contain all ActualListBuilderTest Unit Tests
     ///</summary>
-    [TestClass()]
+    [TestClass]
     public class ActualListBuilderTest
     {
         /// <summary>
@@ -20,7 +20,7 @@ namespace SpectrumLookTests
         /// <summary>
         ///A test for ActualListBuilder Constructor
         ///</summary>
-        [TestMethod()]
+        [TestMethod]
         public void ActualListBuilderConstructorTest()
         {
             var scanNumber = 0; // TODO: Initialize to an appropriate value
@@ -32,7 +32,7 @@ namespace SpectrumLookTests
         /// <summary>
         ///A test for BuildList
         ///</summary>
-        [TestMethod()]
+        [TestMethod]
         public void BuildListTest()
         {
             var scanNumber = 0; // TODO: Initialize to an appropriate value

@@ -8,7 +8,7 @@ namespace SpectrumLookTests
     ///This is a test class for ElementTest and is intended
     ///to contain all ElementTest Unit Tests
     ///</summary>
-    [TestClass()]
+    [TestClass]
     public class ElementTest
     {
         /// <summary>
@@ -17,38 +17,10 @@ namespace SpectrumLookTests
         ///</summary>
         public TestContext TestContext { get; set; }
 
-        //
-        //You can use the following additional attributes as you write your tests:
-        //
-        //Use ClassInitialize to run code before running the first test in the class
-        //[ClassInitialize()]
-        //public static void MyClassInitialize(TestContext testContext)
-        //{
-        //}
-        //
-        //Use ClassCleanup to run code after all tests in a class have run
-        //[ClassCleanup()]
-        //public static void MyClassCleanup()
-        //{
-        //}
-        //
-        //Use TestInitialize to run code before running each test
-        //[TestInitialize()]
-        //public void MyTestInitialize()
-        //{
-        //}
-        //
-        //Use TestCleanup to run code after each test has run
-        //[TestCleanup()]
-        //public void MyTestCleanup()
-        //{
-        //}
-        //
-
         /// <summary>
         ///A test for Element Constructor
         ///</summary>
-        [TestMethod()]
+        [TestMethod]
         public void ElementConstructorTest()
         {
             var target = new Element();
@@ -58,7 +30,7 @@ namespace SpectrumLookTests
         /// <summary>
         ///A test for annotation
         ///</summary>
-        [TestMethod()]
+        [TestMethod]
         public void annotationTest()
         {
             var target = new Element(); // TODO: Initialize to an appropriate value
@@ -72,7 +44,7 @@ namespace SpectrumLookTests
         /// <summary>
         ///A test for intensity
         ///</summary>
-        [TestMethod()]
+        [TestMethod]
         public void intensityTest()
         {
             var target = new Element(); // TODO: Initialize to an appropriate value
@@ -86,7 +58,7 @@ namespace SpectrumLookTests
         /// <summary>
         ///A test for matched
         ///</summary>
-        [TestMethod()]
+        [TestMethod]
         public void matchedTest()
         {
             var target = new Element(); // TODO: Initialize to an appropriate value
@@ -100,7 +72,7 @@ namespace SpectrumLookTests
         /// <summary>
         ///A test for mzValue
         ///</summary>
-        [TestMethod()]
+        [TestMethod]
         public void mzValueTest()
         {
             var target = new Element(); // TODO: Initialize to an appropriate value

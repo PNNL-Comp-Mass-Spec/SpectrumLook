@@ -9,7 +9,7 @@ namespace SpectrumLookTests
     ///This is a test class for ElementListBuilderTest and is intended
     ///to contain all ElementListBuilderTest Unit Tests
     ///</summary>
-    [TestClass()]
+    [TestClass]
     public class ElementListBuilderTest
     {
         /// <summary>
@@ -56,7 +56,7 @@ namespace SpectrumLookTests
         /// <summary>
         ///A test for BuildList
         ///</summary>
-        [TestMethod()]
+        [TestMethod]
         public void BuildListTest()
         {
             var target = CreateElementListBuilder(); // TODO: Initialize to an appropriate value
@@ -74,7 +74,7 @@ namespace SpectrumLookTests
         /// <summary>
         ///A test for ElementList
         ///</summary>
-        [TestMethod()]
+        [TestMethod]
         public void ElementListTest()
         {
             //PrivateObject param0 = null; // TODO: Initialize to an appropriate value

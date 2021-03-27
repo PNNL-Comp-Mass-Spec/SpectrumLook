@@ -9,7 +9,7 @@ namespace SpectrumLookTests
     ///This is a test class for ComparedListBuilderTest and is intended
     ///to contain all ComparedListBuilderTest Unit Tests
     ///</summary>
-    [TestClass()]
+    [TestClass]
     public class ComparedListBuilderTest
     {
         /// <summary>
@@ -49,7 +49,7 @@ namespace SpectrumLookTests
         /// <summary>
         ///A test for BuildList
         ///</summary>
-        [TestMethod()]
+        [TestMethod]
         public void BuildListTest()
         {
             double possibleError = 0F; // TODO: Initialize to an appropriate value
@@ -68,7 +68,7 @@ namespace SpectrumLookTests
         /// <summary>
         ///A test for ComparedListBuilder Constructor
         ///</summary>
-        [TestMethod()]
+        [TestMethod]
         public void ComparedListBuilderConstructorTest()
         {
             double possibleError = 0F; // TODO: Initialize to an appropriate value

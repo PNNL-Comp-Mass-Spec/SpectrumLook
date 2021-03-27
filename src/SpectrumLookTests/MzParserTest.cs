@@ -9,7 +9,7 @@ namespace SpectrumLookTests
     ///This is a test class for MzParserTest and is intended
     ///to contain all MzParserTest Unit Tests
     ///</summary>
-    [TestClass()]
+    [TestClass]
     public class MzParserTest
     {
         /// <summary>
@@ -21,7 +21,7 @@ namespace SpectrumLookTests
         /// <summary>
         ///A test for MzParser Constructor
         ///</summary>
-        [TestMethod()]
+        [TestMethod]
         public void MzParserConstructorTest()
         {
             var fileLocation = "..\\..\\..\\TestData\\QC_Standards_Excerpt.mzXML";
@@ -51,7 +51,7 @@ namespace SpectrumLookTests
         /// <summary>
         ///A test for SpectrumLook.Builders.IExperimentParser.GetExperimentDataByScanNumber
         ///</summary>
-        [TestMethod()]
+        [TestMethod]
         [DeploymentItem("SpectrumLook.exe")]
         public void GetExperimentDataByScanNumberTest()
         {
