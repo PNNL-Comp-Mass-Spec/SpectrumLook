@@ -18,7 +18,7 @@ namespace SpectrumLook.Builders
             get; internal set;
         }
 
-        public ElementListBuilder()
+        protected ElementListBuilder()
         {
             this.ElementList = new List<Element>();
         }

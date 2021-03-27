@@ -13,7 +13,7 @@ namespace SpectrumLook.Views
 {
     public partial class SLPlot : Form, IObserver
     {
-        private Manager m_manager;
+        private readonly Manager m_manager;
         public PlotOptions m_options
         {
             get => msPlot.m_options;
