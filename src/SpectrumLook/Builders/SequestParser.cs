@@ -8,8 +8,8 @@ using System.Text;
 namespace SpectrumLook.Builders
 {
     /// <summary>
-    /// The class derives from the ISynopsysParser interface class.
-    /// This class defines how to read from a Sequest file.
+    /// The class derives from the ISynopsisParser interface class.
+    /// This class defines how to read from a SEQUEST file.
     /// By Patrick Tobin
     /// </summary>
     public class SequestParser : ISynopsisParser
@@ -115,9 +115,9 @@ namespace SpectrumLook.Builders
         /// <summary>
         /// This function will needed to be called multiple times in order to read
         /// all data from the file.  If this is the first time this function is called
-        /// then the headers of the columns that are in the opened sequest file are returned
-        /// in the form of a string array.  The Peptide column has a concatinated "_p" at the end
-        /// of the header and a "_s" is cancatinated to the end of the scan number to represent the
+        /// then the headers of the columns that are in the opened SEQUEST file are returned
+        /// in the form of a string array.  The Peptide column has a concatenated "_p" at the end
+        /// of the header and a "_s" is concatenated to the end of the scan number to represent the
         /// connection between the synopsis file and the experiment file.
         /// </summary>
         /// <returns></returns>

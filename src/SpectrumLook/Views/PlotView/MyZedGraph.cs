@@ -37,7 +37,7 @@ namespace SpectrumLook.Views
 
         #region Initialization
         /// <summary>
-        /// The construtor for our custom ZedGraph
+        /// The constructor for our custom ZedGraph
         /// </summary>
         public MyZedGraph()
         {
@@ -383,7 +383,7 @@ namespace SpectrumLook.Views
         }
 
         /// <summary>
-        /// Based on how the user zoomed in the plot, we will need to reevaluate how to hide/show annoatations.
+        /// Based on how the user zoomed in the plot, we will need to re-evaluate how to hide/show annotations.
         /// </summary>
         public void ReevaluateAnnotations()
         {

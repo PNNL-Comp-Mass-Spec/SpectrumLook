@@ -7,8 +7,8 @@ namespace SpectrumLook.Builders
 {
     /// <summary>
     /// This class will be used as the base class for the TheoryListBuilder, ActualListBuilder and the Compared ListBuilder.
-    /// It is requred that all derived classes override the BuildList method.  And the constructor be the input parameters for
-    /// building there corrisponding list.
+    /// It is required that all derived classes override the BuildList method.  And the constructor be the input parameters for
+    /// building there corresponding list.
     /// By Patrick Tobin
     /// </summary>
     public abstract class ElementListBuilder
@@ -52,7 +52,7 @@ namespace SpectrumLook.Builders
 
         #region PUBLIC
         /// <summary>
-        /// This function must be overriden to define how the list must be built.
+        /// This function must be overridden to define how the list must be built.
         /// </summary>
         public abstract void BuildList();
 

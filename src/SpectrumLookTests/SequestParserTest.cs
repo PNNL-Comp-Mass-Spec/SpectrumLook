@@ -58,7 +58,7 @@ namespace SpectrumLookTests
         }
 
         /// <summary>
-        ///A test for SpectrumLook.Builders.ISynopsysParser.GetNextColumn
+        ///A test for SpectrumLook.Builders.ISynopsisParser.GetNextColumn
         ///</summary>
         [TestMethod()]
         [DeploymentItem("SpectrumLook.exe")]
