@@ -255,9 +255,11 @@ namespace SpectrumLook.Views
 
         private void saveWorkStripMenuItem_Click(object sender, EventArgs e)
         {
-            var saveWorkFileDialog = new SaveFileDialog();
-            saveWorkFileDialog.Filter = "SpectrumLook Work File (*.slwf)|*.slwf|All Files (*.*)|*.*";
-            saveWorkFileDialog.Title = "Save Work File";
+            var saveWorkFileDialog = new SaveFileDialog
+            {
+                Filter = "SpectrumLook Work File (*.slwf)|*.slwf|All Files (*.*)|*.*",
+                Title = "Save Work File"
+            };
 
             try
             {
@@ -274,9 +276,11 @@ namespace SpectrumLook.Views
 
         private void openWorkStripMenuItem_Click(object sender, EventArgs e)
         {
-            var openWorkFileDialog = new OpenFileDialog();
-            openWorkFileDialog.Filter = "SpectrumLook Work File (*.slwf)|*.slwf|All Files (*.*)|*.*";
-            openWorkFileDialog.Title = "Open Work File";
+            var openWorkFileDialog = new OpenFileDialog
+            {
+                Filter = "SpectrumLook Work File (*.slwf)|*.slwf|All Files (*.*)|*.*",
+                Title = "Open Work File"
+            };
 
             try
             {

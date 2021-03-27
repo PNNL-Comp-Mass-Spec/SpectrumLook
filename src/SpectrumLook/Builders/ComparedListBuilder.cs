@@ -325,11 +325,13 @@ namespace SpectrumLook.Builders
             // When all is said and done the compared list will just be a copy of the actual list.
             foreach (var currentElement in m_actualElementList)
             {
-                var elementForCopying = new Element();
-                elementForCopying.Annotation = currentElement.Annotation;
-                elementForCopying.Matched = currentElement.Matched;
-                elementForCopying.Intensity = currentElement.Intensity;
-                elementForCopying.Mz = currentElement.Mz;
+                var elementForCopying = new Element
+                {
+                    Annotation = currentElement.Annotation,
+                    Matched = currentElement.Matched,
+                    Intensity = currentElement.Intensity,
+                    Mz = currentElement.Mz
+                };
 
                 ElementList.Add(elementForCopying);
             }

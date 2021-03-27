@@ -76,10 +76,12 @@ namespace SpectrumLook.Builders
                 var elements = new List<Element>();
                 foreach (var currentMzValue in currentSpectrum.MZList)
                 {
-                    var element = new Element();
-                    element.Mz = currentMzValue;
-                    element.Intensity = Convert.ToDouble(currentSpectrum.LookupIonIntensityByMZ(currentMzValue, (float)0.0, (float)0.04));
-                    element.Matched = false;
+                    var element = new Element
+                    {
+                        Mz = currentMzValue,
+                        Intensity = Convert.ToDouble(currentSpectrum.LookupIonIntensityByMZ(currentMzValue, (float)0.0, (float)0.04)),
+                        Matched = false
+                    };
                     elements.Add(element);
                 }
                 return elements;

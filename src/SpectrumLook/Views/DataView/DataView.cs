@@ -143,11 +143,13 @@ namespace SpectrumLook.Views
             for (var i = 0; i < ColNum; i++)
             {
                 HeaderList.Insert(i, DataTableForDisplay.Columns[i].ColumnName);
-                InsertItem = new ToolStripMenuItem();
-                InsertItem.Text = HeaderList[i];
-                InsertItem.ImageIndex = i;
-                InsertItem.CheckOnClick = true;
-                InsertItem.Checked = true;
+                InsertItem = new ToolStripMenuItem
+                {
+                    Text = HeaderList[i],
+                    ImageIndex = i,
+                    CheckOnClick = true,
+                    Checked = true
+                };
                 InsertItem.CheckedChanged += new EventHandler(InsertItem_CheckedChanged);
                 ColcontextMenuStrip.Items.Insert(i, InsertItem);
             }

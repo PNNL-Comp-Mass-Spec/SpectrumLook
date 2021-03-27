@@ -38,9 +38,11 @@ namespace SpectrumLook.Builders
                 LoadScanStatsData = false,
                 MaxProteinsPerPSM = 100
             };
-            m_reader = new ReaderFactory(synopsisFilePath, startupOptions);
-            // m_reader.FastReadMode = true;
-            m_reader.SkipDuplicatePSMs = true;
+            m_reader = new ReaderFactory(synopsisFilePath, startupOptions)
+            {
+                // m_reader.FastReadMode = true;
+                SkipDuplicatePSMs = true
+            };
         }
 
         public string[] GetNextRow()

@@ -47,23 +47,29 @@ namespace SpectrumLook
         public Manager(MainForm mainForm)
         {
             // Plot
-            m_plot = new SLPlot(this);
-            m_plot.TopLevel = false;
-            m_plot.Visible = true;
-            m_plot.FormBorderStyle = FormBorderStyle.None;
-            m_plot.Text = "Plot";
+            m_plot = new SLPlot(this)
+            {
+                TopLevel = false,
+                Visible = true,
+                FormBorderStyle = FormBorderStyle.None,
+                Text = "Plot"
+            };
 
             // Data View
-            m_dataView = new DataView(this);
-            m_dataView.TopLevel = false;
-            m_dataView.Visible = true;
-            m_dataView.FormBorderStyle = FormBorderStyle.None;
+            m_dataView = new DataView(this)
+            {
+                TopLevel = false,
+                Visible = true,
+                FormBorderStyle = FormBorderStyle.None
+            };
 
             // Fragment Ladder
-            m_fragLadder = new Views.FragmentLadderView.FragmentLadderView(this);
-            m_fragLadder.TopLevel = false;
-            m_fragLadder.Visible = true;
-            m_fragLadder.FormBorderStyle = FormBorderStyle.None;
+            m_fragLadder = new Views.FragmentLadderView.FragmentLadderView(this)
+            {
+                TopLevel = false,
+                Visible = true,
+                FormBorderStyle = FormBorderStyle.None
+            };
 
             // MainForm
             m_mainForm = mainForm;
