@@ -17,14 +17,8 @@ namespace SpectrumLook.Builders
 
         string IExperimentParser.Filename
         {
-            get
-            {
-                return m_fileLocation;
-            }
-            set
-            {
-                m_fileLocation = value;
-            }
+            get => m_fileLocation;
+            set => m_fileLocation = value;
         }
 
         /// <summary>

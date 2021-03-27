@@ -15,10 +15,7 @@ namespace SpectrumLook.Views
 
         public bool isPlotInMainForm
         {
-            get
-            {
-                return m_isPlotInMainForm;
-            }
+            get => m_isPlotInMainForm;
             set
             {
                 m_isPlotInMainForm = value;
@@ -28,10 +25,7 @@ namespace SpectrumLook.Views
 
         public double toleranceValue
         {
-            get
-            {
-                return m_toleranceValue;
-            }
+            get => m_toleranceValue;
             set
             {
                 if (value >= 0.0)
@@ -44,10 +38,7 @@ namespace SpectrumLook.Views
 
         public double lowerToleranceValue
         {
-            get
-            {
-                return m_lowerToleranceValue;
-            }
+            get => m_lowerToleranceValue;
             set
             {
                 if (value >= 0.0)

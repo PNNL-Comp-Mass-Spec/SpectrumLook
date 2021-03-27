@@ -20,14 +20,10 @@ namespace SpectrumLook.Builders
    
         public List<Element> ElementList
         {
-            get
-            {
-                return m_elementList;
-            }
+            get => m_elementList;
             internal set//Should not be setable by outside objects except the derived class.
-            {
-                m_elementList = value;
-            }
+                =>
+                    m_elementList = value;
         }
      
         public ElementListBuilder()

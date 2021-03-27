@@ -18,10 +18,7 @@ namespace SpectrumLook.Views
     {
         public bool showSnappingCursor
         {
-            get
-            {
-                return this.m_showSnappingCursor;
-            }
+            get => this.m_showSnappingCursor;
             set
             {
                 this.m_showSnappingCursor = value;
@@ -30,10 +27,7 @@ namespace SpectrumLook.Views
         }
         public bool showLegend
         {
-            get
-            {
-                return this.m_showLegend;
-            }
+            get => this.m_showLegend;
             set
             {
                 this.m_showLegend = value;
@@ -42,10 +36,7 @@ namespace SpectrumLook.Views
         }
         public int annotationPercent
         {
-            get
-            {
-                return this.m_annotationPercent;
-            }
+            get => this.m_annotationPercent;
             set
             {
                 this.m_annotationPercent = value;
@@ -54,10 +45,7 @@ namespace SpectrumLook.Views
         }
         public int annotationTextSize
         {
-            get
-            {
-                return this.m_annotationTextSize;
-            }
+            get => this.m_annotationTextSize;
             set
             {
                 this.m_annotationTextSize = value;
@@ -66,10 +54,7 @@ namespace SpectrumLook.Views
         }
         public Color annotationColor
         {
-            get
-            {
-                return this.m_annotationColor;
-            }
+            get => this.m_annotationColor;
             set
             {
                 this.m_annotationColor = value;
@@ -78,10 +63,7 @@ namespace SpectrumLook.Views
         }
         public Color matchedColor
         {
-            get
-            {
-                return this.m_matchedColor;
-            }
+            get => this.m_matchedColor;
             set
             {
                 this.m_matchedColor = value;
@@ -90,10 +72,7 @@ namespace SpectrumLook.Views
         }
         public Color unmatchedColor
         {
-            get
-            {
-                return this.m_unmatchedColor;
-            }
+            get => this.m_unmatchedColor;
             set
             {
                 this.m_unmatchedColor = value;
@@ -102,10 +81,7 @@ namespace SpectrumLook.Views
         }
         public bool zoomHorizontal
         {
-            get
-            {
-                return this.m_zoomHorizontal;
-            }
+            get => this.m_zoomHorizontal;
             set
             {
                 this.m_zoomHorizontal = value;
@@ -114,10 +90,7 @@ namespace SpectrumLook.Views
         }
         public bool hideUnmatched
         {
-            get
-            {
-                return this.m_hideUnmatched;
-            }
+            get => this.m_hideUnmatched;
             set
             {
                 this.m_hideUnmatched = value;
@@ -126,10 +99,7 @@ namespace SpectrumLook.Views
         }
         public Keys unzoomKey
         {
-            get
-            {
-                return this.m_unzoomKey;
-            }
+            get => this.m_unzoomKey;
             set
             {
                 this.m_unzoomKey = value;
@@ -138,10 +108,7 @@ namespace SpectrumLook.Views
         }
         public int focusOffset
         {
-            get
-            {
-                return this.m_focusOffset;
-            }
+            get => this.m_focusOffset;
             set
             {
                 this.m_focusOffset = value;
@@ -150,10 +117,7 @@ namespace SpectrumLook.Views
         }
         public bool rightClickUnzoom
         {
-            get
-            {
-                return this.m_rightClickUnzoom;
-            }
+            get => this.m_rightClickUnzoom;
             set
             {
                 this.m_rightClickUnzoom = value;
@@ -162,10 +126,7 @@ namespace SpectrumLook.Views
         }
         public bool hidePlotTools
         {
-            get
-            {
-                return this.m_hidePlotTools;
-            }
+            get => this.m_hidePlotTools;
             set
             {
                 this.m_hidePlotTools = value;

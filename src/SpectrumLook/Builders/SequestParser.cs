@@ -34,26 +34,14 @@ namespace SpectrumLook.Builders
 
         public string fileLocation
         {
-            get
-            {
-                return fileLocation;
-            }
-            internal set
-            {
-                fileLocation = value;
-            }
+            get => fileLocation;
+            internal set => fileLocation = value;
         }
 
         public int currentRowCount
         {
-            get
-            {
-                return m_currentRowCount;
-            }
-            internal set
-            {
-                m_currentRowCount = value;
-            }
+            get => m_currentRowCount;
+            internal set => m_currentRowCount = value;
         }
 
         /// <summary>

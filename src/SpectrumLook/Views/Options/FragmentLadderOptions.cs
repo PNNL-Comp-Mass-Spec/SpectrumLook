@@ -21,10 +21,7 @@ namespace SpectrumLook.Views.Options
 
         public Dictionary<char, double> modificationList
         {
-            get
-            {
-                return m_modificationList;
-            }
+            get => m_modificationList;
             set
             {
                 //This is a property that does need to be synced.
@@ -35,10 +32,7 @@ namespace SpectrumLook.Views.Options
 
         public List<string> checkedHeaders
         {
-            get
-            {
-                return m_checkedHeaders;
-            }
+            get => m_checkedHeaders;
             set
             {
                 //This is a property that does not need to be synced.
@@ -49,10 +43,7 @@ namespace SpectrumLook.Views.Options
 
         public bool ammoniaLoss
         {
-            get
-            {
-                return m_ammoniaLoss;
-            }
+            get => m_ammoniaLoss;
             set
             {
                 this.Invoke();
@@ -62,10 +53,7 @@ namespace SpectrumLook.Views.Options
 
         public bool waterLoss
         {
-            get
-            {
-                return m_waterLoss;
-            }
+            get => m_waterLoss;
             set
             {
                 this.Invoke();
@@ -75,10 +63,7 @@ namespace SpectrumLook.Views.Options
 
         public int precision
         {
-            get
-            {
-                return m_precision;
-            }
+            get => m_precision;
             set
             {
                 this.Invoke();

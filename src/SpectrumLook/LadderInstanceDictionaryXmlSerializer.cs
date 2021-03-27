@@ -17,13 +17,7 @@ namespace SpectrumLook
 
         private string m_fileSaved;
 
-        public string fileSaved
-        {
-            get
-            {
-                return m_fileSaved;
-            }
-        }
+        public string fileSaved => m_fileSaved;
 
         /// <summary>
         /// This object just set the m_fileSaved path to null.

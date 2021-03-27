@@ -22,38 +22,20 @@ namespace SpectrumLook.Builders
 
         string IExperimentParser.Filename
         {
-            get
-            {
-                return m_fileLocation;
-            }
-            set
-            {
-                m_fileLocation = value;
-            }
+            get => m_fileLocation;
+            set => m_fileLocation = value;
         }
 
         public string currentFileLocation
         {
-            get
-            {
-                return m_fileLocation;
-            }
-            internal set
-            {
-                m_fileLocation = value;
-            }
+            get => m_fileLocation;
+            internal set => m_fileLocation = value;
         }
 
         public bool isFileOpened
         {
-            get
-            {
-                return m_fileOpened;
-            }
-            internal set
-            {
-                m_fileOpened = value;
-            }
+            get => m_fileOpened;
+            internal set => m_fileOpened = value;
         }
 
         /// <summary>

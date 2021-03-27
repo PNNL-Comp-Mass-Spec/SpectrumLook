@@ -19,15 +19,9 @@ namespace SpectrumLook.Views
         private string m_availableSymbols;
         private string m_symbolRegex;
 
-        public string ModificationString
-        {
-            get { return m_modificationString; }
-        }
+        public string ModificationString => m_modificationString;
 
-        public string MassString
-        {
-            get { return m_massString; }
-        }
+        public string MassString => m_massString;
 
         public EditAddModification(string editedModString, string editedMassString, string usedSymbols = "")
         {

@@ -7,8 +7,8 @@
         public string Peptide;
         public string PrecursorMZ;
 
-        public int IntScanNumber { get { return int.Parse(ScanNumber); } }
-        public double DblPrecursorMZ { get { return double.Parse(PrecursorMZ); } }
+        public int IntScanNumber => int.Parse(ScanNumber);
+        public double DblPrecursorMZ => double.Parse(PrecursorMZ);
 
         public ResultRowData(string datasetName, string scanNumber, string peptide, string precursorMZ)
         {

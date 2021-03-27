@@ -20,14 +20,8 @@ namespace SpectrumLook.Views
         private Manager m_manager;
         public PlotOptions m_options
         {
-            get
-            {
-                return msPlot.m_options;
-            }
-            set
-            {
-                msPlot.m_options = value;
-            }
+            get => msPlot.m_options;
+            set => msPlot.m_options = value;
         }
 
         /// <summary>

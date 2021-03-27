@@ -32,36 +32,18 @@ namespace SpectrumLook
 
         public List<string[]> mzValue
         {
-            get
-            {
-                return m_mzValues;
-            }
-            set
-            {
-                m_mzValues = value;
-            }
+            get => m_mzValues;
+            set => m_mzValues = value;
         }
         public List<string> mzValueHeaders
         {
-            get
-            {
-                return m_mzValueHeaders;
-            }
-            set
-            {
-                m_mzValueHeaders = value;
-            }
+            get => m_mzValueHeaders;
+            set => m_mzValueHeaders = value;
         }
         public string scanAndPeptide
         {
-            get
-            {
-                return m_scanAndPeptide;
-            }
-            set
-            {
-                m_scanAndPeptide = value;
-            }
+            get => m_scanAndPeptide;
+            set => m_scanAndPeptide = value;
         }
         public string scanNumberString
         {
@@ -102,25 +84,13 @@ namespace SpectrumLook
         }
         public string currentMode
         {
-            get
-            {
-                return m_currentMode;
-            }
-            set
-            {
-                m_currentMode = value;
-            }
+            get => m_currentMode;
+            set => m_currentMode = value;
         }
         public List<Annotation> annotations
         {
-            get
-            {
-                return m_annotations;
-            }
-            set
-            {
-                m_annotations = value;
-            }
+            get => m_annotations;
+            set => m_annotations = value;
         }
 
         public LadderInstance()

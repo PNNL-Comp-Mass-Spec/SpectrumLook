@@ -38,10 +38,7 @@ namespace SpectrumLook.Builders
 
         public double possibleError
         {
-            get
-            {
-                return m_upperBoundTolerance;
-            }
+            get => m_upperBoundTolerance;
             set
             {
                 if (value >= 0.0)
@@ -53,10 +50,7 @@ namespace SpectrumLook.Builders
 
         public double lowerBoundPossibleError
         {
-            get
-            {
-                return m_lowerBoundTolerance;
-            }
+            get => m_lowerBoundTolerance;
             set
             {
                 if (value >= 0.0)

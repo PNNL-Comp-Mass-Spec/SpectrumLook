@@ -29,14 +29,8 @@ namespace SpectrumLook.Views.FragmentLadderView
 
         public FragmentLadderOptions fragmentLadderOptions
         {
-            get
-            {
-                return m_fragmentLadderOptions;
-            }
-            set
-            {
-                m_fragmentLadderOptions = value;
-            }
+            get => m_fragmentLadderOptions;
+            set => m_fragmentLadderOptions = value;
         }
 
         public FragmentLadderView(Manager manager)

@@ -19,14 +19,8 @@ namespace SpectrumLookTests
         ///</summary>
         public TestContext TestContext
         {
-            get
-            {
-                return testContextInstance;
-            }
-            set
-            {
-                testContextInstance = value;
-            }
+            get => testContextInstance;
+            set => testContextInstance = value;
         }
 
         //
@@ -75,9 +69,8 @@ namespace SpectrumLookTests
         {
             var target = new Element(); // TODO: Initialize to an appropriate value
             var expected = string.Empty; // TODO: Initialize to an appropriate value
-            string actual;
             target.Annotation = expected;
-            actual = target.Annotation;
+            var actual = target.Annotation;
             Assert.AreEqual(expected, actual);
             Assert.Inconclusive("Verify the correctness of this test method.");
         }
@@ -90,9 +83,8 @@ namespace SpectrumLookTests
         {
             var target = new Element(); // TODO: Initialize to an appropriate value
             double expected = 0F; // TODO: Initialize to an appropriate value
-            double actual;
             target.Intensity = expected;
-            actual = target.Intensity;
+            var actual = target.Intensity;
             Assert.AreEqual(expected, actual);
             Assert.Inconclusive("Verify the correctness of this test method.");
         }
@@ -105,9 +97,8 @@ namespace SpectrumLookTests
         {
             var target = new Element(); // TODO: Initialize to an appropriate value
             var expected = false; // TODO: Initialize to an appropriate value
-            bool actual;
             target.Matched = expected;
-            actual = target.Matched;
+            var actual = target.Matched;
             Assert.AreEqual(expected, actual);
             Assert.Inconclusive("Verify the correctness of this test method.");
         }
@@ -120,9 +111,8 @@ namespace SpectrumLookTests
         {
             var target = new Element(); // TODO: Initialize to an appropriate value
             double expected = 0F; // TODO: Initialize to an appropriate value
-            double actual;
             target.Mz = expected;
-            actual = target.Mz;
+            var actual = target.Mz;
             Assert.AreEqual(expected, actual);
             Assert.Inconclusive("Verify the correctness of this test method.");
         }

@@ -57,50 +57,26 @@ namespace SpectrumLook.Builders
 
         public string Annotation
         {
-            get
-            {
-                return m_annotation;
-            }
-            set
-            {
-                m_annotation = value;
-            }
+            get => m_annotation;
+            set => m_annotation = value;
         }
 
         public double Intensity
         {
-            get
-            {
-                return m_intensity;
-            }
-            set
-            {
-                m_intensity = value;
-            }
+            get => m_intensity;
+            set => m_intensity = value;
         }
 
         public bool Matched
         {
-            get
-            {
-                return m_matched;
-            }
-            set
-            {
-                m_matched = value;
-            }
+            get => m_matched;
+            set => m_matched = value;
         }
 
         public double Mz
         {
-            get
-            {
-                return m_mzValue;
-            }
-            set
-            {
-                m_mzValue = value;
-            }
+            get => m_mzValue;
+            set => m_mzValue = value;
         }
     }
 }

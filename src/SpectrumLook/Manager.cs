@@ -173,7 +173,7 @@ namespace SpectrumLook
         private string m_dataFileDirectory = string.Empty;
         private string m_dataFileLocation
         {
-            get { return Path.Combine(m_dataFileDirectory, DataFileName); }
+            get => Path.Combine(m_dataFileDirectory, DataFileName);
             set
             {
                 m_dataFileDirectory = Path.GetDirectoryName(value);
