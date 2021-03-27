@@ -148,14 +148,12 @@ namespace SpectrumLook.Views.FragmentLadderView
                     {
                         // if (i == tabControl1.SelectedIndex)
                         peptideEditorTextBox.Text = currentInstance.PeptideString.ToString();
-                        tempListBox = new ListBox
-                        {
-                            BackColor = SystemColors.Control,
-                            BorderStyle = BorderStyle.FixedSingle,
-                            ColumnWidth = 40,
-                            FormattingEnabled = true,
-                            Location = new Point(xListBoxPosition, yListBoxPosition)
-                        };
+                        tempListBox = new ListBox();
+                        tempListBox.BackColor = SystemColors.Control;
+                        tempListBox.BorderStyle = BorderStyle.FixedSingle;
+                        tempListBox.ColumnWidth = 40;
+                        tempListBox.FormattingEnabled = true;
+                        tempListBox.Location = new Point(xListBoxPosition, yListBoxPosition);
                         if (!m_manager.m_mainForm.m_currentOptions.isPlotInMainForm)// m_fragmentLadderOptions.plotDetached)
                             tempListBox.MultiColumn = true;
                         else
@@ -201,7 +199,7 @@ namespace SpectrumLook.Views.FragmentLadderView
                         var currentLadderValueIndex = 0;
                         while (currentLadderValueIndex < currentInstance.mzValue[listBoxCounter].Length)
                         {
-                            if (currentInstance.mzValue[listBoxCounter][currentLadderValueIndex] == "")
+                            if (currentInstance.mzValue[listBoxCounter][currentLadderValueIndex]?.Length == 0)
                             {
                                 tempListBox.Items.Insert((currentLadderValueIndex + 1), "");
                             }
@@ -244,14 +242,12 @@ namespace SpectrumLook.Views.FragmentLadderView
                     }
 
                     // print the index from the front of the peptide sequence
-                    tempListBox = new ListBox
-                    {
-                        BackColor = SystemColors.Control,
-                        BorderStyle = BorderStyle.FixedSingle,
-                        ColumnWidth = 40,
-                        FormattingEnabled = true,
-                        Location = new Point(xListBoxPosition, yListBoxPosition)
-                    };
+                    tempListBox = new ListBox();
+                    tempListBox.BackColor = SystemColors.Control;
+                    tempListBox.BorderStyle = BorderStyle.FixedSingle;
+                    tempListBox.ColumnWidth = 40;
+                    tempListBox.FormattingEnabled = true;
+                    tempListBox.Location = new Point(xListBoxPosition, yListBoxPosition);
                     if (!m_manager.m_mainForm.m_currentOptions.isPlotInMainForm)// m_fragmentLadderOptions.plotDetached)
                         tempListBox.MultiColumn = true;
                     else
@@ -292,14 +288,12 @@ namespace SpectrumLook.Views.FragmentLadderView
                         xListBoxPosition += 40 + 3;
 
                     // draw the peptide sequence
-                    tempListBox = new ListBox
-                    {
-                        BackColor = SystemColors.Control,
-                        BorderStyle = BorderStyle.FixedSingle,
-                        ColumnWidth = 40,
-                        FormattingEnabled = true,
-                        Location = new Point(xListBoxPosition, yListBoxPosition)
-                    };
+                    tempListBox = new ListBox();
+                    tempListBox.BackColor = SystemColors.Control;
+                    tempListBox.BorderStyle = BorderStyle.FixedSingle;
+                    tempListBox.ColumnWidth = 40;
+                    tempListBox.FormattingEnabled = true;
+                    tempListBox.Location = new Point(xListBoxPosition, yListBoxPosition);
                     if (!m_manager.m_mainForm.m_currentOptions.isPlotInMainForm)// m_fragmentLadderOptions.plotDetached)
                         tempListBox.MultiColumn = true;
                     else
@@ -336,14 +330,12 @@ namespace SpectrumLook.Views.FragmentLadderView
                     // end drawing peptide sequence
 
                     // print the index from the front of the peptide sequence
-                    tempListBox = new ListBox
-                    {
-                        BackColor = SystemColors.Control,
-                        BorderStyle = BorderStyle.FixedSingle,
-                        ColumnWidth = 40,
-                        FormattingEnabled = true,
-                        Location = new Point(xListBoxPosition, yListBoxPosition)
-                    };
+                    tempListBox = new ListBox();
+                    tempListBox.BackColor = SystemColors.Control;
+                    tempListBox.BorderStyle = BorderStyle.FixedSingle;
+                    tempListBox.ColumnWidth = 40;
+                    tempListBox.FormattingEnabled = true;
+                    tempListBox.Location = new Point(xListBoxPosition, yListBoxPosition);
                     if (!m_manager.m_mainForm.m_currentOptions.isPlotInMainForm)// m_fragmentLadderOptions.plotDetached)
                         tempListBox.MultiColumn = true;
                     else
@@ -376,14 +368,12 @@ namespace SpectrumLook.Views.FragmentLadderView
                     {
                         // if (i == tabControl1.SelectedIndex)
                         peptideEditorTextBox.Text = currentInstance.PeptideString.ToString();
-                        tempListBox = new ListBox
-                        {
-                            BackColor = SystemColors.Control,
-                            BorderStyle = BorderStyle.FixedSingle,
-                            ColumnWidth = 40,
-                            FormattingEnabled = true,
-                            Location = new Point(xListBoxPosition, yListBoxPosition)
-                        };
+                        tempListBox = new ListBox();
+                        tempListBox.BackColor = SystemColors.Control;
+                        tempListBox.BorderStyle = BorderStyle.FixedSingle;
+                        tempListBox.ColumnWidth = 40;
+                        tempListBox.FormattingEnabled = true;
+                        tempListBox.Location = new Point(xListBoxPosition, yListBoxPosition);
                         if (!m_manager.m_mainForm.m_currentOptions.isPlotInMainForm)// m_fragmentLadderOptions.plotDetached)
                             tempListBox.MultiColumn = true;
                         else
@@ -409,7 +399,7 @@ namespace SpectrumLook.Views.FragmentLadderView
                         {*/
                         var tempArray = currentInstance.mzValue[listBoxCounter];
                         var findNonNull = 0;
-                        while ((findNonNull < tempArray.Length) && (tempArray[findNonNull] == ""))
+                        while ((findNonNull < tempArray.Length) && (tempArray[findNonNull]?.Length == 0))
                             ++findNonNull;
                         var splittedSubArrayOne = tempArray[findNonNull].Split('|');
                         var splittedSubArrayTwo = tempArray[(findNonNull + 1)].Split('|');
@@ -580,7 +570,7 @@ namespace SpectrumLook.Views.FragmentLadderView
         /// <param name="e"></param>
         private void columnButton_Click(object sender, EventArgs e)
         {
-            if (columnPanel.Visible == true)
+            if (columnPanel.Visible)
             {
                 columnPanel.Visible = false;
                 columnLabel.Visible = false;
@@ -664,12 +654,10 @@ namespace SpectrumLook.Views.FragmentLadderView
             }
 
             var newTabIndex = tabControl1.TabCount;
-            if (peptideEditorTextBox.Text == "")
+            if (peptideEditorTextBox.Text?.Length == 0)
                 return;
 
-            var changeTab = false;
-
-            changeTab = m_manager.HandleInputPeptide(peptideEditorTextBox.Text);
+            var changeTab = m_manager.HandleInputPeptide(peptideEditorTextBox.Text);
             if (changeTab)
             {
                 tabControl1.SelectedIndex = newTabIndex;
@@ -752,7 +740,7 @@ namespace SpectrumLook.Views.FragmentLadderView
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (peptideEditorTextBox.Text == "")
+            if (peptideEditorTextBox.Text?.Length == 0)
                 return;
             m_manager.ClearLadderInstances();
         }
@@ -790,11 +778,9 @@ namespace SpectrumLook.Views.FragmentLadderView
             var newTabIndex = tabControl1.TabCount;
             if (e.KeyCode == Keys.Enter)
             {
-                if (peptideEditorTextBox.Text == "")
+                if (peptideEditorTextBox.Text?.Length == 0)
                     return;
-
-                var changeTab = false;
-                changeTab = m_manager.HandleInputPeptide(peptideEditorTextBox.Text);
+                var changeTab = m_manager.HandleInputPeptide(peptideEditorTextBox.Text);
 
                 if (changeTab)
                 {
