@@ -11,7 +11,7 @@ namespace SpectrumLook.Views.FragmentLadderView
     // CHECKED OUT FOR EDIT TO ROLL BACK TO PREVIOUS VERSION
     public partial class FragmentLadderView : Form, IObserver
     {
-        private Manager m_manager;
+        private readonly Manager m_manager;
 
         private double m_currentParentMZ;
         private List<LadderInstance> m_currentInstances;

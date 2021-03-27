@@ -11,7 +11,7 @@ namespace SpectrumLook.Views.PlotView
             set;
         }
 
-        private Annotation m_originalAnnotation;
+        private readonly Annotation m_originalAnnotation;
         private Annotation m_modifiedAnnotation;
 
         public AnnotationEdit(Annotation annotation)
