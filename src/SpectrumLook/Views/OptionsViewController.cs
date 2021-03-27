@@ -36,7 +36,7 @@ namespace SpectrumLook.Views
 
         private const int m_numCancelOptions = 19;
 
-        //m_options = new OptionsViewController(m_plot.m_options, m_mainForm.m_currentOptions, m_fragLadder.fragmentLadderOptions ,System.IO.Directory.GetCurrentDirectory() + "\\UserProfile.spuf", createFileFlag);
+        // m_options = new OptionsViewController(m_plot.m_options, m_mainForm.m_currentOptions, m_fragLadder.fragmentLadderOptions ,System.IO.Directory.GetCurrentDirectory() + "\\UserProfile.spuf", createFileFlag);
         public OptionsViewController(SpectrumLook.Views.PlotOptions referencePlotOptions, SpectrumLook.Views.MainFormOptions referenceMainFormOptions, SpectrumLook.Views.Options.FragmentLadderOptions fragmentLadderOptions, string profileLocation, bool createProfile, Views.FragmentLadderView.FragmentLadderView m_fragmentLadder)
         {
             InitializeComponent();
@@ -130,7 +130,7 @@ namespace SpectrumLook.Views
 
         private void UpdateOptions()
         {
-            //PLOT UPDATING
+            // PLOT UPDATING
             plotSnappingCursor.Checked = m_plotOptions.showSnappingCursor;
             plotShowLegend.Checked = m_plotOptions.showLegend;
             plotHideUnmatchedData.Checked = m_plotOptions.hideUnmatched;
@@ -143,16 +143,16 @@ namespace SpectrumLook.Views
             plotRightClickUnzoom.Checked = m_plotOptions.rightClickUnzoom;
             plotNumberOfPlotsTextBox.Text = m_plotOptions.numberOfPlots.ToString();
 
-            //MAIN UPDATING
+            // MAIN UPDATING
             mainDetachPlotCheckBox.Checked = !(m_mainFormOptions.isPlotInMainForm);
             mainMatchedColorSample.BackColor = m_plotOptions.matchedColor;
             mainUnmatchedColorSample.BackColor = m_plotOptions.unmatchedColor;
             lowerMatchingToleranceBox.Text = m_mainFormOptions.lowerToleranceValue.ToString();
             mainMatchingToleranceBox.Text = m_mainFormOptions.toleranceValue.ToString();
 
-            //DATA VIEW
+            // DATA VIEW
 
-            //FRAGMENT LADDER
+            // FRAGMENT LADDER
             UpdateModList();
         }
 
@@ -331,7 +331,7 @@ namespace SpectrumLook.Views
             if (outputResult == DialogResult.OK)
             {
                 Matched = colorDialog.Color;
-                //m_plotOptions.matchedColor = colorDialog.Color;
+                // m_plotOptions.matchedColor = colorDialog.Color;
                 mainMatchedColorSample.BackColor = Matched;
             }
         }
@@ -462,7 +462,7 @@ namespace SpectrumLook.Views
 
         private void cancelButton_Click(object sender, EventArgs e)
         {
-            //PLOT UPDATING
+            // PLOT UPDATING
             if (m_valuesForCancel[0] != null)
             {
                 m_plotOptions.showSnappingCursor = (bool)m_valuesForCancel[0];
@@ -521,7 +521,7 @@ namespace SpectrumLook.Views
                 m_plotOptions.numberOfPlots = (int)m_valuesForCancel[15];
             }
 
-            //MAIN UPDATING
+            // MAIN UPDATING
             if (m_valuesForCancel[11] != null)
             {
                 m_mainFormOptions.isPlotInMainForm = (bool)m_valuesForCancel[11];
@@ -535,9 +535,9 @@ namespace SpectrumLook.Views
                 m_mainFormOptions.lowerToleranceValue = (double)m_valuesForCancel[18];
             }
 
-            //DATA VIEW
+            // DATA VIEW
 
-            //FRAGMENT LADDER
+            // FRAGMENT LADDER
 
             if (m_valuesForCancel[17] != null)
             {
@@ -549,7 +549,7 @@ namespace SpectrumLook.Views
 
         private void SaveValuesForCancel()
         {
-            //PLOT
+            // PLOT
             m_valuesForCancel[0] = m_plotOptions.showSnappingCursor;
             m_valuesForCancel[1] = m_plotOptions.showLegend;
             m_valuesForCancel[2] = m_plotOptions.hideUnmatched;
@@ -565,20 +565,20 @@ namespace SpectrumLook.Views
             m_valuesForCancel[14] = m_plotOptions.hidePlotTools;
             m_valuesForCancel[15] = m_plotOptions.numberOfPlots;
 
-            //MAIN
+            // MAIN
             m_valuesForCancel[11] = m_mainFormOptions.isPlotInMainForm;
             m_valuesForCancel[12] = m_mainFormOptions.toleranceValue;
             m_valuesForCancel[18] = m_mainFormOptions.lowerToleranceValue;
 
-            //DATA VIEW
+            // DATA VIEW
 
-            //FRAGMENT LADDER
+            // FRAGMENT LADDER
             m_valuesForCancel[17] = m_fragLadderOptions.checkedHeaders;
         }
 
         private void OptionsViewController_FormClosing(object sender, FormClosingEventArgs e)
         {
-            //Lets Save the Profile data.
+            // Lets Save the Profile data.
             FileStream writer = null;
             if (m_profileLocation != "")
             {
@@ -604,8 +604,8 @@ namespace SpectrumLook.Views
             }
         }
 
-        //Returns a parent directory of a given file or directory.
-        //i.e. "~Prototype4\\SpectrumLook\\bin\\Debug\\UserProfile.spuf"
+        // Returns a parent directory of a given file or directory.
+        // i.e. "~Prototype4\\SpectrumLook\\bin\\Debug\\UserProfile.spuf"
         // goes to "~Prototype4\\SpectrumLook\\bin\\Debug"
         private string getParentDirectory(string directoryWithFile)
         {
@@ -614,10 +614,10 @@ namespace SpectrumLook.Views
             var i = 0;
             foreach (var s in words)
             {
-                if (i == (words.Count() - 1)) //last word
+                if (i == (words.Count() - 1)) // last word
                 {
                 }
-                else if (i == (words.Count() - 2))  //second to last word
+                else if (i == (words.Count() - 2))  // second to last word
                 {
                     returnVal += s;
                 }
@@ -661,7 +661,7 @@ namespace SpectrumLook.Views
                 m_valuesForCancel[13] = m_plotOptions.rightClickUnzoom;
                 m_valuesForCancel[14] = m_plotOptions.hidePlotTools;
                 m_valuesForCancel[15] = m_plotOptions.numberOfPlots;
-              //fixed issue 10 here
+              // fixed issue 10 here
                 m_plotOptions.numberOfPlots = 1;
                 m_plotOptions.replot = true;
 

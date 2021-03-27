@@ -7,8 +7,8 @@ using SpectrumLook.Views.Options;
 
 namespace SpectrumLook.Views.FragmentLadderView
 {
-    //TODO : Need to inherit from IObserver and override the Update function! Otherwise the options will not update properly.
-    //CHECKED OUT FOR EDIT TO ROLL BACK TO PREVIOUS VERSION
+    // TODO : Need to inherit from IObserver and override the Update function! Otherwise the options will not update properly.
+    // CHECKED OUT FOR EDIT TO ROLL BACK TO PREVIOUS VERSION
     public partial class FragmentLadderView : Form, IObserver
     {
         private Manager m_manager;
@@ -79,7 +79,7 @@ namespace SpectrumLook.Views.FragmentLadderView
 
         public void setComboBox()
         {
-            ////////THIS IS WHERE IT IS!///////
+            //////// THIS IS WHERE IT IS!///////
             comboBox1.Enabled = true;
             comboBox1.SelectedIndex = 0;
         }
@@ -107,14 +107,14 @@ namespace SpectrumLook.Views.FragmentLadderView
             // This is a counter for the list boxes.
             var listBoxCounter = 0;
 
-            //this.columnCheckedListBox.Items.AddRange(currentListInstances[0].mzValueHeaders.ToArray());
+            // this.columnCheckedListBox.Items.AddRange(currentListInstances[0].mzValueHeaders.ToArray());
             tabControl1.TabPages.Clear();
             tabControl1.Visible = false;
             tabControl1.TabPages.Add("Original");
 
             var indexOfFirstHalfEnd = 0;
 
-            //find index of first non "b" checked item
+            // find index of first non "b" checked item
             for (var j = 0; j < columnCheckedListBox.CheckedItems.Count; j++)
             {
                 if (columnCheckedListBox.CheckedItems[j].ToString()[0] != 'b' && columnCheckedListBox.CheckedItems[j].ToString()[0] != 'c')
@@ -147,10 +147,10 @@ namespace SpectrumLook.Views.FragmentLadderView
                         tabControl1.TabPages.Add("Modified" + i.ToString());
                     var tempListBox = new System.Windows.Forms.ListBox();
 
-                    //print all b or c ions that exist before the peptide sequence
+                    // print all b or c ions that exist before the peptide sequence
                     for (var index = 0; index < indexOfFirstHalfEnd; index++)
                     {
-                        //if (i == tabControl1.SelectedIndex)
+                        // if (i == tabControl1.SelectedIndex)
                         peptideEditorTextBox.Text = currentInstance.PeptideString.ToString();
                         tempListBox = new System.Windows.Forms.ListBox();
                         tempListBox.BackColor = System.Drawing.SystemColors.Control;
@@ -177,7 +177,7 @@ namespace SpectrumLook.Views.FragmentLadderView
                         }
 
                         // Reverse Array for y and z series
-                        //This Reverse stuff should really be done in the ladder Instance Builder.
+                        // This Reverse stuff should really be done in the ladder Instance Builder.
                         /*if ((columnCheckedListBox.CheckedItems[index].ToString().Contains("y")) ||
                             (columnCheckedListBox.CheckedItems[index].ToString().Contains("z")))
                         {
@@ -245,7 +245,7 @@ namespace SpectrumLook.Views.FragmentLadderView
                         tabControl1.TabPages[i].Controls.Add(tempListBox);
                     }
 
-                    //print the index from the front of the peptide sequence
+                    // print the index from the front of the peptide sequence
                     tempListBox = new System.Windows.Forms.ListBox();
                     tempListBox.BackColor = System.Drawing.SystemColors.Control;
                     tempListBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -264,7 +264,7 @@ namespace SpectrumLook.Views.FragmentLadderView
                     var lengthMinusMods = 0;
                     var modificationList = "*+@!&#$%~`";
 
-                    //calculate length of string minus modifications
+                    // calculate length of string minus modifications
                     foreach (var curChar in currentInstance.PeptideString.ToCharArray())
                     {
                         if (!modificationList.Contains(curChar))
@@ -291,7 +291,7 @@ namespace SpectrumLook.Views.FragmentLadderView
                     else
                         xListBoxPosition += 40 + 3;
 
-                    //draw the peptide sequence
+                    // draw the peptide sequence
                     tempListBox = new System.Windows.Forms.ListBox();
                     tempListBox.BackColor = System.Drawing.SystemColors.Control;
                     tempListBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -331,9 +331,9 @@ namespace SpectrumLook.Views.FragmentLadderView
                         yListBoxPosition += 20 + 3;
                     else
                         xListBoxPosition += 40 + 3;
-                    //end drawing peptide sequence
+                    // end drawing peptide sequence
 
-                    //print the index from the front of the peptide sequence
+                    // print the index from the front of the peptide sequence
                     tempListBox = new System.Windows.Forms.ListBox();
                     tempListBox.BackColor = System.Drawing.SystemColors.Control;
                     tempListBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -367,10 +367,10 @@ namespace SpectrumLook.Views.FragmentLadderView
                     else
                         xListBoxPosition += 40 + 3;
 
-                    //draw the y or z ions that occur after the peptide sequence
+                    // draw the y or z ions that occur after the peptide sequence
                     for (var index = indexOfFirstHalfEnd; index < columnCheckedListBox.CheckedItems.Count; index++)
                     {
-                        //if (i == tabControl1.SelectedIndex)
+                        // if (i == tabControl1.SelectedIndex)
                         peptideEditorTextBox.Text = currentInstance.PeptideString.ToString();
                         tempListBox = new System.Windows.Forms.ListBox();
                         tempListBox.BackColor = System.Drawing.SystemColors.Control;
@@ -397,7 +397,7 @@ namespace SpectrumLook.Views.FragmentLadderView
                         }
 
                         // Reverse Array for y and z series
-                        //This Reverse stuff should really be done in the ladder Instance Builder.
+                        // This Reverse stuff should really be done in the ladder Instance Builder.
                         /*if ((columnCheckedListBox.CheckedItems[index].ToString().Contains("y")) ||
                             (columnCheckedListBox.CheckedItems[index].ToString().Contains("z")))
                         {*/

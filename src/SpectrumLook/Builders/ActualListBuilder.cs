@@ -37,10 +37,10 @@ namespace SpectrumLook.Builders
             }
             else
             {
-                //Throw Exception?
+                // Throw Exception?
             }
         }
-     
+
         /// <summary>
         /// This function is derived from the ElementListBuilder Class.
         /// This version of the function uses the given scan number and given experiment parser to

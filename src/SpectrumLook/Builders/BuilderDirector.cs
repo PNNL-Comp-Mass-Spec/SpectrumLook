@@ -10,7 +10,7 @@ namespace SpectrumLook.Builders
         TheoryListBuilder m_theoryBuilder;
         IExperimentParser m_parser;
 
-        public List<Element> BuildActualList(int scanNumber, string fileLocation)       //Idea is to check the extension, call the right parser based on extension of file name.
+        public List<Element> BuildActualList(int scanNumber, string fileLocation)       // Idea is to check the extension, call the right parser based on extension of file name.
         {
             var mzXML = ".mzxml";
             var raw = ".raw";

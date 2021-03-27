@@ -5,20 +5,20 @@ using System;
 namespace SpectrumLookTests
 {
     /// <summary>
-    ///This is a test class for MzParserTest and is intended
-    ///to contain all MzParserTest Unit Tests
+    /// This is a test class for MzParserTest and is intended
+    /// to contain all MzParserTest Unit Tests
     ///</summary>
     [TestClass]
     public class MzParserTest
     {
         /// <summary>
-        ///Gets or sets the test context which provides
-        ///information about and functionality for the current test run.
+        /// Gets or sets the test context which provides
+        /// information about and functionality for the current test run.
         ///</summary>
         public TestContext TestContext { get; set; }
 
         /// <summary>
-        ///A test for MzParser Constructor
+        /// A test for MzParser Constructor
         ///</summary>
         [TestMethod]
         public void MzParserConstructorTest()
@@ -48,7 +48,7 @@ namespace SpectrumLookTests
         }
 
         /// <summary>
-        ///A test for SpectrumLook.Builders.IExperimentParser.GetExperimentDataByScanNumber
+        /// A test for SpectrumLook.Builders.IExperimentParser.GetExperimentDataByScanNumber
         ///</summary>
         [TestMethod]
         [DeploymentItem("SpectrumLook.exe")]

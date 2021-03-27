@@ -37,7 +37,7 @@ namespace SpectrumLook.Builders
                 if (extension == ".raw")
                 {
                     m_fileToRead = new XRawFileIO();
-                    m_fileOpened = m_fileToRead.OpenRawFile(m_fileLocation);                //m_fileOpened is staying false for some reason. ****
+                    m_fileOpened = m_fileToRead.OpenRawFile(m_fileLocation);                // m_fileOpened is staying false for some reason. ****
                 }
                 else
                 {
@@ -59,9 +59,9 @@ namespace SpectrumLook.Builders
         /// in the currently opened File.</param>
         /// <returns>An array of strings where odd index (starting from 1) are the intensities
         /// and the even index's (starting from 0) are the mzValues.</returns>
-        List<Element> IExperimentParser.GetExperimentDataByScanNumber(int scanNum)   //Have GetExperimentDataByScanNumberRaw commented out, checking without the raw...
+        List<Element> IExperimentParser.GetExperimentDataByScanNumber(int scanNum)   // Have GetExperimentDataByScanNumberRaw commented out, checking without the raw...
         {
-            //m_fileOpened = true;        //TEST
+            // m_fileOpened = true;        // TEST
 
             if (this.m_fileOpened)
             {
@@ -70,7 +70,7 @@ namespace SpectrumLook.Builders
 
                 dataPairCount = m_fileToRead.GetScanData2D(scanNum, out var mzIntensityPairList, 0, true);
 
-                //Step through mzList and intensityList and assign them.
+                // Step through mzList and intensityList and assign them.
                 for (var i = 0; i < dataPairCount; ++i)
                 {
                     values.Add(new Element(mzIntensityPairList[0,i], mzIntensityPairList[1,i]));

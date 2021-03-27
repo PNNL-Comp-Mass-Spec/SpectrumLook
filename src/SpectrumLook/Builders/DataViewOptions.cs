@@ -97,11 +97,11 @@ namespace SpectrumLook.Builders
 
             for (indexOfDataTable = 0; indexOfDataTable < DataGridTable.Rows.Count; ++indexOfDataTable)
             {
-                if (AndOr == "AND")//and
+                if (AndOr == "AND")// and
                 {
                     if (DataGridTable.Rows[indexOfDataTable].Visible == true)
                     {
-                        if (SelOpt == "contains")//contains
+                        if (SelOpt == "contains")// contains
                         {
                             if (!SearchingForSubString(TextInput, DataGridTable.Rows[indexOfDataTable].Cells[ColNum].Value.ToString()))
                                 DataGridTable.Rows[indexOfDataTable].Visible = false;
@@ -131,7 +131,7 @@ namespace SpectrumLook.Builders
                                 {
                                     if (SelDoubleValue >= InputDoubleValue && DataGridTable.Rows[indexOfDataTable].Cells[ColNum].Value.ToString() != null)
                                     {
-                                        //SearchBox.Text = DataGridTable.Rows[indexOfDataTable].Cells[1].Value.ToString();
+                                        // SearchBox.Text = DataGridTable.Rows[indexOfDataTable].Cells[1].Value.ToString();
                                         DataGridTable.Rows[0].Visible = false;
                                     }
                                 }
@@ -164,11 +164,11 @@ namespace SpectrumLook.Builders
 
                     }
                 }
-                else//or
+                else // or
                 {
                     if (DataGridTable.Rows[indexOfDataTable].Visible == false)
                     {
-                        if (SelOpt == "contains")//contains
+                        if (SelOpt == "contains")// contains
                         {
                             if (!SearchingForSubString(TextInput, DataGridTable.Rows[indexOfDataTable].Cells[ColNum].Value.ToString()))
                                 DataGridTable.Rows[indexOfDataTable].Visible = false;

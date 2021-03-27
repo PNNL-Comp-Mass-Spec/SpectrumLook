@@ -39,7 +39,7 @@ namespace SpectrumLook.Builders
                 MaxProteinsPerPSM = 100
             };
             m_reader = new ReaderFactory(synopsisFilePath, startupOptions);
-            //m_reader.FastReadMode = true;
+            // m_reader.FastReadMode = true;
             m_reader.SkipDuplicatePSMs = true;
         }
 

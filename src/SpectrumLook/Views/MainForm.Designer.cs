@@ -291,9 +291,9 @@
         private System.Windows.Forms.Panel panelDataView;
         private System.Windows.Forms.Panel panelFragmentLadder;
 
-        //private System.Windows.Forms.Panel panelPlot;
-        //private System.Windows.Forms.Panel panelDataView;
-        //private System.Windows.Forms.Panel panelFragmentLadder;
+        // private System.Windows.Forms.Panel panelPlot;
+        // private System.Windows.Forms.Panel panelDataView;
+        // private System.Windows.Forms.Panel panelFragmentLadder;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;

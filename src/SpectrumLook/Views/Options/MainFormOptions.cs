@@ -2,7 +2,7 @@
 
 namespace SpectrumLook.Views
 {
-    //TODO : Need to add a location for the ComparedListBuilder.
+    // TODO : Need to add a location for the ComparedListBuilder.
     [Serializable]
     public class MainFormOptions : Subject
     {

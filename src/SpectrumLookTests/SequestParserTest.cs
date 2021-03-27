@@ -5,20 +5,20 @@ using System;
 namespace SpectrumLookTests
 {
     /// <summary>
-    ///This is a test class for SequestParserTest and is intended
-    ///to contain all SequestParserTest Unit Tests
+    /// This is a test class for SequestParserTest and is intended
+    /// to contain all SequestParserTest Unit Tests
     ///</summary>
     [TestClass]
     public class SequestParserTest
     {
         /// <summary>
-        ///Gets or sets the test context which provides
-        ///information about and functionality for the current test run.
+        /// Gets or sets the test context which provides
+        /// information about and functionality for the current test run.
         ///</summary>
         public TestContext TestContext { get; set; }
 
         /// <summary>
-        ///A test for SequestParser Constructor
+        /// A test for SequestParser Constructor
         ///</summary>
         [TestMethod]
         public void SequestParserConstructorTest()
@@ -46,7 +46,7 @@ namespace SpectrumLookTests
         }
 
         /// <summary>
-        ///A test for SpectrumLook.Builders.ISynopsisParser.GetNextColumn
+        /// A test for SpectrumLook.Builders.ISynopsisParser.GetNextColumn
         ///</summary>
         [TestMethod]
         [DeploymentItem("SpectrumLook.exe")]
@@ -59,7 +59,7 @@ namespace SpectrumLookTests
             ISynopsisParser target = new SequestParser(fileLocation);
 
             var expected = "HitNum	ScanNum_s	ScanCount	ChargeState	MH	XCorr	DelCn	Sp	Reference	MultiProtein	Peptide_p	DelCn2	RankSp	RankXc	DelM	XcRatio	PassFilt	MScore	NumTrypticEnds".Split('\t');
-                                //Copied straight from QC file.
+                                // Copied straight from QC file.
             string[] actual;
 
             actual = target.GetNextRow();

@@ -4,20 +4,20 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace SpectrumLookTests
 {
     /// <summary>
-    ///This is a test class for ActualListBuilderTest and is intended
-    ///to contain all ActualListBuilderTest Unit Tests
+    /// This is a test class for ActualListBuilderTest and is intended
+    /// to contain all ActualListBuilderTest Unit Tests
     ///</summary>
     [TestClass]
     public class ActualListBuilderTest
     {
         /// <summary>
-        ///Gets or sets the test context which provides
-        ///information about and functionality for the current test run.
+        /// Gets or sets the test context which provides
+        /// information about and functionality for the current test run.
         ///</summary>
         public TestContext TestContext { get; set; }
 
         /// <summary>
-        ///A test for ActualListBuilder Constructor
+        /// A test for ActualListBuilder Constructor
         ///</summary>
         [TestMethod]
         public void ActualListBuilderConstructorTest()
@@ -29,7 +29,7 @@ namespace SpectrumLookTests
         }
 
         /// <summary>
-        ///A test for BuildList
+        /// A test for BuildList
         ///</summary>
         [TestMethod]
         public void BuildListTest()

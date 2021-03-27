@@ -5,48 +5,48 @@ using System.Collections.Generic;
 namespace SpectrumLookTests
 {
     /// <summary>
-    ///This is a test class for ComparedListBuilderTest and is intended
-    ///to contain all ComparedListBuilderTest Unit Tests
+    /// This is a test class for ComparedListBuilderTest and is intended
+    /// to contain all ComparedListBuilderTest Unit Tests
     ///</summary>
     [TestClass]
     public class ComparedListBuilderTest
     {
         /// <summary>
-        ///Gets or sets the test context which provides
-        ///information about and functionality for the current test run.
+        /// Gets or sets the test context which provides
+        /// information about and functionality for the current test run.
         ///</summary>
         public TestContext TestContext { get; set; }
 
         //
-        //You can use the following additional attributes as you write your tests:
+        // You can use the following additional attributes as you write your tests:
         //
-        //Use ClassInitialize to run code before running the first test in the class
+        // Use ClassInitialize to run code before running the first test in the class
         //[ClassInitialize()]
-        //public static void MyClassInitialize(TestContext testContext)
+        // public static void MyClassInitialize(TestContext testContext)
         //{
         //}
         //
-        //Use ClassCleanup to run code after all tests in a class have run
+        // Use ClassCleanup to run code after all tests in a class have run
         //[ClassCleanup()]
-        //public static void MyClassCleanup()
+        // public static void MyClassCleanup()
         //{
         //}
         //
-        //Use TestInitialize to run code before running each test
+        // Use TestInitialize to run code before running each test
         //[TestInitialize()]
-        //public void MyTestInitialize()
+        // public void MyTestInitialize()
         //{
         //}
         //
-        //Use TestCleanup to run code after each test has run
+        // Use TestCleanup to run code after each test has run
         //[TestCleanup()]
-        //public void MyTestCleanup()
+        // public void MyTestCleanup()
         //{
         //}
         //
 
         /// <summary>
-        ///A test for BuildList
+        /// A test for BuildList
         ///</summary>
         [TestMethod]
         public void BuildListTest()
@@ -65,7 +65,7 @@ namespace SpectrumLookTests
         }
 
         /// <summary>
-        ///A test for ComparedListBuilder Constructor
+        /// A test for ComparedListBuilder Constructor
         ///</summary>
         [TestMethod]
         public void ComparedListBuilderConstructorTest()

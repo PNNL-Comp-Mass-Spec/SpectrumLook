@@ -55,13 +55,13 @@ namespace SpectrumLook.Builders
                 }
                 catch(Exception e)
                 {
-                    throw e; //If the File can not be opened for some reason.
+                    throw e; // If the File can not be opened for some reason.
                 }
             }
             else
             {
                 throw new System.InvalidProgramException("Null fileLocation Value.");
-                //Throw Exception.
+                // Throw Exception.
             }
         }
 
@@ -80,8 +80,8 @@ namespace SpectrumLook.Builders
             if ((currentLine != null) && (currentLine != ""))
             {
                 var splicedRow = currentLine.Split('\t');
-                //This is where add "_p" and "_s" to the row that signifies the peptide sequence and connection to experiment data.
-                /*if (m_currentRowCount == 0) //if zero then we are currently looking at the headers of the columns
+                // This is where add "_p" and "_s" to the row that signifies the peptide sequence and connection to experiment data.
+                /*if (m_currentRowCount == 0) // if zero then we are currently looking at the headers of the columns
                 {
                     splicedRow[1] = splicedRow[1] + "_s";
                     splicedRow[10] = splicedRow[10] + "_p";

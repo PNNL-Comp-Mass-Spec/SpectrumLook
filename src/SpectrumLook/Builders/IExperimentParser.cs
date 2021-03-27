@@ -2,7 +2,7 @@
 
 namespace SpectrumLook.Builders
 {
-    //TODO : Add info on who wrote this. Patrick
+    // TODO : Add info on who wrote this. Patrick
     /// <summary>
     /// This interface class defined what functions will be called in spectrumLook to read
     /// The current experiment File (i.e. mzXML, mzML, etc.)

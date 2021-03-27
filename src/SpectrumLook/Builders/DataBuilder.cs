@@ -20,7 +20,7 @@ namespace SpectrumLook.Builders
                 throw new System.InvalidProgramException("The synopsis file is empty");
             }
 
-            //First GetNextColumn actually gets First Row. Getting Peptide/Scan indices based off first row
+            // First GetNextColumn actually gets First Row. Getting Peptide/Scan indices based off first row
             synFileColumns.Peptide = FindColumnIndex(headerRow, "Peptide", "Peptide_p");
 
             synFileColumns.Scan = FindColumnIndex(headerRow, "Scan", "ScanNum", "ScanNum_s", "Scan_s");
@@ -55,7 +55,7 @@ namespace SpectrumLook.Builders
                 dataTable.Rows.Add(row);
             }
 
-            //ProgressWindow.Close();
+            // ProgressWindow.Close();
             return dataTable;
         }
 

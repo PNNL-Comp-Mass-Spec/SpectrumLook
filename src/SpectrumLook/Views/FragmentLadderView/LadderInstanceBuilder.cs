@@ -30,11 +30,11 @@ namespace SpectrumLook.Views.FragmentLadderView
                 i = 0;
                 if (!(tempListColumnOptions.Contains(spliceNumberFromAnnotation(currentElement.Annotation))))
                 {
-                    //Need to filter out Modification values when calculating the length of the string.
+                    // Need to filter out Modification values when calculating the length of the string.
                     tempListHolder.Add(new string[peptideLength(peptide, modificationValues)]);
                     tempListColumnOptions.Add(spliceNumberFromAnnotation(currentElement.Annotation));
                 }
-                //Find the index to add.
+                // Find the index to add.
                 while (tempListColumnOptions[i] != spliceNumberFromAnnotation(currentElement.Annotation))
                 {
                     ++i;

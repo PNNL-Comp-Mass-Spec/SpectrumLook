@@ -7,14 +7,14 @@ namespace SpectrumLook.Views
     /// <summary>
     /// This is the top level form that contains all of the Views, with the exception of Plot View being detached
     /// </summary>
-    //TODO : Need to inherit from IObserver and override the Update function! Otherwise the options will not update properly.
+    // TODO : Need to inherit from IObserver and override the Update function! Otherwise the options will not update properly.
     public partial class MainForm : Form, IObserver
     {
         private Manager m_manager;
 
         public MainFormOptions m_currentOptions;
         private const string PROGRAM_DATE = "March 26, 2021";
-        
+
         public MainForm()
         {
             InitializeComponent();
@@ -23,24 +23,24 @@ namespace SpectrumLook.Views
 
             m_manager = new Manager(this);
 
-            //Fragment Ladder
+            // Fragment Ladder
             panelFragmentLadder.Controls.Add(m_manager.m_fragLadder);
             panelFragmentLadder.Controls[m_manager.m_fragLadder.Name].Dock = DockStyle.Fill;
 
             panelFragmentLadder.Resize += new EventHandler(panel_Resize);
 
-            //Data View
+            // Data View
             panelDataView.Controls.Add(m_manager.m_dataView);
             panelDataView.Controls[m_manager.m_dataView.Name].Dock = DockStyle.Fill;
             panelDataView.Resize += new EventHandler(panel_Resize);
 
-            //Plot
+            // Plot
             panelPlot.Controls.Add(m_manager.m_plot);
             panelPlot.Controls[m_manager.m_plot.Name].Dock = DockStyle.Fill;
             panelPlot.Resize += new EventHandler(panel_Resize);
 
-            //////FileOpen
-            ////FileOpen = new OpenMenu();
+            //// FileOpen
+            //// FileOpen = new OpenMenu();
 
             splitContainer2.IsSplitterFixed = false;
             splitContainer2.BorderStyle = BorderStyle.FixedSingle;
@@ -56,7 +56,7 @@ namespace SpectrumLook.Views
             Text = "Spectrum Look - " + GetAppVersion();
 
             KeyDown += new KeyEventHandler(MainForm_KeyDown);
-            KeyPreview = true; //set this true so we can get all the key events for child controls
+            KeyPreview = true; // set this true so we can get all the key events for child controls
         }
 
         private static string GetAppVersion()
@@ -77,7 +77,7 @@ namespace SpectrumLook.Views
             }
              */
         }
-      
+
         /// <summary>
         /// Handles any keyPress within the SpectrumLook Form
         /// </summary>
@@ -98,9 +98,9 @@ namespace SpectrumLook.Views
                     m_manager.m_plot.Hide();
                     m_manager.m_plot.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
                     m_manager.m_plot.TopLevel = true;
-                    m_manager.m_plot.ShowInTaskbar = true;//false;
+                    m_manager.m_plot.ShowInTaskbar = true;// false;
                     m_manager.m_plot.ShowIcon = false;
-                    m_manager.m_plot.ControlBox = true;//false;
+                    m_manager.m_plot.ControlBox = true;// false;
                     m_manager.m_plot.FormClosing += new FormClosingEventHandler(m_plot_FormClosing);
                     m_manager.m_plot.Location = pointOnTheScreen;
                 }
@@ -130,7 +130,7 @@ namespace SpectrumLook.Views
         {
             e.Cancel = true;
             m_currentOptions.isPlotInMainForm = true;
-            //detachPlotFromMainForm();
+            // detachPlotFromMainForm();
         }
 
         private void splitContainer1_SplitterMoved(object sender, SplitterEventArgs e)
@@ -145,7 +145,7 @@ namespace SpectrumLook.Views
 
         private void MainForm_Resize(object sender, EventArgs e)
         {
-            //if (cmdShowHideFragmentIons.Text == "<<")
+            // if (cmdShowHideFragmentIons.Text == "<<")
             //{
             //    if (m_currentOptions != null && m_currentOptions.isPlotInMainForm)
             //    {
@@ -159,23 +159,23 @@ namespace SpectrumLook.Views
             //        splitContainer2.SplitterDistance = splitContainer1.Width;
             //        cmdShowHideFragmentIons.Location = new Point(((splitContainer1.Width - cmdShowHideFragmentIons.Width) - 5), 2);
             //    }
-            //    //m_manager.m_fragmentLadder.Width = cmdShowHideFragmentIons.Location.X;
+            //    // m_manager.m_fragmentLadder.Width = cmdShowHideFragmentIons.Location.X;
             //}
-            //if (cmdShowHideFragmentIons.Text == ">>")
+            // if (cmdShowHideFragmentIons.Text == ">>")
             //{
             //    cmdShowHideFragmentIons.Location = new Point(0, 2);
             //    splitContainer2.SplitterDistance = cmdShowHideFragmentIons.Width;
             //}
 
-            //panelFragmentLadder.Height = splitContainer2.Panel1.Height;
-            ////m_manager.m_fragmentLadder.Height = splitContainer2.Panel1.Height;
+            // panelFragmentLadder.Height = splitContainer2.Panel1.Height;
+            //// m_manager.m_fragmentLadder.Height = splitContainer2.Panel1.Height;
 
-            //MoveCollapseButton();
+            // MoveCollapseButton();
 
-            //panelDataView.Height = splitContainer1.Panel1.Height;
-            //panelDataView.Width = splitContainer1.Panel1.Width;
+            // panelDataView.Height = splitContainer1.Panel1.Height;
+            // panelDataView.Width = splitContainer1.Panel1.Width;
 
-            //if (m_currentOptions != null && m_currentOptions.isPlotInMainForm) // This is so that the resize doesn't try to resize the plot window when it is detached.
+            // if (m_currentOptions != null && m_currentOptions.isPlotInMainForm) // This is so that the resize doesn't try to resize the plot window when it is detached.
             //{
             //    panelPlot.Height = splitContainer2.Panel2.Height;
             //    panelPlot.Width = splitContainer2.Panel2.Width;
@@ -247,9 +247,9 @@ namespace SpectrumLook.Views
 
         private void globalOptionsHiding(object sender, EventArgs e)
         {
-            //if (((MainFormOptions)sender).Visible == false)
+            // if (((MainFormOptions)sender).Visible == false)
             //{
-            //    detachPlotFromMainForm(); //This uses the boolean value isPlotDetached.
+            //    detachPlotFromMainForm(); // This uses the boolean value isPlotDetached.
             //}
         }
 
@@ -306,9 +306,9 @@ namespace SpectrumLook.Views
 
         public void UpdateObserver()
         {
-            //TODO: add code that updates the options in main form
+            // TODO: add code that updates the options in main form
             detachPlotFromMainForm();
-            //TODO: add code to regenerate fragmentLadder possibly horizontally
+            // TODO: add code to regenerate fragmentLadder possibly horizontally
             m_manager.m_fragLadder.regenerateLadderFromSelection();
         }
     }

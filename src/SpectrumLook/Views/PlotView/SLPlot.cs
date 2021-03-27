@@ -31,11 +31,11 @@ namespace SpectrumLook.Views
 
             m_options = new PlotOptions();
 
-            //Setup the parts of the form not involving zedgraph
+            // Setup the parts of the form not involving zedgraph
             msPlot.m_updateCursorCallback = UpdateSnapPoint;
             trackBarAnnotationPercent.Value = msPlot.m_options.annotationPercent;
 
-            //set this true so that all keyboard events in any child control get processed by SLPlot first
+            // set this true so that all keyboard events in any child control get processed by SLPlot first
             KeyPreview = true;
         }
 
@@ -79,9 +79,9 @@ namespace SpectrumLook.Views
             bool setButtonPlotOptionsVisible = true;
             bool setNumPlotsGroupVisible = true;
 
-            ////check what can we show given the space we have
+            //// check what can we show given the space we have
 
-            //check horizontal size constraints
+            // check horizontal size constraints
             if (this.Size.Width < (20 + groupBoxAnnotationCoverage.Size.Width + groupBoxClosestPoint.Size.Width))
             {
                 setAnnotationSliderVisible = false;
@@ -93,7 +93,7 @@ namespace SpectrumLook.Views
                     setSnapBoxVisible = false;
                 }
             }
-            //check vertical size constraints
+            // check vertical size constraints
             if (this.Size.Height < 30 + (4 * (groupBoxClosestPoint.Size.Height)))
             {
                 setAnnotationSliderVisible = false;
@@ -103,7 +103,7 @@ namespace SpectrumLook.Views
                 setNumPlotsGroupVisible = false;
             }
 
-            ////Check the user options for if we need to hide something we have room for
+            //// Check the user options for if we need to hide something we have room for
             if (m_options != null && msPlot.m_options.hidePlotTools)
             {
                 setSnapBoxVisible = false;
@@ -118,7 +118,7 @@ namespace SpectrumLook.Views
                 buttonHidePlotOptions.Text = "▼";
             }
 
-            //now resize the form
+            // now resize the form
             groupBoxClosestPoint.Visible = setSnapBoxVisible;
             groupBoxAnnotationCoverage.Visible = setAnnotationSliderVisible;
             buttonDetachPlot.Visible = setButtonDetachPlot;
@@ -166,14 +166,14 @@ namespace SpectrumLook.Views
             var mousePt = new PointF(mouseArgs.X, mouseArgs.Y);
             TextObj selectedTextObj = null;
 
-            //retrieve the text object that the user may have selected
+            // retrieve the text object that the user may have selected
             if (msPlot.FindClosestPoint(mousePt, out var closestPoint, out var closestPane))
             {
                 foreach (var textObject in closestPane.GraphObjList)
                 {
                     if (textObject.Tag == closestPoint)
                     {
-                        //zed graph found the annotation object, use that text object
+                        // zed graph found the annotation object, use that text object
                         selectedTextObj = textObject as TextObj;
                         break;
                     }
@@ -181,14 +181,14 @@ namespace SpectrumLook.Views
             }
             else
             {
-                //couldn't find the annotation from where the user clicked
+                // couldn't find the annotation from where the user clicked
                 return;
             }
 
             if (selectedTextObj == null)
-                return; //no obj, so don't do anything
+                return; // no obj, so don't do anything
 
-            //see if we have a custom annotation for this annotation we selected
+            // see if we have a custom annotation for this annotation we selected
             var currentInstance = m_manager.GetCurrentInstance();
             var selectedAnnotation = new Annotation();
             foreach (var annotation in currentInstance.annotations)
@@ -226,7 +226,7 @@ namespace SpectrumLook.Views
             }
             else if (usingCustomAnnotation)
             {
-                //recreate the annotation we thought we were replacing
+                // recreate the annotation we thought we were replacing
                 currentInstance.annotations.Add(selectedAnnotation);
             }
 
@@ -235,7 +235,7 @@ namespace SpectrumLook.Views
             return;
         }
 
-        ///The following is copied from ZedGraph... use this to figure out how to save an image File
+        /// The following is copied from ZedGraph... use this to figure out how to save an image File
         public readonly List<string> SaveAsImageTypes = new List<string>() { ".emf", ".png", ".gif", ".jpg", ".tif", ".bmp" };
 
         /// <summary>
@@ -346,7 +346,7 @@ namespace SpectrumLook.Views
                 mzTextBox.Text = string.Empty;
                 relativeIntensityTextBox.Text = string.Empty;
             }
-            //msPlot.ReevaluateAnnotations();
+            // msPlot.ReevaluateAnnotations();
             msPlot.Invalidate();
             this.Invalidate();
         }
@@ -398,7 +398,7 @@ namespace SpectrumLook.Views
             {
                 var offset = msPlot.m_options.focusOffset;
 
-                //change the zoom of the graph
+                // change the zoom of the graph
                 var oldZoom = new ZoomState(msPlot.GraphPane, ZoomState.StateType.Zoom);
                 msPlot.GraphPane.XAxis.Scale.Min = focusValue - offset;
                 msPlot.GraphPane.XAxis.Scale.Max = focusValue + offset;
@@ -406,7 +406,7 @@ namespace SpectrumLook.Views
                 msPlot.GraphPane.YAxis.Scale.MaxAuto = true;
                 msPlot.GraphPane.ZoomStack.Add(oldZoom);
 
-                //place a cursor below the axis
+                // place a cursor below the axis
                 var graphPoint = new PointF((float)focusValue, (float)msPlot.GraphPane.YAxis.Scale.Min);
                 msPlot.PaintArrow(graphPoint);
             }
@@ -445,9 +445,9 @@ namespace SpectrumLook.Views
 
         public void buttonDetachPlot_Click(object sender, EventArgs e)
         {
-            if (m_manager.m_mainForm.m_currentOptions.isPlotInMainForm)             //If plot is attached.
+            if (m_manager.m_mainForm.m_currentOptions.isPlotInMainForm)             // If plot is attached.
             {
-                m_manager.m_mainForm.m_currentOptions.isPlotInMainForm = false;     //Set to not be attached.
+                m_manager.m_mainForm.m_currentOptions.isPlotInMainForm = false;     // Set to not be attached.
                 buttonDetachPlot.Text = "Attach Plot";
             }
             else
@@ -468,7 +468,7 @@ namespace SpectrumLook.Views
             var str = numberOfPlots.Text.Trim();
             if (int.TryParse(str, out numPlots))
             {
-                //m_manager.m_mainForm.m_currentOptions.numberOfPlotsChangedOnForm = numPlots;
+                // m_manager.m_mainForm.m_currentOptions.numberOfPlotsChangedOnForm = numPlots;
             }
             msPlot.Invalidate();
             msPlot.Update();

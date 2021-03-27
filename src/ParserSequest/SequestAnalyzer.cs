@@ -7,9 +7,9 @@ using System.Text;
 
 namespace SpectrumLook.ParserSequest
 {
-    //TODO: Move this to file structs.
-    //TODO: Where else is peptidetuple used?  Without a diagram I dont know.
-    //TODO: Make it so this can ready any type of File format, as long as it has Scan numbers.
+    // TODO: Move this to file structs.
+    // TODO: Where else is peptidetuple used?  Without a diagram I dont know.
+    // TODO: Make it so this can ready any type of File format, as long as it has Scan numbers.
     /// <summary>
     /// Name:        PeptideTuple
     /// Description: This struct is used to handle information that is within the Sequest file.  Each piece of data represents a Column in the sequest file.
@@ -17,7 +17,7 @@ namespace SpectrumLook.ParserSequest
     public struct PeptideTuple
     {
 
-        //TODO: Add Comments to each member
+        // TODO: Add Comments to each member
         public int HitNumber;
         public int ScanNumber;
         public int ScanCount;
@@ -49,7 +49,7 @@ namespace SpectrumLook.ParserSequest
     /// </summary>
     public class SequestAnalyzer
     {
-        //TODO: Add Comments to fields
+        // TODO: Add Comments to fields
         public DataTable FileStructure
         {
             get
@@ -68,7 +68,7 @@ namespace SpectrumLook.ParserSequest
         private List<PeptideTuple> m_sequestListData;
         private string[] m_columnHeaders;
 
-        //TODO: Make it so this can ready any type of File format, as long as it has Scan numbers.
+        // TODO: Make it so this can ready any type of File format, as long as it has Scan numbers.
         /// <summary>
         /// Name:        SequestAnalyzer
         /// Description: This takes in a file location and loads the sequest file into memory, through the use of a data table.
@@ -85,7 +85,7 @@ namespace SpectrumLook.ParserSequest
             fileReader = File.OpenText(fileLocation);
             m_massOfProton = 1.00727638;
 
-            //This is where the column headers are defined from the file.
+            // This is where the column headers are defined from the file.
             m_columnHeaders = fileReader.ReadLine().Split('\t');
             string currentLine; //<--- First line is telling what the Columns are
             DataRow RowtoAdd;
@@ -106,61 +106,61 @@ namespace SpectrumLook.ParserSequest
                 RowtoAdd = FileStructure.NewRow();
                 CurrentPeptide = new PeptideTuple();
 
-                RowtoAdd[m_columnHeaders[0]] = Convert.ToInt32(TextColumn[0]);    //Hit Number
+                RowtoAdd[m_columnHeaders[0]] = Convert.ToInt32(TextColumn[0]);    // Hit Number
                 CurrentPeptide.HitNumber = Convert.ToInt32(TextColumn[0]);
 
-                RowtoAdd[m_columnHeaders[1]] = Convert.ToInt32(TextColumn[1]);    //ScanNumber
+                RowtoAdd[m_columnHeaders[1]] = Convert.ToInt32(TextColumn[1]);    // ScanNumber
                 CurrentPeptide.ScanNumber = Convert.ToInt32(TextColumn[1]);
 
-                RowtoAdd[m_columnHeaders[2]] = Convert.ToInt32(TextColumn[2]);    //ScanCount
+                RowtoAdd[m_columnHeaders[2]] = Convert.ToInt32(TextColumn[2]);    // ScanCount
                 CurrentPeptide.ScanCount = Convert.ToInt32(TextColumn[2]);
 
-                RowtoAdd[m_columnHeaders[3]] = Convert.ToInt32(TextColumn[3]);    //ChargeState
+                RowtoAdd[m_columnHeaders[3]] = Convert.ToInt32(TextColumn[3]);    // ChargeState
                 CurrentPeptide.ChargeState = Convert.ToInt32(TextColumn[3]);
 
-                RowtoAdd[m_columnHeaders[4]] = Convert.ToDouble(TextColumn[4]);   //MH
+                RowtoAdd[m_columnHeaders[4]] = Convert.ToDouble(TextColumn[4]);   // MH
                 CurrentPeptide.MH = Convert.ToDouble(TextColumn[4]);
 
-                RowtoAdd[m_columnHeaders[5]] = Convert.ToDouble(TextColumn[5]);   //XCorr
+                RowtoAdd[m_columnHeaders[5]] = Convert.ToDouble(TextColumn[5]);   // XCorr
                 CurrentPeptide.XCorr = Convert.ToDouble(TextColumn[5]);
 
-                RowtoAdd[m_columnHeaders[6]] = Convert.ToDouble(TextColumn[6]);   //DelCn
+                RowtoAdd[m_columnHeaders[6]] = Convert.ToDouble(TextColumn[6]);   // DelCn
                 CurrentPeptide.DelCn = Convert.ToDouble(TextColumn[6]);
 
-                RowtoAdd[m_columnHeaders[7]] = Convert.ToDouble(TextColumn[7]);   //Sp
+                RowtoAdd[m_columnHeaders[7]] = Convert.ToDouble(TextColumn[7]);   // Sp
                 CurrentPeptide.Sp = Convert.ToDouble(TextColumn[7]);
 
-                RowtoAdd[m_columnHeaders[8]] = TextColumn[8];                     //Reference
+                RowtoAdd[m_columnHeaders[8]] = TextColumn[8];                     // Reference
                 CurrentPeptide.Reference = TextColumn[8];
 
-                RowtoAdd[m_columnHeaders[9]] = Convert.ToInt32(TextColumn[9]);    //Multiprotein
+                RowtoAdd[m_columnHeaders[9]] = Convert.ToInt32(TextColumn[9]);    // Multiprotein
                 CurrentPeptide.MultiProtein = Convert.ToInt32(TextColumn[9]);
 
-                RowtoAdd[m_columnHeaders[10]] = TextColumn[10];                   //Peptide
+                RowtoAdd[m_columnHeaders[10]] = TextColumn[10];                   // Peptide
                 CurrentPeptide.Peptide = TextColumn[10];
 
-                RowtoAdd[m_columnHeaders[11]] = Convert.ToDouble(TextColumn[11]); //DelCn2
+                RowtoAdd[m_columnHeaders[11]] = Convert.ToDouble(TextColumn[11]); // DelCn2
                 CurrentPeptide.DelCn2 = Convert.ToDouble(TextColumn[11]);
 
-                RowtoAdd[m_columnHeaders[12]] = Convert.ToDouble(TextColumn[12]); //RankSp
+                RowtoAdd[m_columnHeaders[12]] = Convert.ToDouble(TextColumn[12]); // RankSp
                 CurrentPeptide.RankSp = Convert.ToDouble(TextColumn[12]);
 
-                RowtoAdd[m_columnHeaders[13]] = Convert.ToDouble(TextColumn[13]); //RankXc
+                RowtoAdd[m_columnHeaders[13]] = Convert.ToDouble(TextColumn[13]); // RankXc
                 CurrentPeptide.RankXc = Convert.ToDouble(TextColumn[13]);
 
-                RowtoAdd[m_columnHeaders[14]] = Convert.ToDouble(TextColumn[14]); //DelM
+                RowtoAdd[m_columnHeaders[14]] = Convert.ToDouble(TextColumn[14]); // DelM
                 CurrentPeptide.DelM = Convert.ToDouble(TextColumn[14]);
 
-                RowtoAdd[m_columnHeaders[15]] = Convert.ToDouble(TextColumn[15]); //XcRatio
+                RowtoAdd[m_columnHeaders[15]] = Convert.ToDouble(TextColumn[15]); // XcRatio
                 CurrentPeptide.XcRatio = Convert.ToDouble(TextColumn[15]);
 
-                RowtoAdd[m_columnHeaders[16]] = Convert.ToDouble(TextColumn[16]); //PassFilt
+                RowtoAdd[m_columnHeaders[16]] = Convert.ToDouble(TextColumn[16]); // PassFilt
                 CurrentPeptide.PassFilt = Convert.ToDouble(TextColumn[16]);
 
-                RowtoAdd[m_columnHeaders[17]] = Convert.ToDouble(TextColumn[17]); //MScore
+                RowtoAdd[m_columnHeaders[17]] = Convert.ToDouble(TextColumn[17]); // MScore
                 CurrentPeptide.MScore = Convert.ToDouble(TextColumn[17]);
 
-                RowtoAdd[m_columnHeaders[18]] = Convert.ToInt32(TextColumn[18]);  //NumberTrypicEnds
+                RowtoAdd[m_columnHeaders[18]] = Convert.ToInt32(TextColumn[18]);  // NumberTrypicEnds
                 CurrentPeptide.NumberTrypicEnds = Convert.ToInt32(TextColumn[18]);
 
                 this.m_sequestListData.Add(CurrentPeptide);
@@ -171,8 +171,8 @@ namespace SpectrumLook.ParserSequest
             fileReader.Close();
         }
 
-        //TODO: Add Comments to this
-        //TODO: MAKE THIS A PROPERTY?
+        // TODO: Add Comments to this
+        // TODO: MAKE THIS A PROPERTY?
         /// <summary>
         /// Name:        GetSequestList
         /// Description: This function fills a list of peptide tuples with the corisponding values that are currently in the data table.
@@ -211,7 +211,7 @@ namespace SpectrumLook.ParserSequest
                 }
                 CurrentDataRow = ReturnedDataTable.NewRow();
 
-                //Filling the current row from the inputed list.
+                // Filling the current row from the inputed list.
                 CurrentDataRow[m_columnHeaders[(int)DataColumn.HitNumber]] = CurrentTuple.HitNumber;
                 CurrentDataRow[m_columnHeaders[(int)DataColumn.ScanNumber]] = CurrentTuple.ScanNumber;
                 CurrentDataRow[m_columnHeaders[(int)DataColumn.ScanCount]] = CurrentTuple.ScanCount;

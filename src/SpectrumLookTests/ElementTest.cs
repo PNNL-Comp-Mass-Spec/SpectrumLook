@@ -4,8 +4,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace SpectrumLookTests
 {
     /// <summary>
-    ///This is a test class for ElementTest and is intended
-    ///to contain all ElementTest Unit Tests
+    /// This is a test class for ElementTest and is intended
+    /// to contain all ElementTest Unit Tests
     ///</summary>
     [TestClass]
     public class ElementTest
@@ -17,7 +17,7 @@ namespace SpectrumLookTests
         public TestContext TestContext { get; set; }
 
         /// <summary>
-        ///A test for Element Constructor
+        /// A test for Element Constructor
         ///</summary>
         [TestMethod]
         public void ElementConstructorTest()
@@ -27,7 +27,7 @@ namespace SpectrumLookTests
         }
 
         /// <summary>
-        ///A test for annotation
+        /// A test for annotation
         ///</summary>
         [TestMethod]
         public void annotationTest()
@@ -41,7 +41,7 @@ namespace SpectrumLookTests
         }
 
         /// <summary>
-        ///A test for intensity
+        /// A test for intensity
         ///</summary>
         [TestMethod]
         public void intensityTest()
@@ -55,7 +55,7 @@ namespace SpectrumLookTests
         }
 
         /// <summary>
-        ///A test for matched
+        /// A test for matched
         ///</summary>
         [TestMethod]
         public void matchedTest()
@@ -69,7 +69,7 @@ namespace SpectrumLookTests
         }
 
         /// <summary>
-        ///A test for mzValue
+        /// A test for mzValue
         ///</summary>
         [TestMethod]
         public void mzValueTest()

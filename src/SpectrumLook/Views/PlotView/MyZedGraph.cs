@@ -62,7 +62,7 @@ namespace SpectrumLook.Views
         /// </summary>
         public void SetSize(Point position, int width, int height)
         {
-            //the top right corner location of the graph
+            // the top right corner location of the graph
             this.Location = position;
 
             this.Size = new Size(width, height);
@@ -141,7 +141,7 @@ namespace SpectrumLook.Views
             closestPane = MasterPane.FindPane(mousePosition);
 
             if (closestPane == null)
-            {  //if we couldn't get the pane then we can't find the point
+            {  // if we couldn't get the pane then we can't find the point
                 return false;
             }
 
@@ -156,16 +156,16 @@ namespace SpectrumLook.Views
                 unmatchedClosest = GetClosestPointInCurve(mousePositionPP, closestPane.CurveList[unmatchedCurveName]);
             }
 
-            //determine which of the points we found was closer
+            // determine which of the points we found was closer
             if (CalculateDistance(mousePositionPP, matchedClosest) > CalculateDistance(mousePositionPP, unmatchedClosest))
             {
-                //unmatched is closest
+                // unmatched is closest
                 closestPoint = unmatchedClosest;
                 m_snapBoxColor = m_options.unmatchedColor;
             }
             else
             {
-                //matched is closest
+                // matched is closest
                 closestPoint = matchedClosest;
                 m_snapBoxColor = m_options.matchedColor;
             }
@@ -253,8 +253,8 @@ namespace SpectrumLook.Views
         {
             base.OnDoubleClick(e);
 
-            //edit annotation?
-            //System.Windows.Forms.MessageBox.Show("Edit annotations not implemented yet");
+            // edit annotation?
+            // System.Windows.Forms.MessageBox.Show("Edit annotations not implemented yet");
         }
 
         /// <summary>
@@ -265,7 +265,7 @@ namespace SpectrumLook.Views
         /// <param name="myPane"></param>
         private void AddAnnotations(IPointList pointsList, GraphPane myPane)
         {
-            //add the annotations for the matched items
+            // add the annotations for the matched items
             double offset = 5;
             var minIntensityToDisplay = FindMinIntensityToDisplay(pointsList);
             var currentInstance = m_manager.GetCurrentInstance();
@@ -275,7 +275,7 @@ namespace SpectrumLook.Views
                 var usingCustomAnnotation = false;
                 var text = new TextObj();
 
-                //look for if the user has defined a custom annotation if they have we deal with that instead of making a new one
+                // look for if the user has defined a custom annotation if they have we deal with that instead of making a new one
                 for (var j = 0; j < currentInstance.annotations.Count; j++)
                 {
                     if ((currentInstance.annotations[j].m_point.X == pointsList[i].X) &&
@@ -341,7 +341,7 @@ namespace SpectrumLook.Views
                     }
                 }
 
-                text.IsClippedToChartRect = true; //set true because we want the annotations to hide when they go off the borders of the graph
+                text.IsClippedToChartRect = true; // set true because we want the annotations to hide when they go off the borders of the graph
                 text.FontSpec.Size = m_options.annotationTextSize;
                 text.FontSpec.FontColor = m_options.annotationColor;
                 text.ZOrder = ZOrder.C_BehindChartBorder;
@@ -369,7 +369,7 @@ namespace SpectrumLook.Views
             {
                 ReevaluateAnnotations();
             }
-            //m_arrowShowing = false;
+            // m_arrowShowing = false;
         }
 
         /// <summary>
@@ -380,7 +380,7 @@ namespace SpectrumLook.Views
             foreach (var pane in MasterPane.PaneList)
             {
                 var minY = pane.YAxis.Scale.Min;
-                if (m_options.zoomHorizontal == false) //For box zoom (non horizontal zoom) change the YAxis to 0 to keep the X axis
+                if (m_options.zoomHorizontal == false) // For box zoom (non horizontal zoom) change the YAxis to 0 to keep the X axis
                 {
                     pane.YAxis.Scale.Min = 0;
                     minY = 0;
@@ -521,13 +521,13 @@ namespace SpectrumLook.Views
         /// <param name="matchedPointsList"></param>
         public void PlotGraph(string peptide, string scanNumber, PointPairList unmatchedPointsList, PointPairList matchedPointsList)
         {
-            //save the data
+            // save the data
             m_currentPeptide = peptide;
             m_currentScanNumber = scanNumber;
             m_unmatchedPoints = unmatchedPointsList;
             m_matchedPoints = matchedPointsList;
 
-            //clear the masterPane
+            // clear the masterPane
             var master = this.MasterPane;
             master.GraphObjList.Clear();
             master.PaneList.Clear();
@@ -602,7 +602,7 @@ namespace SpectrumLook.Views
                     myPaneT.Legend.Position = LegendPos.BottomCenter;
                 }
                 myPaneT.XAxis.Scale.IsVisible = true;
-                //myPaneT.Margin.Bottom = 10;
+                // myPaneT.Margin.Bottom = 10;
                 if (j > 0)
                 {
                     myPaneT.YAxis.Scale.IsSkipLastLabel = true;
@@ -627,7 +627,7 @@ namespace SpectrumLook.Views
                 master.Add(myPaneT);
             }
 
-            //Tell ZedGraph to refigure the axes since the data has changed
+            // Tell ZedGraph to refigure the axes since the data has changed
             using (var g = this.CreateGraphics())
             {
                 // Align the GraphPanes vertically
@@ -662,8 +662,8 @@ namespace SpectrumLook.Views
                 {
                     foreach (var myPane in this.MasterPane.PaneList)
                     {
-                        //PointPairList oldUnmatchedPoints = (PointPairList)myPane.CurveList["Unmatched Peaks"].Points;
-                        //PointPairList oldMatchedPoints = (PointPairList)myPane.CurveList["Matched Peaks"].Points;
+                        // PointPairList oldUnmatchedPoints = (PointPairList)myPane.CurveList["Unmatched Peaks"].Points;
+                        // PointPairList oldMatchedPoints = (PointPairList)myPane.CurveList["Matched Peaks"].Points;
 
                         myPane.CurveList.Clear();
                         myPane.GraphObjList.Clear();
@@ -684,11 +684,11 @@ namespace SpectrumLook.Views
 
         private void DividePointsIntoSections(int numberSections, PointPairList originalMatched, PointPairList originalUnmatched, out List<PointPairList> matchedSections, out List<PointPairList> unmatchedSections)
         {
-            //for now just to see how this looks, we are going to just duplicate the matched + unmatched lists into the sections
+            // for now just to see how this looks, we are going to just duplicate the matched + unmatched lists into the sections
             unmatchedSections = new List<PointPairList>();
             matchedSections = new List<PointPairList>();
 
-            //since this will be very common, we will make a quick getaway with it
+            // since this will be very common, we will make a quick getaway with it
             if (numberSections <= 1)
             {
                 unmatchedSections.Add(originalUnmatched);
@@ -705,7 +705,7 @@ namespace SpectrumLook.Views
                 var tempUnmatched = new PointPairList();
                 var tempMatched = new PointPairList();
 
-                //here goes hoping that the lists are sorted...
+                // here goes hoping that the lists are sorted...
                 for (var j = 0; j < pointsPerSection; j++)
                 {
                     var nextMatched = (matchedIndex < originalMatched.Count) ? originalMatched[matchedIndex].X : originalUnmatched[originalUnmatched.Count - 1].X + 1;
@@ -727,7 +727,7 @@ namespace SpectrumLook.Views
                 matchedSections.Add(tempMatched);
             }
 
-            //add points to the last section that may have been rounded off
+            // add points to the last section that may have been rounded off
             while (unmatchedIndex < originalUnmatched.Count)
             {
                 unmatchedSections[numberSections - 1].Add(originalUnmatched[unmatchedIndex]);
@@ -801,14 +801,14 @@ namespace SpectrumLook.Views
                 p.StartCap = LineCap.Square;
                 p.EndCap = LineCap.ArrowAnchor;
 
-                //These are the coordinates on the screen of where the arrow will start and End
+                // These are the coordinates on the screen of where the arrow will start and End
                 var pointStart = new Point((int)(drawPoint.X + .5), (int)(drawPoint.Y + 20.5));
                 var pointEnd = new Point((int)(drawPoint.X + .5), (int)(drawPoint.Y + .5));
 
                 g.DrawLine(p, pointStart, pointEnd);
 
                 g.DrawString(arrowPoint.X.ToString("0.0"), new Font(FontFamily.GenericSerif, 8), Brushes.Black, new PointF(pointStart.X - penThickness, pointStart.Y + 3));
-                //p.Dispose();
+                // p.Dispose();
             }
         }
 
@@ -856,7 +856,7 @@ namespace SpectrumLook.Views
         /// </summary>
         void MyZedGraph_Resize(object sender, EventArgs e)
         {
-            //m_arrowShowing = false;
+            // m_arrowShowing = false;
         }
 
         /// <summary>
@@ -883,7 +883,7 @@ namespace SpectrumLook.Views
             {
                 if (closestPane.ZoomStack.IsEmpty)
                 {
-                    //for some reason, the stack can be empty when it should have a value... so we will just replot
+                    // for some reason, the stack can be empty when it should have a value... so we will just replot
                     PlotGraph(this.m_currentPeptide, this.m_currentScanNumber, this.m_unmatchedPoints, this.m_matchedPoints);
                 }
                 else

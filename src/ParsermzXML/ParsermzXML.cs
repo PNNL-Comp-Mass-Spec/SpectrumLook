@@ -10,12 +10,12 @@ using System.Threading;
 
 namespace SpectrumLook
 {
-    //TODO: Class name starts with lower case.  Use upper case for coding standard.
-            //will need to check out whole project and rename all instances where used.
-    //TODO: Class name doesnt match file name.
-        //TODO: Rename this class to MzReader
-    //TODO: Does this need to implement IDisposable
-    //TODO: Is there a is-a relationship here?  You could read other binary formats.  Possibly use an interface!
+    // TODO: Class name starts with lower case.  Use upper case for coding standard.
+            // will need to check out whole project and rename all instances where used.
+    // TODO: Class name doesnt match file name.
+        // TODO: Rename this class to MzReader
+    // TODO: Does this need to implement IDisposable
+    // TODO: Is there a is-a relationship here?  You could read other binary formats.  Possibly use an interface!
     /// <summary>
     /// Name:        MzReader
     /// Description: The MzReader is a singleton based Wrapper for reading both mzData and mzXML.
@@ -90,7 +90,7 @@ namespace SpectrumLook
         }
         private static mzXMLreader _instance;
 
-        //TODO: Rename this class to MzReader
+        // TODO: Rename this class to MzReader
         /// <summary>
         /// Name:        MzReader
         /// Description: This is the only constructor for the MzReader.  MzReader is a singleton implementation, this explains why the constructor is private.
@@ -158,21 +158,21 @@ namespace SpectrumLook
         /// </returns>
         public List<ActualElement> FindExperiment(int experimentCode)
         {
-            //Initialize a new experimentalData list to return.
+            // Initialize a new experimentalData list to return.
             List<ActualElement> experimentData = new List<ActualElement>();
-            //update the new experimentCode to the inputed experiment code, so we can get the right Parent Ion number.
+            // update the new experimentCode to the inputed experiment code, so we can get the right Parent Ion number.
             this.m_experimentCode = experimentCode;
 
             if (this.m_isFileOpened)
             {
-                //We need to Cache the entire file into memory (which puts it into MZList) to look at the data in the file.
+                // We need to Cache the entire file into memory (which puts it into MZList) to look at the data in the file.
                 m_fileToRead.ReadAndCacheEntireFile();
 
-                //narrow the number of Spectrums down to all the data sets that match the experimentCode.
+                // narrow the number of Spectrums down to all the data sets that match the experimentCode.
                 bool result = m_fileToRead.GetSpectrumByScanNumber(m_experimentCode, ref m_currentSpectrum);
                 this.m_mZIndex = 0;
 
-                //We will run through each data that is in memory and convert that data into
+                // We will run through each data that is in memory and convert that data into
                 //  an ActualElement structure and then all the element to the experimentData List.
                 while (m_mZIndex < this.m_currentSpectrum.MZList.Count())
                 {

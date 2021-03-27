@@ -80,8 +80,8 @@ namespace SpectrumLook.Builders
         /// BuildElement builds a List of elements based on the actualElementList, theoryElementList
         /// and the possibleError passed into the constructor.
         /// </summary>
-        //TODO : Make an option to do a method to do highest Intensity or closest value in that "range" of errored values.
-        //public override void BuildList()
+        // TODO : Make an option to do a method to do highest Intensity or closest value in that "range" of errored values.
+        // public override void BuildList()
         //{
         //    int currentActualIndex = 0;
         //    int currentTheoryIndex = 0;
@@ -142,7 +142,7 @@ namespace SpectrumLook.Builders
         //    // Tag a precursor onto the hightes Intensity Index
         //    m_actualElementList[absoluteHighestIntenistyIndex].annotation = m_actualElementList[absoluteHighestIntenistyIndex].annotation + " - PRECURSOR";
 
-        //    //When all is said and done the compared list will just be a copy of the actual list.
+        //    // When all is said and done the compared list will just be a copy of the actual list.
         //    for (int i = 0; i < m_actualElementList.Count; ++i )
         //    {
         //        elementForCopying               = new Element();
@@ -229,7 +229,7 @@ namespace SpectrumLook.Builders
         //    // Tag a precursor onto the hightes Intensity Index
         //    m_actualElementList[absoluteHighestIntenistyIndex].annotation = m_actualElementList[absoluteHighestIntenistyIndex].annotation + " - PRECURSOR";
 
-        //    //When all is said and done the compared list will just be a copy of the actual list.
+        //    // When all is said and done the compared list will just be a copy of the actual list.
         //    for (int i = 0; i < m_actualElementList.Count; ++i)
         //    {
         //        elementForCopying = new Element();
@@ -317,12 +317,12 @@ namespace SpectrumLook.Builders
                 }
             }
             //// Tag a precursor onto the highest Intensity Index
-            //if (maxIntensity != null)
+            // if (maxIntensity != null)
             //{
             //    maxIntensity.Annotation += " - PRECURSOR";
             //}
 
-            //When all is said and done the compared list will just be a copy of the actual list.
+            // When all is said and done the compared list will just be a copy of the actual list.
             foreach (var currentElement in m_actualElementList)
             {
                 var elementForCopying       = new Element();

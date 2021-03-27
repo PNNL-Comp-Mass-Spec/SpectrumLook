@@ -138,7 +138,7 @@ namespace SpectrumLook
         {
             if (StatusLabel.InvokeRequired)
             {
-                //invoke so that we are on the right thread to update the status
+                // invoke so that we are on the right thread to update the status
                 StatusLabel.Invoke(m_statusLabelUpdate, new Object[] { newText });
                 return;
             }

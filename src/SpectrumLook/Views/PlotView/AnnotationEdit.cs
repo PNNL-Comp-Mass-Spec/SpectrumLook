@@ -73,12 +73,12 @@ namespace SpectrumLook.Views.PlotView
             {
                 m_modifiedAnnotation.m_showHideAuto = 1;
             }
-            //if (checkBoxVisibleYes.Checked == true)
+            // if (checkBoxVisibleYes.Checked == true)
             //{
             //    m_modifiedAnnotation.m_showHideAuto = 1;
             //    checkBoxVisibleNo.Checked = false;
             //}
-            //else if (checkBoxVisibleNo.Checked == false) //both checkboxes are false
+            // else if (checkBoxVisibleNo.Checked == false) // both checkboxes are false
             //{
             //    m_modifiedAnnotation.m_showHideAuto = 0;
             //}
@@ -90,12 +90,12 @@ namespace SpectrumLook.Views.PlotView
             {
                 m_modifiedAnnotation.m_showHideAuto = -1;
             }
-            //if (checkBoxVisibleNo.Checked == true)
+            // if (checkBoxVisibleNo.Checked == true)
             //{
             //    m_modifiedAnnotation.m_showHideAuto = -1;
             //    checkBoxVisibleYes.Checked = false;
             //}
-            //else if (checkBoxVisibleYes.Checked == false) //both checkboxes are false
+            // else if (checkBoxVisibleYes.Checked == false) // both checkboxes are false
             //{
             //    m_modifiedAnnotation.m_showHideAuto = 0;
             //}

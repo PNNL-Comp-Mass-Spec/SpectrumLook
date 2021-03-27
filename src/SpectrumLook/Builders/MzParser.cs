@@ -68,8 +68,8 @@ namespace SpectrumLook.Builders
 
             if (this.isFileOpened)
             {
-                //Load the entire file into memory.
-                //m_fileToRead.ReadAndCacheEntireFile();
+                // Load the entire file into memory.
+                // m_fileToRead.ReadAndCacheEntireFile();
 
                 m_fileToRead.GetSpectrumByScanNumber(scanNum, out var currentSpectrum);
 

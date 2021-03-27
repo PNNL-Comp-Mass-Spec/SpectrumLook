@@ -119,7 +119,7 @@ namespace SpectrumLook.Builders
             }
             var badSymbolMap = new Dictionary<char, char>();
 
-            //Add the modifications if needed.
+            // Add the modifications if needed.
             if (m_modificationList != null)
             {
                 mMolecularWeightTool.Peptide.RemoveAllModificationSymbols(); // Remove the default MWT modification symbols
@@ -139,8 +139,8 @@ namespace SpectrumLook.Builders
                         availableSymbols = availableSymbols.Substring(1); // Remove it from the available symbols.
                     }
 
-                    //if modresult = 0 symbol add is successful, useful spot for breakpoint
-                    //modResult = modResult + 0;
+                    // if modresult = 0 symbol add is successful, useful spot for breakpoint
+                    // modResult = modResult + 0;
                 }
             }
 

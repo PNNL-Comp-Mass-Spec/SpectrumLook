@@ -9,10 +9,10 @@ using SpectrumLook.Builders;
 
 namespace SpectrumLook.Views
 {
-    //TODO : Need to inherit from IObserver and override the Update function! Otherwise the options will not update properly.
+    // TODO : Need to inherit from IObserver and override the Update function! Otherwise the options will not update properly.
     public partial class DataView : Form
     {
-        ////////private DataViewOptions m_dataViewOptions;
+        //////// private DataViewOptions m_dataViewOptions;
         Manager m_manager;
 
         public DataTable DataTableForDisplay;
@@ -106,8 +106,8 @@ namespace SpectrumLook.Views
 
         public void SetDataTable(DataTable newTable)
         {
-            //DataViewProgress ProgressWindow = new DataViewProgress();
-            //ProgressWindow.Show();
+            // DataViewProgress ProgressWindow = new DataViewProgress();
+            // ProgressWindow.Show();
             var workerThread = new Thread(DisplayProgress);
             workerThread.Start();
 
@@ -166,7 +166,7 @@ namespace SpectrumLook.Views
 
             this.DataGridTable.SortCompare += new DataGridViewSortCompareEventHandler(Custom_SortCompare);
 
-            //Adding event back
+            // Adding event back
             DataGridTable.SelectionChanged += new System.EventHandler(this.DataGridTable_SelectionChanged);
 
             RequestStop();
@@ -213,9 +213,9 @@ namespace SpectrumLook.Views
             string StringFromCell = null;
             var j = 0;
             var i = 0;
-            if (SearchText == "")//Null string
+            if (SearchText == "")// Null string
             {
-                //show All the table
+                // show All the table
                 for (i = 0; i < DataGridTable.Columns.Count; i++)
                 {
                     DataGridTable.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
@@ -286,15 +286,15 @@ namespace SpectrumLook.Views
                     DataGridTable.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
                 }
 
-                if (AndOr == "AND")//and
+                if (AndOr == "AND")// and
                 {
                     IsAnd = true;
                 }
                 else
                 {
-                    IsAnd = false;//or
+                    IsAnd = false;// or
                 }
-                if (SelOpt == "contains")//contains
+                if (SelOpt == "contains")// contains
                 {
                     Contains(CellNumber, TextInput, IsAnd);
                 }
@@ -337,9 +337,9 @@ namespace SpectrumLook.Views
                         }
                     }
                 }
-                else//DataGridTable.Rows[RowNum].Visible == false ->OR function
+                else // DataGridTable.Rows[RowNum].Visible == false ->OR function
                 {
-                    if (DataGridTable.Rows[indexR].Cells[CellCount].Value.ToString().ToLower().Contains(Input))//condition is matched
+                    if (DataGridTable.Rows[indexR].Cells[CellCount].Value.ToString().ToLower().Contains(Input))// condition is matched
                     {
                         DataGridTable.Rows[indexR].Visible = true;
                     }
@@ -357,17 +357,17 @@ namespace SpectrumLook.Views
             {
                 if (AND)
                 {
-                    if (Double.TryParse(Input_lower, out InputDoubleValue))//what user input
+                    if (Double.TryParse(Input_lower, out InputDoubleValue))// what user input
                     {
-                        if (Double.TryParse(DataGridTable.Rows[indexR].Cells[CellCount].Value.ToString().ToLower(), out SelDoubleValue))//The value from DataGridTable
+                        if (Double.TryParse(DataGridTable.Rows[indexR].Cells[CellCount].Value.ToString().ToLower(), out SelDoubleValue))// The value from DataGridTable
                         {
-                            if (SelDoubleValue <= InputDoubleValue)//if the value in the table is less than or equal to the user input
+                            if (SelDoubleValue <= InputDoubleValue)// if the value in the table is less than or equal to the user input
                             {
                                 if (DataGridTable.Rows[indexR].Visible == true)
                                 {
                                     DataGridTable.Rows[indexR].Visible = false;
                                 }
-                                else//not necessary
+                                else // not necessary
                                 {
                                     DataGridTable.Rows[indexR].Visible = false;
                                 }
@@ -375,13 +375,13 @@ namespace SpectrumLook.Views
                         }
                     }
                 }
-                else//DataGridTable.Rows[indexR].Visible != AND --> OR
+                else // DataGridTable.Rows[indexR].Visible != AND --> OR
                 {
                     if (Double.TryParse(Input_lower, out InputDoubleValue))
                     {
                         if (Double.TryParse(DataGridTable.Rows[indexR].Cells[CellCount].Value.ToString().ToLower(), out SelDoubleValue))
                         {
-                            if (SelDoubleValue > InputDoubleValue)//the condition is matched, the table value is larger than user input
+                            if (SelDoubleValue > InputDoubleValue)// the condition is matched, the table value is larger than user input
                             {
                                 DataGridTable.Rows[indexR].Visible = true;
                             }
@@ -405,13 +405,13 @@ namespace SpectrumLook.Views
                     {
                         if (Double.TryParse(DataGridTable.Rows[indexR].Cells[CellCount].Value.ToString().ToLower(), out SelDoubleValue))
                         {
-                            if (SelDoubleValue > InputDoubleValue || SelDoubleValue > InputDoubleValue)//If the input is less or larger than the cell value
+                            if (SelDoubleValue > InputDoubleValue || SelDoubleValue > InputDoubleValue)// If the input is less or larger than the cell value
                             {
                                 if (DataGridTable.Rows[indexR].Visible == true)
                                 {
                                     DataGridTable.Rows[indexR].Visible = false;
                                 }
-                                else//not necessary
+                                else // not necessary
                                 {
                                     DataGridTable.Rows[indexR].Visible = false;
                                 }
@@ -419,13 +419,13 @@ namespace SpectrumLook.Views
                         }
                     }
                 }
-                else//OR
+                else // OR
                 {
                     if (Double.TryParse(Input_lower, out InputDoubleValue))
                     {
                         if (Double.TryParse(DataGridTable.Rows[indexR].Cells[CellCount].Value.ToString().ToLower(), out SelDoubleValue))
                         {
-                            if (SelDoubleValue == InputDoubleValue)//condition is matched
+                            if (SelDoubleValue == InputDoubleValue)// condition is matched
                             {
                                 DataGridTable.Rows[indexR].Visible = true;
                             }
@@ -450,7 +450,7 @@ namespace SpectrumLook.Views
                         if (Double.TryParse(DataGridTable.Rows[indexR].Cells[CellCount].Value.ToString().ToLower(), out SelDoubleValue))
                         {
                             Console.WriteLine(SelDoubleValue);
-                            if (SelDoubleValue >= InputDoubleValue && DataGridTable.Rows[indexR].Cells[CellCount].Value.ToString() != null)//if the input value is less than the cell value
+                            if (SelDoubleValue >= InputDoubleValue && DataGridTable.Rows[indexR].Cells[CellCount].Value.ToString() != null)// if the input value is less than the cell value
                             {
                                 if (DataGridTable.Rows[indexR].Visible == true)
                                 {
@@ -470,7 +470,7 @@ namespace SpectrumLook.Views
                     {
                         if (Double.TryParse(DataGridTable.Rows[indexR].Cells[CellCount].Value.ToString(), out SelDoubleValue))
                         {
-                            if (SelDoubleValue > InputDoubleValue && DataGridTable.Rows[indexR].Cells[CellCount].Value.ToString() != null)//condition is matched
+                            if (SelDoubleValue > InputDoubleValue && DataGridTable.Rows[indexR].Cells[CellCount].Value.ToString() != null)// condition is matched
                             {
                                 DataGridTable.Rows[indexR].Visible = true;
                             }
@@ -552,7 +552,7 @@ namespace SpectrumLook.Views
             }
             DataGridTable.Visible = true;
             DataAdvanceOption.Close();
-            //DataAdvanceOption.panel1.Visible = false;
+            // DataAdvanceOption.panel1.Visible = false;
         }
         /*private void SortClick(object sender, System.EventArgs e)
         {
@@ -575,7 +575,7 @@ namespace SpectrumLook.Views
                 if (DataAdvanceOption.SrtClm2.DataSource != null)
                 {
                     DataGridViewColumn Column2 = DataGridTable.Columns[DataAdvanceOption.SrtClm2.ValueMember];
-                    //Column1.HeaderCell.SortGlyphDirection = System.Windows.Forms.SortOrder.None;
+                    // Column1.HeaderCell.SortGlyphDirection = System.Windows.Forms.SortOrder.None;
                     DataGridTable.Sort(Column2, direction);
                     Column1.HeaderCell.SortGlyphDirection =
                     direction == ListSortDirection.Ascending ?
@@ -584,7 +584,7 @@ namespace SpectrumLook.Views
                     {
 
                         DataGridViewColumn Column3 = DataGridTable.Columns[DataAdvanceOption.SrtClm3.ValueMember];
-                        //Column2.HeaderCell.SortGlyphDirection = System.Windows.Forms.SortOrder.None;
+                        // Column2.HeaderCell.SortGlyphDirection = System.Windows.Forms.SortOrder.None;
                         DataGridTable.Sort(Column3, direction);
                         Column1.HeaderCell.SortGlyphDirection =
                         direction == ListSortDirection.Ascending ?
@@ -617,7 +617,7 @@ namespace SpectrumLook.Views
             this.DataGridTable.Columns[e.ColumnIndex].Selected = true;
             if (e.Button == MouseButtons.Right)
             {
-                //show context menu
+                // show context menu
                 list.ContextMenu = Menu;
             }
         }
@@ -635,20 +635,20 @@ namespace SpectrumLook.Views
 
             if (e.Button == MouseButtons.Right)
             {
-                ColcontextMenuStrip.Show((Control)sender, PointToClient(Control.MousePosition).X, e.Location.Y);//Somehow, PointToClick(Control.MousePosition) X axis is correct, but the Y is not. Also e.X is not correct, but e.Y has correct location, so it is combined
+                ColcontextMenuStrip.Show((Control)sender, PointToClient(Control.MousePosition).X, e.Location.Y);// Somehow, PointToClick(Control.MousePosition) X axis is correct, but the Y is not. Also e.X is not correct, but e.Y has correct location, so it is combined
             }
             else if (e.Button == MouseButtons.Left)
             {
             }
             else
             {
-                //Error
+                // Error
             }
         }
 
         private void Custom_SortCompare(object sender, DataGridViewSortCompareEventArgs e)
         {
-            //MessageBox.Show("THe custom_sortcompare working");
+            // MessageBox.Show("THe custom_sortcompare working");
             var Column_index = e.Column.Index;
             if (e.CellValue1 != null && e.CellValue2 != null)
             {
@@ -675,7 +675,7 @@ namespace SpectrumLook.Views
         {
             var peptidesAndScans = new List<ResultRowData>();
 
-            //calculate the indexes for scan numbers and peptides
+            // calculate the indexes for scan numbers and peptides
             int scanNumIndex = 0, peptideIndex = 0;
             var datasetIndex = -1;
             var precursorIndex = 0;
@@ -699,7 +699,7 @@ namespace SpectrumLook.Views
                 }
             }
 
-            //get the scan numbers and peptides for the rows
+            // get the scan numbers and peptides for the rows
             foreach (DataGridViewRow row in DataGridTable.Rows)
             {
                 if (row.Visible || !useOnlyVisible)

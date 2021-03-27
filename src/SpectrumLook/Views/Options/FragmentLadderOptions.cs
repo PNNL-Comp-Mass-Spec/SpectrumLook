@@ -21,7 +21,7 @@ namespace SpectrumLook.Views.Options
             get => m_modificationList;
             set
             {
-                //This is a property that does need to be synced.
+                // This is a property that does need to be synced.
                 this.Invoke();
                 m_modificationList = value;
             }
@@ -32,7 +32,7 @@ namespace SpectrumLook.Views.Options
             get => m_checkedHeaders;
             set
             {
-                //This is a property that does not need to be synced.
+                // This is a property that does not need to be synced.
                 this.Invoke();
                 m_checkedHeaders = value;
             }
