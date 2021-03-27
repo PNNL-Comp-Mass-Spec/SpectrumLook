@@ -163,13 +163,11 @@ namespace SpectrumLook.Views
             var usingCustomAnnotation = false;
             var mouseArgs = (MouseEventArgs)e;
             var g = msPlot.CreateGraphics();
-            GraphPane closestPane;
-            PointPair closestPoint;
             var mousePt = new PointF(mouseArgs.X, mouseArgs.Y);
             TextObj selectedTextObj = null;
 
             //retrieve the text object that the user may have selected
-            if (msPlot.FindClosestPoint(mousePt, out closestPoint, out closestPane))
+            if (msPlot.FindClosestPoint(mousePt, out var closestPoint, out var closestPane))
             {
                 foreach (var textObject in closestPane.GraphObjList)
                 {

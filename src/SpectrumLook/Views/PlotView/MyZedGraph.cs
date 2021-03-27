@@ -97,10 +97,9 @@ namespace SpectrumLook.Views
 
         public void UpdateSnappingCursor(PointF mousePosition)
         {
-            GraphPane closestPane;
             PointPair closestPoint = null;
 
-            if (FindClosestPoint(mousePosition, out closestPoint, out closestPane))
+            if (FindClosestPoint(mousePosition, out closestPoint, out var closestPane))
             {
                 var graphPoint = new PointF((float)closestPoint.X, (float)closestPoint.Y);
                 var boxPoint = closestPane.GeneralTransform(graphPoint, CoordType.AxisXYScale);
@@ -133,8 +132,6 @@ namespace SpectrumLook.Views
         /// <returns>True if a point is found, False otherwise</returns>
         public bool FindClosestPoint(PointF mousePosition, out PointPair closestPoint, out GraphPane closestPane)
         {
-            double graphX;
-            double graphY;
             closestPoint = null;
             closestPane = null;
 
@@ -149,7 +146,7 @@ namespace SpectrumLook.Views
             }
 
             // reverseTransform converts the mouse position to the point on a graph
-            closestPane.ReverseTransform(mousePosition, out graphX, out graphY);
+            closestPane.ReverseTransform(mousePosition, out var graphX, out var graphY);
 
             var mousePositionPP = new PointPair(graphX, graphY);
 
@@ -536,11 +533,9 @@ namespace SpectrumLook.Views
             master.PaneList.Clear();
 
             // split the points into groups
-            List<PointPairList> unmatchedPointsSection;
-            List<PointPairList> matchedPointsSection;
 
             // Divides the points into sections, this is used when we create more than one plot
-            DividePointsIntoSections(m_options.numberOfPlots, m_matchedPoints, m_unmatchedPoints, out matchedPointsSection, out unmatchedPointsSection);
+            DividePointsIntoSections(m_options.numberOfPlots, m_matchedPoints, m_unmatchedPoints, out var matchedPointsSection, out var unmatchedPointsSection);
 
             // Show the masterpane title
             master.Title.IsVisible = true;

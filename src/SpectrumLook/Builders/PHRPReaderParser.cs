@@ -58,11 +58,8 @@ namespace SpectrumLook.Builders
                 var splitLine = line.Split('\t');
 
                 var modPeptide = PeptideWithAllMods(cleanSequence, residues);
-                string prefix;
-                string suffix;
-                string sequence;
                 PeptideCleavageStateCalculator.SplitPrefixAndSuffixFromSequence(
-                    m_reader.CurrentPSM.Peptide, out sequence, out prefix, out suffix);
+                    m_reader.CurrentPSM.Peptide, out var sequence, out var prefix, out var suffix);
 
                 splitLine[m_peptideColumnIndex] = prefix + "." + modPeptide + "." + suffix;
 

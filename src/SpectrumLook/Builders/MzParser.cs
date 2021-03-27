@@ -65,14 +65,13 @@ namespace SpectrumLook.Builders
         List<Element> IExperimentParser.GetExperimentDataByScanNumber(int scanNum)
         {
             var outputValues = new List<string>();
-            clsSpectrumInfo currentSpectrum;
 
             if (this.isFileOpened)
             {
                 //Load the entire file into memory.
                 //m_fileToRead.ReadAndCacheEntireFile();
 
-                m_fileToRead.GetSpectrumByScanNumber(scanNum, out currentSpectrum);
+                m_fileToRead.GetSpectrumByScanNumber(scanNum, out var currentSpectrum);
 
                 var elements  = new List<Element>();
                 foreach (var currentMzValue in currentSpectrum.MZList)

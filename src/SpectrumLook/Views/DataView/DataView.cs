@@ -649,15 +649,13 @@ namespace SpectrumLook.Views
         private void Custom_SortCompare(object sender, DataGridViewSortCompareEventArgs e)
         {
             //MessageBox.Show("THe custom_sortcompare working");
-            double InputDoubleValue;
-            double SelDoubleValue;
             var Column_index = e.Column.Index;
             if (e.CellValue1 != null && e.CellValue2 != null)
             {
                 e.SortResult = System.String.Compare(e.CellValue1.ToString(), e.CellValue2.ToString());
-                if (Double.TryParse(e.CellValue1.ToString(), out InputDoubleValue))
+                if (Double.TryParse(e.CellValue1.ToString(), out var InputDoubleValue))
                 {
-                    if (Double.TryParse(e.CellValue2.ToString(), out SelDoubleValue))
+                    if (Double.TryParse(e.CellValue2.ToString(), out var SelDoubleValue))
                     {
                         if (InputDoubleValue < SelDoubleValue)
                         {
@@ -711,11 +709,8 @@ namespace SpectrumLook.Views
                     var dataset = datasetIndex != -1 ? row.Cells[datasetIndex].Value.ToString() : null;
                     var precursor = row.Cells[precursorIndex].Value.ToString();
 
-                    string sequence;
-                    string prefix;
-                    string suffix;
-                    PeptideCleavageStateCalculator.SplitPrefixAndSuffixFromSequence(peptide, out sequence,
-                        out prefix, out suffix);
+                    PeptideCleavageStateCalculator.SplitPrefixAndSuffixFromSequence(peptide, out var sequence,
+                        out var prefix, out var suffix);
 
                     peptidesAndScans.Add(new ResultRowData(dataset, scanNumber, peptide, precursor));
                 }
