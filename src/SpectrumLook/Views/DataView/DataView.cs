@@ -13,7 +13,7 @@ namespace SpectrumLook.Views
     public partial class DataView : Form
     {
         //////// private DataViewOptions m_dataViewOptions;
-        readonly Manager m_manager;
+        private readonly Manager m_manager;
 
         public DataTable DataTableForDisplay;
         public DataViewAdvance DataAdvanceOption;
@@ -24,7 +24,7 @@ namespace SpectrumLook.Views
         private int ColNum;
         private int RowNum;
 
-        List<string> HeaderList = new List<string>();
+        private List<string> HeaderList = new List<string>();
 
         private ContextMenu Menu = new ContextMenu();
 
@@ -38,7 +38,7 @@ namespace SpectrumLook.Views
             DataGridTable.KeyDown += new KeyEventHandler(DataGridTable_KeyDown);
             DataGridTable.TabIndex = 1;
         }
-        void DataGridTable_KeyDown(object sender, KeyEventArgs e)
+        private void DataGridTable_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
@@ -172,16 +172,16 @@ namespace SpectrumLook.Views
             RequestStop();
         }
 
-        void DataAdvanceOption_FormClosing(object sender, FormClosingEventArgs e)
+        private void DataAdvanceOption_FormClosing(object sender, FormClosingEventArgs e)
         {
             e.Cancel = true;
             DataAdvanceOption.Visible = false;
         }
-        void AdvSrcCancel_Click(object sender, EventArgs e)
+        private void AdvSrcCancel_Click(object sender, EventArgs e)
         {
             DataAdvanceOption.Visible = false;
         }
-        void InsertItem_CheckedChanged(object sender, EventArgs e)
+        private void InsertItem_CheckedChanged(object sender, EventArgs e)
         {
             for (var i = 0; i < ColNum; i++)
             {
@@ -605,7 +605,7 @@ namespace SpectrumLook.Views
             }
         }
 
-        void DataGridTable_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        private void DataGridTable_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             ListBox list;
             list = new ListBox() { Parent = this, Dock = DockStyle.Fill };

@@ -67,7 +67,7 @@ namespace SpectrumLook.Views
         /// <summary>
         /// Handles resizing the control in the panel.
         /// </summary>
-        void panel_Resize(object sender, EventArgs e)
+        private void panel_Resize(object sender, EventArgs e)
         {
             /*Panel senderPanel = (Panel)sender;
             if (senderPanel.Controls.Count > 0)
@@ -126,7 +126,7 @@ namespace SpectrumLook.Views
             // cmdShowHideFragmentIons.Location = new Point(splitContainer2.Panel1.Left + 4, splitContainer2.Panel1.Top + cmdShowHideFragmentIons.Height / 4);
         }
 
-        void m_plot_FormClosing(object sender, FormClosingEventArgs e)
+        private void m_plot_FormClosing(object sender, FormClosingEventArgs e)
         {
             e.Cancel = true;
             m_currentOptions.isPlotInMainForm = true;

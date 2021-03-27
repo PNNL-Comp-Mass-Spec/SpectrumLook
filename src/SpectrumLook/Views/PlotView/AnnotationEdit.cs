@@ -38,7 +38,7 @@ namespace SpectrumLook.Views.PlotView
             FormClosing += new FormClosingEventHandler(AnnotationEdit_FormClosing);
         }
 
-        void AnnotationEdit_FormClosing(object sender, FormClosingEventArgs e)
+        private void AnnotationEdit_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (DialogResult == DialogResult.OK)
             {

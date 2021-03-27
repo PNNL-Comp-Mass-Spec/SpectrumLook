@@ -6,7 +6,7 @@ namespace SpectrumLook.Builders
 {
     public class ThermoRawParser : IExperimentParser
     {
-        readonly XRawFileIO m_fileToRead;
+        private readonly XRawFileIO m_fileToRead;
 
         private string m_fileLocation;
 

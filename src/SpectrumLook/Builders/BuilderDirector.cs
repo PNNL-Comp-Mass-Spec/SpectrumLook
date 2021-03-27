@@ -3,12 +3,12 @@ using System.Collections.Generic;
 
 namespace SpectrumLook.Builders
 {
-    class BuilderDirector
+    internal class BuilderDirector
     {
-        ActualListBuilder m_actualBuilder;
-        ComparedListBuilder m_comparedBuilder;
-        TheoryListBuilder m_theoryBuilder;
-        IExperimentParser m_parser;
+        private ActualListBuilder m_actualBuilder;
+        private ComparedListBuilder m_comparedBuilder;
+        private TheoryListBuilder m_theoryBuilder;
+        private IExperimentParser m_parser;
 
         public List<Element> BuildActualList(int scanNumber, string fileLocation)       // Idea is to check the extension, call the right parser based on extension of file name.
         {

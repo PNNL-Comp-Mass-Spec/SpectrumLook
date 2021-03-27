@@ -2,7 +2,7 @@
 
 namespace SpectrumLook.Builders
 {
-    interface ITheoryCalculator
+    internal interface ITheoryCalculator
     {
         /// <summary>
         /// This will take the input of a peptide sequence and a bool for the fragmentation mode (false = CID, true = ETD).

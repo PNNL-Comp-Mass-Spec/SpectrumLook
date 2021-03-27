@@ -5,13 +5,13 @@ using System.IO;
 
 namespace SpectrumLook
 {
-    static class Program
+    internal static class Program
     {
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
+        private static void Main()
         {
             // setup unhandled exception handling
             Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
@@ -24,12 +24,12 @@ namespace SpectrumLook
             Application.Run(new MainForm());
         }
 
-        static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
             HandeException(e.ExceptionObject as Exception);
         }
 
-        static void Application_ThreadException(object sender, System.Threading.ThreadExceptionEventArgs e)
+        private static void Application_ThreadException(object sender, System.Threading.ThreadExceptionEventArgs e)
         {
             HandeException(e.Exception);
         }

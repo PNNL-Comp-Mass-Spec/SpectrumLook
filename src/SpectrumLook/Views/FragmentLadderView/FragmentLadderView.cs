@@ -475,7 +475,7 @@ namespace SpectrumLook.Views.FragmentLadderView
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        void tempListBox_DoubleClick(object sender, EventArgs e)
+        private void tempListBox_DoubleClick(object sender, EventArgs e)
         {
             var selectedBox = (ListBox)sender;
             double selectedValue = -1;
@@ -499,7 +499,7 @@ namespace SpectrumLook.Views.FragmentLadderView
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        void tempListBox_Click(object sender, EventArgs e)
+        private void tempListBox_Click(object sender, EventArgs e)
         {
             var selectedBox = (ListBox)sender;
             var selectedIndex = selectedBox.SelectedIndex;
@@ -520,7 +520,7 @@ namespace SpectrumLook.Views.FragmentLadderView
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        void tempListBox_DrawItem(object sender, DrawItemEventArgs e)
+        private void tempListBox_DrawItem(object sender, DrawItemEventArgs e)
         {
             e.DrawBackground();
 
