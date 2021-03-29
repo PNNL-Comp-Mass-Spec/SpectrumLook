@@ -8,7 +8,7 @@ using SpectrumLook.Views.Options;
 namespace SpectrumLook.Views.FragmentLadderView
 {
     // TODO : Need to inherit from IObserver and override the Update function! Otherwise the options will not update properly.
-    // CHECKED OUT FOR EDIT TO ROLL BACK TO PREVIOUS VERSION
+
     public partial class FragmentLadderView : Form, IObserver
     {
         private readonly Manager m_manager;
@@ -75,7 +75,6 @@ namespace SpectrumLook.Views.FragmentLadderView
 
         public void setComboBox()
         {
-            //////// THIS IS WHERE IT IS!///////
             comboBox1.Enabled = true;
             comboBox1.SelectedIndex = 0;
         }

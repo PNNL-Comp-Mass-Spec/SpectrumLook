@@ -235,7 +235,7 @@ namespace SpectrumLook.Views
             return;
         }
 
-        /// The following is copied from ZedGraph... use this to figure out how to save an image File
+        // The following is copied from ZedGraph... use this to figure out how to save an image File
         public readonly List<string> SaveAsImageTypes = new List<string>() { ".emf", ".png", ".gif", ".jpg", ".tif", ".bmp" };
 
         /// <summary>
@@ -304,7 +304,8 @@ namespace SpectrumLook.Views
             return success;
         }
 
-        /// Dlls needed to save an EmfFile
+        // Dlls needed to save an EmfFile
+
         [DllImport("gdi32.dll")]
         static extern IntPtr CopyEnhMetaFile(IntPtr hemfSrc, StringBuilder hNULL);
         [DllImport("gdi32.dll")]
