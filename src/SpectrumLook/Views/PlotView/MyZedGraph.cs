@@ -41,8 +41,8 @@ namespace SpectrumLook.Views
             m_snapBoxPosition.X = 0;
             m_snapBoxPosition.Y = 0;
 
-            ZoomEvent += new ZoomEventHandler(MyZedGraph_ZoomEvent);
-            Resize += new EventHandler(MyZedGraph_Resize);
+            ZoomEvent += MyZedGraph_ZoomEvent;
+            Resize += MyZedGraph_Resize;
             InitializeGraph();
         }
 
@@ -248,7 +248,7 @@ namespace SpectrumLook.Views
         /// </summary>
         /// <param name="pointsList"></param>
         /// <param name="myPane"></param>
-        private void AddAnnotations(IPointList pointsList, GraphPane myPane)
+        private void AddAnnotations(IPointList pointsList, PaneBase myPane)
         {
             // add the annotations for the matched items
             double offset = 5;

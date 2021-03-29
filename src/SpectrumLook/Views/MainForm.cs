@@ -27,17 +27,17 @@ namespace SpectrumLook.Views
             panelFragmentLadder.Controls.Add(m_manager.m_fragLadder);
             panelFragmentLadder.Controls[m_manager.m_fragLadder.Name].Dock = DockStyle.Fill;
 
-            panelFragmentLadder.Resize += new EventHandler(panel_Resize);
+            panelFragmentLadder.Resize += panel_Resize;
 
             // Data View
             panelDataView.Controls.Add(m_manager.m_dataView);
             panelDataView.Controls[m_manager.m_dataView.Name].Dock = DockStyle.Fill;
-            panelDataView.Resize += new EventHandler(panel_Resize);
+            panelDataView.Resize += panel_Resize;
 
             // Plot
             panelPlot.Controls.Add(m_manager.m_plot);
             panelPlot.Controls[m_manager.m_plot.Name].Dock = DockStyle.Fill;
-            panelPlot.Resize += new EventHandler(panel_Resize);
+            panelPlot.Resize += panel_Resize;
 
             //// FileOpen
             //// FileOpen = new OpenMenu();
@@ -55,7 +55,7 @@ namespace SpectrumLook.Views
             MainForm_Resize(this, null);
             Text = "Spectrum Look - " + GetAppVersion();
 
-            KeyDown += new KeyEventHandler(MainForm_KeyDown);
+            KeyDown += MainForm_KeyDown;
             KeyPreview = true; // set this true so we can get all the key events for child controls
         }
 
@@ -101,7 +101,7 @@ namespace SpectrumLook.Views
                     m_manager.m_plot.ShowInTaskbar = true;// false;
                     m_manager.m_plot.ShowIcon = false;
                     m_manager.m_plot.ControlBox = true;// false;
-                    m_manager.m_plot.FormClosing += new FormClosingEventHandler(m_plot_FormClosing);
+                    m_manager.m_plot.FormClosing += m_plot_FormClosing;
                     m_manager.m_plot.Location = pointOnTheScreen;
                 }
                 MainForm_Resize(this, null);
@@ -274,9 +274,11 @@ namespace SpectrumLook.Views
 
         private void openWorkStripMenuItem_Click(object sender, EventArgs e)
         {
-            var openWorkFileDialog = new OpenFileDialog();
-            openWorkFileDialog.Filter = "SpectrumLook Work File (*.slwf)|*.slwf|All Files (*.*)|*.*";
-            openWorkFileDialog.Title = "Open Work File";
+            var openWorkFileDialog = new OpenFileDialog
+            {
+                Filter = "SpectrumLook Work File (*.slwf)|*.slwf|All Files (*.*)|*.*",
+                Title = "Open Work File"
+            };
 
             try
             {

@@ -49,10 +49,13 @@ namespace SpectrumLook.Builders
         /// </summary>
         public override void BuildList()
         {
-            var listToStore = new List<Element>();
-            var tempElement = new Element();
             var experimentDataStringArray = m_fileParser.GetExperimentDataByScanNumber(m_scanNumber);
-            experimentDataStringArray.ForEach(x => x.Matched = false);
+
+            foreach (var item in experimentDataStringArray)
+            {
+                item.Matched = false;
+            }
+
             ElementList = experimentDataStringArray;
         }
 

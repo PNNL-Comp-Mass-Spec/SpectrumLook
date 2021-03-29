@@ -35,7 +35,7 @@ namespace SpectrumLook.Views.PlotView
                 radioButtonVisibleAuto.Checked = true;
             }
 
-            FormClosing += new FormClosingEventHandler(AnnotationEdit_FormClosing);
+            FormClosing += AnnotationEdit_FormClosing;
         }
 
         private void AnnotationEdit_FormClosing(object sender, FormClosingEventArgs e)

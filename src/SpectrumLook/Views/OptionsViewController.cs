@@ -244,8 +244,7 @@ namespace SpectrumLook.Views
 
         private void plotFragLadderSelectBox_TextChanged(object sender, EventArgs e)
         {
-            int outputValue;
-            if (!int.TryParse(plotFragLadderSelectBox.Text, out outputValue))
+            if (!int.TryParse(plotFragLadderSelectBox.Text, out var outputValue))
             {
                 plotFragLadderSelectBox.Text = "";
             }
@@ -348,8 +347,7 @@ namespace SpectrumLook.Views
 
         private void mainMatchingToleranceBox_TextChanged(object sender, EventArgs e)
         {
-            double outputValue;
-            if (!double.TryParse(mainMatchingToleranceBox.Text, out outputValue))
+            if (!double.TryParse(mainMatchingToleranceBox.Text, out var outputValue))
             {
                 mainMatchingToleranceBox.Text = "";
             }
@@ -368,8 +366,7 @@ namespace SpectrumLook.Views
 
         private void lowerMatchingToleranceBox_TextChanged(object sender, EventArgs e)
         {
-            double outputValue;
-            if (!double.TryParse(lowerMatchingToleranceBox.Text, out outputValue))
+            if (!double.TryParse(lowerMatchingToleranceBox.Text, out var outputValue))
             {
                 lowerMatchingToleranceBox.Text = "";
             }

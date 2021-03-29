@@ -115,9 +115,8 @@ namespace SpectrumLook.Views
             var workerThread = new Thread(DisplayProgress);
             workerThread.Start();
 
-            ToolStripMenuItem InsertItem = null;
             DataTableForDisplay = new DataTable();
-            DataGridTable.SelectionChanged -= new EventHandler(DataGridTable_SelectionChanged);
+            DataGridTable.SelectionChanged -= DataGridTable_SelectionChanged;
             DataGridTable.Rows.Clear();
             DataGridTable.Columns.Clear();
             ColumnCount = 0;
@@ -150,13 +149,16 @@ namespace SpectrumLook.Views
             for (var i = 0; i < ColumnCount; i++)
             {
                 HeaderList.Insert(i, DataTableForDisplay.Columns[i].ColumnName);
-                InsertItem = new ToolStripMenuItem();
-                InsertItem.Text = HeaderList[i];
-                InsertItem.ImageIndex = i;
-                InsertItem.CheckOnClick = true;
-                InsertItem.Checked = true;
-                InsertItem.CheckedChanged += new EventHandler(InsertItem_CheckedChanged);
-                ColcontextMenuStrip.Items.Insert(i, InsertItem);
+                var insertItem = new ToolStripMenuItem
+                {
+                    Text = HeaderList[i],
+                    ImageIndex = i,
+                    CheckOnClick = true,
+                    Checked = true
+                };
+
+                insertItem.CheckedChanged += InsertItem_CheckedChanged;
+                ColcontextMenuStrip.Items.Insert(i, insertItem);
             }
             for (var i = 0; i < DataGridTable.ColumnCount; i++)
             {
@@ -166,15 +168,15 @@ namespace SpectrumLook.Views
             DataAdvanceOption = new DataViewAdvance();
             SetAdvancedOptions();
             DataAdvanceOption.Visible = false;
-            DataAdvanceOption.AdvSrchOption.Click += new EventHandler(AdvancedSearchClick);
-            DataAdvanceOption.ColmDisplayOption.Click += new EventHandler(ColumnDisplayClick);
-            DataAdvanceOption.AdvSrcCancel.Click += new EventHandler(AdvSrcCancel_Click);
-            DataAdvanceOption.FormClosing += new FormClosingEventHandler(DataAdvanceOption_FormClosing);
+            DataAdvanceOption.AdvSrchOption.Click += AdvancedSearchClick;
+            DataAdvanceOption.ColmDisplayOption.Click += ColumnDisplayClick;
+            DataAdvanceOption.AdvSrcCancel.Click += AdvSrcCancel_Click;
+            DataAdvanceOption.FormClosing += DataAdvanceOption_FormClosing;
 
-            DataGridTable.SortCompare += new DataGridViewSortCompareEventHandler(Custom_SortCompare);
+            DataGridTable.SortCompare += Custom_SortCompare;
 
             // Adding event back
-            DataGridTable.SelectionChanged += new EventHandler(DataGridTable_SelectionChanged);
+            DataGridTable.SelectionChanged += DataGridTable_SelectionChanged;
 
             RequestStop();
         }

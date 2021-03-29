@@ -160,9 +160,9 @@ namespace SpectrumLook.Views.FragmentLadderView
                         tempListBox.Size = new Size(45, 15);
                         tempListBox.BorderStyle = BorderStyle.None;
                         tempListBox.DrawMode = DrawMode.OwnerDrawFixed;
-                        tempListBox.DrawItem += new DrawItemEventHandler(tempListBox_DrawItem);
-                        tempListBox.Click += new EventHandler(tempListBox_Click);
-                        tempListBox.DoubleClick += new EventHandler(tempListBox_DoubleClick);
+                        tempListBox.DrawItem += tempListBox_DrawItem;
+                        tempListBox.Click += tempListBox_Click;
+                        tempListBox.DoubleClick += tempListBox_DoubleClick;
                         tempListBox.Items.Add(columnCheckedListBox.CheckedItems[index].ToString());
 
                         for (var ind = 0; ind < currentInstance.mzValueHeaders.Count; ind++)
@@ -253,7 +253,7 @@ namespace SpectrumLook.Views.FragmentLadderView
                         tempListBox.MultiColumn = false;
                     tempListBox.Size = new Size(45, 15);
                     tempListBox.BorderStyle = BorderStyle.None;
-                    tempListBox.Click += new EventHandler(tempListBox_Click);
+                    tempListBox.Click += tempListBox_Click;
                     tempListBox.Items.Add((object)(" "));
 
                     var lengthMinusMods = 0;
@@ -299,7 +299,7 @@ namespace SpectrumLook.Views.FragmentLadderView
                         tempListBox.MultiColumn = false;
                     tempListBox.Size = new Size(45, 15);
                     tempListBox.BorderStyle = BorderStyle.None;
-                    tempListBox.Click += new EventHandler(tempListBox_Click);
+                    tempListBox.Click += tempListBox_Click;
                     var peptide = currentInstance.PeptideString.ToCharArray();
                     tempListBox.Items.Add(" ");
 
@@ -341,7 +341,7 @@ namespace SpectrumLook.Views.FragmentLadderView
                         tempListBox.MultiColumn = false;
                     tempListBox.Size = new Size(45, 15);
                     tempListBox.BorderStyle = BorderStyle.None;
-                    tempListBox.Click += new EventHandler(tempListBox_Click);
+                    tempListBox.Click += tempListBox_Click;
                     tempListBox.Items.Add((object)(" "));
 
                     for (var peptideIndex = 0; peptideIndex < lengthMinusMods; peptideIndex++)
@@ -380,9 +380,9 @@ namespace SpectrumLook.Views.FragmentLadderView
                         tempListBox.Size = new Size(45, 15);
                         tempListBox.BorderStyle = BorderStyle.None;
                         tempListBox.DrawMode = DrawMode.OwnerDrawFixed;
-                        tempListBox.DrawItem += new DrawItemEventHandler(tempListBox_DrawItem);
-                        tempListBox.Click += new EventHandler(tempListBox_Click);
-                        tempListBox.DoubleClick += new EventHandler(tempListBox_DoubleClick);
+                        tempListBox.DrawItem += tempListBox_DrawItem;
+                        tempListBox.Click += tempListBox_Click;
+                        tempListBox.DoubleClick += tempListBox_DoubleClick;
                         tempListBox.Items.Add(columnCheckedListBox.CheckedItems[index].ToString());
 
                         for (var ind = 0; ind < currentInstance.mzValueHeaders.Count; ind++)
