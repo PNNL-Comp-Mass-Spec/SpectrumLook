@@ -133,6 +133,7 @@
     <Compile Include="Views\DataView\DataViewProgress.Designer.cs">
       <DependentUpon>DataViewProgress.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\DataView\DataViewSearch.cs" />
     <Compile Include="Views\EditAddModification.cs">
       <SubType>Form</SubType>
     </Compile>

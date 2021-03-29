@@ -15,6 +15,8 @@ namespace SpectrumLook.Views
         //////// private DataViewOptions m_dataViewOptions;
         private readonly Manager m_manager;
 
+        private readonly DataViewSearch mViewSearch;
+
         public DataTable DataTableForDisplay;
         public DataViewAdvance DataAdvanceOption;
         public volatile bool shouldStop;
@@ -35,7 +37,9 @@ namespace SpectrumLook.Views
             InitializeComponent();
             m_manager = manager;
             DataTableForDisplay = new DataTable();
-            DataGridTable.KeyDown += new KeyEventHandler(DataGridTable_KeyDown);
+            mViewSearch = new DataViewSearch(DataGridTable);
+
+            DataGridTable.KeyDown += DataGridTable_KeyDown;
             DataGridTable.TabIndex = 1;
         }
         private void DataGridTable_KeyDown(object sender, KeyEventArgs e)
@@ -124,6 +128,9 @@ namespace SpectrumLook.Views
             ColNum = DataTableForDisplay.Columns.Count;
             RowNum = DataTableForDisplay.Rows.Count;
             for (var i = 0; i < ColNum; i++)
+
+            mViewSearch.UpdateTableDimensions(ColumnCount, RowCount);
+
             {
                 DataGridTable.Columns.Add(DataTableForDisplay.Columns[i].ColumnName, DataTableForDisplay.Columns[i].ColumnName);
             }
@@ -195,287 +202,17 @@ namespace SpectrumLook.Views
         }
         public void SearchButton_Click(object sender, EventArgs e)
         {
-            var SearchSubString = SearchBox.Text;
+            var textToFind = SearchBox.Text;
             if (DataGridTable != null)
             {
-                SimpleSearch(SearchSubString);
+                mViewSearch.SimpleSearch(textToFind);
             }
             else
             {
                 MessageBox.Show("The File should be loaded first");
             }
         }
-        public void SimpleSearch(string inputS)
-        {
-            var searchText = inputS.ToLower();
-            int i;
-            if (searchText?.Length == 0)// Null string
-            {
-                // show All the table
-                for (i = 0; i < DataGridTable.Columns.Count; i++)
-                {
-                    DataGridTable.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-                }
 
-                for (i = 0; i < DataGridTable.Rows.Count; i++)
-                {
-                    DataGridTable.Rows[i].Visible = true;
-                }
-                for (i = 0; i < DataGridTable.Columns.Count; i++)
-                {
-                    DataGridTable.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.NotSet;
-                }
-            }
-            else
-            {
-                for (i = 0; i < DataGridTable.Columns.Count; i++)
-                {
-                    DataGridTable.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-                }
-                for (i = 0; i < DataGridTable.Rows.Count; i++)
-                {
-                    var visibleRows = false;
-
-                    int j;
-                    for (j = 0; j < DataGridTable.Columns.Count && !visibleRows; j++)
-                    {
-                        var StringFromCell = DataGridTable.Rows[i].Cells[j].Value.ToString().ToLower();
-                        if (StringFromCell.Contains(searchText))
-                        {
-                            visibleRows = true;
-                        }
-                    }
-
-                    if (visibleRows)
-                    {
-                        DataGridTable.Rows[i].Visible = true;
-                    }
-                    else
-                    {
-                        DataGridTable.Rows[i].Visible = false;
-                    }
-                }
-                for (i = 0; i < DataGridTable.Columns.Count; i++)
-                {
-                    DataGridTable.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.NotSet;
-                }
-            }
-        }
-        public void AdvancedSearch(string AndOr, string SelCol, string SelOpt, string TextInput)
-        {
-            bool IsAnd;
-            var CellNumber = 0;
-            for (var i = 0; i < ColNum; i++)
-            {
-                if (DataGridTable.Columns[i].HeaderText.Equals(SelCol))
-                {
-                    CellNumber = i;
-                }
-            }
-            if (DataGridTable.Rows.Count <= 0)
-            {
-                MessageBox.Show("No data loaded");
-            }
-            else
-            {
-                for (var i = 0; i < ColNum; i++)
-                {
-                    DataGridTable.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-                }
-
-                if (AndOr == "AND")// and
-                {
-                    IsAnd = true;
-                }
-                else
-                {
-                    IsAnd = false;// or
-                }
-                if (SelOpt == "contains")// contains
-                {
-                    Contains(CellNumber, TextInput, IsAnd);
-                }
-                else if (SelOpt == ">")//>
-                {
-                    GreaterThan(CellNumber, TextInput, IsAnd);
-                }
-                else if (SelOpt == "<")//<
-                {
-                    LessThan(CellNumber, TextInput, IsAnd);
-                }
-                else if (SelOpt == "=")//=
-                {
-                    Equal(CellNumber, TextInput, IsAnd);
-                }
-                for (var i = 0; i < ColNum; i++)
-                {
-                    DataGridTable.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.NotSet;
-                }
-            }
-        }
-        public void Contains(int CellCount, string Input, bool AND)
-        {
-            var SearchInput = Input.ToLower();
-            DataGridTable.CurrentCell = null;
-            int indexR;
-            for (indexR = 0; indexR < RowNum; indexR++)
-            {
-                if (AND)
-                {
-                    if (!DataGridTable.Rows[indexR].Cells[CellCount].Value.ToString().ToLower().Contains(SearchInput))
-                    {
-                        if (DataGridTable.Rows[indexR].Visible)
-                        {
-                            DataGridTable.Rows[indexR].Visible = false;
-                        }
-                        else
-                        {
-                            DataGridTable.Rows[indexR].Visible = false;
-                        }
-                    }
-                }
-                else // DataGridTable.Rows[RowNum].Visible == false ->OR function
-                {
-                    if (DataGridTable.Rows[indexR].Cells[CellCount].Value.ToString().ToLower().Contains(Input))// condition is matched
-                    {
-                        DataGridTable.Rows[indexR].Visible = true;
-                    }
-                }
-            }
-        }
-        public void GreaterThan(int CellCount, string Input, bool AND)
-        {
-            var Input_lower = Input.ToLower();
-            DataGridTable.CurrentCell = null;
-            int indexR;
-            for (indexR = 0; indexR < RowNum; indexR++)
-            {
-                double InputDoubleValue;
-                double SelDoubleValue;
-                if (AND)
-                {
-                    if (Double.TryParse(Input_lower, out InputDoubleValue))// what user input
-                    {
-                        if (Double.TryParse(DataGridTable.Rows[indexR].Cells[CellCount].Value.ToString().ToLower(), out SelDoubleValue))// The value from DataGridTable
-                        {
-                            if (SelDoubleValue <= InputDoubleValue)// if the value in the table is less than or equal to the user input
-                            {
-                                if (DataGridTable.Rows[indexR].Visible)
-                                {
-                                    DataGridTable.Rows[indexR].Visible = false;
-                                }
-                                else // not necessary
-                                {
-                                    DataGridTable.Rows[indexR].Visible = false;
-                                }
-                            }
-                        }
-                    }
-                }
-                else // DataGridTable.Rows[indexR].Visible != AND --> OR
-                {
-                    if (Double.TryParse(Input_lower, out InputDoubleValue))
-                    {
-                        if (Double.TryParse(DataGridTable.Rows[indexR].Cells[CellCount].Value.ToString().ToLower(), out SelDoubleValue))
-                        {
-                            if (SelDoubleValue > InputDoubleValue)// the condition is matched, the table value is larger than user input
-                            {
-                                DataGridTable.Rows[indexR].Visible = true;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        public void Equal(int CellCount, string Input, bool AND)
-        {
-            double InputDoubleValue;
-            double SelDoubleValue;
-            var Input_lower = Input.ToLower();
-            DataGridTable.CurrentCell = null;
-            int indexR;
-            for (indexR = 0; indexR < RowNum; indexR++)
-            {
-                if (AND)
-                {
-                    if (Double.TryParse(Input_lower, out InputDoubleValue))
-                    {
-                        if (Double.TryParse(DataGridTable.Rows[indexR].Cells[CellCount].Value.ToString().ToLower(), out SelDoubleValue))
-                        {
-                            if (SelDoubleValue > InputDoubleValue || SelDoubleValue > InputDoubleValue)// If the input is less or larger than the cell value
-                            {
-                                if (DataGridTable.Rows[indexR].Visible)
-                                {
-                                    DataGridTable.Rows[indexR].Visible = false;
-                                }
-                                else // not necessary
-                                {
-                                    DataGridTable.Rows[indexR].Visible = false;
-                                }
-                            }
-                        }
-                    }
-                }
-                else // OR
-                {
-                    if (Double.TryParse(Input_lower, out InputDoubleValue))
-                    {
-                        if (Double.TryParse(DataGridTable.Rows[indexR].Cells[CellCount].Value.ToString().ToLower(), out SelDoubleValue))
-                        {
-                            if (SelDoubleValue == InputDoubleValue)// condition is matched
-                            {
-                                DataGridTable.Rows[indexR].Visible = true;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        public void LessThan(int CellCount, string Input, bool AND)
-        {
-            double InputDoubleValue;
-            double SelDoubleValue;
-            var Input_lower = Input.ToLower();
-            DataGridTable.CurrentCell = null;
-            int indexR;
-            for (indexR = 0; indexR < RowNum; indexR++)
-            {
-                if (AND)
-                {
-                    if (Double.TryParse(Input_lower, out InputDoubleValue))
-                    {
-                        if (Double.TryParse(DataGridTable.Rows[indexR].Cells[CellCount].Value.ToString().ToLower(), out SelDoubleValue))
-                        {
-                            Console.WriteLine(SelDoubleValue);
-                            if (SelDoubleValue >= InputDoubleValue && DataGridTable.Rows[indexR].Cells[CellCount].Value.ToString() != null)// if the input value is less than the cell value
-                            {
-                                if (DataGridTable.Rows[indexR].Visible)
-                                {
-                                    DataGridTable.Rows[indexR].Visible = false;
-                                }
-                                else
-                                {
-                                    DataGridTable.Rows[indexR].Visible = false;
-                                }
-                            }
-                        }
-                    }
-                }
-                else
-                {
-                    if (Double.TryParse(Input_lower, out InputDoubleValue))
-                    {
-                        if (Double.TryParse(DataGridTable.Rows[indexR].Cells[CellCount].Value.ToString(), out SelDoubleValue))
-                        {
-                            if (SelDoubleValue > InputDoubleValue && DataGridTable.Rows[indexR].Cells[CellCount].Value.ToString() != null)// condition is matched
-                            {
-                                DataGridTable.Rows[indexR].Visible = true;
-                            }
-                        }
-                    }
-                }
-            }
-        }
         private void AdvancedSearchClick(object sender, EventArgs e)
         {
             if (DataGridTable.Rows.Count > 0)
@@ -500,16 +237,16 @@ namespace SpectrumLook.Views
                     }
                     else
                     {
-                        AdvancedSearch("AND", DataAdvanceOption.SeaFil_Pep1.Text, DataAdvanceOption.FilterComboBox1.Text, DataAdvanceOption.Filter_Value1.Text);
+                        mViewSearch.AdvancedSearch("AND", DataAdvanceOption.SeaFil_Pep1.Text, DataAdvanceOption.FilterComboBox1.Text, DataAdvanceOption.Filter_Value1.Text);
                         if (DataAdvanceOption.AndOrComboBox1.Text != null && DataAdvanceOption.SeaFil_Pep2.Text != null && DataAdvanceOption.FilterComboBox2.Text != null && DataAdvanceOption.Filter_Value2.Text != null)
                         {
-                            AdvancedSearch(DataAdvanceOption.AndOrComboBox1.Text, DataAdvanceOption.SeaFil_Pep2.Text, DataAdvanceOption.FilterComboBox2.Text, DataAdvanceOption.Filter_Value2.Text);
+                            mViewSearch.AdvancedSearch(DataAdvanceOption.AndOrComboBox1.Text, DataAdvanceOption.SeaFil_Pep2.Text, DataAdvanceOption.FilterComboBox2.Text, DataAdvanceOption.Filter_Value2.Text);
                             if (DataAdvanceOption.AndOrComboBox2.Text != null && DataAdvanceOption.SeaFil_Pep3.Text != null && DataAdvanceOption.FilterComboBox3.Text != null && DataAdvanceOption.Filter_Value3.Text != null)
                             {
-                                AdvancedSearch(DataAdvanceOption.AndOrComboBox2.Text, DataAdvanceOption.SeaFil_Pep3.Text, DataAdvanceOption.FilterComboBox3.Text, DataAdvanceOption.Filter_Value3.Text);
+                                mViewSearch.AdvancedSearch(DataAdvanceOption.AndOrComboBox2.Text, DataAdvanceOption.SeaFil_Pep3.Text, DataAdvanceOption.FilterComboBox3.Text, DataAdvanceOption.Filter_Value3.Text);
                                 if (DataAdvanceOption.AndOrComboBox3.Text != null && DataAdvanceOption.SeaFil_Pep4.Text != null && DataAdvanceOption.FilterComboBox4.Text != null && DataAdvanceOption.Filter_Value4.Text != null)
                                 {
-                                    AdvancedSearch(DataAdvanceOption.AndOrComboBox3.Text, DataAdvanceOption.SeaFil_Pep4.Text, DataAdvanceOption.FilterComboBox4.Text, DataAdvanceOption.Filter_Value4.Text);
+                                    mViewSearch.AdvancedSearch(DataAdvanceOption.AndOrComboBox3.Text, DataAdvanceOption.SeaFil_Pep4.Text, DataAdvanceOption.FilterComboBox4.Text, DataAdvanceOption.Filter_Value4.Text);
                                 }
                             }
                         }
@@ -739,7 +476,7 @@ namespace SpectrumLook.Views
                 var SearchSubString = SearchBox.Text;
                 if (DataGridTable != null)
                 {
-                    SimpleSearch(SearchSubString);
+                    mViewSearch.SimpleSearch(SearchSubString);
                 }
                 else
                 {
