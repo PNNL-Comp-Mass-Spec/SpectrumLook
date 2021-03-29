@@ -115,7 +115,7 @@ namespace SpectrumLook
             m_workFileWriter = new LadderInstanceDictionaryXmlSerializer();
 
             // Options
-            m_options = new OptionsViewController(m_plot.m_options, m_mainForm.m_currentOptions, m_fragLadder.fragmentLadderOptions ,Directory.GetCurrentDirectory() + "\\UserProfile.spuf", createFileFlag, m_fragLadder);
+            m_options = new OptionsViewController(m_plot.m_options, m_mainForm.m_currentOptions, m_fragLadder.fragmentLadderOptions, Directory.GetCurrentDirectory() + "\\UserProfile.spuf", createFileFlag, m_fragLadder);
             m_mainForm.m_currentOptions.toleranceValue = 0.7;
 
             // attach all of the observers to the subjects
@@ -361,7 +361,6 @@ namespace SpectrumLook
         /// <summary>
         /// This function will remove a specific modification from the ladder instances table
         /// </summary>
-        /// <param name="key"></param>
         /// <param name="index"></param>
         public void RemoveModificationFromList(int index)
         {
@@ -421,7 +420,7 @@ namespace SpectrumLook
                 }
                 else
                 {
-                    throw ex;
+                    throw;
                 }
             }
         }
@@ -483,8 +482,8 @@ namespace SpectrumLook
         /// </summary>
         public void ClearLadderInstances()
         {
-           m_ladderInstancesTable.Remove(m_currentScanNumber.ToString() + m_currentPeptide);
-           HandleSelectScanAndPeptide(m_currentScanNumber.ToString(), m_currentPeptide);
+            m_ladderInstancesTable.Remove(m_currentScanNumber.ToString() + m_currentPeptide);
+            HandleSelectScanAndPeptide(m_currentScanNumber.ToString(), m_currentPeptide);
         }
 
         /// <summary>
@@ -599,7 +598,7 @@ namespace SpectrumLook
         /// <param name="fileLocation">The location of the .spwf that the user wants to open.</param>
         public void HandleOpenWorkFile(string fileLocation)
         {
-            if(File.Exists(fileLocation))
+            if (File.Exists(fileLocation))
             {
                 m_ladderInstancesTable = m_workFileWriter.ReadXmlWorkFile(fileLocation);
             }

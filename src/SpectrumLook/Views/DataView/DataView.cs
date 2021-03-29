@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Globalization;
 using System.Threading;
 using System.Windows.Forms;
 using MolecularWeightCalculator;
@@ -28,7 +29,7 @@ namespace SpectrumLook.Views
 
         private readonly List<string> HeaderList = new List<string>();
 
-        private readonly ContextMenu Menu = new ContextMenu();
+        private new readonly ContextMenu Menu = new ContextMenu();
 
         private Manager.SynFileColumnIndices mSynFileColumns;
 
@@ -54,6 +55,7 @@ namespace SpectrumLook.Views
         {
             HandleRowSelection();
         }
+
         public void HandleRowSelection()
         {
             if (DataGridTable.CurrentCell != null)
@@ -219,10 +221,12 @@ namespace SpectrumLook.Views
                 {
                     DataGridTable.Rows[i].Visible = true;
                 }
+
                 /*for (int i = 0; i < 19; i++)
                 {
                     DataGridTable.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.NotSet;
                 }*/
+
                 try
                 {
                     if (DataAdvanceOption.SeaFil_Pep1.Text == null || DataAdvanceOption.FilterComboBox1.Text == null || DataAdvanceOption.Filter_Value1.Text == null)
@@ -337,8 +341,7 @@ namespace SpectrumLook.Views
 
         private void DataGridTable_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            ListBox list;
-            list = new ListBox() { Parent = this, Dock = DockStyle.Fill };
+            var list = new ListBox { Parent = this, Dock = DockStyle.Fill };
             DataGridTable.SelectionMode = DataGridViewSelectionMode.ColumnHeaderSelect;
             DataGridTable.Columns[e.ColumnIndex].HeaderCell.SortGlyphDirection = SortOrder.None;
             DataGridTable.Columns[e.ColumnIndex].Selected = true;
@@ -375,14 +378,12 @@ namespace SpectrumLook.Views
 
         private void Custom_SortCompare(object sender, DataGridViewSortCompareEventArgs e)
         {
-            // MessageBox.Show("THe custom_sortcompare working");
-            var Column_index = e.Column.Index;
             if (e.CellValue1 != null && e.CellValue2 != null)
             {
-                e.SortResult = String.Compare(e.CellValue1.ToString(), e.CellValue2.ToString());
-                if (Double.TryParse(e.CellValue1.ToString(), out var InputDoubleValue))
+                e.SortResult = string.CompareOrdinal(e.CellValue1.ToString(), e.CellValue2.ToString());
+                if (double.TryParse(e.CellValue1.ToString(), out var InputDoubleValue))
                 {
-                    if (Double.TryParse(e.CellValue2.ToString(), out var SelDoubleValue))
+                    if (double.TryParse(e.CellValue2.ToString(), out var SelDoubleValue))
                     {
                         if (InputDoubleValue < SelDoubleValue)
                         {

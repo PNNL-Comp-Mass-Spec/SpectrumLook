@@ -44,7 +44,7 @@ namespace SpectrumLook
                 // Writes bugs into  ~\spectrumlook\Prototype4\SpectrumLook\bin\buglog.txt before displaying
                 var exeFolder = Path.GetDirectoryName(Application.ExecutablePath);
                 var sw = new StreamWriter(exeFolder + "\\buglog.txt", true);
-                sw.WriteLine("Bug Date: " + DateTime.Now.ToString());
+                sw.WriteLine("Bug Date: " + DateTime.Now);
                 sw.WriteLine(ex.ToString() + "\n\n");
 
                 sw.Close();
