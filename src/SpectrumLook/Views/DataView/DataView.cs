@@ -23,8 +23,8 @@ namespace SpectrumLook.Views
 
         private readonly MolecularWeightTool mMolecularWeightTool = new MolecularWeightTool();
 
-        private int ColNum;
-        private int RowNum;
+        private int ColumnCount;
+        private int RowCount;
 
         private readonly List<string> HeaderList = new List<string>();
 
@@ -120,24 +120,24 @@ namespace SpectrumLook.Views
             DataGridTable.SelectionChanged -= new EventHandler(DataGridTable_SelectionChanged);
             DataGridTable.Rows.Clear();
             DataGridTable.Columns.Clear();
-            ColNum = 0;
-            RowNum = 0;
+            ColumnCount = 0;
+            RowCount = 0;
             HeaderList.Clear();
             Menu.MenuItems.Clear();
             DataTableForDisplay = newTable;
-            ColNum = DataTableForDisplay.Columns.Count;
-            RowNum = DataTableForDisplay.Rows.Count;
-            for (var i = 0; i < ColNum; i++)
+            ColumnCount = DataTableForDisplay.Columns.Count;
+            RowCount = DataTableForDisplay.Rows.Count;
 
             mViewSearch.UpdateTableDimensions(ColumnCount, RowCount);
 
+            for (var i = 0; i < ColumnCount; i++)
             {
                 DataGridTable.Columns.Add(DataTableForDisplay.Columns[i].ColumnName, DataTableForDisplay.Columns[i].ColumnName);
             }
-            for (var i = 0; i < RowNum; i++)
+            for (var i = 0; i < RowCount; i++)
             {
                 DataGridTable.Rows.Add();
-                for (var j = 0; j < ColNum; j++)
+                for (var j = 0; j < ColumnCount; j++)
                 {
                     DataGridTable.Rows[i].Cells[j].Value = DataTableForDisplay.Rows[i][j].ToString();
                 }
@@ -147,7 +147,7 @@ namespace SpectrumLook.Views
             DataGridTable.AutoResizeColumns();
             DataGridTable.AllowUserToResizeColumns = true;
 
-            for (var i = 0; i < ColNum; i++)
+            for (var i = 0; i < ColumnCount; i++)
             {
                 HeaderList.Insert(i, DataTableForDisplay.Columns[i].ColumnName);
                 InsertItem = new ToolStripMenuItem();
@@ -190,7 +190,7 @@ namespace SpectrumLook.Views
         }
         private void InsertItem_CheckedChanged(object sender, EventArgs e)
         {
-            for (var i = 0; i < ColNum; i++)
+            for (var i = 0; i < ColumnCount; i++)
             {
                 var InsertItem = (ToolStripMenuItem)ColcontextMenuStrip.Items[i];
                 DataGridTable.Columns[i].Visible = InsertItem.Checked;
@@ -221,7 +221,9 @@ namespace SpectrumLook.Views
                 {
                     DataGridTable.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
                 }*/
-                for (var i = 0; i < RowNum; i++)
+
+                // Assure that all rows are visible
+                for (var i = 0; i < RowCount; i++)
                 {
                     DataGridTable.Rows[i].Visible = true;
                 }
@@ -265,20 +267,19 @@ namespace SpectrumLook.Views
         }
         private void ColumnDisplayClick(object sender, EventArgs e)
         {
-            int DisplaySelected;
-            for (var i = 0; i < ColNum; i++)
+            for (var i = 0; i < ColumnCount; i++)
             {
                 DataGridTable.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             }
-            for (var i = 0; i < ColNum; i++)
+            for (var i = 0; i < ColumnCount; i++)
             {
                 DataGridTable.Columns[i].Visible = true;
             }
 
-            foreach (DataRowView drowVw in DataAdvanceOption.checkedListBox1.CheckedItems)
+            foreach (DataRowView row in DataAdvanceOption.checkedListBox1.CheckedItems)
             {
-                DisplaySelected = int.Parse(drowVw[DataAdvanceOption.checkedListBox1.ValueMember].ToString());
-                DataGridTable.Columns[DisplaySelected].Visible = false;
+                var displaySelected = int.Parse(row[DataAdvanceOption.checkedListBox1.ValueMember].ToString());
+                DataGridTable.Columns[displaySelected].Visible = false;
             }
             for (var i = 0; i < 19; i++)
             {

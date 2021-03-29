@@ -26,16 +26,16 @@ namespace SpectrumLook
 
         private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            HandeException(e.ExceptionObject as Exception);
+            HandleException(e.ExceptionObject as Exception);
         }
 
         private static void Application_ThreadException(object sender, System.Threading.ThreadExceptionEventArgs e)
         {
-            HandeException(e.Exception);
+            HandleException(e.Exception);
         }
 
         // Handles the Exception by displaying an error message to the user
-        private static void HandeException(Exception e)
+        private static void HandleException(Exception ex)
         {
             var result = DialogResult.Cancel;
             try
