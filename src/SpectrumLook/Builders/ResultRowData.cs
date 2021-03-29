@@ -8,7 +8,7 @@
         public string PrecursorMZ;
 
         public int IntScanNumber => int.Parse(ScanNumber);
-        public double DblPrecursorMZ => double.Parse(PrecursorMZ);
+        public double DblPrecursorMZ => PrecursorMZ == null ? 0 : double.Parse(PrecursorMZ);
 
         public ResultRowData(string datasetName, string scanNumber, string peptide, string precursorMZ)
         {

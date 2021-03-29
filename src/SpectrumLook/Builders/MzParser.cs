@@ -71,6 +71,9 @@ namespace SpectrumLook.Builders
 
                 m_fileToRead.GetSpectrumByScanNumber(scanNum, out var currentSpectrum);
 
+                if (currentSpectrum == null)
+                    return null;
+
                 var elements = new List<Element>();
                 foreach (var currentMzValue in currentSpectrum.MZList)
                 {
