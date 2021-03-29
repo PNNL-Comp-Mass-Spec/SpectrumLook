@@ -241,20 +241,7 @@ namespace SpectrumLook.Views
         {
             return m_snapBoxPosition;
         }
-
-        /// <summary>
-        /// Double click event for the graph when we want to edit annotations
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected override void OnDoubleClick(EventArgs e)
-        {
-            base.OnDoubleClick(e);
-
-            // edit annotation?
-            // System.Windows.Forms.MessageBox.Show("Edit annotations not implemented yet");
-        }
-
+        
         /// <summary>
         /// Adds annotations from the matchedPoints to the Graph Pane
         /// Plot Options specify how much of the top % of annotations to display, along with size and color.

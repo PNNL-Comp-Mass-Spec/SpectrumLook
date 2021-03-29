@@ -64,8 +64,6 @@ namespace SpectrumLook.Builders
         /// <returns></returns>
         List<Element> IExperimentParser.GetExperimentDataByScanNumber(int scanNum)
         {
-            var outputValues = new List<string>();
-
             if (isFileOpened)
             {
                 // Load the entire file into memory.
