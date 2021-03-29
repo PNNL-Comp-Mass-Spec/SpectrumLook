@@ -60,24 +60,14 @@ namespace SpectrumLook.Views
             {
                 var selectedRow = DataGridTable.SelectedRows[0];
 
-                var peptide = selectedRow.Cells[mSynFileColumns.Peptide].Value.ToString();
-                var scanNumber = selectedRow.Cells[mSynFileColumns.Scan].Value.ToString();
-                if (mSynFileColumns.Dataset >= 0)
+                GetValuesFromDataRow(selectedRow, out var peptide, out var scanNumber, out var dataset, out _, out var precursorMzValue);
+
+                if (!string.IsNullOrWhiteSpace(dataset))
                 {
-                    m_manager.DataFileName = selectedRow.Cells[mSynFileColumns.Dataset].Value.ToString();
+                    m_manager.DataFileName = dataset;
                 }
 
-                if (mSynFileColumns.PrecursorMz >= 0)
-                {
-                    m_manager.PrecursorMZ = double.Parse(selectedRow.Cells[mSynFileColumns.PrecursorMz].Value.ToString());
-                }
-                else if (mSynFileColumns.ParentMH >= 0 && mSynFileColumns.Charge >= 0)
-                {
-                    var parentMH = double.Parse(selectedRow.Cells[mSynFileColumns.ParentMH].Value.ToString());
-                    var charge = short.Parse(selectedRow.Cells[mSynFileColumns.Charge].Value.ToString());
-
-                    m_manager.PrecursorMZ = mMolecularWeightTool.ConvoluteMass(parentMH, 1, charge);
-                }
+                m_manager.PrecursorMZ = precursorMzValue;
 
                 PeptideCleavageStateCalculator.SplitPrefixAndSuffixFromSequence(peptide, out var sequence, out _, out _);
 
@@ -412,28 +402,16 @@ namespace SpectrumLook.Views
         {
             var peptidesAndScans = new List<ResultRowData>();
 
-            // calculate the indexes for scan numbers and peptides
-            int scanNumIndex = 0, peptideIndex = 0;
-            var datasetIndex = -1;
-            var precursorIndex = 0;
-            for (var i = 0; i < ColNum; i++)
+            if (mSynFileColumns.Scan < 0)
             {
-                if (DataGridTable.Columns[i].HeaderText.ToLower().Contains("scan"))
-                {
-                    scanNumIndex = i;
-                }
-                if (DataGridTable.Columns[i].HeaderText.ToLower().Contains("peptide"))
-                {
-                    peptideIndex = i;
-                }
-                if (DataGridTable.Columns[i].HeaderText.ToLower().Contains("dataset"))
-                {
-                    datasetIndex = i;
-                }
-                if (DataGridTable.Columns[i].HeaderText.ToLower().Contains("precursormz"))
-                {
-                    precursorIndex = i;
-                }
+                MessageBox.Show("GetPeptidesAndScansInGrid: could not find a column with 'scan' in the name", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return peptidesAndScans;
+            }
+
+            if (mSynFileColumns.Peptide < 0)
+            {
+                MessageBox.Show("GetPeptidesAndScansInGrid: could not find a column with 'peptide' in the name", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return peptidesAndScans;
             }
 
             // get the scan numbers and peptides for the rows
@@ -441,19 +419,67 @@ namespace SpectrumLook.Views
             {
                 if (row.Visible || !useOnlyVisible)
                 {
-                    var scanNumber = row.Cells[scanNumIndex].Value.ToString();
-                    var peptide = row.Cells[peptideIndex].Value.ToString();
-                    var dataset = datasetIndex != -1 ? row.Cells[datasetIndex].Value.ToString() : null;
-                    var precursor = row.Cells[precursorIndex].Value.ToString();
+                    GetValuesFromDataRow(row, out var peptide, out var scanNumber, out var dataset, out var precursorMz);
 
-                    PeptideCleavageStateCalculator.SplitPrefixAndSuffixFromSequence(peptide, out var sequence,
-                        out var prefix, out var suffix);
+                    PeptideCleavageStateCalculator.SplitPrefixAndSuffixFromSequence(peptide, out _,
+                        out _, out _);
 
-                    peptidesAndScans.Add(new ResultRowData(dataset, scanNumber, peptide, precursor));
+                    peptidesAndScans.Add(new ResultRowData(dataset, scanNumber, peptide, precursorMz));
                 }
             }
 
             return peptidesAndScans;
+        }
+
+        private void GetValuesFromDataRow(
+            DataGridViewRow currentRow,
+            out string peptide,
+            out string scanNumber,
+            out string dataset,
+            out string precursorMz)
+        {
+            GetValuesFromDataRow(currentRow, out peptide, out scanNumber, out dataset, out precursorMz, out _);
+        }
+
+        private void GetValuesFromDataRow(
+            DataGridViewRow currentRow,
+            out string peptide,
+            out string scanNumber,
+            out string dataset,
+            out string precursorMz,
+            out double precursorMzValue)
+        {
+            peptide = currentRow.Cells[mSynFileColumns.Peptide].Value.ToString();
+            scanNumber = currentRow.Cells[mSynFileColumns.Scan].Value.ToString();
+            if (mSynFileColumns.Dataset >= 0)
+            {
+                dataset = currentRow.Cells[mSynFileColumns.Dataset].Value.ToString();
+            }
+            else
+            {
+                dataset = string.Empty;
+            }
+
+            precursorMz = string.Empty;
+            precursorMzValue = 0;
+
+            if (mSynFileColumns.PrecursorMz >= 0)
+            {
+                precursorMz = currentRow.Cells[mSynFileColumns.PrecursorMz].Value.ToString();
+                if (double.TryParse(precursorMz, out var value))
+                    precursorMzValue = value;
+                else
+                    precursorMzValue = 0;
+            }
+            else if (mSynFileColumns.ParentMH >= 0 && mSynFileColumns.Charge >= 0)
+            {
+                if (double.TryParse(currentRow.Cells[mSynFileColumns.ParentMH].Value.ToString(), out var parentMH) &&
+                    short.TryParse(currentRow.Cells[mSynFileColumns.Charge].Value.ToString(), out var charge))
+                {
+                    precursorMzValue = mMolecularWeightTool.ConvoluteMass(parentMH, 1, charge);
+                    precursorMz = precursorMzValue.ToString(CultureInfo.InvariantCulture);
+                }
+            }
         }
 
         private void DataGridTable_SelectionChanged(object sender, EventArgs e)
