@@ -211,7 +211,7 @@ namespace SpectrumLook.Views
             }
             else
             {
-                MessageBox.Show("The File should be loaded first");
+                MessageBox.Show("The File should be loaded first", "Not Ready", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
 
@@ -237,7 +237,7 @@ namespace SpectrumLook.Views
                 {
                     if (DataAdvanceOption.SeaFil_Pep1.Text == null || DataAdvanceOption.FilterComboBox1.Text == null || DataAdvanceOption.Filter_Value1.Text == null)
                     {
-                        MessageBox.Show("No Option Selected");
+                        MessageBox.Show("No Option Selected", "Not Ready", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     }
                     else
                     {
@@ -259,12 +259,12 @@ namespace SpectrumLook.Views
                 }
                 catch
                 {
-                    MessageBox.Show("The File is not loaded correctly ?");
+                    MessageBox.Show("Error occurred; perhaps the File is not loaded correctly", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
             }
             else
             {
-                MessageBox.Show("The File is not loaded correctly");
+                MessageBox.Show("The File is not loaded correctly", "Not Ready", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
         private void ColumnDisplayClick(object sender, EventArgs e)
@@ -341,7 +341,7 @@ namespace SpectrumLook.Views
             }
             else
             {
-                MessageBox.Show("The File is not Loaded");
+                MessageBox.Show("The File is not Loaded", "Not Ready", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
 
@@ -483,7 +483,7 @@ namespace SpectrumLook.Views
                 }
                 else
                 {
-                    MessageBox.Show("The File should be loaded first");
+                    MessageBox.Show("The File should be loaded first", "Not Ready", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
                 e.Handled = true;
             }

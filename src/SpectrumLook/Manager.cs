@@ -8,6 +8,7 @@ using System.Linq;
 using System.Windows.Forms;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using PRISM;
 using SpectrumLook.Views;
 using SpectrumLook.Builders;
 
@@ -221,8 +222,13 @@ namespace SpectrumLook
                     catch (Exception ex)
                     {
                         SynopsisLoaded = false;
-                        MessageBox.Show("There was an error opening the Synopsis file, are you sure you picked the right file?\n\n" + ex.Message + "\n\nStack Trace:\n" + ex.StackTrace,
-                            "Synopsis open Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                        var errorMsg = string.Format(
+                            "There was an error opening the Synopsis file, are you sure you picked the right file?\n\n{0}\n\nStack Trace:\n{1}",
+                            ex.Message,
+                            StackTraceFormatter.GetExceptionStackTraceMultiLine(ex));
+
+                        MessageBox.Show(errorMsg, "Error reading file", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
 
                     // Select the first row
@@ -246,15 +252,14 @@ namespace SpectrumLook
         {
             if (m_currentScanNumber == 0)
             {
-                MessageBox.Show(
-                    "Please open a synopsis and data file and then load a scan from the data view to calculate: \"" +
-                    Peptide + "\"");
+                var msg = string.Format("Please open a synopsis and data file and then load a scan from the data view to calculate: \"{0}\"", Peptide);
+                MessageBox.Show(msg, "Not ready", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return false;
             }
 
             if (Peptide.Length == 1)
             {
-                MessageBox.Show("Invalid peptide string (single character.");
+                MessageBox.Show("Invalid peptide string (single character.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return false;
             }
 
@@ -292,12 +297,12 @@ namespace SpectrumLook
                 var invalidChars = System.Text.RegularExpressions.Regex.Replace(Peptide, spattern, "");
                 if (modList.Contains(Peptide[0]))
                 {
-                    MessageBox.Show("The peptide string cannot start with a modification.");
+                    MessageBox.Show("The peptide string cannot start with a modification.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     return false;
                 }
                 if (System.Text.RegularExpressions.Regex.Replace(invalidChars, "[" + escapedModList + "]", "").Length == 0)
                 {
-                    MessageBox.Show("Invalid peptide string: Too many modifications on a single amino acid.");
+                    MessageBox.Show("Invalid peptide string: Too many modifications on a single amino acid.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     return false;
                 }
 

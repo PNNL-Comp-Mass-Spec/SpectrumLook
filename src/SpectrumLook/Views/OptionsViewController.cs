@@ -355,7 +355,10 @@ namespace SpectrumLook.Views
             {
                 if (outputValue > 1 || outputValue < 0)
                 {
-                    MessageBox.Show("Please insert a valid tolerance level (0-1)!\n");
+                    MessageBox.Show(
+                        "Please enter a valid tolerance level (0-1)!",
+                        "Not Ready", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+
                     mainMatchingToleranceBox.Text = "";
                     return;
                 }
@@ -374,7 +377,10 @@ namespace SpectrumLook.Views
             {
                 if (outputValue > 1 || outputValue < 0)
                 {
-                    MessageBox.Show("Lower tolerance level must be greater than 0 and less than upper tolerance level.\n");
+                    MessageBox.Show(
+                        "Lower tolerance level must be greater than 0 and less than upper tolerance level.",
+                        "Not Ready", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+
                     lowerMatchingToleranceBox.Text = "";
                     return;
                 }

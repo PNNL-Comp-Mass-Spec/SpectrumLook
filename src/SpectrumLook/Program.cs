@@ -2,6 +2,7 @@
 using System.Windows.Forms;
 using SpectrumLook.Views;
 using System.IO;
+using PRISM;
 
 namespace SpectrumLook
 {
@@ -44,10 +45,10 @@ namespace SpectrumLook
                 var exeFolder = Path.GetDirectoryName(Application.ExecutablePath);
                 var sw = new StreamWriter(exeFolder + "\\buglog.txt", true);
                 sw.WriteLine("Bug Date: " + DateTime.Now.ToString());
-                sw.WriteLine(e.ToString() + "\n\n");
+                sw.WriteLine(ex.ToString() + "\n\n");
 
                 sw.Close();
-                result = ShowThreadExceptionDialog("Error", e);
+                result = ShowThreadExceptionDialog("Error", ex);
             }
             catch
             {
@@ -68,11 +69,13 @@ namespace SpectrumLook
         }
 
         // Creates the error message and displays it.
-        private static DialogResult ShowThreadExceptionDialog(string title, Exception e)
+        private static DialogResult ShowThreadExceptionDialog(string title, Exception ex)
         {
-            var errorMsg = "An application error occurred. Please contact the adminstrator " +
-                           "with the following information:\n\n";
-            errorMsg = errorMsg + e.Message + "\n\nStack Trace:\n" + e.StackTrace;
+            var errorMsg = string.Format(
+                "An application error occurred:\n\n{0}\n\nStack Trace:\n{1}",
+                ex.Message,
+                StackTraceFormatter.GetExceptionStackTraceMultiLine(ex));
+
             return MessageBox.Show(errorMsg, title, MessageBoxButtons.AbortRetryIgnore,
                 MessageBoxIcon.Stop);
         }

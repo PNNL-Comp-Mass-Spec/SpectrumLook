@@ -302,7 +302,7 @@ namespace SpectrumLook.Views
             }
             else
             {
-                MessageBox.Show("Please open a File before attempting to batch save.", "Open A File First", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Please open a File before attempting to batch save.", "Not Ready", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
 
