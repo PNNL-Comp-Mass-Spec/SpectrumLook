@@ -12,7 +12,7 @@ namespace SpectrumLook.Builders
     {
         /// <summary>
         /// This stores the inputed experiment parser, so that this class can
-        /// retive data from the experiment files.
+        /// retrieve data from the experiment files.
         /// </summary>
         private readonly IExperimentParser m_fileParser;
 
@@ -25,7 +25,7 @@ namespace SpectrumLook.Builders
         /// <summary>
         /// This constructor takes in a scan number of the desired experiment data with a provided parser that is not null.
         /// </summary>
-        /// <param name="scanNumber">A scan number referenecing data in an experiment file.</param>
+        /// <param name="scanNumber">A scan number referencing data in an experiment file.</param>
         /// <param name="experimentParser">An interface for reading experiment files (i.e. ".mzXML"...).</param>
         public ActualListBuilder(int scanNumber, IExperimentParser experimentParser)
         {

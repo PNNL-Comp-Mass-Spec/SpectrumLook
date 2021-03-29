@@ -110,7 +110,7 @@ namespace SpectrumLook
                 }
             }
 
-            // This is used to read and write the the .spuf
+            // This is used to read and write the .spuf
             m_workFileWriter = new LadderInstanceDictionaryXmlSerializer();
 
             // Options

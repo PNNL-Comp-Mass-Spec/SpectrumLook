@@ -395,7 +395,7 @@ namespace SpectrumLook.Views
         }
 
         /// <summary>
-        /// Focuses the plot on a specific point.  This is used for when the user clicks the fragment ladder and we want to hilight that point
+        /// Focuses the plot on a specific point.  This is used for when the user clicks the fragment ladder and we want to highlight that point
         /// </summary>
         /// <param name="focusValue">The x value to focus on in the plot</param>
         public void FocusPlotOnPoint(double focusValue)
