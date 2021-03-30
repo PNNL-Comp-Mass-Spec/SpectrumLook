@@ -207,8 +207,8 @@
             // 
             // CancelBatchSaveButton
             // 
-            this.CancelBatchSaveButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.CancelBatchSaveButton.Location = new System.Drawing.Point(436, 347);
+            this.CancelBatchSaveButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.CancelBatchSaveButton.Margin = new System.Windows.Forms.Padding(4);
             this.CancelBatchSaveButton.Name = "CancelBatchSaveButton";
             this.CancelBatchSaveButton.Size = new System.Drawing.Size(100, 28);
