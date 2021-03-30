@@ -46,22 +46,16 @@ namespace SpectrumLook
         {
             get
             {
-                var outString = "";
-                var startIndex = scanAndPeptide.IndexOf('|');
-                ++startIndex;
+                var barIndex = ScanAndPeptide.IndexOf('|');
+                if (barIndex < 0 || barIndex == ScanAndPeptide.Length - 1)
+                    return string.Empty;
 
-                while (startIndex < scanAndPeptide.Length)
-                {
-                    outString += scanAndPeptide[startIndex].ToString();
-                    ++startIndex;
-                }
-
-                return outString;
+                return ScanAndPeptide.Substring(barIndex + 1);
             }
             set
             {
-                var splittedString = scanAndPeptide.Split('|');
-                scanAndPeptide = splittedString[0] + "|" + value;
+                var stringParts = ScanAndPeptide.Split('|');
+                ScanAndPeptide = stringParts[0] + "|" + value;
             }
         }
 
