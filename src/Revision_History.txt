@@ -1,7 +1,0 @@
-SpectrumLook Change Log
-
-Version 1.0.5388; October 1, 2014
-	- Added error handling to MolecularWeightCalculator.cs
-
-Version 1.0.0; February 6, 2013
-	- Initial release
