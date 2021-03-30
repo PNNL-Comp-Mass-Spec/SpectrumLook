@@ -34,7 +34,7 @@ namespace SpectrumLook
 
         private void buttonData_Click(object sender, EventArgs e)
         {
-            openFileDialog.Filter = "mzXml Files or raw Files (*.mzxml *.raw)|*.mzxml;*.raw|All Files (*.*)|*.*";
+            openFileDialog.Filter = "Spectrum files (*.mzML, *.mzXML, *.raw)|*.mzML;*.mzXML;*.raw|All Files (*.*)|*.*";
             try
             {
                 openFileDialog.Title = "Open Data File";

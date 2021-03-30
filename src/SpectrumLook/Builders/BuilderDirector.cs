@@ -10,43 +10,34 @@ namespace SpectrumLook.Builders
         private TheoryListBuilder mTheoryBuilder;
         private IExperimentParser mParser;
 
-        public List<Element> BuildActualList(int scanNumber, string fileLocation)       // Idea is to check the extension, call the right parser based on extension of file name.
+        public List<Element> BuildActualList(int scanNumber, string filePath)
         {
-            var mzXML = ".mzxml";
-            var raw = ".raw";
-            var extension = Path.GetExtension(fileLocation);
-            extension = extension.ToLower();
-            if (m_parser == null)
+            const string mzXML = ".mzxml";
+            const string mzML = ".mzml";
+            const string raw = ".raw";
+
+            var extension = Path.GetExtension(filePath).ToLower();
+
+            if (mParser == null || mParser.FilePath != filePath)
             {
                 if (extension.Equals(mzXML))
                 {
-                    m_parser = new MzParser(fileLocation);
-                    m_actualBuilder = new ActualListBuilder(scanNumber, m_parser);
+                    mParser = new MzXMLParser(filePath);
+                    mActualBuilder = new ActualListBuilder(scanNumber, mParser);
                 }
-
-                if (extension.Equals(raw))
+                else if (extension.Equals(mzML))
                 {
-                    m_parser = new ThermoRawParser(fileLocation);
-                    m_actualBuilder = new ActualListBuilder(scanNumber, m_parser);
+                    mParser = new MzMLParser(filePath);
+                    mActualBuilder = new ActualListBuilder(scanNumber, mParser);
+                }
+                else if (extension.Equals(raw))
+                {
+                    mParser = new ThermoRawParser(filePath);
+                    mActualBuilder = new ActualListBuilder(scanNumber, mParser);
                 }
             }
             else
             {
-                if (m_parser.Filename != fileLocation)
-                {
-                    if (extension.Equals(mzXML))
-                    {
-                        m_parser = new MzParser(fileLocation);
-                        m_actualBuilder = new ActualListBuilder(scanNumber, m_parser);
-                    }
-
-                    if (extension.Equals(raw))
-                    {
-                        m_parser = new ThermoRawParser(fileLocation);
-                        m_actualBuilder = new ActualListBuilder(scanNumber, m_parser);
-                    }
-                }
-
                 mActualBuilder.SetScanNumber(scanNumber);
             }
 
