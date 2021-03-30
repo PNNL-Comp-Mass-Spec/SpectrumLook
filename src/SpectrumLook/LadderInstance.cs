@@ -20,21 +20,21 @@ namespace SpectrumLook
     /// </summary>
     public class LadderInstance
     {
-        public List<string[]> mzValue { get; set; }
+        public List<string[]> MzValue { get; set; }
 
-        public List<string> mzValueHeaders { get; set; }
+        public List<string> MzValueHeaders { get; set; }
 
-        public string scanAndPeptide { get; set; }
+        public string ScanAndPeptide { get; set; }
 
-        public string scanNumberString
+        public string ScanNumberString
         {
             get
             {
                 var outString = "";
                 var i = 0;
-                while (scanAndPeptide[i] != '|')
+                while (ScanAndPeptide[i] != '|')
                 {
-                    outString += scanAndPeptide[i].ToString();
+                    outString += ScanAndPeptide[i].ToString();
                     ++i;
                 }
 
@@ -72,9 +72,9 @@ namespace SpectrumLook
         public LadderInstance()
         {
             currentMode = "";
-            scanAndPeptide = "";
-            mzValueHeaders = new List<string>();
-            mzValue = new List<string[]>();
+            ScanAndPeptide = "";
+            MzValueHeaders = new List<string>();
+            MzValue = new List<string[]>();
             annotations = new List<Annotation>();
         }
     }

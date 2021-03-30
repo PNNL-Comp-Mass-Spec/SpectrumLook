@@ -58,28 +58,27 @@ namespace SpectrumLook
         }
 
         /// <summary>
-        /// This function is used to read a XML file and output a Hashtable filled with a List of LadderInstances
+        /// This function is used to read a XML file and output a Dictionary filled with a List of LadderInstances
         /// </summary>
         /// <param name="location">The stored location of the XML file.</param>
-        /// <returns></returns>
+        /// <returns>Dictionary </returns>
         public Dictionary<string, List<LadderInstance>> ReadXmlWorkFile(string location)
         {
             var serializer = new XmlSerializer(typeof(List<List<LadderInstance>>));
             TextReader textReader = new StreamReader(location);
-            var outputedHashTable = new Dictionary<string, List<LadderInstance>>();
-            List<List<LadderInstance>> savedSchema;
+            var ladderInstances = new Dictionary<string, List<LadderInstance>>();
 
             fileSaved = location;
 
-            savedSchema = (List<List<LadderInstance>>)serializer.Deserialize(textReader);
+            var savedSchema = (List<List<LadderInstance>>)serializer.Deserialize(textReader);
             textReader.Close();
 
             foreach (var currentLadderList in savedSchema)
             {
-                outputedHashTable.Add((currentLadderList[0].scanNumberString + currentLadderList[0].PeptideString), currentLadderList);
+                ladderInstances.Add(currentLadderList[0].ScanNumberString + currentLadderList[0].PeptideString, currentLadderList);
             }
 
-            return outputedHashTable;
+            return ladderInstances;
         }
     }
 }

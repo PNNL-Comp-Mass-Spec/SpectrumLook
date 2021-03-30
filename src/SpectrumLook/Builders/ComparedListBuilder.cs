@@ -97,19 +97,19 @@ namespace SpectrumLook.Builders
         //        while (currentActualIndex < this.mActualElementList.Count)
         //        {
 
-        //            if ((((mTheoryElementList[currentTheoryIndex].mzValue) <= (mActualElementList[currentActualIndex].mzValue * (1.00 + (possibleError / 100.0)))) &&
-        //                ((mTheoryElementList[currentTheoryIndex].mzValue) >= (mActualElementList[currentActualIndex].mzValue * (1.00 - (lowerBoundPossibleError / 100.0))))))
+        //            if ((((mTheoryElementList[currentTheoryIndex].MzValue) <= (mActualElementList[currentActualIndex].MzValue * (1.00 + (possibleError / 100.0)))) &&
+        //                ((mTheoryElementList[currentTheoryIndex].MzValue) >= (mActualElementList[currentActualIndex].MzValue * (1.00 - (lowerBoundPossibleError / 100.0))))))
         //            {
         //                if (highestIntensityIndex == -1)
         //                {
         //                    highestIntensityIndex = currentActualIndex;
 
         //                }
-        //                else if (Math.Abs(mActualElementList[highestIntensityIndex].mzValue - mTheoryElementList[currentTheoryIndex].mzValue) > Math.Abs(mActualElementList[currentActualIndex].mzValue - mTheoryElementList[currentTheoryIndex].mzValue))
+        //                else if (Math.Abs(mActualElementList[highestIntensityIndex].MzValue - mTheoryElementList[currentTheoryIndex].MzValue) > Math.Abs(mActualElementList[currentActualIndex].MzValue - mTheoryElementList[currentTheoryIndex].MzValue))
         //                {
         //                    highestIntensityIndex = currentActualIndex;
         //                }
-        //                else if (Math.Abs(mActualElementList[highestIntensityIndex].mzValue - mTheoryElementList[currentTheoryIndex].mzValue) == Math.Abs(mActualElementList[currentActualIndex].mzValue - mTheoryElementList[currentTheoryIndex].mzValue))
+        //                else if (Math.Abs(mActualElementList[highestIntensityIndex].MzValue - mTheoryElementList[currentTheoryIndex].MzValue) == Math.Abs(mActualElementList[currentActualIndex].MzValue - mTheoryElementList[currentTheoryIndex].MzValue))
         //                {
         //                    if (mActualElementList[highestIntensityIndex].intensity < mActualElementList[currentActualIndex].intensity)
         //                    {
@@ -150,7 +150,7 @@ namespace SpectrumLook.Builders
         //        elementForCopying.annotation    = currentElement.annotation;
         //        elementForCopying.matched       = currentElement.matched;
         //        elementForCopying.intensity     = currentElement.intensity;
-        //        elementForCopying.mzValue       = currentElement.mzValue;
+        //        elementForCopying.MzValue       = currentElement.MzValue;
         //        ElementList.Add(elementForCopying);
         //    }
         //}
@@ -168,11 +168,11 @@ namespace SpectrumLook.Builders
         //    {
         //        currentActualIndex      = 0;
         //        highestIntensityIndex   = -1;
-        //        double theoryMz         = mTheoryElementList[currentTheoryIndex].mzValue;
+        //        double theoryMz         = mTheoryElementList[currentTheoryIndex].MzValue;
 
         //        while (currentActualIndex < this.mActualElementList.Count)
         //        {
-        //            double actualMz         = mActualElementList[currentActualIndex].mzValue;
+        //            double actualMz         = mActualElementList[currentActualIndex].MzValue;
         //            double actualIntensity  = mActualElementList[currentActualIndex].intensity;
         //            double upperActualMz    = actualMz + possibleError;
         //            double lowerActualMz    = actualMz - possibleError;
@@ -189,11 +189,11 @@ namespace SpectrumLook.Builders
         //                {
         //                    highestIntensityIndex = currentActualIndex;
         //                }
-        //                else if (Math.Abs(mActualElementList[highestIntensityIndex].mzValue - theoryMz) > diffMz)
+        //                else if (Math.Abs(mActualElementList[highestIntensityIndex].MzValue - theoryMz) > diffMz)
         //                {
         //                    highestIntensityIndex = currentActualIndex;
         //                }
-        //                else if (Math.Abs(mActualElementList[highestIntensityIndex].mzValue - theoryMz) == diffMz)
+        //                else if (Math.Abs(mActualElementList[highestIntensityIndex].MzValue - theoryMz) == diffMz)
         //                {
         //                    if (mActualElementList[highestIntensityIndex].intensity < actualIntensity)
         //                    {
@@ -237,7 +237,7 @@ namespace SpectrumLook.Builders
         //        elementForCopying.annotation = currentElement.annotation;
         //        elementForCopying.matched = currentElement.matched;
         //        elementForCopying.intensity = currentElement.intensity;
-        //        elementForCopying.mzValue = currentElement.mzValue;
+        //        elementForCopying.MzValue = currentElement.MzValue;
         //        ElementList.Add(elementForCopying);
         //    }
         //}

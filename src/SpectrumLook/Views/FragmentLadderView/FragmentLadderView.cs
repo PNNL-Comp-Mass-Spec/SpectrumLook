@@ -18,7 +18,7 @@ namespace SpectrumLook.Views.FragmentLadderView
 
         private bool mCurrentlyDrawing;
 
-        public FragmentLadderOptions fragmentLadderOptions { get; set; }
+        public FragmentLadderOptions FragmentLadderOptions { get; set; }
 
         public FragmentLadderView(Manager manager)
         {
@@ -26,7 +26,7 @@ namespace SpectrumLook.Views.FragmentLadderView
 
             mManager = manager;
 
-            fragmentLadderOptions = new FragmentLadderOptions();
+            FragmentLadderOptions = new FragmentLadderOptions();
 
             mCurrentlyDrawing = false;
 
@@ -52,7 +52,7 @@ namespace SpectrumLook.Views.FragmentLadderView
 
         public void MarkIonSeriesHeaders()
         {
-            foreach (var header in fragmentLadderOptions.CheckedHeaders)
+            foreach (var header in FragmentLadderOptions.CheckedHeaders)
             {
                 for (var i = 0; i < columnCheckedListBox.Items.Count; i++)
                 {
@@ -102,7 +102,7 @@ namespace SpectrumLook.Views.FragmentLadderView
             // This is a counter for the list boxes.
             var listBoxCounter = 0;
 
-            // this.columnCheckedListBox.Items.AddRange(currentListInstances[0].mzValueHeaders.ToArray());
+            // this.columnCheckedListBox.Items.AddRange(currentListInstances[0].MzValueHeaders.ToArray());
             tabControl1.TabPages.Clear();
             tabControl1.Visible = false;
             tabControl1.TabPages.Add("Original");
@@ -165,9 +165,9 @@ namespace SpectrumLook.Views.FragmentLadderView
                         tempListBox.DoubleClick += tempListBox_DoubleClick;
                         tempListBox.Items.Add(columnCheckedListBox.CheckedItems[index].ToString());
 
-                        for (var ind = 0; ind < currentInstance.mzValueHeaders.Count; ind++)
+                        for (var ind = 0; ind < currentInstance.MzValueHeaders.Count; ind++)
                         {
-                            if (currentInstance.mzValueHeaders[ind] == columnCheckedListBox.CheckedItems[index].ToString())
+                            if (currentInstance.MzValueHeaders[ind] == columnCheckedListBox.CheckedItems[index].ToString())
                                 listBoxCounter = ind;
                         }
 
@@ -176,18 +176,18 @@ namespace SpectrumLook.Views.FragmentLadderView
                         /*if ((columnCheckedListBox.CheckedItems[index].ToString().Contains("y")) ||
                             (columnCheckedListBox.CheckedItems[index].ToString().Contains("z")))
                         {
-                            string[] tempArray = currentInstance.mzValue[listBoxCounter];
+                            string[] tempArray = currentInstance.MzValue[listBoxCounter];
                             int findNonNull = 0;
                             while ((findNonNull < tempArray.Length) && (tempArray[findNonNull] == ""))
                                 ++findNonNull;
-                            string[] splittedSubArrayOne = tempArray[findNonNull].Split('|');
-                            string[] splittedSubArrayTwo = tempArray[(findNonNull + 1)].Split('|');
+                            string[] stringParts1 = tempArray[findNonNull].Split('|');
+                            string[] stringParts2 = tempArray[(findNonNull + 1)].Split('|');
                             double outValue1 = 0.0;
                             double outValue2 = 0.0;
 
-                            double.TryParse(splittedSubArrayOne[0], out outValue1);
-                            double.TryParse(splittedSubArrayTwo[0], out outValue2);
-                            if (outValue2 > outValue1)
+                            double.TryParse(stringParts1[0], out value1);
+                            double.TryParse(stringParts2[0], out value2);
+                            if (value2 > value1)
                             {
                                 Array.Reverse(tempArray);
                             }
@@ -196,15 +196,15 @@ namespace SpectrumLook.Views.FragmentLadderView
                         else
                         {*/
                         var currentLadderValueIndex = 0;
-                        while (currentLadderValueIndex < currentInstance.mzValue[listBoxCounter].Length)
+                        while (currentLadderValueIndex < currentInstance.MzValue[listBoxCounter].Length)
                         {
-                            if (currentInstance.mzValue[listBoxCounter][currentLadderValueIndex]?.Length == 0)
+                            if (currentInstance.MzValue[listBoxCounter][currentLadderValueIndex]?.Length == 0)
                             {
                                 tempListBox.Items.Insert(currentLadderValueIndex + 1, "");
                             }
                             else
                             {
-                                tempListBox.Items.Insert(currentLadderValueIndex + 1, currentInstance.mzValue[listBoxCounter][currentLadderValueIndex]);
+                                tempListBox.Items.Insert(currentLadderValueIndex + 1, currentInstance.MzValue[listBoxCounter][currentLadderValueIndex]);
                             }
                             ++currentLadderValueIndex;
                         }
@@ -307,7 +307,7 @@ namespace SpectrumLook.Views.FragmentLadderView
                     {
                         var aminoAcidCode = " " + peptide[peptideStringIndex];
                         if (peptideStringIndex + 1 < peptide.Length &&
-                            fragmentLadderOptions.ModificationList.ContainsKey(peptide[peptideStringIndex + 1]))
+                            FragmentLadderOptions.ModificationList.ContainsKey(peptide[peptideStringIndex + 1]))
                         {
                             aminoAcidCode += peptide[peptideStringIndex + 1];
                             ++peptideStringIndex;
@@ -385,9 +385,9 @@ namespace SpectrumLook.Views.FragmentLadderView
                         tempListBox.DoubleClick += tempListBox_DoubleClick;
                         tempListBox.Items.Add(columnCheckedListBox.CheckedItems[index].ToString());
 
-                        for (var ind = 0; ind < currentInstance.mzValueHeaders.Count; ind++)
+                        for (var ind = 0; ind < currentInstance.MzValueHeaders.Count; ind++)
                         {
-                            if (currentInstance.mzValueHeaders[ind] == columnCheckedListBox.CheckedItems[index].ToString())
+                            if (currentInstance.MzValueHeaders[ind] == columnCheckedListBox.CheckedItems[index].ToString())
                                 listBoxCounter = ind;
                         }
 
@@ -396,18 +396,16 @@ namespace SpectrumLook.Views.FragmentLadderView
                         /*if ((columnCheckedListBox.CheckedItems[index].ToString().Contains("y")) ||
                             (columnCheckedListBox.CheckedItems[index].ToString().Contains("z")))
                         {*/
-                        var tempArray = currentInstance.mzValue[listBoxCounter];
+                        var tempArray = currentInstance.MzValue[listBoxCounter];
                         var findNonNull = 0;
                         while (findNonNull < tempArray.Length && tempArray[findNonNull]?.Length == 0)
                             ++findNonNull;
-                        var splittedSubArrayOne = tempArray[findNonNull].Split('|');
-                        var splittedSubArrayTwo = tempArray[findNonNull + 1].Split('|');
-                        var outValue1 = 0.0;
-                        var outValue2 = 0.0;
+                        var stringParts1 = tempArray[findNonNull].Split('|');
+                        var stringParts2 = tempArray[findNonNull + 1].Split('|');
 
-                        double.TryParse(splittedSubArrayOne[0], out outValue1);
-                        double.TryParse(splittedSubArrayTwo[0], out outValue2);
-                        if (outValue2 > outValue1)
+                        double.TryParse(stringParts1[0], out var value1);
+                        double.TryParse(stringParts2[0], out var value2);
+                        if (value2 > value1)
                         {
                             Array.Reverse(tempArray);
                         }
@@ -416,15 +414,15 @@ namespace SpectrumLook.Views.FragmentLadderView
                         else
                         {
                             int currentLadderValueIndex = 0;
-                            while (currentLadderValueIndex < currentInstance.mzValue[listBoxCounter].Length)
+                            while (currentLadderValueIndex < currentInstance.MzValue[listBoxCounter].Length)
                             {
-                                if (currentInstance.mzValue[listBoxCounter][currentLadderValueIndex] == "")
+                                if (currentInstance.MzValue[listBoxCounter][currentLadderValueIndex] == "")
                                 {
                                     tempListBox.Items.Insert((currentLadderValueIndex + 1), "");
                                 }
                                 else
                                 {
-                                    tempListBox.Items.Insert((currentLadderValueIndex + 1), currentInstance.mzValue[listBoxCounter][currentLadderValueIndex]);
+                                    tempListBox.Items.Insert((currentLadderValueIndex + 1), currentInstance.MzValue[listBoxCounter][currentLadderValueIndex]);
                                 }
                                 ++currentLadderValueIndex;
                             }
@@ -588,7 +586,7 @@ namespace SpectrumLook.Views.FragmentLadderView
         }
 
         /// <summary>
-        /// This event is called when the user choses the Apply button after making a change
+        /// This event is called when the user clicks the Apply button after making a change
         /// to the list of checked columns.
         /// </summary>
         /// <param name="sender"></param>

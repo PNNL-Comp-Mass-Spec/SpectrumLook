@@ -58,8 +58,8 @@ namespace SpectrumLook.Views.FragmentLadderView
                 }
             }
 
-            returnedLadderInstance.mzValue = tempListHolder;
-            returnedLadderInstance.mzValueHeaders = tempListColumnOptions;
+            returnedLadderInstance.MzValue = tempListHolder;
+            returnedLadderInstance.MzValueHeaders = tempListColumnOptions;
             return returnedLadderInstance;
         }
 
