@@ -10,14 +10,10 @@ namespace SpectrumLook.Builders
     public interface IExperimentParser
     {
         /// <summary>
-        /// The input of this function will always be an assumed int value where the
-        /// integer value is the Scan Number that an outside object requested.
-        /// The output is a string array that should be structured such that intensities are odd index values (starting from 1)
-        /// and mzValues are even index values (starting from 0).
+        /// Get the mass spec data for the given scan number
         /// </summary>
-        /// <param name="scanNum">This is Assumed to be the Scan Number that the data is referenced by in the file.</param>
-        /// <returns></returns>
-        List<Element> GetExperimentDataByScanNumber(int scanNum);
+        /// <param name="scanNumber"></param>
+        List<Element> GetExperimentDataByScanNumber(int scanNumber);
 
         string FilePath
         {

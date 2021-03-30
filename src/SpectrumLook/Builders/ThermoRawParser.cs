@@ -51,15 +51,10 @@ namespace SpectrumLook.Builders
         }
 
         /// <summary>
-        /// This function returns an array of strings where the odd index's are intensities
-        /// and even index's are mz Values.  The function takes advantage of the MSDataFileReader
-        /// from PNNL.
+        /// Get the mass spec data for the given scan number
         /// </summary>
-        /// <param name="scanNum">The scan number that is used to reference the experiment Data
-        /// in the currently opened File.</param>
-        /// <returns>An array of strings where odd index (starting from 1) are the intensities
-        /// and the even index's (starting from 0) are the mzValues.</returns>
-        List<Element> IExperimentParser.GetExperimentDataByScanNumber(int scanNum)   // Have GetExperimentDataByScanNumberRaw commented out, checking without the raw...
+        /// <param name="scanNumber"></param>
+        List<Element> IExperimentParser.GetExperimentDataByScanNumber(int scanNumber)
         {
             // mFileOpened = true;        // TEST
 
@@ -67,7 +62,7 @@ namespace SpectrumLook.Builders
             {
                 var values = new List<Element>();
 
-                var dataPairCount = mFileReader.GetScanData2D(scanNum, out var mzIntensityPairList, 0, true);
+                var dataPairCount = mFileReader.GetScanData2D(scanNumber, out var mzIntensityPairList, 0, true);
 
                 // Step through mzList and intensityList and assign them.
                 for (var i = 0; i < dataPairCount; ++i)

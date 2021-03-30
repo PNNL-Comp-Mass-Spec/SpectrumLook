@@ -55,21 +55,17 @@ namespace SpectrumLook.Builders
         }
 
         /// <summary>
-        /// This function returns an array of strings where the odd index's are intensities
-        /// and even index's are mz Values.  The function takes advantage of the MSDataFileReader
-        /// from PNNL.
+        /// Get the mass spec data for the given scan number
         /// </summary>
-        /// <param name="scanNum">The scan number that is used to reference the experiment Data
-        /// in the currently opened File.</param>
-        /// <returns></returns>
-        List<Element> IExperimentParser.GetExperimentDataByScanNumber(int scanNum)
+        /// <param name="scanNumber"></param>
+        List<Element> IExperimentParser.GetExperimentDataByScanNumber(int scanNumber)
         {
             if (IsFileOpened)
             {
                 // Load the entire file into memory.
                 // mFileReader.ReadAndCacheEntireFile();
 
-                mFileReader.GetSpectrumByScanNumber(scanNum, out var currentSpectrum);
+                mFileReader.GetSpectrumByScanNumber(scanNumber, out var currentSpectrum);
 
                 if (currentSpectrum == null)
                     return null;
