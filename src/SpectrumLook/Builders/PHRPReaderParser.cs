@@ -38,9 +38,10 @@ namespace SpectrumLook.Builders
                 LoadScanStatsData = false,
                 MaxProteinsPerPSM = 100
             };
+
             mReader = new ReaderFactory(synopsisFilePath, startupOptions)
             {
-                // mReader.FastReadMode = true;
+                FastReadMode = false,
                 SkipDuplicatePSMs = true
             };
         }
@@ -52,6 +53,7 @@ namespace SpectrumLook.Builders
                 mFirstRead = false;
                 return mFirstLine;
             }
+
             if (mReader.MoveNext())
             {
                 var line = mReader.CurrentPSM.DataLineText;
@@ -70,7 +72,7 @@ namespace SpectrumLook.Builders
             return null;
         }
 
-        private string PeptideWithAllMods(string cleanSequence, List<AminoAcidModInfo> residues)
+        private string PeptideWithAllMods(string cleanSequence, IReadOnlyCollection<AminoAcidModInfo> residues)
         {
             var modPeptide = new StringBuilder();
 
