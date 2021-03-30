@@ -102,8 +102,8 @@ namespace SpectrumLook.Views
             {
                 var graphPoint = new PointF((float)closestPoint.X, (float)closestPoint.Y);
                 var boxPoint = closestPane.GeneralTransform(graphPoint, CoordType.AxisXYScale);
-                mSnapBoxPosition.X = (int)boxPoint.X - (mSnapBoxSize / 2);
-                mSnapBoxPosition.Y = (int)boxPoint.Y - (mSnapBoxSize / 2);
+                mSnapBoxPosition.X = (int)boxPoint.X - mSnapBoxSize / 2;
+                mSnapBoxPosition.Y = (int)boxPoint.Y - mSnapBoxSize / 2;
 
                 if (mUpdateCursorCallback != null)
                 {
@@ -168,7 +168,7 @@ namespace SpectrumLook.Views
                 mSnapBoxColor = mOptions.MatchedColor;
             }
 
-            var foundClosest = (closestPoint.X != 0 || closestPoint.Y != 0);
+            var foundClosest = closestPoint.X != 0 || closestPoint.Y != 0;
 
             return foundClosest;
         }
@@ -263,8 +263,8 @@ namespace SpectrumLook.Views
                 // look for if the user has defined a custom annotation if they have we deal with that instead of making a new one
                 for (var j = 0; j < currentInstance.annotations.Count; j++)
                 {
-                    if ((currentInstance.annotations[j].mPoint.X == pointsList[i].X) &&
-                        (currentInstance.annotations[j].mPoint.Y == pointsList[i].Y))
+                    if (currentInstance.annotations[j].mPoint.X == pointsList[i].X &&
+                        currentInstance.annotations[j].mPoint.Y == pointsList[i].Y)
                     {
                         usingCustomAnnotation = true;
                         var customAnnotation = currentInstance.annotations[j];
@@ -387,8 +387,8 @@ namespace SpectrumLook.Views
 
                         foreach (var annotation in mManager.GetCurrentInstance().annotations)
                         {
-                            if ((annotation.mPoint.X == pt.X) &&
-                             (annotation.mPoint.Y == pt.Y))
+                            if (annotation.mPoint.X == pt.X &&
+                             annotation.mPoint.Y == pt.Y)
                             {
                                 customAnnotation = annotation;
                                 break;
@@ -447,7 +447,7 @@ namespace SpectrumLook.Views
                 {
                     var point = points[i];
 
-                    if ((point.X < maxX) && (point.X > minX) && (point.Y < maxY) && (point.Y > minY))
+                    if (point.X < maxX && point.X > minX && point.Y < maxY && point.Y > minY)
                     {
                         visibleList.Add(point);
                     }
@@ -568,8 +568,8 @@ namespace SpectrumLook.Views
                     unmatchedMin = unmatchedPointsSection[j][0].X;
                 }
 
-                myPaneT.XAxis.Scale.Max = (matchedMax > unmatchedMax) ? matchedMax : unmatchedMax;
-                myPaneT.XAxis.Scale.Min = (matchedMin < unmatchedMin) ? matchedMin : unmatchedMin;
+                myPaneT.XAxis.Scale.Max = matchedMax > unmatchedMax ? matchedMax : unmatchedMax;
+                myPaneT.XAxis.Scale.Min = matchedMin < unmatchedMin ? matchedMin : unmatchedMin;
 
                 // Remove all margins
                 myPaneT.Margin.All = 0;
@@ -695,8 +695,8 @@ namespace SpectrumLook.Views
                 // here goes hoping that the lists are sorted...
                 for (var j = 0; j < pointsPerSection; j++)
                 {
-                    var nextMatched = (matchedIndex < originalMatched.Count) ? originalMatched[matchedIndex].X : originalUnmatched[originalUnmatched.Count - 1].X + 1;
-                    var nextUnmatched = (unmatchedIndex < originalUnmatched.Count) ? originalUnmatched[unmatchedIndex].X : originalMatched[originalMatched.Count - 1].X + 1;
+                    var nextMatched = matchedIndex < originalMatched.Count ? originalMatched[matchedIndex].X : originalUnmatched[originalUnmatched.Count - 1].X + 1;
+                    var nextUnmatched = unmatchedIndex < originalUnmatched.Count ? originalUnmatched[unmatchedIndex].X : originalMatched[originalMatched.Count - 1].X + 1;
 
                     if (nextUnmatched < nextMatched)
                     {

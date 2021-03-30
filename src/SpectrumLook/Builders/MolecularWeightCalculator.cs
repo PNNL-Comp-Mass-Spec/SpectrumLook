@@ -213,7 +213,7 @@ namespace SpectrumLook.Builders
             {
                 try
                 {
-                    if ((fragSpectrum[i].Symbol.StartsWith("Shoulder")))
+                    if (fragSpectrum[i].Symbol.StartsWith("Shoulder"))
                     {
                         // Shoulder ion; ignore it
                         continue;

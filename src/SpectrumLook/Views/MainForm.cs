@@ -104,7 +104,7 @@ namespace SpectrumLook.Views
                 MainForm_Resize(this, null);
                 mManager.mPlot.Show();
             }
-            else if (mCurrentOptions.IsPlotInMainForm && !(panelPlot.Controls.Contains(mManager.mPlot)))
+            else if (mCurrentOptions.IsPlotInMainForm && !panelPlot.Controls.Contains(mManager.mPlot))
             {
                 mManager.mPlot.TopLevel = false;
                 mManager.mPlot.FormBorderStyle = FormBorderStyle.None;

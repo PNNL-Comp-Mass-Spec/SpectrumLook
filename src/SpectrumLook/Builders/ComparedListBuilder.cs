@@ -248,7 +248,7 @@ namespace SpectrumLook.Builders
             {
                 var pairs = from actualElement in mActualElementList
                             where
-                                (Math.Abs(theoryElement.Mz - actualElement.Mz) <= mUpperBoundTolerance) && (Math.Abs(theoryElement.Mz - actualElement.Mz) >= mLowerBoundTolerance)
+                                Math.Abs(theoryElement.Mz - actualElement.Mz) <= mUpperBoundTolerance && Math.Abs(theoryElement.Mz - actualElement.Mz) >= mLowerBoundTolerance
 
                             select new { actualElement };
 
@@ -311,7 +311,7 @@ namespace SpectrumLook.Builders
 
             if (precursor != null)
             {
-                if (maxIntensity == null || precursor.Intensity >= (maxIntensity.Intensity / 10.0))
+                if (maxIntensity == null || precursor.Intensity >= maxIntensity.Intensity / 10.0)
                 {
                     precursor.Annotation += " - PRECURSOR";
                 }

@@ -28,7 +28,7 @@ namespace SpectrumLook.Views.FragmentLadderView
             foreach (var currentElement in theoryList)
             {
                 i = 0;
-                if (!(tempListColumnOptions.Contains(spliceNumberFromAnnotation(currentElement.Annotation))))
+                if (!tempListColumnOptions.Contains(spliceNumberFromAnnotation(currentElement.Annotation)))
                 {
                     // Need to filter out Modification values when calculating the length of the string.
                     tempListHolder.Add(new string[peptideLength(peptide, modificationValues)]);

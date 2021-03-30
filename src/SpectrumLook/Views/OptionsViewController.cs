@@ -149,7 +149,7 @@ namespace SpectrumLook.Views
             plotShowLegend.Checked = mPlotOptions.ShowLegend;
             plotHideUnmatchedData.Checked = mPlotOptions.HideUnmatched;
             plotHorizontalZoom.Checked = mPlotOptions.ZoomHorizontal;
-            plotBoxZoom.Checked = (!(mPlotOptions.ZoomHorizontal));
+            plotBoxZoom.Checked = !mPlotOptions.ZoomHorizontal;
             plotUnzoomKeyComboBox.SelectedItem = mPlotOptions.UnzoomKey;
             plotAnnotationColor.BackColor = mPlotOptions.AnnotationColor;
             plotTextSize.Text = mPlotOptions.AnnotationTextSize.ToString();
@@ -158,7 +158,7 @@ namespace SpectrumLook.Views
             plotNumberOfPlotsTextBox.Text = mPlotOptions.NumberOfPlots.ToString();
 
             // MAIN UPDATING
-            mainDetachPlotCheckBox.Checked = !(mMainFormOptions.IsPlotInMainForm);
+            mainDetachPlotCheckBox.Checked = !mMainFormOptions.IsPlotInMainForm;
             mainMatchedColorSample.BackColor = mPlotOptions.MatchedColor;
             mainUnmatchedColorSample.BackColor = mPlotOptions.UnmatchedColor;
             lowerMatchingToleranceBox.Text = mMainFormOptions.LowerToleranceValue.ToString();
@@ -197,7 +197,7 @@ namespace SpectrumLook.Views
 
         private void MainDetachPlotCheckBox_CheckedChanged_1(object sender, EventArgs e)
         {
-            mMainFormOptions.IsPlotInMainForm = !(mainDetachPlotCheckBox.Checked);
+            mMainFormOptions.IsPlotInMainForm = !mainDetachPlotCheckBox.Checked;
         }
 
         private void PlotSnappingCursor_CheckedChanged(object sender, EventArgs e)
@@ -408,8 +408,8 @@ namespace SpectrumLook.Views
         {
             var selectedCell = dataGridViewModList.CurrentCell;
             var row = selectedCell.RowIndex;
-            var symbol = (char?)(dataGridViewModList.Rows[row].Cells[0].Value);
-            var mass = (double?)(dataGridViewModList.Rows[row].Cells[1].Value);
+            var symbol = (char?)dataGridViewModList.Rows[row].Cells[0].Value;
+            var mass = (double?)dataGridViewModList.Rows[row].Cells[1].Value;
 
             // Configure values for and open a DialogBox for modifying modification data.
             var strSymbol = symbol == null ? null : symbol.ToString();
@@ -463,7 +463,7 @@ namespace SpectrumLook.Views
             {
                 if (row.Cells[0].Value != null)
                 {
-                    mFragmentationLadderOptions.ModificationList.Add((char)(row.Cells[0].Value), double.Parse(row.Cells[1].Value.ToString()));
+                    mFragmentationLadderOptions.ModificationList.Add((char)row.Cells[0].Value, double.Parse(row.Cells[1].Value.ToString()));
                 }
             }
             // update fragment ladder so color changes will take effect

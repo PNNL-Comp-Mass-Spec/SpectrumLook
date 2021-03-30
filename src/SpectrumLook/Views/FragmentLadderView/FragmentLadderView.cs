@@ -200,11 +200,11 @@ namespace SpectrumLook.Views.FragmentLadderView
                         {
                             if (currentInstance.mzValue[listBoxCounter][currentLadderValueIndex]?.Length == 0)
                             {
-                                tempListBox.Items.Insert((currentLadderValueIndex + 1), "");
+                                tempListBox.Items.Insert(currentLadderValueIndex + 1, "");
                             }
                             else
                             {
-                                tempListBox.Items.Insert((currentLadderValueIndex + 1), currentInstance.mzValue[listBoxCounter][currentLadderValueIndex]);
+                                tempListBox.Items.Insert(currentLadderValueIndex + 1, currentInstance.mzValue[listBoxCounter][currentLadderValueIndex]);
                             }
                             ++currentLadderValueIndex;
                         }
@@ -226,9 +226,9 @@ namespace SpectrumLook.Views.FragmentLadderView
                         }
 
                         if (!mManager.mMainForm.mCurrentOptions.IsPlotInMainForm)// mFragmentLadderOptions.plotDetached)
-                            tempListBox.Size = new Size(((tempListBox.Items.Count * 40) + 40), 13);
+                            tempListBox.Size = new Size(tempListBox.Items.Count * 40 + 40, 13);
                         else
-                            tempListBox.Size = new Size((int)largestSize.Width, ((tempListBox.Items.Count * 13) + 15));
+                            tempListBox.Size = new Size((int)largestSize.Width, tempListBox.Items.Count * 13 + 15);
                         tempListBox.Location = new Point(xListBoxPosition, yListBoxPosition);
                         /**************************************************/
 
@@ -254,7 +254,7 @@ namespace SpectrumLook.Views.FragmentLadderView
                     tempListBox.Size = new Size(45, 15);
                     tempListBox.BorderStyle = BorderStyle.None;
                     tempListBox.Click += tempListBox_Click;
-                    tempListBox.Items.Add((object)(" "));
+                    tempListBox.Items.Add((object)" ");
 
                     var lengthMinusMods = 0;
                     var modificationList = "*+@!&#$%~`";
@@ -275,9 +275,9 @@ namespace SpectrumLook.Views.FragmentLadderView
                     }
 
                     if (!mManager.mMainForm.mCurrentOptions.IsPlotInMainForm)// mFragmentLadderOptions.plotDetached)
-                        tempListBox.Size = new Size(((tempListBox.Items.Count * 40) + 40), 13);
+                        tempListBox.Size = new Size(tempListBox.Items.Count * 40 + 40, 13);
                     else
-                        tempListBox.Size = new Size(40, ((tempListBox.Items.Count * 13) + 15));
+                        tempListBox.Size = new Size(40, tempListBox.Items.Count * 13 + 15);
                     tempListBox.Location = new Point(xListBoxPosition, yListBoxPosition);
                     tabControl1.TabPages[i].CreateControl();
                     tabControl1.TabPages[i].Controls.Add(tempListBox);
@@ -306,19 +306,19 @@ namespace SpectrumLook.Views.FragmentLadderView
                     for (var peptideStringIndex = 0; peptideStringIndex < peptide.Length; ++peptideStringIndex)
                     {
                         var aminoAcidCode = " " + peptide[peptideStringIndex];
-                        if ((peptideStringIndex + 1) < peptide.Length &&
-                            fragmentLadderOptions.ModificationList.ContainsKey(peptide[(peptideStringIndex + 1)]))
+                        if (peptideStringIndex + 1 < peptide.Length &&
+                            fragmentLadderOptions.ModificationList.ContainsKey(peptide[peptideStringIndex + 1]))
                         {
-                            aminoAcidCode += peptide[(peptideStringIndex + 1)];
+                            aminoAcidCode += peptide[peptideStringIndex + 1];
                             ++peptideStringIndex;
                         }
                         tempListBox.Items.Add(aminoAcidCode);
                     }
 
                     if (!mManager.mMainForm.mCurrentOptions.IsPlotInMainForm)// mFragmentLadderOptions.plotDetached)
-                        tempListBox.Size = new Size(((tempListBox.Items.Count * 40) + 40), 13);
+                        tempListBox.Size = new Size(tempListBox.Items.Count * 40 + 40, 13);
                     else
-                        tempListBox.Size = new Size(40, ((tempListBox.Items.Count * 13) + 15));
+                        tempListBox.Size = new Size(40, tempListBox.Items.Count * 13 + 15);
                     tempListBox.Location = new Point(xListBoxPosition, yListBoxPosition);
                     tabControl1.TabPages[i].CreateControl();
                     tabControl1.TabPages[i].Controls.Add(tempListBox);
@@ -342,7 +342,7 @@ namespace SpectrumLook.Views.FragmentLadderView
                     tempListBox.Size = new Size(45, 15);
                     tempListBox.BorderStyle = BorderStyle.None;
                     tempListBox.Click += tempListBox_Click;
-                    tempListBox.Items.Add((object)(" "));
+                    tempListBox.Items.Add((object)" ");
 
                     for (var peptideIndex = 0; peptideIndex < lengthMinusMods; peptideIndex++)
                     {
@@ -351,9 +351,9 @@ namespace SpectrumLook.Views.FragmentLadderView
                     }
 
                     if (!mManager.mMainForm.mCurrentOptions.IsPlotInMainForm)// mFragmentLadderOptions.plotDetached)
-                        tempListBox.Size = new Size(((tempListBox.Items.Count * 40) + 40), 13);
+                        tempListBox.Size = new Size(tempListBox.Items.Count * 40 + 40, 13);
                     else
-                        tempListBox.Size = new Size(40, ((tempListBox.Items.Count * 13) + 15));
+                        tempListBox.Size = new Size(40, tempListBox.Items.Count * 13 + 15);
                     tempListBox.Location = new Point(xListBoxPosition, yListBoxPosition);
                     tabControl1.TabPages[i].CreateControl();
                     tabControl1.TabPages[i].Controls.Add(tempListBox);
@@ -398,10 +398,10 @@ namespace SpectrumLook.Views.FragmentLadderView
                         {*/
                         var tempArray = currentInstance.mzValue[listBoxCounter];
                         var findNonNull = 0;
-                        while ((findNonNull < tempArray.Length) && (tempArray[findNonNull]?.Length == 0))
+                        while (findNonNull < tempArray.Length && tempArray[findNonNull]?.Length == 0)
                             ++findNonNull;
                         var splittedSubArrayOne = tempArray[findNonNull].Split('|');
-                        var splittedSubArrayTwo = tempArray[(findNonNull + 1)].Split('|');
+                        var splittedSubArrayTwo = tempArray[findNonNull + 1].Split('|');
                         var outValue1 = 0.0;
                         var outValue2 = 0.0;
 
@@ -446,9 +446,9 @@ namespace SpectrumLook.Views.FragmentLadderView
                         }
 
                         if (!mManager.mMainForm.mCurrentOptions.IsPlotInMainForm)// mFragmentLadderOptions.plotDetached)
-                            tempListBox.Size = new Size(((tempListBox.Items.Count * 40) + 40), 13);
+                            tempListBox.Size = new Size(tempListBox.Items.Count * 40 + 40, 13);
                         else
-                            tempListBox.Size = new Size((int)largestSize.Width, ((tempListBox.Items.Count * 13) + 15));
+                            tempListBox.Size = new Size((int)largestSize.Width, tempListBox.Items.Count * 13 + 15);
                         tempListBox.Location = new Point(xListBoxPosition, yListBoxPosition);
                         /**************************************************/
 
@@ -523,7 +523,7 @@ namespace SpectrumLook.Views.FragmentLadderView
         {
             e.DrawBackground();
 
-            var selected = ((e.State & DrawItemState.Selected) == DrawItemState.Selected);
+            var selected = (e.State & DrawItemState.Selected) == DrawItemState.Selected;
             var itemIndex = e.Index;
             var matchedItem = new SolidBrush(mManager.mPlot.mOptions.MatchedColor);
             var unmatchedItem = new SolidBrush(mManager.mPlot.mOptions.UnmatchedColor);
@@ -759,7 +759,7 @@ namespace SpectrumLook.Views.FragmentLadderView
             {
                 if (tabControl1.TabCount == index)
                 {
-                    tabControl1.SelectedIndex = (index - 1);
+                    tabControl1.SelectedIndex = index - 1;
                 }
                 else
                 {

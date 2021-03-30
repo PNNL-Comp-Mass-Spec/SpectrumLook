@@ -267,21 +267,21 @@ namespace SpectrumLook.Views
                                 var format = ImageFormat.Png;
                                 switch (ext)
                                 {
-                                    case ("png"):
+                                    case "png":
                                         format = ImageFormat.Png;
                                         break;
-                                    case ("gif"):
+                                    case "gif":
                                         format = ImageFormat.Gif;
                                         break;
-                                    case ("jpg"):
-                                    case ("jpeg"):
+                                    case "jpg":
+                                    case "jpeg":
                                         format = ImageFormat.Jpeg;
                                         break;
-                                    case ("tiff"):
-                                    case ("tif"):
+                                    case "tiff":
+                                    case "tif":
                                         format = ImageFormat.Tiff;
                                         break;
-                                    case ("bmp"):
+                                    case "bmp":
                                         format = ImageFormat.Bmp;
                                         break;
                                     default:
