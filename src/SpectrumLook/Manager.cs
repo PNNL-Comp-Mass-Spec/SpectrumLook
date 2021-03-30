@@ -684,7 +684,7 @@ namespace SpectrumLook
             else
             {
                 // Attach a unique number to the saved file, since we are not guaranteed uniqueness from peptide or scan number alone.
-                nextFileName += "_" + String.Format("{0:0000}", mBatchSaveCounter);
+                nextFileName += "_" + string.Format("{0:0000}", mBatchSaveCounter);
             }
 
             // Magic number 232, appears to be the max filename length in Windows.  For now, just truncate what they have.

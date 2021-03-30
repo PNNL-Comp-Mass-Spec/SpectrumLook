@@ -641,7 +641,7 @@ namespace SpectrumLook.Views.FragmentLadderView
             var peptide_exists = false;
             for (var i = 0; i < peptideEditorTextBox.Text.Length; i++)
             {
-                if (Char.IsUpper(peptideEditorTextBox.Text[i]))
+                if (char.IsUpper(peptideEditorTextBox.Text[i]))
                 {
                     peptide_exists = true;
                     break;
