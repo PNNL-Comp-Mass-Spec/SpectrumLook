@@ -607,35 +607,57 @@ namespace SpectrumLook
         /// <summary>
         /// Handles A batch save
         /// </summary>
-        public void HandleBatchSave(string directory, string baseName, string saveType, bool useScansInGrid, bool usePeptideAndScanName, bool addDatasetName, UpdateLabelDelegate updateLabelCallback, ref bool cancelSearch)
+        public void HandleBatchSave(
+            string directory,
+            string baseName,
+            string saveType,
+            bool useScansInGrid,
+            bool usePeptideAndScanName,
+            bool addDatasetName,
+            UpdateLabelDelegate updateLabelCallback,
+            ref bool cancelSearch)
         {
             updateLabelCallback("Starting Batch Save...");
             m_batchSaveCounter = 0;
+            var mostRecentFileName = "";
 
             foreach (var row in m_dataView.GetPeptidesAndScansInGrid(useScansInGrid))
             {
-                if (!cancelSearch)
+                if (cancelSearch)
+                    break;
+
+                var nextFileBase = baseName;
+                if (!string.IsNullOrWhiteSpace(row.DatasetName))
                 {
-                    var nextFilebase = baseName;
-                    if (!string.IsNullOrWhiteSpace(row.DatasetName))
+                    DataFileName = row.DatasetName;
+                    if (addDatasetName)
                     {
-                        DataFileName = row.DatasetName;
-                        if (addDatasetName)
-                        {
-                            nextFilebase += "_" + Path.GetFileNameWithoutExtension(row.DatasetName);
-                        }
+                        nextFileBase += "_" + Path.GetFileNameWithoutExtension(row.DatasetName);
                     }
-                    PrecursorMZ = row.DblPrecursorMZ;
-
-                    var nextFileName = createNextFileName(nextFilebase, usePeptideAndScanName, row.Peptide, row.ScanNumber) + saveType;
-                    updateLabelCallback("Saving \"" + nextFileName + "\"");
-
-                    HandleSelectScanAndPeptide(row.ScanNumber, row.Peptide);
-                    m_plot.SavePlotImageAs(Path.Combine(directory, nextFileName));
                 }
+
+                PrecursorMZ = row.DblPrecursorMZ;
+
+                var nextFileName = CreateNextFileName(nextFileBase, usePeptideAndScanName, row.Peptide, row.ScanNumber) + saveType;
+                updateLabelCallback("Saving \"" + nextFileName + "\"");
+
+                HandleSelectScanAndPeptide(row.ScanNumber, row.Peptide);
+                m_plot.SavePlotImageAs(Path.Combine(directory, nextFileName));
+                mostRecentFileName = nextFileName;
             }
 
-            updateLabelCallback("Finished Batch Save");
+            if (m_batchSaveCounter == 0)
+            {
+                updateLabelCallback("Batch Save did not create any files, due to either an empty data grid or a program error");
+            }
+            else if (m_batchSaveCounter == 1)
+            {
+                updateLabelCallback(string.Format("Finished Batch Save; created {0}", Path.Combine(directory, mostRecentFileName)));
+            }
+            else
+            {
+                updateLabelCallback(string.Format("Finished Batch Save; created {0} file(s) in {1}", m_batchSaveCounter, directory));
+            }
         }
 
         /// <summary>

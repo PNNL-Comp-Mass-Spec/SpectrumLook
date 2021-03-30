@@ -6,10 +6,12 @@ namespace SpectrumLook
 {
     public partial class BatchSaveForm : Form
     {
-        private Manager m_manager = null;
-        private Manager.UpdateLabelDelegate m_statusLabelUpdate;
-        public bool cancelSearch = false;
-        public string baseFolderText = null;
+        // Ignore Spelling: Cancelled
+
+        private readonly Manager m_manager;
+        private readonly Manager.UpdateLabelDelegate m_statusLabelUpdate;
+        public bool cancelSearch;
+        public string baseFolderText;
 
         /// <summary>
         /// Constructor
@@ -37,23 +39,42 @@ namespace SpectrumLook
                 var baseName = BaseName.Text;
                 var saveType = TypeComboBox.Text;
 
-                if (SaveCurrentRadioButton.Checked)
-                {
-                    m_manager.HandlePlotSave(startDirectory, baseName, saveType);
-                }
-                else
-                {
-                    var saveOnlyInGrid = SaveGridRadioButton.Checked;
-                    var usePeptideAndScanName = UsePeptideAndScanRadioButton.Checked;
-                    var addDatasetName = AddDatasetNameCheckbox.Checked;
+                CancelBatchSaveButton.DialogResult = DialogResult.None;
 
-                    m_manager.m_mainForm.Visible = false;
-                    m_manager.HandleBatchSave(startDirectory, baseName, saveType,
-                        saveOnlyInGrid, usePeptideAndScanName, addDatasetName, UpdateStatusLabel, ref cancelSearch);
-                    m_manager.m_mainForm.Visible = true;
+                try
+                {
+
+                    if (SaveCurrentRadioButton.Checked)
+                    {
+                        m_manager.HandlePlotSave(startDirectory, baseName, saveType);
+                    }
+                    else
+                    {
+                        var saveOnlyInGrid = SaveGridRadioButton.Checked;
+                        var usePeptideAndScanName = UsePeptideAndScanRadioButton.Checked;
+                        var addDatasetName = AddDatasetNameCheckbox.Checked;
+
+                        m_manager.m_mainForm.Visible = false;
+
+                        m_manager.HandleBatchSave(startDirectory, baseName, saveType,
+                            saveOnlyInGrid, usePeptideAndScanName, addDatasetName, UpdateStatusLabel, ref cancelSearch);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error saving plots: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
 
-                Close();
+                CancelBatchSaveButton.DialogResult = DialogResult.Cancel;
+                m_manager.m_mainForm.Visible = true;
+                SaveButton.Enabled = true;
+                CloseButton.Visible = true;
+
+                if (cancelSearch)
+                {
+                    MessageBox.Show("Cancelled saving", "Cancelled", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
+
             }
             else
             {
@@ -63,13 +84,15 @@ namespace SpectrumLook
         }
 
         /// <summary>
-        /// Closes the form
+        /// Either cancels in-progress plot generation or closes the form
         /// </summary>
         private void CancelButton_Click(object sender, EventArgs e)
         {
             cancelSearch = true;
             Application.DoEvents();
-            Close();
+
+            if (CancelBatchSaveButton.DialogResult == DialogResult.Cancel)
+                Close();
         }
 
         /// <summary>
@@ -102,15 +125,18 @@ namespace SpectrumLook
             cancelSearch = false;
             BaseFolderTextBox.Text = Environment.CurrentDirectory;
             baseFolderText = BaseFolderTextBox.Text;
-            BaseName.Text = "SpectrumLookSave" + string.Format("{0:dd_MM_yyyy}", DateTime.Now);
+            BaseName.Text = "Spectrum_" + string.Format("{0:yyyy_MM_dd}", DateTime.Now);
             SaveAllRadioButton.Checked = true;
             UsePeptideAndScanRadioButton.Checked = true;
             StatusLabel.Text = "";
+            CloseButton.Visible = false;
 
+            TypeComboBox.Items.Clear();
             foreach (var imageType in m_manager.m_plot.SaveAsImageTypes)
             {
                 TypeComboBox.Items.Add(imageType);
             }
+
             TypeComboBox.SelectedIndex = 0;
         }
 
@@ -145,6 +171,11 @@ namespace SpectrumLook
 
             StatusLabel.Text = newText;
             Application.DoEvents();
+        }
+
+        private void CloseButton_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }
