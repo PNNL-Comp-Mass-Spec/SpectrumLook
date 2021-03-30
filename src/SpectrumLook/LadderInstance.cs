@@ -71,5 +71,10 @@ namespace SpectrumLook
             MzValue = new List<string[]>();
             Annotations = new List<Annotation>();
         }
+
+        public override string ToString()
+        {
+            return ScanAndPeptide;
+        }
     }
 }
