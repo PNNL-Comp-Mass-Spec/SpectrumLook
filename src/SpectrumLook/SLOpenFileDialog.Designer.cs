@@ -39,102 +39,114 @@
             this.groupBoxSynopsis.SuspendLayout();
             this.groupBoxData.SuspendLayout();
             this.SuspendLayout();
-            //
+            // 
             // openFileDialog
-            //
+            // 
             this.openFileDialog.FileName = "openFileDialog";
-            //
+            // 
             // buttonOpen
-            //
+            // 
             this.buttonOpen.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonOpen.Location = new System.Drawing.Point(200, 137);
+            this.buttonOpen.Location = new System.Drawing.Point(267, 169);
+            this.buttonOpen.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.buttonOpen.Name = "buttonOpen";
-            this.buttonOpen.Size = new System.Drawing.Size(75, 23);
+            this.buttonOpen.Size = new System.Drawing.Size(100, 28);
             this.buttonOpen.TabIndex = 6;
             this.buttonOpen.Text = "Open";
             this.buttonOpen.UseVisualStyleBackColor = true;
             this.buttonOpen.Click += new System.EventHandler(this.buttonOpen_Click);
-            //
+            // 
             // buttonCancel
-            //
+            // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonCancel.Location = new System.Drawing.Point(281, 137);
+            this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.buttonCancel.Location = new System.Drawing.Point(375, 169);
+            this.buttonCancel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(75, 23);
+            this.buttonCancel.Size = new System.Drawing.Size(100, 28);
             this.buttonCancel.TabIndex = 7;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
             this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
-            //
+            // 
             // groupBoxSynopsis
-            //
+            // 
             this.groupBoxSynopsis.Controls.Add(this.textBoxSynopsis);
             this.groupBoxSynopsis.Controls.Add(this.buttonSynopsis);
-            this.groupBoxSynopsis.Location = new System.Drawing.Point(12, 9);
+            this.groupBoxSynopsis.Location = new System.Drawing.Point(16, 11);
+            this.groupBoxSynopsis.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupBoxSynopsis.Name = "groupBoxSynopsis";
-            this.groupBoxSynopsis.Size = new System.Drawing.Size(350, 55);
+            this.groupBoxSynopsis.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBoxSynopsis.Size = new System.Drawing.Size(467, 68);
             this.groupBoxSynopsis.TabIndex = 8;
             this.groupBoxSynopsis.TabStop = false;
             this.groupBoxSynopsis.Text = "Synopsis File";
-            //
+            // 
             // textBoxSynopsis
-            //
-            this.textBoxSynopsis.Location = new System.Drawing.Point(6, 21);
+            // 
+            this.textBoxSynopsis.Location = new System.Drawing.Point(8, 26);
+            this.textBoxSynopsis.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.textBoxSynopsis.Name = "textBoxSynopsis";
-            this.textBoxSynopsis.Size = new System.Drawing.Size(301, 20);
+            this.textBoxSynopsis.Size = new System.Drawing.Size(400, 22);
             this.textBoxSynopsis.TabIndex = 0;
             this.textBoxSynopsis.TextChanged += new System.EventHandler(this.textBoxSynopsis_TextChanged);
-            //
+            // 
             // buttonSynopsis
-            //
-            this.buttonSynopsis.Location = new System.Drawing.Point(313, 19);
+            // 
+            this.buttonSynopsis.Location = new System.Drawing.Point(417, 23);
+            this.buttonSynopsis.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.buttonSynopsis.Name = "buttonSynopsis";
-            this.buttonSynopsis.Size = new System.Drawing.Size(31, 23);
+            this.buttonSynopsis.Size = new System.Drawing.Size(41, 28);
             this.buttonSynopsis.TabIndex = 3;
             this.buttonSynopsis.Text = "...";
             this.buttonSynopsis.UseVisualStyleBackColor = true;
             this.buttonSynopsis.Click += new System.EventHandler(this.buttonSynopsis_Click);
-            //
+            // 
             // groupBoxData
-            //
+            // 
             this.groupBoxData.Controls.Add(this.textBoxData);
             this.groupBoxData.Controls.Add(this.buttonData);
-            this.groupBoxData.Location = new System.Drawing.Point(12, 70);
+            this.groupBoxData.Location = new System.Drawing.Point(16, 86);
+            this.groupBoxData.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupBoxData.Name = "groupBoxData";
-            this.groupBoxData.Size = new System.Drawing.Size(350, 55);
+            this.groupBoxData.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBoxData.Size = new System.Drawing.Size(467, 68);
             this.groupBoxData.TabIndex = 6;
             this.groupBoxData.TabStop = false;
             this.groupBoxData.Text = "Data File";
-            //
+            // 
             // textBoxData
-            //
-            this.textBoxData.Location = new System.Drawing.Point(6, 21);
+            // 
+            this.textBoxData.Location = new System.Drawing.Point(8, 26);
+            this.textBoxData.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.textBoxData.Name = "textBoxData";
-            this.textBoxData.Size = new System.Drawing.Size(301, 20);
+            this.textBoxData.Size = new System.Drawing.Size(400, 22);
             this.textBoxData.TabIndex = 0;
             this.textBoxData.TextChanged += new System.EventHandler(this.textBoxData_TextChanged);
-            //
+            // 
             // buttonData
-            //
-            this.buttonData.Location = new System.Drawing.Point(313, 19);
+            // 
+            this.buttonData.Location = new System.Drawing.Point(417, 23);
+            this.buttonData.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.buttonData.Name = "buttonData";
-            this.buttonData.Size = new System.Drawing.Size(31, 23);
+            this.buttonData.Size = new System.Drawing.Size(41, 28);
             this.buttonData.TabIndex = 3;
             this.buttonData.Text = "...";
             this.buttonData.UseVisualStyleBackColor = true;
             this.buttonData.Click += new System.EventHandler(this.buttonData_Click);
-            //
+            // 
             // SLOpenFileDialog
-            //
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(368, 172);
+            this.ClientSize = new System.Drawing.Size(491, 212);
             this.Controls.Add(this.groupBoxData);
             this.Controls.Add(this.groupBoxSynopsis);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonOpen);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "SLOpenFileDialog";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
