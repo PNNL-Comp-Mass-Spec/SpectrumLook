@@ -11,6 +11,7 @@ namespace SpectrumLook.Views
         {
             InitializeComponent();
         }
+
         public void SetAdvance(List<string> inputList)
         {
             for (var i = 0; i < inputList.Count; i++)

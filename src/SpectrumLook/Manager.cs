@@ -192,6 +192,7 @@ namespace SpectrumLook
                 DataFileName = Path.GetFileName(value);
             }
         }
+
         private int mCurrentScanNumber;
         private string mCurrentPeptide;
         private string mSynopsisFilePath;
@@ -695,6 +696,7 @@ namespace SpectrumLook
             mBatchSaveCounter++;
             return nextFileName;
         }
+
         private static int mBatchSaveCounter = 0;
 
         public delegate void UpdateLabelDelegate(string newText);

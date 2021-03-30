@@ -19,6 +19,7 @@ namespace SpectrumLook.Views
                 Invoke();
             }
         }
+
         public bool ShowLegend
         {
             get => mShowLegend;
@@ -28,6 +29,7 @@ namespace SpectrumLook.Views
                 Invoke();
             }
         }
+
         public int AnnotationPercent
         {
             get => mAnnotationPercent;
@@ -37,6 +39,7 @@ namespace SpectrumLook.Views
                 Invoke();
             }
         }
+
         public int AnnotationTextSize
         {
             get => mAnnotationTextSize;
@@ -46,6 +49,7 @@ namespace SpectrumLook.Views
                 Invoke();
             }
         }
+
         public Color AnnotationColor
         {
             get => mAnnotationColor;
@@ -55,6 +59,7 @@ namespace SpectrumLook.Views
                 Invoke();
             }
         }
+
         public Color MatchedColor
         {
             get => mMatchedColor;
@@ -64,6 +69,7 @@ namespace SpectrumLook.Views
                 Invoke();
             }
         }
+
         public Color UnmatchedColor
         {
             get => mUnmatchedColor;
@@ -73,6 +79,7 @@ namespace SpectrumLook.Views
                 Invoke();
             }
         }
+
         public bool ZoomHorizontal
         {
             get => mZoomHorizontal;
@@ -82,6 +89,7 @@ namespace SpectrumLook.Views
                 Invoke();
             }
         }
+
         public bool HideUnmatched
         {
             get => mHideUnmatched;
@@ -91,6 +99,7 @@ namespace SpectrumLook.Views
                 Invoke();
             }
         }
+
         public Keys UnzoomKey
         {
             get => mUnzoomKey;
@@ -100,6 +109,7 @@ namespace SpectrumLook.Views
                 Invoke();
             }
         }
+
         public int FocusOffset
         {
             get => mFocusOffset;
@@ -109,6 +119,7 @@ namespace SpectrumLook.Views
                 Invoke();
             }
         }
+
         public bool RightClickUnzoom
         {
             get => mRightClickUnzoom;
@@ -118,6 +129,7 @@ namespace SpectrumLook.Views
                 Invoke();
             }
         }
+
         public bool HidePlotTools
         {
             get => mHidePlotTools;
@@ -127,6 +139,7 @@ namespace SpectrumLook.Views
                 Invoke();
             }
         }
+
         public int NumberOfPlots
         {
             get

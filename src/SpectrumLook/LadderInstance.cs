@@ -41,6 +41,7 @@ namespace SpectrumLook
                 return outString;
             }
         }
+
         public string PeptideString
         {
             get
@@ -63,6 +64,7 @@ namespace SpectrumLook
                 scanAndPeptide = splittedString[0] + "|" + value;
             }
         }
+
         public string currentMode { get; set; }
 
         public List<Annotation> annotations { get; set; }
