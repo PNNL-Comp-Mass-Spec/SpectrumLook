@@ -139,16 +139,7 @@ namespace SpectrumLook
             mFragmentationLadder.FragmentLadderOptions.Attach(ref tempObserver);
             if (mFragmentationLadder.FragmentLadderOptions.ModificationList.Count == 0)
             {
-                mFragmentationLadder.FragmentLadderOptions.ModificationList.Add('*', 79.9663326);
-                mFragmentationLadder.FragmentLadderOptions.ModificationList.Add('+', 14.01565);
-                mFragmentationLadder.FragmentLadderOptions.ModificationList.Add('@', 15.99492);
-                mFragmentationLadder.FragmentLadderOptions.ModificationList.Add('!', 57.02146);
-                mFragmentationLadder.FragmentLadderOptions.ModificationList.Add('&', 58.00548);
-                mFragmentationLadder.FragmentLadderOptions.ModificationList.Add('#', 71.03711);
-                mFragmentationLadder.FragmentLadderOptions.ModificationList.Add('$', 227.127);
-                mFragmentationLadder.FragmentLadderOptions.ModificationList.Add('%', 236.127);
-                mFragmentationLadder.FragmentLadderOptions.ModificationList.Add('~', 442.225);
-                mFragmentationLadder.FragmentLadderOptions.ModificationList.Add('`', 450.274);
+                mFragmentationLadder.FragmentLadderOptions.ResetModificationsToDefault();
             }
 
             mPlot.Options.SetOptions(mPlot.Options);

@@ -78,6 +78,8 @@ namespace SpectrumLook.Views.Options
                 "y",
                 "y++"
             });
+
+            ResetModificationsToDefault();
         }
 
         public FragmentLadderOptions(FragmentLadderOptions rhsOptions)
@@ -87,6 +89,22 @@ namespace SpectrumLook.Views.Options
             mAmmoniaLoss = rhsOptions.AmmoniaLoss;
             mWaterLoss = rhsOptions.WaterLoss;
             mPrecision = rhsOptions.mPrecision;
+        }
+
+        public void ResetModificationsToDefault()
+        {
+            ModificationList.Clear();
+            ModificationList.Add('*', 79.9663326);
+            ModificationList.Add('+', 14.01565);
+            ModificationList.Add('@', 15.99492);
+            ModificationList.Add('!', 57.02146);
+            ModificationList.Add('&', 58.00548);
+            ModificationList.Add('#', 71.03711);
+            ModificationList.Add('$', 227.127);
+            ModificationList.Add('%', 236.127);
+            ModificationList.Add('~', 442.225);
+            ModificationList.Add('`', 450.274);
+
         }
     }
 }
