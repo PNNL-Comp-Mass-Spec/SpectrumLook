@@ -190,38 +190,25 @@ namespace SpectrumLook.Views
         /// <param name="options"></param>
         public PlotOptions(PlotOptions options)
         {
-            showSnappingCursor = options.showSnappingCursor;
-            showLegend = options.showLegend;
-            annotationPercent = options.annotationPercent;
-            annotationTextSize = options.annotationTextSize;
-            annotationColor = options.annotationColor;
-            zoomHorizontal = options.zoomHorizontal;
-            hideUnmatched = options.hideUnmatched;
-            matchedColor = options.matchedColor;
-            unmatchedColor = options.unmatchedColor;
-            unzoomKey = options.unzoomKey;
-            focusOffset = options.focusOffset;
-            rightClickUnzoom = options.rightClickUnzoom;
-            hidePlotTools = options.hidePlotTools;
-            numberOfPlots = options.numberOfPlots;
+            SetOptions(options);
         }
 
-        public void CopyOptions(PlotOptions options)
+        public void SetOptions(PlotOptions options)
         {
-            showSnappingCursor = options.showSnappingCursor;
-            showLegend = options.showLegend;
-            annotationPercent = options.annotationPercent;
-            annotationTextSize = options.annotationTextSize;
-            annotationColor = options.annotationColor;
-            zoomHorizontal = options.zoomHorizontal;
-            hideUnmatched = options.hideUnmatched;
-            matchedColor = options.matchedColor;
-            unmatchedColor = options.unmatchedColor;
-            unzoomKey = options.unzoomKey;
-            focusOffset = options.focusOffset;
-            rightClickUnzoom = options.rightClickUnzoom;
-            hidePlotTools = options.hidePlotTools;
-            numberOfPlots = options.numberOfPlots;
+            ShowSnappingCursor = options.ShowSnappingCursor;
+            ShowLegend = options.ShowLegend;
+            AnnotationPercent = options.AnnotationPercent;
+            AnnotationTextSize = options.AnnotationTextSize;
+            AnnotationColor = options.AnnotationColor;
+            ZoomHorizontal = options.ZoomHorizontal;
+            HideUnmatched = options.HideUnmatched;
+            MatchedColor = options.MatchedColor;
+            UnmatchedColor = options.UnmatchedColor;
+            UnzoomKey = options.UnzoomKey;
+            FocusOffset = options.FocusOffset;
+            RightClickUnzoom = options.RightClickUnzoom;
+            HidePlotTools = options.HidePlotTools;
+            NumberOfPlots = options.NumberOfPlots;
         }
     }
 }
