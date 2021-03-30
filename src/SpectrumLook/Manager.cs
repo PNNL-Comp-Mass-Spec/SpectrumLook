@@ -284,23 +284,31 @@ namespace SpectrumLook
             // The escaping of all symbols is likely a problem.
 
             // Match any set of one or more groups of "character a-z followed by 0-2 valid modification symbols"
-            var searchPattern = "([A-Z][" + escapedModList + "]{0,5})+";
+            string validCharactersRegEx;
+
+            if (escapedModList.Length > 0)
+                validCharactersRegEx = "([A-Z][" + escapedModList + "]{0,5})+";
+            else
+                validCharactersRegEx = "([A-Z])+";
 
             // This test will always be evaluate to 'not false' whenever there are lowercase characters or symbols that are not in the modification list,
             // or if the peptide begins with a modification symbol.
 
-            if (!System.Text.RegularExpressions.Regex.IsMatch(peptide, "^" + searchPattern + "$"))
+            if (!System.Text.RegularExpressions.Regex.IsMatch(peptide, "^" + validCharactersRegEx + "$"))
             {
-                // Get a string with all invalid characters
-                var invalidChars = System.Text.RegularExpressions.Regex.Replace(peptide, searchPattern, "");
+                // Get a string with all invalid characters by removing the valid characters
+                var invalidChars = System.Text.RegularExpressions.Regex.Replace(peptide, validCharactersRegEx, string.Empty);
                 if (modList.Contains(peptide[0]))
                 {
                     MessageBox.Show("The peptide string cannot start with a modification.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     return false;
                 }
-                if (System.Text.RegularExpressions.Regex.Replace(invalidChars, "[" + escapedModList + "]", "").Length == 0)
+
+                if (escapedModList.Length > 0 &&
+                    System.Text.RegularExpressions.Regex.Replace(invalidChars, "[" + escapedModList + "]", string.Empty).Length == 0)
                 {
-                    MessageBox.Show("Invalid peptide string: Too many modifications on a single amino acid.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    MessageBox.Show("Invalid peptide string: Too many modifications on a single amino acid.", "Error", MessageBoxButtons.OK,
+                        MessageBoxIcon.Exclamation);
                     return false;
                 }
 
