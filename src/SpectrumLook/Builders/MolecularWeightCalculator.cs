@@ -59,11 +59,8 @@ namespace SpectrumLook.Builders
             // Set the element mode
             mMolecularWeightTool.SetElementMode(ElementMassMode.Isotopic);
 
-            // Initialize the options
-            var fragSpectrumOptions = new FragmentationSpectrumOptions();
-
-            // Initialize fragSpectrumOptions with the defaults
-            fragSpectrumOptions = mMolecularWeightTool.Peptide.GetFragmentationSpectrumOptions();
+            // Get default fragmentation spectrum options
+            var fragSpectrumOptions = mMolecularWeightTool.Peptide.GetFragmentationSpectrumOptions();
 
             // The entire list of value will be retrieved without any filtering
             fragSpectrumOptions.DoubleChargeIonsShow = true;
@@ -107,16 +104,18 @@ namespace SpectrumLook.Builders
             // 95	_
             // 96	`
             // 126	~
-            var allowedSymbols = "!#$%&'*+?@^_`~";
+            const string allowedSymbols = "!#$%&'*+?@^_`~";
             var usedSymbols = new string(mModificationList.Keys.ToArray());
-            var availableSymbols = "";
+
+            var availableSymbols = new Queue<char>();
             foreach (var c in allowedSymbols)
             {
                 if (!usedSymbols.Contains(c))
                 {
-                    availableSymbols += c;
+                    availableSymbols.Enqueue(c);
                 }
             }
+
             var badSymbolMap = new Dictionary<char, char>();
 
             // Add the modifications if needed.
@@ -126,33 +125,42 @@ namespace SpectrumLook.Builders
                 foreach (var modPair in mModificationList)
                 {
                     // Key is symbol, value is mzValue
+                    var symbolToUse = modPair.Key;
+                    var modificationMass = modPair.Value;
                     var modComment = string.Empty;
-                    var indicatesPhospho = Math.Abs(modPair.Value - 79.9663326) < 0.005;
-                    var modResult = mMolecularWeightTool.Peptide.SetModificationSymbol(modPair.Key.ToString(), modPair.Value, indicatesPhospho,
-                        modComment);
+                    var indicatesPhospho = Math.Abs(modificationMass - 79.9663326) < 0.005;
 
-                    if (modResult != 0) // A symbol that is not allowed, most likely
+                    var modResult = mMolecularWeightTool.Peptide.SetModificationSymbol(symbolToUse.ToString(), modificationMass, indicatesPhospho, modComment);
+
+                    if (modResult != 0)
                     {
-                        modResult = mMolecularWeightTool.Peptide.SetModificationSymbol(availableSymbols[0].ToString(), modPair.Value, indicatesPhospho,
-                        modComment);
-                        badSymbolMap.Add(modPair.Key, availableSymbols[0]); // Add it to the dictionary
-                        availableSymbols = availableSymbols.Substring(1); // Remove it from the available symbols.
+                        // modPair.Key is a character that is not allowed for a dynamic modification symbol
+                        // In particular, a dash is not allowed
+                        // Auto-switch to a different mod symbol
+
+                        symbolToUse = availableSymbols.Dequeue();
+                        modResult = mMolecularWeightTool.Peptide.SetModificationSymbol(symbolToUse.ToString(), modificationMass, indicatesPhospho, modComment);
+                        badSymbolMap.Add(modPair.Key, symbolToUse); // Add it to the dictionary
                     }
 
-                    // if modresult = 0 symbol add is successful, useful spot for breakpoint
-                    // modResult = modResult + 0;
+                    // If modResult = 0 symbol add is successful
+                    // This is a useful spot for a breakpoint
+                    if (modResult != 0)
+                    {
+                        Console.WriteLine("Error defining modification with symbol {0} and mass{1}", symbolToUse, modPair.Value);
+                    }
                 }
             }
 
             var peptideFix = peptide;
-            foreach (var symfix in badSymbolMap)
+            foreach (var item in badSymbolMap)
             {
-                peptideFix = peptideFix.Replace(symfix.Key, symfix.Value);
+                peptideFix = peptideFix.Replace(item.Key, item.Value);
             }
 
             // Obtain the fragmentation spectrum for a peptide
             // First define the peptide sequence
-            // Need to pass "false" to parameter blnIs3LetterCode since "peptide" is in one-letter notation
+            // Need to pass "false" to parameter is3LetterCode since "peptide" is in one-letter notation
             mMolecularWeightTool.Peptide.SetSequence(peptideFix, NTerminusGroupType.Hydrogen, CTerminusGroupType.Hydroxyl, false);
 
             // Update the options
