@@ -17,18 +17,21 @@ namespace SpectrumLook.Views
 
         private readonly DataViewSearch mViewSearch;
 
-        public DataTable DataTableForDisplay;
-        public DataViewAdvance DataAdvanceOption;
-        public volatile bool shouldStop;
+        public DataTable DataTableForDisplay { get; set; }
+
+        public DataViewAdvance DataAdvanceOption { get; set; }
+
+        private volatile bool mShouldStop;
 
         private readonly MolecularWeightTool mMolecularWeightTool = new MolecularWeightTool();
 
-        private int ColumnCount;
-        private int RowCount;
+        private int mColumnCount;
 
-        private readonly List<string> HeaderList = new List<string>();
+        private int mRowCount;
 
-        private new readonly ContextMenu Menu = new ContextMenu();
+        private readonly List<string> mHeaderList = new List<string>();
+
+        private readonly ContextMenu mContextMenu = new ContextMenu();
 
         private Manager.SynFileColumnIndices mSynFileColumns;
 
@@ -42,6 +45,7 @@ namespace SpectrumLook.Views
             DataGridTable.KeyDown += DataGridTable_KeyDown;
             DataGridTable.TabIndex = 1;
         }
+
         private void DataGridTable_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
@@ -50,6 +54,7 @@ namespace SpectrumLook.Views
                 e.Handled = true;
             }
         }
+
         private void DataGridTable_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             HandleRowSelection();
@@ -82,7 +87,7 @@ namespace SpectrumLook.Views
         {
             var ProgressWindow = new DataViewProgress();
             ProgressWindow.Show();
-            while (!shouldStop)
+            while (!mShouldStop)
             {
                 Application.DoEvents();
             }
@@ -91,7 +96,7 @@ namespace SpectrumLook.Views
 
         public void RequestStop()
         {
-            shouldStop = true;
+            mShouldStop = true;
         }
 
         public void SetColumnIndices(Manager.SynFileColumnIndices synFileColumns)
@@ -110,24 +115,24 @@ namespace SpectrumLook.Views
             DataGridTable.SelectionChanged -= DataGridTable_SelectionChanged;
             DataGridTable.Rows.Clear();
             DataGridTable.Columns.Clear();
-            ColumnCount = 0;
-            RowCount = 0;
-            HeaderList.Clear();
-            Menu.MenuItems.Clear();
+            mColumnCount = 0;
+            mRowCount = 0;
+            mHeaderList.Clear();
+            mContextMenu.MenuItems.Clear();
             DataTableForDisplay = newTable;
-            ColumnCount = DataTableForDisplay.Columns.Count;
-            RowCount = DataTableForDisplay.Rows.Count;
+            mColumnCount = DataTableForDisplay.Columns.Count;
+            mRowCount = DataTableForDisplay.Rows.Count;
 
-            mViewSearch.UpdateTableDimensions(ColumnCount, RowCount);
+            mViewSearch.UpdateTableDimensions(mColumnCount, mRowCount);
 
-            for (var i = 0; i < ColumnCount; i++)
+            for (var i = 0; i < mColumnCount; i++)
             {
                 DataGridTable.Columns.Add(DataTableForDisplay.Columns[i].ColumnName, DataTableForDisplay.Columns[i].ColumnName);
             }
-            for (var i = 0; i < RowCount; i++)
+            for (var i = 0; i < mRowCount; i++)
             {
                 DataGridTable.Rows.Add();
-                for (var j = 0; j < ColumnCount; j++)
+                for (var j = 0; j < mColumnCount; j++)
                 {
                     DataGridTable.Rows[i].Cells[j].Value = DataTableForDisplay.Rows[i][j].ToString();
                 }
@@ -137,12 +142,12 @@ namespace SpectrumLook.Views
             DataGridTable.AutoResizeColumns();
             DataGridTable.AllowUserToResizeColumns = true;
 
-            for (var i = 0; i < ColumnCount; i++)
+            for (var i = 0; i < mColumnCount; i++)
             {
-                HeaderList.Insert(i, DataTableForDisplay.Columns[i].ColumnName);
+                mHeaderList.Insert(i, DataTableForDisplay.Columns[i].ColumnName);
                 var insertItem = new ToolStripMenuItem
                 {
-                    Text = HeaderList[i],
+                    Text = mHeaderList[i],
                     ImageIndex = i,
                     CheckOnClick = true,
                     Checked = true
@@ -151,9 +156,10 @@ namespace SpectrumLook.Views
                 insertItem.CheckedChanged += InsertItem_CheckedChanged;
                 ColcontextMenuStrip.Items.Insert(i, insertItem);
             }
+
             for (var i = 0; i < DataGridTable.ColumnCount; i++)
             {
-                Menu.MenuItems.Add(DataGridTable.Columns[i].ToString(), Menu_Click);
+                mContextMenu.MenuItems.Add(DataGridTable.Columns[i].ToString(), Menu_Click);
             }
 
             DataAdvanceOption = new DataViewAdvance();
@@ -177,22 +183,26 @@ namespace SpectrumLook.Views
             e.Cancel = true;
             DataAdvanceOption.Visible = false;
         }
+
         private void AdvSrcCancel_Click(object sender, EventArgs e)
         {
             DataAdvanceOption.Visible = false;
         }
+
         private void InsertItem_CheckedChanged(object sender, EventArgs e)
         {
-            for (var i = 0; i < ColumnCount; i++)
+            for (var i = 0; i < mColumnCount; i++)
             {
                 var InsertItem = (ToolStripMenuItem)ColcontextMenuStrip.Items[i];
                 DataGridTable.Columns[i].Visible = InsertItem.Checked;
             }
         }
+
         public void SetAdvancedOptions()
         {
-            DataAdvanceOption.SetAdvance(HeaderList);
+            DataAdvanceOption.SetAdvance(mHeaderList);
         }
+
         public void SearchButton_Click(object sender, EventArgs e)
         {
             var textToFind = SearchBox.Text;
@@ -216,7 +226,7 @@ namespace SpectrumLook.Views
                 }*/
 
                 // Assure that all rows are visible
-                for (var i = 0; i < RowCount; i++)
+                for (var i = 0; i < mRowCount; i++)
                 {
                     DataGridTable.Rows[i].Visible = true;
                 }
@@ -260,13 +270,14 @@ namespace SpectrumLook.Views
                 MessageBox.Show("The File is not loaded correctly", "Not Ready", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
+
         private void ColumnDisplayClick(object sender, EventArgs e)
         {
-            for (var i = 0; i < ColumnCount; i++)
+            for (var i = 0; i < mColumnCount; i++)
             {
                 DataGridTable.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             }
-            for (var i = 0; i < ColumnCount; i++)
+            for (var i = 0; i < mColumnCount; i++)
             {
                 DataGridTable.Columns[i].Visible = true;
             }
@@ -284,6 +295,7 @@ namespace SpectrumLook.Views
             DataAdvanceOption.Close();
             // DataAdvanceOption.panel1.Visible = false;
         }
+
         /*private void SortClick(object sender, System.EventArgs e)
         {
             ListSortDirection direction;
@@ -347,7 +359,7 @@ namespace SpectrumLook.Views
             if (e.Button == MouseButtons.Right)
             {
                 // show context menu
-                list.ContextMenu = Menu;
+                list.ContextMenu = mContextMenu;
             }
         }
 
@@ -360,8 +372,6 @@ namespace SpectrumLook.Views
 
         private void DataGridTable_ColumnHeaderMouseClick_1(object sender, DataGridViewCellMouseEventArgs e)
         {
-            var Column_index = e.ColumnIndex;
-
             if (e.Button == MouseButtons.Right)
             {
                 ColcontextMenuStrip.Show((Control)sender, PointToClient(MousePosition).X, e.Location.Y);// Somehow, PointToClick(Control.MousePosition) X axis is correct, but the Y is not. Also e.X is not correct, but e.Y has correct location, so it is combined
