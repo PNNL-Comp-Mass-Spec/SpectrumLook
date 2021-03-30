@@ -494,7 +494,7 @@ namespace SpectrumLook.Views.FragmentLadderView
         }
 
         /// <summary>
-        /// Handles selecting only one textbox at a time in the FragmentLadder
+        /// Handles selecting only one TextBox at a time in the FragmentLadder
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -612,7 +612,7 @@ namespace SpectrumLook.Views.FragmentLadderView
         }
 
         /// <summary>
-        /// This event is called when the user choses the Clear button
+        /// This event is called when the user clicks the Clear button
         /// in the list of checked columns.
         /// </summary>
         /// <param name="sender"></param>
