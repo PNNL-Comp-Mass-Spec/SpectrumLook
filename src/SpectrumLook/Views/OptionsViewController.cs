@@ -620,36 +620,28 @@ namespace SpectrumLook.Views
             }
         }
 
-        // Returns a parent directory of a given file or directory.
-        // i.e. "~Prototype4\\SpectrumLook\\bin\\Debug\\UserProfile.spuf"
-        // goes to "~Prototype4\\SpectrumLook\\bin\\Debug"
-        private string getParentDirectory(string directoryWithFile)
+        // Returns a parent directory of a given file or directory. For example:
+        // SpectrumLook\bin\Debug\UserProfile.spuf
+        // results in
+        // SpectrumLook\bin\Debug
+        private string GetParentDirectory(string directoryWithFile)
         {
-            var returnVal = "";
-            var words = directoryWithFile.Split('\\');
-            var i = 0;
-            foreach (var s in words)
-            {
-                if (i == (words.Count() - 1)) // last word
-                {
-                }
-                else if (i == (words.Count() - 2))  // second to last word
-                {
-                    returnVal += s;
-                }
-                else
-                {
-                    returnVal += s + '\\';
-                }
-                i++;
-            }
+            var pathParts = directoryWithFile.Split(Path.DirectorySeparatorChar).ToList();
 
-            return returnVal;
+            if (pathParts.Count <= 1)
+                return string.Empty;
+
+            return string.Join(Path.DirectorySeparatorChar.ToString(), pathParts.Take(pathParts.Count - 1).ToList());
         }
 
         private void mainUserBrowseButton_Click(object sender, EventArgs e)
         {
-            openFileDialog.InitialDirectory = getParentDirectory(m_profileLocation);
+            var parentDirectory = GetParentDirectory(mProfileFilePath);
+            if (!string.IsNullOrWhiteSpace(parentDirectory))
+            {
+                openFileDialog.InitialDirectory = parentDirectory;
+            }
+
             var openResult = openFileDialog.ShowDialog();
 
             if (openResult != DialogResult.Cancel)
