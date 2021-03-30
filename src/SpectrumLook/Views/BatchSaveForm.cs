@@ -8,8 +8,8 @@ namespace SpectrumLook
     {
         // Ignore Spelling: Cancelled
 
-        private readonly Manager m_manager;
-        private readonly Manager.UpdateLabelDelegate m_statusLabelUpdate;
+        private readonly Manager mManager;
+        private readonly Manager.UpdateLabelDelegate mStatusLabelUpdate;
         public bool cancelSearch;
         public string baseFolderText;
 
@@ -20,8 +20,8 @@ namespace SpectrumLook
         {
             InitializeComponent();
 
-            m_manager = manager;
-            m_statusLabelUpdate = UpdateStatusLabel;
+            mManager = manager;
+            mStatusLabelUpdate = UpdateStatusLabel;
             InitializeFields();
         }
 
@@ -46,7 +46,7 @@ namespace SpectrumLook
 
                     if (SaveCurrentRadioButton.Checked)
                     {
-                        m_manager.HandlePlotSave(startDirectory, baseName, saveType);
+                        mManager.HandlePlotSave(startDirectory, baseName, saveType);
                     }
                     else
                     {
@@ -54,9 +54,9 @@ namespace SpectrumLook
                         var usePeptideAndScanName = UsePeptideAndScanRadioButton.Checked;
                         var addDatasetName = AddDatasetNameCheckbox.Checked;
 
-                        m_manager.m_mainForm.Visible = false;
+                        mManager.mMainForm.Visible = false;
 
-                        m_manager.HandleBatchSave(startDirectory, baseName, saveType,
+                        mManager.HandleBatchSave(startDirectory, baseName, saveType,
                             saveOnlyInGrid, usePeptideAndScanName, addDatasetName, UpdateStatusLabel, ref cancelSearch);
                     }
                 }
@@ -66,7 +66,7 @@ namespace SpectrumLook
                 }
 
                 CancelBatchSaveButton.DialogResult = DialogResult.Cancel;
-                m_manager.m_mainForm.Visible = true;
+                mManager.mMainForm.Visible = true;
                 SaveButton.Enabled = true;
                 CloseButton.Visible = true;
 
@@ -132,7 +132,7 @@ namespace SpectrumLook
             CloseButton.Visible = false;
 
             TypeComboBox.Items.Clear();
-            foreach (var imageType in m_manager.m_plot.SaveAsImageTypes)
+            foreach (var imageType in mManager.mPlot.SaveAsImageTypes)
             {
                 TypeComboBox.Items.Add(imageType);
             }
@@ -165,7 +165,7 @@ namespace SpectrumLook
             if (StatusLabel.InvokeRequired)
             {
                 // invoke so that we are on the right thread to update the status
-                StatusLabel.Invoke(m_statusLabelUpdate, new Object[] { newText });
+                StatusLabel.Invoke(mStatusLabelUpdate, new Object[] { newText });
                 return;
             }
 

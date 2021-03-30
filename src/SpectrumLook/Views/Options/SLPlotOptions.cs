@@ -10,178 +10,178 @@ namespace SpectrumLook.Views
     [Serializable]
     public class PlotOptions : Subject
     {
-        public bool showSnappingCursor
+        public bool ShowSnappingCursor
         {
-            get => m_showSnappingCursor;
+            get => mShowSnappingCursor;
             set
             {
-                m_showSnappingCursor = value;
+                mShowSnappingCursor = value;
                 Invoke();
             }
         }
-        public bool showLegend
+        public bool ShowLegend
         {
-            get => m_showLegend;
+            get => mShowLegend;
             set
             {
-                m_showLegend = value;
+                mShowLegend = value;
                 Invoke();
             }
         }
-        public int annotationPercent
+        public int AnnotationPercent
         {
-            get => m_annotationPercent;
+            get => mAnnotationPercent;
             set
             {
-                m_annotationPercent = value;
+                mAnnotationPercent = value;
                 Invoke();
             }
         }
-        public int annotationTextSize
+        public int AnnotationTextSize
         {
-            get => m_annotationTextSize;
+            get => mAnnotationTextSize;
             set
             {
-                m_annotationTextSize = value;
+                mAnnotationTextSize = value;
                 Invoke();
             }
         }
-        public Color annotationColor
+        public Color AnnotationColor
         {
-            get => m_annotationColor;
+            get => mAnnotationColor;
             set
             {
-                m_annotationColor = value;
+                mAnnotationColor = value;
                 Invoke();
             }
         }
-        public Color matchedColor
+        public Color MatchedColor
         {
-            get => m_matchedColor;
+            get => mMatchedColor;
             set
             {
-                m_matchedColor = value;
+                mMatchedColor = value;
                 Invoke();
             }
         }
-        public Color unmatchedColor
+        public Color UnmatchedColor
         {
-            get => m_unmatchedColor;
+            get => mUnmatchedColor;
             set
             {
-                m_unmatchedColor = value;
+                mUnmatchedColor = value;
                 Invoke();
             }
         }
-        public bool zoomHorizontal
+        public bool ZoomHorizontal
         {
-            get => m_zoomHorizontal;
+            get => mZoomHorizontal;
             set
             {
-                m_zoomHorizontal = value;
+                mZoomHorizontal = value;
                 Invoke();
             }
         }
-        public bool hideUnmatched
+        public bool HideUnmatched
         {
-            get => m_hideUnmatched;
+            get => mHideUnmatched;
             set
             {
-                m_hideUnmatched = value;
+                mHideUnmatched = value;
                 Invoke();
             }
         }
-        public Keys unzoomKey
+        public Keys UnzoomKey
         {
-            get => m_unzoomKey;
+            get => mUnzoomKey;
             set
             {
-                m_unzoomKey = value;
+                mUnzoomKey = value;
                 Invoke();
             }
         }
-        public int focusOffset
+        public int FocusOffset
         {
-            get => m_focusOffset;
+            get => mFocusOffset;
             set
             {
-                m_focusOffset = value;
+                mFocusOffset = value;
                 Invoke();
             }
         }
-        public bool rightClickUnzoom
+        public bool RightClickUnzoom
         {
-            get => m_rightClickUnzoom;
+            get => mRightClickUnzoom;
             set
             {
-                m_rightClickUnzoom = value;
+                mRightClickUnzoom = value;
                 Invoke();
             }
         }
-        public bool hidePlotTools
+        public bool HidePlotTools
         {
-            get => m_hidePlotTools;
+            get => mHidePlotTools;
             set
             {
-                m_hidePlotTools = value;
+                mHidePlotTools = value;
                 Invoke();
             }
         }
-        public int numberOfPlots
+        public int NumberOfPlots
         {
             get
             {
-                if (m_numberOfPlots < 1 || m_numberOfPlots > 5)
+                if (mNumberOfPlots < 1 || mNumberOfPlots > 5)
                 {
                     return 1;
                 }
-                return m_numberOfPlots;
+                return mNumberOfPlots;
             }
             set
             {
-                m_numberOfPlots = value;
+                mNumberOfPlots = value;
                 Invoke();
             }
         }
 
         /// <summary>
-        /// a flag we will use to tell if we need to replot during an update
+        /// a flag we will use to tell if we need to re0plot during an update
         /// </summary>
-        public bool replot = false;
+        public bool Replot = false;
 
-        private bool m_showSnappingCursor;
-        private bool m_showLegend;
-        private int m_annotationPercent;
-        private int m_annotationTextSize;
-        private Color m_annotationColor;
-        private Color m_matchedColor;
-        private Color m_unmatchedColor;
-        private bool m_zoomHorizontal;
-        private bool m_hideUnmatched;
-        private Keys m_unzoomKey;
-        private int m_focusOffset;
-        private bool m_rightClickUnzoom;
-        private bool m_hidePlotTools;
-        private int m_numberOfPlots;
+        private bool mShowSnappingCursor;
+        private bool mShowLegend;
+        private int mAnnotationPercent;
+        private int mAnnotationTextSize;
+        private Color mAnnotationColor;
+        private Color mMatchedColor;
+        private Color mUnmatchedColor;
+        private bool mZoomHorizontal;
+        private bool mHideUnmatched;
+        private Keys mUnzoomKey;
+        private int mFocusOffset;
+        private bool mRightClickUnzoom;
+        private bool mHidePlotTools;
+        private int mNumberOfPlots;
 
         /// <summary>
-        /// constructor, sets values to initial settings
+        /// Constructor, sets values to initial settings
         /// </summary>
         public PlotOptions()
         {
-            m_showSnappingCursor = true;
-            m_showLegend = true;
-            m_annotationPercent = 30;
-            m_annotationTextSize = 8;
-            m_annotationColor = Color.Black;
-            m_matchedColor = Color.Red;
-            m_unmatchedColor = Color.Black;
-            m_hideUnmatched = false;
-            m_unzoomKey = Keys.Back;
-            m_focusOffset = 100;
-            m_rightClickUnzoom = true;
-            m_hidePlotTools = false;
-            m_numberOfPlots = 1;
+            mShowSnappingCursor = true;
+            mShowLegend = true;
+            mAnnotationPercent = 30;
+            mAnnotationTextSize = 8;
+            mAnnotationColor = Color.Black;
+            mMatchedColor = Color.Red;
+            mUnmatchedColor = Color.Black;
+            mHideUnmatched = false;
+            mUnzoomKey = Keys.Back;
+            mFocusOffset = 100;
+            mRightClickUnzoom = true;
+            mHidePlotTools = false;
+            mNumberOfPlots = 1;
         }
 
         /// <summary>

@@ -6,41 +6,41 @@ namespace SpectrumLook.Views
     [Serializable]
     public class MainFormOptions : Subject
     {
-        private bool m_isPlotInMainForm;
-        private double m_toleranceValue;
-        private double m_lowerToleranceValue;
+        private bool mIsPlotInMainForm;
+        private double mToleranceValue;
+        private double mLowerToleranceValue;
 
-        public bool isPlotInMainForm
+        public bool IsPlotInMainForm
         {
-            get => m_isPlotInMainForm;
+            get => mIsPlotInMainForm;
             set
             {
-                m_isPlotInMainForm = value;
+                mIsPlotInMainForm = value;
                 Invoke();
             }
         }
 
-        public double toleranceValue
+        public double ToleranceValue
         {
-            get => m_toleranceValue;
+            get => mToleranceValue;
             set
             {
                 if (value >= 0.0)
                 {
-                    m_toleranceValue = value;
+                    mToleranceValue = value;
                     Invoke();
                 }
             }
         }
 
-        public double lowerToleranceValue
+        public double LowerToleranceValue
         {
-            get => m_lowerToleranceValue;
+            get => mLowerToleranceValue;
             set
             {
                 if (value >= 0.0)
                 {
-                    m_lowerToleranceValue = value;
+                    mLowerToleranceValue = value;
                     Invoke();
                 }
             }
@@ -48,23 +48,21 @@ namespace SpectrumLook.Views
 
         public MainFormOptions()
         {
-            m_isPlotInMainForm = true;
-            m_toleranceValue = 0.7;
-            m_lowerToleranceValue = 0.0;
+            mIsPlotInMainForm = true;
+            mToleranceValue = 0.7;
+            mLowerToleranceValue = 0.0;
         }
 
-        public MainFormOptions(MainFormOptions optionsToCopy)
+        public MainFormOptions(MainFormOptions options)
         {
-            m_isPlotInMainForm = optionsToCopy.isPlotInMainForm;
-            m_toleranceValue = optionsToCopy.toleranceValue;
-            m_lowerToleranceValue = optionsToCopy.lowerToleranceValue;
+            SetOptions(options);
         }
 
-        public void CopyOptions(MainFormOptions optionsToCopy)
+        public void SetOptions(MainFormOptions options)
         {
-            isPlotInMainForm = optionsToCopy.isPlotInMainForm;
-            toleranceValue = optionsToCopy.toleranceValue;
-            lowerToleranceValue = optionsToCopy.lowerToleranceValue;
+            mIsPlotInMainForm = options.IsPlotInMainForm;
+            mToleranceValue = options.ToleranceValue;
+            mLowerToleranceValue = options.LowerToleranceValue;
         }
     }
 }

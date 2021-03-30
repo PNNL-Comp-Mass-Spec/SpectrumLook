@@ -16,45 +16,45 @@ namespace SpectrumLook.Builders
         /// <summary>
         /// This is a reference to the actualElementList that was passed into the constructor.
         /// </summary>
-        private readonly List<Element> m_actualElementList;
+        private readonly List<Element> mActualElementList;
 
         /// <summary>
         /// This is a reference to the theoryElementList that was passed into the constructor.
         /// </summary>
-        private readonly List<Element> m_theoryElementList;
+        private readonly List<Element> mTheoryElementList;
 
         /// <summary>
         /// This is a value that stores the possible error between the theoretical m/z values and the actual m/z values
         /// </summary>
-        private double m_upperBoundTolerance;
+        private double mUpperBoundTolerance;
 
         /// <summary>
         /// This is a value that stores the lower possible error between the theoretical m/z values and the actual m/z values.
         /// </summary>
-        private double m_lowerBoundTolerance;
+        private double mLowerBoundTolerance;
 
-        private readonly double m_precursor;
+        private readonly double mPrecursor;
 
-        public double possibleError
+        public double PossibleError
         {
-            get => m_upperBoundTolerance;
+            get => mUpperBoundTolerance;
             set
             {
                 if (value >= 0.0)
                 {
-                    m_upperBoundTolerance = value;
+                    mUpperBoundTolerance = value;
                 }
             }
         }
 
-        public double lowerBoundPossibleError
+        public double LowerBoundPossibleError
         {
-            get => m_lowerBoundTolerance;
+            get => mLowerBoundTolerance;
             set
             {
                 if (value >= 0.0)
                 {
-                    m_lowerBoundTolerance = value;
+                    mLowerBoundTolerance = value;
                 }
             }
         }
@@ -68,12 +68,12 @@ namespace SpectrumLook.Builders
         /// <param name="theoryElementList">This should be a reference to a list generated from the TheoryListBuilder </param>
         public ComparedListBuilder(double possibleError, double lowerBoundPossibleError, List<Element> actualElementList, double precursor, ref List<Element> theoryElementList)
         {
-            m_actualElementList = actualElementList;
-            m_theoryElementList = theoryElementList;
+            mActualElementList = actualElementList;
+            mTheoryElementList = theoryElementList;
             ElementList = new List<Element>();
-            m_precursor = precursor;
-            m_upperBoundTolerance = possibleError;
-            m_lowerBoundTolerance = lowerBoundPossibleError;
+            mPrecursor = precursor;
+            mUpperBoundTolerance = possibleError;
+            mLowerBoundTolerance = lowerBoundPossibleError;
         }
 
         /// <summary>
@@ -89,34 +89,34 @@ namespace SpectrumLook.Builders
         //    int highestIntensityIndex = 0;
         //    int absoluteHighestIntenistyIndex = 0;
 
-        //    while (currentTheoryIndex < this.m_theoryElementList.Count)
+        //    while (currentTheoryIndex < this.mTheoryElementList.Count)
         //    {
         //        currentActualIndex = 0;
         //        highestIntensityIndex = -1;
 
-        //        while (currentActualIndex < this.m_actualElementList.Count)
+        //        while (currentActualIndex < this.mActualElementList.Count)
         //        {
 
-        //            if ((((m_theoryElementList[currentTheoryIndex].mzValue) <= (m_actualElementList[currentActualIndex].mzValue * (1.00 + (possibleError / 100.0)))) &&
-        //                ((m_theoryElementList[currentTheoryIndex].mzValue) >= (m_actualElementList[currentActualIndex].mzValue * (1.00 - (lowerBoundPossibleError / 100.0))))))
+        //            if ((((mTheoryElementList[currentTheoryIndex].mzValue) <= (mActualElementList[currentActualIndex].mzValue * (1.00 + (possibleError / 100.0)))) &&
+        //                ((mTheoryElementList[currentTheoryIndex].mzValue) >= (mActualElementList[currentActualIndex].mzValue * (1.00 - (lowerBoundPossibleError / 100.0))))))
         //            {
         //                if (highestIntensityIndex == -1)
         //                {
         //                    highestIntensityIndex = currentActualIndex;
 
         //                }
-        //                else if (Math.Abs(m_actualElementList[highestIntensityIndex].mzValue - m_theoryElementList[currentTheoryIndex].mzValue) > Math.Abs(m_actualElementList[currentActualIndex].mzValue - m_theoryElementList[currentTheoryIndex].mzValue))
+        //                else if (Math.Abs(mActualElementList[highestIntensityIndex].mzValue - mTheoryElementList[currentTheoryIndex].mzValue) > Math.Abs(mActualElementList[currentActualIndex].mzValue - mTheoryElementList[currentTheoryIndex].mzValue))
         //                {
         //                    highestIntensityIndex = currentActualIndex;
         //                }
-        //                else if (Math.Abs(m_actualElementList[highestIntensityIndex].mzValue - m_theoryElementList[currentTheoryIndex].mzValue) == Math.Abs(m_actualElementList[currentActualIndex].mzValue - m_theoryElementList[currentTheoryIndex].mzValue))
+        //                else if (Math.Abs(mActualElementList[highestIntensityIndex].mzValue - mTheoryElementList[currentTheoryIndex].mzValue) == Math.Abs(mActualElementList[currentActualIndex].mzValue - mTheoryElementList[currentTheoryIndex].mzValue))
         //                {
-        //                    if (m_actualElementList[highestIntensityIndex].intensity < m_actualElementList[currentActualIndex].intensity)
+        //                    if (mActualElementList[highestIntensityIndex].intensity < mActualElementList[currentActualIndex].intensity)
         //                    {
         //                        highestIntensityIndex = currentActualIndex;
         //                    }
         //                }
-        //                if (m_actualElementList[highestIntensityIndex].intensity > m_actualElementList[absoluteHighestIntenistyIndex].intensity)
+        //                if (mActualElementList[highestIntensityIndex].intensity > mActualElementList[absoluteHighestIntenistyIndex].intensity)
         //                {
         //                    absoluteHighestIntenistyIndex = highestIntensityIndex;
         //                }
@@ -125,28 +125,28 @@ namespace SpectrumLook.Builders
         //        }
         //        if (highestIntensityIndex != -1)
         //        {
-        //            m_actualElementList[highestIntensityIndex].matched = true;
-        //            if (m_actualElementList[highestIntensityIndex].annotation != "")
+        //            mActualElementList[highestIntensityIndex].matched = true;
+        //            if (mActualElementList[highestIntensityIndex].annotation != "")
         //            {
-        //                m_actualElementList[highestIntensityIndex].annotation = m_actualElementList[highestIntensityIndex].annotation + "," + m_theoryElementList[currentTheoryIndex].annotation;
+        //                mActualElementList[highestIntensityIndex].annotation = mActualElementList[highestIntensityIndex].annotation + "," + mTheoryElementList[currentTheoryIndex].annotation;
         //            }
         //            else
         //            {
-        //                m_actualElementList[highestIntensityIndex].annotation = m_theoryElementList[currentTheoryIndex].annotation;
+        //                mActualElementList[highestIntensityIndex].annotation = mTheoryElementList[currentTheoryIndex].annotation;
         //            }
-        //            m_theoryElementList[currentTheoryIndex].matched = true;
+        //            mTheoryElementList[currentTheoryIndex].matched = true;
         //        }
         //        ++currentTheoryIndex;
         //    }
 
         //    // Tag a precursor onto the hightes Intensity Index
-        //    m_actualElementList[absoluteHighestIntenistyIndex].annotation = m_actualElementList[absoluteHighestIntenistyIndex].annotation + " - PRECURSOR";
+        //    mActualElementList[absoluteHighestIntenistyIndex].annotation = mActualElementList[absoluteHighestIntenistyIndex].annotation + " - PRECURSOR";
 
         //    // When all is said and done the compared list will just be a copy of the actual list.
-        //    for (int i = 0; i < m_actualElementList.Count; ++i )
+        //    for (int i = 0; i < mActualElementList.Count; ++i )
         //    {
         //        elementForCopying               = new Element();
-        //        Element currentElement          = m_actualElementList[i];
+        //        Element currentElement          = mActualElementList[i];
         //        elementForCopying.annotation    = currentElement.annotation;
         //        elementForCopying.matched       = currentElement.matched;
         //        elementForCopying.intensity     = currentElement.intensity;
@@ -164,16 +164,16 @@ namespace SpectrumLook.Builders
         //    int highestIntensityIndex           = 0;
         //    int absoluteHighestIntenistyIndex   = 0;
 
-        //    while (currentTheoryIndex < this.m_theoryElementList.Count)
+        //    while (currentTheoryIndex < this.mTheoryElementList.Count)
         //    {
         //        currentActualIndex      = 0;
         //        highestIntensityIndex   = -1;
-        //        double theoryMz         = m_theoryElementList[currentTheoryIndex].mzValue;
+        //        double theoryMz         = mTheoryElementList[currentTheoryIndex].mzValue;
 
-        //        while (currentActualIndex < this.m_actualElementList.Count)
+        //        while (currentActualIndex < this.mActualElementList.Count)
         //        {
-        //            double actualMz         = m_actualElementList[currentActualIndex].mzValue;
-        //            double actualIntensity  = m_actualElementList[currentActualIndex].intensity;
+        //            double actualMz         = mActualElementList[currentActualIndex].mzValue;
+        //            double actualIntensity  = mActualElementList[currentActualIndex].intensity;
         //            double upperActualMz    = actualMz + possibleError;
         //            double lowerActualMz    = actualMz - possibleError;
 
@@ -189,13 +189,13 @@ namespace SpectrumLook.Builders
         //                {
         //                    highestIntensityIndex = currentActualIndex;
         //                }
-        //                else if (Math.Abs(m_actualElementList[highestIntensityIndex].mzValue - theoryMz) > diffMz)
+        //                else if (Math.Abs(mActualElementList[highestIntensityIndex].mzValue - theoryMz) > diffMz)
         //                {
         //                    highestIntensityIndex = currentActualIndex;
         //                }
-        //                else if (Math.Abs(m_actualElementList[highestIntensityIndex].mzValue - theoryMz) == diffMz)
+        //                else if (Math.Abs(mActualElementList[highestIntensityIndex].mzValue - theoryMz) == diffMz)
         //                {
-        //                    if (m_actualElementList[highestIntensityIndex].intensity < actualIntensity)
+        //                    if (mActualElementList[highestIntensityIndex].intensity < actualIntensity)
         //                    {
         //                        highestIntensityIndex = currentActualIndex;
         //                    }
@@ -203,7 +203,7 @@ namespace SpectrumLook.Builders
 
         //                // Find the pre-cursor
 
-        //                                if (m_actualElementList[highestIntensityIndex].intensity > m_actualElementList[absoluteHighestIntenistyIndex].intensity)
+        //                                if (mActualElementList[highestIntensityIndex].intensity > mActualElementList[absoluteHighestIntenistyIndex].intensity)
         //                                {
         //                                    absoluteHighestIntenistyIndex = highestIntensityIndex;
         //                                }
@@ -212,28 +212,28 @@ namespace SpectrumLook.Builders
         //        }
         //        if (highestIntensityIndex != -1)
         //        {
-        //            m_actualElementList[highestIntensityIndex].matched = true;
-        //            if (m_actualElementList[highestIntensityIndex].annotation != "")
+        //            mActualElementList[highestIntensityIndex].matched = true;
+        //            if (mActualElementList[highestIntensityIndex].annotation != "")
         //            {
-        //                m_actualElementList[highestIntensityIndex].annotation = m_actualElementList[highestIntensityIndex].annotation + "," + m_theoryElementList[currentTheoryIndex].annotation;
+        //                mActualElementList[highestIntensityIndex].annotation = mActualElementList[highestIntensityIndex].annotation + "," + mTheoryElementList[currentTheoryIndex].annotation;
         //            }
         //            else
         //            {
-        //                m_actualElementList[highestIntensityIndex].annotation = m_theoryElementList[currentTheoryIndex].annotation;
+        //                mActualElementList[highestIntensityIndex].annotation = mTheoryElementList[currentTheoryIndex].annotation;
         //            }
-        //            m_theoryElementList[currentTheoryIndex].matched = true;
+        //            mTheoryElementList[currentTheoryIndex].matched = true;
         //        }
         //        ++currentTheoryIndex;
         //    }
 
         //    // Tag a precursor onto the hightes Intensity Index
-        //    m_actualElementList[absoluteHighestIntenistyIndex].annotation = m_actualElementList[absoluteHighestIntenistyIndex].annotation + " - PRECURSOR";
+        //    mActualElementList[absoluteHighestIntenistyIndex].annotation = mActualElementList[absoluteHighestIntenistyIndex].annotation + " - PRECURSOR";
 
         //    // When all is said and done the compared list will just be a copy of the actual list.
-        //    for (int i = 0; i < m_actualElementList.Count; ++i)
+        //    for (int i = 0; i < mActualElementList.Count; ++i)
         //    {
         //        elementForCopying = new Element();
-        //        Element currentElement = m_actualElementList[i];
+        //        Element currentElement = mActualElementList[i];
         //        elementForCopying.annotation = currentElement.annotation;
         //        elementForCopying.matched = currentElement.matched;
         //        elementForCopying.intensity = currentElement.intensity;
@@ -244,11 +244,11 @@ namespace SpectrumLook.Builders
 
         public override void BuildList()
         {
-            foreach (var theoryElement in m_theoryElementList)
+            foreach (var theoryElement in mTheoryElementList)
             {
-                var pairs = from actualElement in m_actualElementList
+                var pairs = from actualElement in mActualElementList
                             where
-                                (Math.Abs(theoryElement.Mz - actualElement.Mz) <= m_upperBoundTolerance) && (Math.Abs(theoryElement.Mz - actualElement.Mz) >= m_lowerBoundTolerance)
+                                (Math.Abs(theoryElement.Mz - actualElement.Mz) <= mUpperBoundTolerance) && (Math.Abs(theoryElement.Mz - actualElement.Mz) >= mLowerBoundTolerance)
 
                             select new { actualElement };
 
@@ -289,10 +289,10 @@ namespace SpectrumLook.Builders
 
             Element maxIntensity = null;
             Element precursor = null;
-            foreach (var item in m_actualElementList)
+            foreach (var item in mActualElementList)
             {
-                if (Math.Abs(item.Mz - m_precursor) <= m_upperBoundTolerance &&
-                    Math.Abs(item.Mz - m_precursor) >= m_lowerBoundTolerance)
+                if (Math.Abs(item.Mz - mPrecursor) <= mUpperBoundTolerance &&
+                    Math.Abs(item.Mz - mPrecursor) >= mLowerBoundTolerance)
                 {
                     if (precursor == null || item.Intensity > precursor.Intensity)
                     {
@@ -316,14 +316,14 @@ namespace SpectrumLook.Builders
                     precursor.Annotation += " - PRECURSOR";
                 }
             }
-            //// Tag a precursor onto the highest Intensity Index
+            // Tag a precursor onto the highest Intensity Index
             // if (maxIntensity != null)
             //{
             //    maxIntensity.Annotation += " - PRECURSOR";
             //}
 
             // When all is said and done the compared list will just be a copy of the actual list.
-            foreach (var currentElement in m_actualElementList)
+            foreach (var currentElement in mActualElementList)
             {
                 var elementForCopying = new Element
                 {

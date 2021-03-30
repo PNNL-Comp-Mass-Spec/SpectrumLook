@@ -6,10 +6,10 @@ namespace SpectrumLook.Views
 {
     public partial class EditAddModification : Form
     {
-        private readonly string m_validSymbols = "!#$%&'*+?@^_`~-"; // Allow use of '-'
+        private readonly string mValidSymbols = "!#$%&'*+?@^_`~-"; // Allow use of '-'
         //    string allowedSymbols = "!#$%&'*+?@^_`~";    // by molecular weight calculator
-        private readonly string m_availableSymbols;
-        private readonly string m_symbolRegex;
+        private readonly string mAvailableSymbols;
+        private readonly string mSymbolRegex;
 
         public string ModificationString { get; private set; }
 
@@ -36,21 +36,21 @@ namespace SpectrumLook.Views
                 usedSymbolsToCheck = usedSymbols.Remove(usedSymbols.IndexOf(ModificationString[0]), 1);
             }
 
-            foreach (var c in m_validSymbols)
+            foreach (var c in mValidSymbols)
             {
                 if (!usedSymbolsToCheck.Contains(c))
                 {
-                    m_availableSymbols += c;
+                    mAvailableSymbols += c;
                 }
             }
 
-            symbolTextBox.TextChanged += symbolTextBox_TextChanged;
-            massTextBox.TextChanged += massTextBox_TextChanged;
+            symbolTextBox.TextChanged += SymbolTextBox_TextChanged;
+            massTextBox.TextChanged += MassTextBox_TextChanged;
 
-            m_symbolRegex = "^[" + System.Text.RegularExpressions.Regex.Escape(m_availableSymbols) + "]{0,1}$";
+            mSymbolRegex = "^[" + System.Text.RegularExpressions.Regex.Escape(mAvailableSymbols) + "]{0,1}$";
         }
 
-        private void okModButton_Click(object sender, EventArgs e)
+        private void OkModButton_Click(object sender, EventArgs e)
         {
             if (double.TryParse(massTextBox.Text, out var outValue))
             {
@@ -61,9 +61,9 @@ namespace SpectrumLook.Views
             }
         }
 
-        private void symbolTextBox_TextChanged(object sender, EventArgs e)
+        private void SymbolTextBox_TextChanged(object sender, EventArgs e)
         {
-            if (System.Text.RegularExpressions.Regex.IsMatch(symbolTextBox.Text, m_symbolRegex))
+            if (System.Text.RegularExpressions.Regex.IsMatch(symbolTextBox.Text, mSymbolRegex))
             {
                 ModificationString = symbolTextBox.Text;
             }
@@ -75,7 +75,7 @@ namespace SpectrumLook.Views
             symbolTextBox.SelectAll();
         }
 
-        private void massTextBox_TextChanged(object sender, EventArgs e)
+        private void MassTextBox_TextChanged(object sender, EventArgs e)
         {
             var selLength = massTextBox.SelectionLength;
             var pos = massTextBox.SelectionStart;

@@ -6,16 +6,16 @@ namespace SpectrumLook.Builders
 {
     public class ThermoRawParser : IExperimentParser
     {
-        private readonly XRawFileIO m_fileToRead;
+        private readonly XRawFileIO mFileReader;
 
-        private string m_fileLocation;
+        private string mFilePath;
 
-        private readonly bool m_fileOpened;
+        private readonly bool mFileOpened;
 
-        string IExperimentParser.Filename
+        string IExperimentParser.FilePath
         {
-            get => m_fileLocation;
-            set => m_fileLocation = value;
+            get => mFilePath;
+            set => mFilePath = value;
         }
 
         /// <summary>
@@ -24,20 +24,20 @@ namespace SpectrumLook.Builders
         /// a string without a ".raw" file extension then an exception
         /// will be thrown.
         /// </summary>
-        /// <param name="fileLocation">This must be a file Location to a ".raw" file.</param>
-        public ThermoRawParser(string fileLocation)
+        /// <param name="filePath">This must be a file Location to a ".raw" file.</param>
+        public ThermoRawParser(string filePath)
         {
-            m_fileLocation = fileLocation;
+            mFilePath = filePath;
 
-            var extension = Path.GetExtension(fileLocation);
+            var extension = Path.GetExtension(filePath);
             extension = extension.ToLower();
 
-            if (m_fileLocation != null)
+            if (mFilePath != null)
             {
                 if (extension == ".raw")
                 {
-                    m_fileToRead = new XRawFileIO();
-                    m_fileOpened = m_fileToRead.OpenRawFile(m_fileLocation);                // m_fileOpened is staying false for some reason. ****
+                    mFileReader = new XRawFileIO();
+                    mFileOpened = mFileReader.OpenRawFile(mFilePath);                // mFileOpened is staying false for some reason. ****
                 }
                 else
                 {
@@ -61,13 +61,13 @@ namespace SpectrumLook.Builders
         /// and the even index's (starting from 0) are the mzValues.</returns>
         List<Element> IExperimentParser.GetExperimentDataByScanNumber(int scanNum)   // Have GetExperimentDataByScanNumberRaw commented out, checking without the raw...
         {
-            // m_fileOpened = true;        // TEST
+            // mFileOpened = true;        // TEST
 
-            if (m_fileOpened)
+            if (mFileOpened)
             {
                 var values = new List<Element>();
 
-                var dataPairCount = m_fileToRead.GetScanData2D(scanNum, out var mzIntensityPairList, 0, true);
+                var dataPairCount = mFileReader.GetScanData2D(scanNum, out var mzIntensityPairList, 0, true);
 
                 // Step through mzList and intensityList and assign them.
                 for (var i = 0; i < dataPairCount; ++i)

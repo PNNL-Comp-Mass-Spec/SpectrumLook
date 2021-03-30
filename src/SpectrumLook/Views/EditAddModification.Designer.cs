@@ -68,7 +68,7 @@
             this.okModButton.TabIndex = 2;
             this.okModButton.Text = "Ok";
             this.okModButton.UseVisualStyleBackColor = true;
-            this.okModButton.Click += new System.EventHandler(this.okModButton_Click);
+            this.okModButton.Click += new System.EventHandler(this.OkModButton_Click);
             //
             // cancelModButton
             //

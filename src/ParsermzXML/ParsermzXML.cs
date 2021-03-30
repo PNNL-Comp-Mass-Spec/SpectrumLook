@@ -10,14 +10,10 @@ using System.Threading;
 
 namespace SpectrumLook
 {
-    // TODO: Class name starts with lower case.  Use upper case for coding standard.
-            // will need to check out whole project and rename all instances where used.
-    // TODO: Class name doesnt match file name.
-        // TODO: Rename this class to MzReader
     // TODO: Does this need to implement IDisposable
     // TODO: Is there a is-a relationship here?  You could read other binary formats.  Possibly use an interface!
     /// <summary>
-    /// Name:        MzReader
+    /// Name:        ParserMzXML
     /// Description: The MzReader is a singleton based Wrapper for reading both mzData and mzXML.
     /// Currently the backend parser we are using is from PNNL.  We hope for have the proteo-wizard parser
     /// in place of the current PNNL parser.
@@ -26,45 +22,45 @@ namespace SpectrumLook
     /// Group:       WSU Senior Design
     /// </summary>
     ///
-    public class mzXMLreader
+    public class ParserMzXML
     {
         /// <summary>
-        /// Name:        m_fileToRead
+        /// Name:        mFileReader
         /// Description: This is an object that holds and reads a given file and allows access to the experimental information.
         ///              This object is fully defined in the MSDataFileReader.
         /// </summary>
-        private clsMSDataFileReaderBaseClass m_fileToRead;
+        private clsMSDataFileReaderBaseClass mFileReader;
 
         /// <summary>
-        /// Name:        m_currentSpectrum
+        /// Name:        mCurrentSpectrum
         /// Description: This object is one element within a given mz file.
         ///              This is fully defined in MSDataFileReader.
         /// </summary>
-        private clsSpectrumInfo m_currentSpectrum;
+        private clsSpectrumInfo mCurrentSpectrum;
 
         /// <summary>
-        /// Name:        m_isFileOpened
+        /// Name:        mIsFileOpened
         /// Description: This is boolean flag that should be true when a file has been opend and false when it has not been opened.
         /// </summary>
-        private bool m_isFileOpened;
+        private bool mIsFileOpened;
 
         /// <summary>
-        /// Name:        m_fileLocation
+        /// Name:        mFileLocation
         /// Description: This is a string that holds the location of the mzFile that is currently open.
         /// </summary>
-        private string m_fileLocation;
+        private string mFileLocation;
 
         /// <summary>
-        /// Name:        m_mZIndex
+        /// Name:        mMZIndex
         /// Description: This is an counter to make sure not to grab more then the files contains, when it comes to experimental data.
         /// </summary>
-        private int m_mZIndex;
+        private int mMZIndex;
 
         /// <summary>
-        /// Name: m_experimentCode
+        /// Name: mExperimentCode
         /// Description: This is the current experimental code that is used to find data within the given mz experiment file.
         /// </summary>
-        private int m_experimentCode;
+        private int mExperimentCode;
 
 
         /// <summary>
@@ -90,22 +86,21 @@ namespace SpectrumLook
         }
         private static mzXMLreader _instance;
 
-        // TODO: Rename this class to MzReader
         /// <summary>
-        /// Name:        MzReader
+        /// Name:        ParserMzXML
         /// Description: This is the only constructor for the MzReader.  MzReader is a singleton implementation, this explains why the constructor is private.
         /// </summary>
-        private mzXMLreader()
+        private ParserMzXML()
         {
-            this.m_fileLocation = "";
-            this.m_experimentCode = 0;
-            m_mZIndex = 0;
+            this.mFileLocation = "";
+            this.mExperimentCode = 0;
+            mMZIndex = 0;
         }
 
         /// <summary>
         /// Name:        OpenMZXMLFile
-        /// Description: After giving a valid file location, if a file is not already loaded, is loaded into m_fileToRead and the
-        ///              m_isFileOpened flag is set to true.
+        /// Description: After giving a valid file location, if a file is not already loaded, is loaded into mFileReader and the
+        ///              mIsFileOpened flag is set to true.
         /// </summary>
         /// <param name="fileLocation">
         /// Name:        fileLocation
@@ -113,18 +108,18 @@ namespace SpectrumLook
         /// </param>
         public void OpenMZXMLFile(string fileLocation)
         {
-            m_fileLocation = fileLocation;
+            mFileLocation = fileLocation;
 
-            if (m_fileLocation != null)
-                if (m_fileLocation.Contains(".mzXML"))
+            if (mFileLocation != null)
+                if (mFileLocation.Contains(".mzXML"))
                 {
-                    m_fileToRead = new clsMzXMLFileReader();
-                    m_isFileOpened = m_fileToRead.OpenFile(m_fileLocation);
+                    mFileReader = new clsMzXMLFileReader();
+                    mIsFileOpened = mFileReader.OpenFile(mFileLocation);
                 }
-                else if (m_fileLocation.Contains(".mzData"))
+                else if (mFileLocation.Contains(".mzData"))
                 {
-                    m_fileToRead = new clsMzDataFileReader();
-                    m_isFileOpened = m_fileToRead.OpenFile(m_fileLocation);
+                    mFileReader = new clsMzDataFileReader();
+                    mIsFileOpened = mFileReader.OpenFile(mFileLocation);
                 }
                 else
                 {
@@ -134,7 +129,7 @@ namespace SpectrumLook
 
         /// <summary>
         /// Name:        GetParentMZ
-        /// Description: This function returns the ParentIon of the current experiment (determined by m_experimentCode).
+        /// Description: This function returns the ParentIon of the current experiment (determined by mExperimentCode).
         /// </summary>
         /// <returns>
         /// Output:      This function outputs the Parent Ion in the form of a double.
@@ -142,7 +137,7 @@ namespace SpectrumLook
         public double GetParentMZ()
         {
             clsSpectrumInfo tempInfo = new clsSpectrumInfo();
-            m_fileToRead.GetSpectrumByScanNumber(this.m_experimentCode, ref tempInfo);
+            mFileReader.GetSpectrumByScanNumber(this.mExperimentCode, ref tempInfo);
             return tempInfo.ParentIonMZ;
         }
 
@@ -161,26 +156,26 @@ namespace SpectrumLook
             // Initialize a new experimentalData list to return.
             List<ActualElement> experimentData = new List<ActualElement>();
             // update the new experimentCode to the inputed experiment code, so we can get the right Parent Ion number.
-            this.m_experimentCode = experimentCode;
+            this.mExperimentCode = experimentCode;
 
-            if (this.m_isFileOpened)
+            if (this.mIsFileOpened)
             {
                 // We need to Cache the entire file into memory (which puts it into MZList) to look at the data in the file.
-                m_fileToRead.ReadAndCacheEntireFile();
+                mFileReader.ReadAndCacheEntireFile();
 
                 // narrow the number of Spectrums down to all the data sets that match the experimentCode.
-                bool result = m_fileToRead.GetSpectrumByScanNumber(m_experimentCode, ref m_currentSpectrum);
-                this.m_mZIndex = 0;
+                bool result = mFileReader.GetSpectrumByScanNumber(mExperimentCode, ref mCurrentSpectrum);
+                this.mMZIndex = 0;
 
                 // We will run through each data that is in memory and convert that data into
                 //  an ActualElement structure and then all the element to the experimentData List.
-                while (m_mZIndex < this.m_currentSpectrum.MZList.Count())
+                while (mMZIndex < this.mCurrentSpectrum.MZList.Count())
                 {
                     ActualElement inputForList = new ActualElement();
-                    inputForList.MZValue = this.m_currentSpectrum.MZList[m_mZIndex];
-                    inputForList.Intensity = (double)this.m_currentSpectrum.LookupIonIntensityByMZ(inputForList.MZValue, (float)0, (float)0.04);
+                    inputForList.MZValue = this.mCurrentSpectrum.MZList[mMZIndex];
+                    inputForList.Intensity = (double)this.mCurrentSpectrum.LookupIonIntensityByMZ(inputForList.MZValue, (float)0, (float)0.04);
                     experimentData.Add(inputForList);
-                    ++m_mZIndex;
+                    ++mMZIndex;
                 }
             }
             return experimentData;
@@ -192,9 +187,9 @@ namespace SpectrumLook
         /// </summary>
         public void CloseFile()
         {
-            this.m_isFileOpened = false;
-            this.m_fileToRead.CloseFile();
-            this.m_currentSpectrum = null;
+            this.mIsFileOpened = false;
+            this.mFileReader.CloseFile();
+            this.mCurrentSpectrum = null;
         }
 
     }

@@ -7,17 +7,17 @@ namespace SpectrumLook.Builders
         /// <summary>
         /// the peptide that was passed into this builder that the theory set is calculated from
         /// </summary>
-        private readonly string m_peptide;
+        private readonly string mPeptide;
 
         /// <summary>
         /// A flag representing the fragmentation mode for the calculations (false = CID, true = ETD)
         /// </summary>
-        private readonly bool m_fragmentationModeETD;
+        private readonly bool mFragmentationModeETD;
 
         /// <summary>
         /// The theory calculator that handles the brunt of calculating peptides
         /// </summary>
-        private readonly ITheoryCalculator m_theoryCalculator;
+        private readonly ITheoryCalculator mTheoryCalculator;
 
         /// <summary>
         /// Constructor for the TheoryListBuilder
@@ -27,9 +27,9 @@ namespace SpectrumLook.Builders
         /// <param name="theoryCalculator"></param>
         public TheoryListBuilder(string peptide, bool fragmentationModeCID, ITheoryCalculator theoryCalculator)
         {
-            m_peptide = peptide;
-            m_fragmentationModeETD = fragmentationModeCID;
-            m_theoryCalculator = theoryCalculator;
+            mPeptide = peptide;
+            mFragmentationModeETD = fragmentationModeCID;
+            mTheoryCalculator = theoryCalculator;
         }
 
         /// <summary>
@@ -37,7 +37,7 @@ namespace SpectrumLook.Builders
         /// </summary>
         public override void BuildList()
         {
-            var theoreticalData = m_theoryCalculator.GetTheoreticalDataByPeptideSequence(m_peptide, m_fragmentationModeETD);
+            var theoreticalData = mTheoryCalculator.GetTheoreticalDataByPeptideSequence(mPeptide, mFragmentationModeETD);
 
             ElementList = new List<Element>();
 
@@ -46,9 +46,7 @@ namespace SpectrumLook.Builders
                 var newElement = new Element
                 {
                     Annotation = theoreticalIon.Key,
-                    Mz = theoreticalIon.Value,
-                    Intensity = 0,
-                    Matched = false
+                    Mz = theoreticalIon.Value
                 };
 
                 ElementList.Add(newElement);

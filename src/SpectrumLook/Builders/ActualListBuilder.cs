@@ -14,13 +14,13 @@ namespace SpectrumLook.Builders
         /// This stores the inputed experiment parser, so that this class can
         /// retrieve data from the experiment files.
         /// </summary>
-        private readonly IExperimentParser m_fileParser;
+        private readonly IExperimentParser mFileParser;
 
         /// <summary>
         /// This stores the inputed scan number in the constructor so that the BuildList function knows where
         /// to find the need experiment data.
         /// </summary>
-        private int m_scanNumber;
+        private int mScanNumber;
 
         /// <summary>
         /// This constructor takes in a scan number of the desired experiment data with a provided parser that is not null.
@@ -31,8 +31,8 @@ namespace SpectrumLook.Builders
         {
             if (experimentParser != null)
             {
-                m_scanNumber = scanNumber;
-                m_fileParser = experimentParser;
+                mScanNumber = scanNumber;
+                mFileParser = experimentParser;
                 ElementList = new List<Element>();
             }
             else
@@ -49,7 +49,7 @@ namespace SpectrumLook.Builders
         /// </summary>
         public override void BuildList()
         {
-            var experimentDataStringArray = m_fileParser.GetExperimentDataByScanNumber(m_scanNumber);
+            var experimentDataStringArray = mFileParser.GetExperimentDataByScanNumber(mScanNumber);
 
             foreach (var item in experimentDataStringArray)
             {
@@ -64,7 +64,7 @@ namespace SpectrumLook.Builders
             var success = false;
             if (newScanNum >= 0)
             {
-                m_scanNumber = newScanNum;
+                mScanNumber = newScanNum;
                 success = true;
             }
             return success;

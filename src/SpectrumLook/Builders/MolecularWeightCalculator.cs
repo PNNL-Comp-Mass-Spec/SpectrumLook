@@ -11,7 +11,7 @@ namespace SpectrumLook.Builders
     {
         public MolecularWeightUtility(Dictionary<char, double> modificationList)
         {
-            m_modificationList = modificationList;
+            mModificationList = modificationList;
         }
 
         /// <summary>
@@ -19,12 +19,12 @@ namespace SpectrumLook.Builders
         /// </summary>
         private readonly MolecularWeightTool mMolecularWeightTool = new MolecularWeightTool();
 
-        private Dictionary<char, double> m_modificationList;
+        private Dictionary<char, double> mModificationList;
 
         /// <summary>
         /// The deNovo Table values for b ions
         /// </summary>
-        private Dictionary<char, double> m_deNovoTableB = new Dictionary<char, double>()
+        private Dictionary<char, double> mDeNovoTableB = new Dictionary<char, double>()
         {
             {'G', 57.021464},
             {'A', 71.037114},
@@ -108,7 +108,7 @@ namespace SpectrumLook.Builders
             // 96	`
             // 126	~
             var allowedSymbols = "!#$%&'*+?@^_`~";
-            var usedSymbols = new string(m_modificationList.Keys.ToArray());
+            var usedSymbols = new string(mModificationList.Keys.ToArray());
             var availableSymbols = "";
             foreach (var c in allowedSymbols)
             {
@@ -120,10 +120,10 @@ namespace SpectrumLook.Builders
             var badSymbolMap = new Dictionary<char, char>();
 
             // Add the modifications if needed.
-            if (m_modificationList != null)
+            if (mModificationList != null)
             {
                 mMolecularWeightTool.Peptide.RemoveAllModificationSymbols(); // Remove the default MWT modification symbols
-                foreach (var modPair in m_modificationList)
+                foreach (var modPair in mModificationList)
                 {
                     // Key is symbol, value is mzValue
                     var modComment = string.Empty;
@@ -184,8 +184,8 @@ namespace SpectrumLook.Builders
             var theoryList = new List<KeyValuePair<string, double>>();
 
             double nTerminusResidueMass = 0;
-            if (m_deNovoTableB.ContainsKey(peptide[0]))
-                nTerminusResidueMass = m_deNovoTableB[peptide[0]];
+            if (mDeNovoTableB.ContainsKey(peptide[0]))
+                nTerminusResidueMass = mDeNovoTableB[peptide[0]];
 
             // Generate the first b or c ion, as 1+, 2+, and 3+
             for (var charge = 1; charge <= 3; charge++)
@@ -205,8 +205,8 @@ namespace SpectrumLook.Builders
             var cTermMassesAdded = false;
 
             double cTerminusResidueMass = 0;
-            if (m_deNovoTableB.ContainsKey(peptide.Last()))
-                cTerminusResidueMass = m_deNovoTableB[peptide.Last()];
+            if (mDeNovoTableB.ContainsKey(peptide.Last()))
+                cTerminusResidueMass = mDeNovoTableB[peptide.Last()];
 
             // Generate every other ion except the last of the b or c ion series
             for (var i = 0; i < fragSpectrum.Count; i++)

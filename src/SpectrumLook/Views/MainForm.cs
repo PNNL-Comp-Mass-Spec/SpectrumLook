@@ -10,37 +10,34 @@ namespace SpectrumLook.Views
     // TODO : Need to inherit from IObserver and override the Update function! Otherwise the options will not update properly.
     public partial class MainForm : Form, IObserver
     {
-        private readonly Manager m_manager;
+        private readonly Manager mManager;
 
-        public MainFormOptions m_currentOptions;
+        public MainFormOptions mCurrentOptions;
         private const string PROGRAM_DATE = "March 29, 2021";
 
         public MainForm()
         {
             InitializeComponent();
 
-            m_currentOptions = new MainFormOptions();
+            mCurrentOptions = new MainFormOptions();
 
-            m_manager = new Manager(this);
+            mManager = new Manager(this);
 
             // Fragment Ladder
-            panelFragmentLadder.Controls.Add(m_manager.m_fragLadder);
-            panelFragmentLadder.Controls[m_manager.m_fragLadder.Name].Dock = DockStyle.Fill;
+            panelFragmentLadder.Controls.Add(mManager.mFragmentationLadder);
+            panelFragmentLadder.Controls[mManager.mFragmentationLadder.Name].Dock = DockStyle.Fill;
 
             panelFragmentLadder.Resize += panel_Resize;
 
             // Data View
-            panelDataView.Controls.Add(m_manager.m_dataView);
-            panelDataView.Controls[m_manager.m_dataView.Name].Dock = DockStyle.Fill;
+            panelDataView.Controls.Add(mManager.mDataView);
+            panelDataView.Controls[mManager.mDataView.Name].Dock = DockStyle.Fill;
             panelDataView.Resize += panel_Resize;
 
             // Plot
-            panelPlot.Controls.Add(m_manager.m_plot);
-            panelPlot.Controls[m_manager.m_plot.Name].Dock = DockStyle.Fill;
+            panelPlot.Controls.Add(mManager.mPlot);
+            panelPlot.Controls[mManager.mPlot.Name].Dock = DockStyle.Fill;
             panelPlot.Resize += panel_Resize;
-
-            //// FileOpen
-            //// FileOpen = new OpenMenu();
 
             splitContainer2.IsSplitterFixed = false;
             splitContainer2.BorderStyle = BorderStyle.FixedSingle;
@@ -83,40 +80,40 @@ namespace SpectrumLook.Views
         /// </summary>
         private void MainForm_KeyDown(object sender, KeyEventArgs e)
         {
-            m_manager.HandleKeyboardShortcuts(e);
+            mManager.HandleKeyboardShortcuts(e);
         }
 
         private void detachPlotFromMainForm()
         {
             Point pointOnTheScreen;
-            if (!m_currentOptions.isPlotInMainForm)
+            if (!mCurrentOptions.IsPlotInMainForm)
             {
-                if (panelPlot.Controls.Contains(m_manager.m_plot))
+                if (panelPlot.Controls.Contains(mManager.mPlot))
                 {
-                    pointOnTheScreen = m_manager.m_plot.PointToScreen(m_manager.m_plot.Location);
-                    panelPlot.Controls.Remove(m_manager.m_plot);
-                    m_manager.m_plot.Hide();
-                    m_manager.m_plot.FormBorderStyle = FormBorderStyle.SizableToolWindow;
-                    m_manager.m_plot.TopLevel = true;
-                    m_manager.m_plot.ShowInTaskbar = true;// false;
-                    m_manager.m_plot.ShowIcon = false;
-                    m_manager.m_plot.ControlBox = true;// false;
-                    m_manager.m_plot.FormClosing += m_plot_FormClosing;
-                    m_manager.m_plot.Location = pointOnTheScreen;
+                    pointOnTheScreen = mManager.mPlot.PointToScreen(mManager.mPlot.Location);
+                    panelPlot.Controls.Remove(mManager.mPlot);
+                    mManager.mPlot.Hide();
+                    mManager.mPlot.FormBorderStyle = FormBorderStyle.SizableToolWindow;
+                    mManager.mPlot.TopLevel = true;
+                    mManager.mPlot.ShowInTaskbar = true;// false;
+                    mManager.mPlot.ShowIcon = false;
+                    mManager.mPlot.ControlBox = true;// false;
+                    mManager.mPlot.FormClosing += PlotForm_Closing;
+                    mManager.mPlot.Location = pointOnTheScreen;
                 }
                 MainForm_Resize(this, null);
-                m_manager.m_plot.Show();
+                mManager.mPlot.Show();
             }
-            else if (m_currentOptions.isPlotInMainForm && !(panelPlot.Controls.Contains(m_manager.m_plot)))
+            else if (mCurrentOptions.IsPlotInMainForm && !(panelPlot.Controls.Contains(mManager.mPlot)))
             {
-                m_manager.m_plot.TopLevel = false;
-                m_manager.m_plot.FormBorderStyle = FormBorderStyle.None;
-                m_manager.m_plot.Location = new Point(0, 0); // Sets it to the corner of the screen... May need to save the original location though.
-                m_manager.m_plot.Hide();
-                panelPlot.Controls.Add(m_manager.m_plot);
-                panelPlot.Controls[m_manager.m_plot.Name].Dock = DockStyle.Fill;
+                mManager.mPlot.TopLevel = false;
+                mManager.mPlot.FormBorderStyle = FormBorderStyle.None;
+                mManager.mPlot.Location = new Point(0, 0); // Sets it to the corner of the screen... May need to save the original location though.
+                mManager.mPlot.Hide();
+                panelPlot.Controls.Add(mManager.mPlot);
+                panelPlot.Controls[mManager.mPlot.Name].Dock = DockStyle.Fill;
                 MainForm_Resize(this, null);
-                m_manager.m_plot.Show();
+                mManager.mPlot.Show();
             }
         }
 
@@ -126,19 +123,19 @@ namespace SpectrumLook.Views
             // cmdShowHideFragmentIons.Location = new Point(splitContainer2.Panel1.Left + 4, splitContainer2.Panel1.Top + cmdShowHideFragmentIons.Height / 4);
         }
 
-        private void m_plot_FormClosing(object sender, FormClosingEventArgs e)
+        private void PlotForm_Closing(object sender, FormClosingEventArgs e)
         {
             e.Cancel = true;
-            m_currentOptions.isPlotInMainForm = true;
+            mCurrentOptions.IsPlotInMainForm = true;
             // detachPlotFromMainForm();
         }
 
-        private void splitContainer1_SplitterMoved(object sender, SplitterEventArgs e)
+        private void SplitContainer1_SplitterMoved(object sender, SplitterEventArgs e)
         {
             MoveCollapseButton();
         }
 
-        private void splitContainer2_SplitterMoved(object sender, SplitterEventArgs e)
+        private void SplitContainer2_SplitterMoved(object sender, SplitterEventArgs e)
         {
             MoveCollapseButton();
         }
@@ -147,7 +144,7 @@ namespace SpectrumLook.Views
         {
             // if (cmdShowHideFragmentIons.Text == "<<")
             //{
-            //    if (m_currentOptions != null && m_currentOptions.isPlotInMainForm)
+            //    if (mCurrentOptions != null && mCurrentOptions.IsPlotInMainForm)
             //    {
             //        splitContainer2.Panel2Collapsed = false;
             //        splitContainer2.SplitterDistance = 420;
@@ -159,7 +156,7 @@ namespace SpectrumLook.Views
             //        splitContainer2.SplitterDistance = splitContainer1.Width;
             //        cmdShowHideFragmentIons.Location = new Point(((splitContainer1.Width - cmdShowHideFragmentIons.Width) - 5), 2);
             //    }
-            //    // m_manager.m_fragmentLadder.Width = cmdShowHideFragmentIons.Location.X;
+            //    // mManager.mFragmentLadder.Width = cmdShowHideFragmentIons.Location.X;
             //}
             // if (cmdShowHideFragmentIons.Text == ">>")
             //{
@@ -168,21 +165,21 @@ namespace SpectrumLook.Views
             //}
 
             // panelFragmentLadder.Height = splitContainer2.Panel1.Height;
-            //// m_manager.m_fragmentLadder.Height = splitContainer2.Panel1.Height;
+            // mManager.mFragmentLadder.Height = splitContainer2.Panel1.Height;
 
             // MoveCollapseButton();
 
             // panelDataView.Height = splitContainer1.Panel1.Height;
             // panelDataView.Width = splitContainer1.Panel1.Width;
 
-            // if (m_currentOptions != null && m_currentOptions.isPlotInMainForm) // This is so that the resize doesn't try to resize the plot window when it is detached.
+            // if (mCurrentOptions != null && mCurrentOptions.IsPlotInMainForm) // This is so that the resize doesn't try to resize the plot window when it is detached.
             //{
             //    panelPlot.Height = splitContainer2.Panel2.Height;
             //    panelPlot.Width = splitContainer2.Panel2.Width;
             //}
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void Button1_Click(object sender, EventArgs e)
         {
             /*
             if (cmdShowHideFragmentIons.Text == "<<")
@@ -191,12 +188,12 @@ namespace SpectrumLook.Views
                 panelFragmentLadder.Visible = false;
                 cmdShowHideFragmentIons.Location = new Point(0, 2);
                 cmdShowHideFragmentIons.Text = ">>";
-                if (m_currentOptions.isPlotInMainForm)
+                if (mCurrentOptions.IsPlotInMainForm)
                 {
                     panelPlot.Height = splitContainer2.Panel2.Height;
                     panelPlot.Width = splitContainer2.Panel2.Width;
-                    m_manager.m_plot.Height = splitContainer2.Panel2.Height;
-                    m_manager.m_plot.Width = splitContainer2.Panel2.Width;
+                    mManager.mPlot.Height = splitContainer2.Panel2.Height;
+                    mManager.mPlot.Width = splitContainer2.Panel2.Width;
                 }
             }
             else
@@ -209,43 +206,43 @@ namespace SpectrumLook.Views
              */
         }
 
-        private void openToolStripMenuItem_Click(object sender, EventArgs e)
+        private void OpenToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            m_manager.RunOpenDialog();
+            mManager.RunOpenDialog();
         }
 
-        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MainForm_FormClosing(sender, null);
             Environment.Exit(0);
         }
 
-        private void plottingToolStripMenuItem_Click(object sender, EventArgs e)
+        private void PlottingToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            m_manager.OpenOptionsMenu("Plot Options");
+            mManager.OpenOptionsMenu("Plot Options");
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            m_manager.HandleSaveWorkFile("");
+            mManager.HandleSaveWorkFile("");
         }
 
-        private void optionsToolStripMenuItem1_Click(object sender, EventArgs e)
+        private void OptionsToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            m_manager.OpenOptionsMenu("General Options");
+            mManager.OpenOptionsMenu("General Options");
         }
 
-        private void fragmentLadderToolStripMenuItem1_Click(object sender, EventArgs e)
+        private void FragmentLadderToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            m_manager.OpenOptionsMenu("Fragment Ladder Options");
+            mManager.OpenOptionsMenu("Fragment Ladder Options");
         }
 
-        private void dataViewToolStripMenuItem1_Click(object sender, EventArgs e)
+        private void DataViewToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            m_manager.OpenOptionsMenu("Data View Options");
+            mManager.OpenOptionsMenu("Data View Options");
         }
 
-        private void globalOptionsHiding(object sender, EventArgs e)
+        private void GlobalOptionsHiding(object sender, EventArgs e)
         {
             // if (((MainFormOptions)sender).Visible == false)
             //{
@@ -253,17 +250,18 @@ namespace SpectrumLook.Views
             //}
         }
 
-        private void saveWorkStripMenuItem_Click(object sender, EventArgs e)
+        private void SaveWorkStripMenuItem_Click(object sender, EventArgs e)
         {
-            var saveWorkFileDialog = new SaveFileDialog();
-            saveWorkFileDialog.Filter = "SpectrumLook Work File (*.slwf)|*.slwf|All Files (*.*)|*.*";
-            saveWorkFileDialog.Title = "Save Work File";
+            var saveWorkFileDialog = new SaveFileDialog
+            {
+                Filter = "SpectrumLook Work File (*.slwf)|*.slwf|All Files (*.*)|*.*", Title = "Save Work File"
+            };
 
             try
             {
                 if (saveWorkFileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    m_manager.HandleSaveWorkFile(saveWorkFileDialog.FileName);
+                    mManager.HandleSaveWorkFile(saveWorkFileDialog.FileName);
                 }
             }
             catch (Exception ex)
@@ -284,7 +282,7 @@ namespace SpectrumLook.Views
             {
                 if (openWorkFileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    m_manager.HandleOpenWorkFile(openWorkFileDialog.FileName);
+                   mManager.HandleOpenWorkFile(openWorkFileDialog.FileName);
                 }
             }
             catch (Exception ex)
@@ -295,9 +293,9 @@ namespace SpectrumLook.Views
 
         private void SavePlotsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (m_manager.SynopsisLoaded)
+            if (mManager.SynopsisLoaded)
             {
-                var batchSaveForm = new BatchSaveForm(m_manager);
+                var batchSaveForm = new BatchSaveForm(mManager);
                 batchSaveForm.Show();
             }
             else
@@ -308,10 +306,10 @@ namespace SpectrumLook.Views
 
         public void UpdateObserver()
         {
-            // TODO: add code that updates the options in main form
+
             detachPlotFromMainForm();
-            // TODO: add code to regenerate fragmentLadder possibly horizontally
-            m_manager.m_fragLadder.regenerateLadderFromSelection();
+
+            mManager.mFragmentationLadder.RegenerateLadderFromSelection();
         }
     }
 }

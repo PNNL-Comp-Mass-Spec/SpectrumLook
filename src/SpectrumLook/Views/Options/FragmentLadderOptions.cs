@@ -6,73 +6,73 @@ namespace SpectrumLook.Views.Options
     [Serializable]
     public class FragmentLadderOptions : Subject
     {
-        private Dictionary<char, double> m_modificationList;
+        private Dictionary<char, double> mModificationList;
 
-        private List<string> m_checkedHeaders;
+        private List<string> mCheckedHeaders;
 
-        private bool m_ammoniaLoss;
+        private bool mAmmoniaLoss;
 
-        private bool m_waterLoss;
+        private bool mWaterLoss;
 
-        private int m_precision;
+        private int mPrecision;
 
-        public Dictionary<char, double> modificationList
+        public Dictionary<char, double> ModificationList
         {
-            get => m_modificationList;
+            get => mModificationList;
             set
             {
                 // This is a property that does need to be synced.
                 Invoke();
-                m_modificationList = value;
+                mModificationList = value;
             }
         }
 
-        public List<string> checkedHeaders
+        public List<string> CheckedHeaders
         {
-            get => m_checkedHeaders;
+            get => mCheckedHeaders;
             set
             {
                 // This is a property that does not need to be synced.
                 Invoke();
-                m_checkedHeaders = value;
+                mCheckedHeaders = value;
             }
         }
 
-        public bool ammoniaLoss
+        public bool AmmoniaLoss
         {
-            get => m_ammoniaLoss;
+            get => mAmmoniaLoss;
             set
             {
                 Invoke();
-                m_ammoniaLoss = value;
+                mAmmoniaLoss = value;
             }
         }
 
-        public bool waterLoss
+        public bool WaterLoss
         {
-            get => m_waterLoss;
+            get => mWaterLoss;
             set
             {
                 Invoke();
-                m_waterLoss = value;
+                mWaterLoss = value;
             }
         }
 
-        public int precision
+        public int Precision
         {
-            get => m_precision;
+            get => mPrecision;
             set
             {
                 Invoke();
-                m_precision = value;
+                mPrecision = value;
             }
         }
 
         public FragmentLadderOptions()
         {
-            m_modificationList = new Dictionary<char, double>();
-            m_checkedHeaders = new List<string>();
-            m_checkedHeaders.AddRange(new string[] {
+            mModificationList = new Dictionary<char, double>();
+            mCheckedHeaders = new List<string>();
+            mCheckedHeaders.AddRange(new string[] {
                 "b",
                 "b++",
                 "y",
@@ -82,11 +82,11 @@ namespace SpectrumLook.Views.Options
 
         public FragmentLadderOptions(FragmentLadderOptions rhsOptions)
         {
-            m_modificationList = rhsOptions.m_modificationList;
-            m_checkedHeaders = rhsOptions.m_checkedHeaders;
-            m_ammoniaLoss = rhsOptions.ammoniaLoss;
-            m_waterLoss = rhsOptions.waterLoss;
-            m_precision = rhsOptions.m_precision;
+            mModificationList = rhsOptions.mModificationList;
+            mCheckedHeaders = rhsOptions.mCheckedHeaders;
+            mAmmoniaLoss = rhsOptions.AmmoniaLoss;
+            mWaterLoss = rhsOptions.WaterLoss;
+            mPrecision = rhsOptions.mPrecision;
         }
     }
 }

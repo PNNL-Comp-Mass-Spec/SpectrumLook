@@ -5,28 +5,28 @@ namespace SpectrumLook.Views.PlotView
 {
     public partial class AnnotationEdit : Form
     {
-        public Annotation m_annotation
+        public Annotation mAnnotation
         {
             get;
             set;
         }
 
-        private readonly Annotation m_originalAnnotation;
-        private Annotation m_modifiedAnnotation;
+        private readonly Annotation mOriginalAnnotation;
+        private Annotation mModifiedAnnotation;
 
         public AnnotationEdit(Annotation annotation)
         {
             InitializeComponent();
 
-            m_originalAnnotation = annotation;
-            m_modifiedAnnotation = annotation;
+            mOriginalAnnotation = annotation;
+            mModifiedAnnotation = annotation;
 
-            textBox1.Text = m_originalAnnotation.m_text;
-            if (m_modifiedAnnotation.m_showHideAuto > 0)
+            textBox1.Text = mOriginalAnnotation.mText;
+            if (mModifiedAnnotation.mShowHideAuto > 0)
             {
                 radioButtonVisibleAlways.Checked = true;
             }
-            else if (m_modifiedAnnotation.m_showHideAuto < 0)
+            else if (mModifiedAnnotation.mShowHideAuto < 0)
             {
                 radioButtonVisibleNever.Checked = true;
             }
@@ -42,11 +42,11 @@ namespace SpectrumLook.Views.PlotView
         {
             if (DialogResult == DialogResult.OK)
             {
-                m_annotation = m_modifiedAnnotation;
+                mAnnotation = mModifiedAnnotation;
             }
             else
             {
-                m_annotation = m_originalAnnotation;
+                mAnnotation = mOriginalAnnotation;
             }
         }
 
@@ -64,23 +64,23 @@ namespace SpectrumLook.Views.PlotView
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            m_modifiedAnnotation.m_text = textBox1.Text;
+            mModifiedAnnotation.mText = textBox1.Text;
         }
 
         private void checkBoxVisibleYes_CheckedChanged(object sender, EventArgs e)
         {
             if (radioButtonVisibleAlways.Checked)
             {
-                m_modifiedAnnotation.m_showHideAuto = 1;
+                mModifiedAnnotation.mShowHideAuto = 1;
             }
             // if (checkBoxVisibleYes.Checked == true)
             //{
-            //    m_modifiedAnnotation.m_showHideAuto = 1;
+            //    mModifiedAnnotation.mShowHideAuto = 1;
             //    checkBoxVisibleNo.Checked = false;
             //}
             // else if (checkBoxVisibleNo.Checked == false) // both checkboxes are false
             //{
-            //    m_modifiedAnnotation.m_showHideAuto = 0;
+            //    mModifiedAnnotation.mShowHideAuto = 0;
             //}
         }
 
@@ -88,16 +88,16 @@ namespace SpectrumLook.Views.PlotView
         {
             if (radioButtonVisibleNever.Checked)
             {
-                m_modifiedAnnotation.m_showHideAuto = -1;
+                mModifiedAnnotation.mShowHideAuto = -1;
             }
             // if (checkBoxVisibleNo.Checked == true)
             //{
-            //    m_modifiedAnnotation.m_showHideAuto = -1;
+            //    mModifiedAnnotation.mShowHideAuto = -1;
             //    checkBoxVisibleYes.Checked = false;
             //}
             // else if (checkBoxVisibleYes.Checked == false) // both checkboxes are false
             //{
-            //    m_modifiedAnnotation.m_showHideAuto = 0;
+            //    mModifiedAnnotation.mShowHideAuto = 0;
             //}
         }
 
@@ -105,15 +105,15 @@ namespace SpectrumLook.Views.PlotView
         {
             if (radioButtonVisibleAuto.Checked)
             {
-                m_modifiedAnnotation.m_showHideAuto = 0;
+                mModifiedAnnotation.mShowHideAuto = 0;
             }
         }
 
         private void buttonResetAnnotation_Click(object sender, EventArgs e)
         {
-            if (m_originalAnnotation.m_point.Tag != null)
+            if (mOriginalAnnotation.mPoint.Tag != null)
             {
-                textBox1.Text = m_originalAnnotation.m_point.Tag.ToString();
+                textBox1.Text = mOriginalAnnotation.mPoint.Tag.ToString();
             }
             else
             {

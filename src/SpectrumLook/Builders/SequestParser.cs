@@ -13,7 +13,7 @@ namespace SpectrumLook.Builders
         /// <summary>
         /// This is used to read from the input file.
         /// </summary>
-        private readonly TextReader m_fileReader;
+        private readonly TextReader mFileReader;
 
         /// <summary>
         /// This is used to store the current row count when reading from the file.
@@ -28,16 +28,16 @@ namespace SpectrumLook.Builders
         /// is null or is an unreadable file location then an error will
         /// be thrown.
         /// </summary>
-        /// <param name="fileLocation">The location of the sequest file. (.txt format)</param>
-        public SequestParser(string fileLocation)
+        /// <param name="filePath">The location of the sequest file. (.txt format)</param>
+        public SequestParser(string filePath)
         {
             currentRowCount = 0;
 
-            if (fileLocation != null)
+            if (filePath != null)
             {
                 try
                 {
-                    m_fileReader = File.OpenText(fileLocation);
+                    mFileReader = File.OpenText(filePath);
                 }
                 catch (Exception e)
                 {
@@ -46,7 +46,7 @@ namespace SpectrumLook.Builders
             }
             else
             {
-                throw new InvalidProgramException("Null fileLocation Value.");
+                throw new InvalidProgramException("Null filePath Value.");
                 // Throw Exception.
             }
         }
@@ -62,12 +62,12 @@ namespace SpectrumLook.Builders
         /// <returns></returns>
         string[] ISynopsisParser.GetNextRow()
         {
-            var currentLine = m_fileReader.ReadLine();
+            var currentLine = mFileReader.ReadLine();
             if (!string.IsNullOrEmpty(currentLine))
             {
                 var splicedRow = currentLine.Split('\t');
                 // This is where add "_p" and "_s" to the row that signifies the peptide sequence and connection to experiment data.
-                /*if (m_currentRowCount == 0) // if zero then we are currently looking at the headers of the columns
+                /*if (mCurrentRowCount == 0) // if zero then we are currently looking at the headers of the columns
                 {
                     splicedRow[1] = splicedRow[1] + "_s";
                     splicedRow[10] = splicedRow[10] + "_p";

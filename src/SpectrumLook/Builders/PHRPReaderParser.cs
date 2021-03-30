@@ -9,24 +9,24 @@ namespace SpectrumLook.Builders
 {
     public class PHRPReaderParser : ISynopsisParser
     {
-        private readonly ReaderFactory m_reader;
-        private readonly FragmentLadderOptions m_fragLadderOptions;
-        private bool m_firstRead = true;
-        private readonly int m_peptideColumnIndex;
-        private readonly string[] m_firstLine;
+        private readonly ReaderFactory mReader;
+        private readonly FragmentLadderOptions mFragmentationLadderOptions;
+        private bool mFirstRead = true;
+        private readonly int mPeptideColumnIndex;
+        private readonly string[] mFirstLine;
 
         public PHRPReaderParser(string synopsisFilePath, FragmentLadderOptions fragLadderOptions)
         {
-            m_fragLadderOptions = fragLadderOptions;
-            m_fragLadderOptions.modificationList.Clear();
+            mFragmentationLadderOptions = fragLadderOptions;
+            mFragmentationLadderOptions.ModificationList.Clear();
             using (var reader = new StreamReader(synopsisFilePath))
             {
-                m_firstLine = reader.ReadLine().Split('\t');
-                for (var i = 0; i < m_firstLine.Length; i++)
+                mFirstLine = reader.ReadLine().Split('\t');
+                for (var i = 0; i < mFirstLine.Length; i++)
                 {
-                    if (m_firstLine[i] == "Peptide")
+                    if (mFirstLine[i] == "Peptide")
                     {
-                        m_peptideColumnIndex = i;
+                        mPeptideColumnIndex = i;
                         break;
                     }
                 }
@@ -38,32 +38,32 @@ namespace SpectrumLook.Builders
                 LoadScanStatsData = false,
                 MaxProteinsPerPSM = 100
             };
-            m_reader = new ReaderFactory(synopsisFilePath, startupOptions)
+            mReader = new ReaderFactory(synopsisFilePath, startupOptions)
             {
-                // m_reader.FastReadMode = true;
+                // mReader.FastReadMode = true;
                 SkipDuplicatePSMs = true
             };
         }
 
         public string[] GetNextRow()
         {
-            if (m_firstRead)
+            if (mFirstRead)
             {
-                m_firstRead = false;
-                return m_firstLine;
+                mFirstRead = false;
+                return mFirstLine;
             }
-            if (m_reader.MoveNext())
+            if (mReader.MoveNext())
             {
-                var line = m_reader.CurrentPSM.DataLineText;
-                var residues = m_reader.CurrentPSM.ModifiedResidues;
-                var cleanSequence = m_reader.CurrentPSM.PeptideCleanSequence;
+                var line = mReader.CurrentPSM.DataLineText;
+                var residues = mReader.CurrentPSM.ModifiedResidues;
+                var cleanSequence = mReader.CurrentPSM.PeptideCleanSequence;
                 var splitLine = line.Split('\t');
 
                 var modPeptide = PeptideWithAllMods(cleanSequence, residues);
                 PeptideCleavageStateCalculator.SplitPrefixAndSuffixFromSequence(
-                    m_reader.CurrentPSM.Peptide, out var sequence, out var prefix, out var suffix);
+                    mReader.CurrentPSM.Peptide, out var sequence, out var prefix, out var suffix);
 
-                splitLine[m_peptideColumnIndex] = prefix + "." + modPeptide + "." + suffix;
+                splitLine[mPeptideColumnIndex] = prefix + "." + modPeptide + "." + suffix;
 
                 return splitLine;
             }
@@ -78,10 +78,10 @@ namespace SpectrumLook.Builders
             foreach (var modInfo in residues)
             {
                 var modSym = modInfo.ModDefinition.ModificationSymbol;
-                if (!m_fragLadderOptions.modificationList.ContainsKey(modSym))
+                if (!mFragmentationLadderOptions.ModificationList.ContainsKey(modSym))
                 {
                     var modMass = modInfo.ModDefinition.ModificationMass;
-                    m_fragLadderOptions.modificationList.Add(modSym, modMass);
+                    mFragmentationLadderOptions.ModificationList.Add(modSym, modMass);
                 }
             }
 

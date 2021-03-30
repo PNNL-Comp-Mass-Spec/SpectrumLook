@@ -39,7 +39,7 @@
             this.plotAnnotationOptionsGroup = new System.Windows.Forms.GroupBox();
             this.plotChangeColorOpenButton = new System.Windows.Forms.Button();
             this.plotAnnotationColor = new System.Windows.Forms.Panel();
-            this.plotAnnotatioColorLabel = new System.Windows.Forms.Label();
+            this.plotAnnotationColorLabel = new System.Windows.Forms.Label();
             this.plotTextSize = new System.Windows.Forms.TextBox();
             this.plotAnnotationTextSizeLabel = new System.Windows.Forms.Label();
             this.plotAnnotationPercentLabel2 = new System.Windows.Forms.Label();
@@ -162,7 +162,7 @@
             this.mainDetachPlotCheckBox.TabIndex = 14;
             this.mainDetachPlotCheckBox.Text = "Detach Plot";
             this.mainDetachPlotCheckBox.UseVisualStyleBackColor = true;
-            this.mainDetachPlotCheckBox.CheckedChanged += new System.EventHandler(this.mainDetachPlotCheckBox_CheckedChanged_1);
+            this.mainDetachPlotCheckBox.CheckedChanged += new System.EventHandler(this.MainDetachPlotCheckBox_CheckedChanged_1);
             //
             // multiplePlotGroup
             //
@@ -196,7 +196,7 @@
             //
             this.plotAnnotationOptionsGroup.Controls.Add(this.plotChangeColorOpenButton);
             this.plotAnnotationOptionsGroup.Controls.Add(this.plotAnnotationColor);
-            this.plotAnnotationOptionsGroup.Controls.Add(this.plotAnnotatioColorLabel);
+            this.plotAnnotationOptionsGroup.Controls.Add(this.plotAnnotationColorLabel);
             this.plotAnnotationOptionsGroup.Controls.Add(this.plotTextSize);
             this.plotAnnotationOptionsGroup.Controls.Add(this.plotAnnotationTextSizeLabel);
             this.plotAnnotationOptionsGroup.Controls.Add(this.plotAnnotationPercentLabel2);
@@ -217,7 +217,7 @@
             this.plotChangeColorOpenButton.TabIndex = 12;
             this.plotChangeColorOpenButton.Text = "Change Color";
             this.plotChangeColorOpenButton.UseVisualStyleBackColor = true;
-            this.plotChangeColorOpenButton.Click += new System.EventHandler(this.plotChangeColorOpenButton_Click);
+            this.plotChangeColorOpenButton.Click += new System.EventHandler(this.PlotChangeColorOpenButton_Click);
             //
             // plotAnnotationColor
             //
@@ -227,14 +227,14 @@
             this.plotAnnotationColor.Size = new System.Drawing.Size(15, 15);
             this.plotAnnotationColor.TabIndex = 11;
             //
-            // plotAnnotatioColorLabel
+            // plotAnnotationColorLabel
             //
-            this.plotAnnotatioColorLabel.AutoSize = true;
-            this.plotAnnotatioColorLabel.Location = new System.Drawing.Point(14, 70);
-            this.plotAnnotatioColorLabel.Name = "plotAnnotatioColorLabel";
-            this.plotAnnotatioColorLabel.Size = new System.Drawing.Size(31, 13);
-            this.plotAnnotatioColorLabel.TabIndex = 5;
-            this.plotAnnotatioColorLabel.Text = "Color";
+            this.plotAnnotationColorLabel.AutoSize = true;
+            this.plotAnnotationColorLabel.Location = new System.Drawing.Point(14, 70);
+            this.plotAnnotationColorLabel.Name = "plotAnnotationColorLabel";
+            this.plotAnnotationColorLabel.Size = new System.Drawing.Size(31, 13);
+            this.plotAnnotationColorLabel.TabIndex = 5;
+            this.plotAnnotationColorLabel.Text = "Color";
             //
             // plotTextSize
             //
@@ -242,7 +242,7 @@
             this.plotTextSize.Name = "plotTextSize";
             this.plotTextSize.Size = new System.Drawing.Size(31, 20);
             this.plotTextSize.TabIndex = 10;
-            this.plotTextSize.Leave += new System.EventHandler(this.plotTextSize_TextChanged);
+            this.plotTextSize.Leave += new System.EventHandler(this.PlotTextSize_TextChanged);
             //
             // plotAnnotationTextSizeLabel
             //
@@ -268,7 +268,7 @@
             this.plotAnnotationPercentBox.Name = "plotAnnotationPercentBox";
             this.plotAnnotationPercentBox.Size = new System.Drawing.Size(29, 20);
             this.plotAnnotationPercentBox.TabIndex = 9;
-            this.plotAnnotationPercentBox.Leave += new System.EventHandler(this.plotAnnotationPercentBox_TextChanged);
+            this.plotAnnotationPercentBox.Leave += new System.EventHandler(this.PlotAnnotationPercentBox_TextChanged);
             //
             // plotAnnotationPercentLabel1
             //
@@ -312,7 +312,7 @@
             this.plotFragLadderSelectBox.Name = "plotFragLadderSelectBox";
             this.plotFragLadderSelectBox.Size = new System.Drawing.Size(100, 20);
             this.plotFragLadderSelectBox.TabIndex = 8;
-            this.plotFragLadderSelectBox.Leave += new System.EventHandler(this.plotFragLadderSelectBox_TextChanged);
+            this.plotFragLadderSelectBox.Leave += new System.EventHandler(this.PlotFragLadderSelectBox_TextChanged);
             //
             // plotFragLadderSelectLabel
             //
@@ -339,7 +339,7 @@
             this.plotUnzoomKeyComboBox.Name = "plotUnzoomKeyComboBox";
             this.plotUnzoomKeyComboBox.Size = new System.Drawing.Size(121, 21);
             this.plotUnzoomKeyComboBox.TabIndex = 7;
-            this.plotUnzoomKeyComboBox.Leave += new System.EventHandler(this.plotUnzoomKeyComboBox_Leave);
+            this.plotUnzoomKeyComboBox.Leave += new System.EventHandler(this.PlotUnzoomKeyComboBox_Leave);
             //
             // plotBoxZoom
             //
@@ -351,7 +351,7 @@
             this.plotBoxZoom.TabStop = true;
             this.plotBoxZoom.Text = "Box Zoom";
             this.plotBoxZoom.UseVisualStyleBackColor = true;
-            this.plotBoxZoom.CheckedChanged += new System.EventHandler(this.plotBoxZoom_CheckedChanged);
+            this.plotBoxZoom.CheckedChanged += new System.EventHandler(this.PlotBoxZoom_CheckedChanged);
             //
             // plotHorizontalZoom
             //
@@ -363,7 +363,7 @@
             this.plotHorizontalZoom.TabStop = true;
             this.plotHorizontalZoom.Text = "Horizontal Zoom";
             this.plotHorizontalZoom.UseVisualStyleBackColor = true;
-            this.plotHorizontalZoom.CheckedChanged += new System.EventHandler(this.plotHorizontalZoom_CheckedChanged);
+            this.plotHorizontalZoom.CheckedChanged += new System.EventHandler(this.PlotHorizontalZoom_CheckedChanged);
             //
             // plotGeneralOptionsGroup
             //
@@ -387,7 +387,7 @@
             this.plotHidePlotTools.TabIndex = 3;
             this.plotHidePlotTools.Text = "Hide Plot Tools Area";
             this.plotHidePlotTools.UseVisualStyleBackColor = true;
-            this.plotHidePlotTools.CheckedChanged += new System.EventHandler(this.checkBoxHidePlotTools_CheckedChanged);
+            this.plotHidePlotTools.CheckedChanged += new System.EventHandler(this.CheckBoxHidePlotTools_CheckedChanged);
             //
             // plotHideUnmatchedData
             //
@@ -399,7 +399,7 @@
             this.plotHideUnmatchedData.Text = "Hide Unmatched Data in Plot";
             this.plotHideUnmatchedData.UseVisualStyleBackColor = true;
             this.plotHideUnmatchedData.Visible = false;
-            this.plotHideUnmatchedData.CheckedChanged += new System.EventHandler(this.plotHideUnmatchedData_CheckedChanged);
+            this.plotHideUnmatchedData.CheckedChanged += new System.EventHandler(this.PlotHideUnmatchedData_CheckedChanged);
             //
             // plotSnappingCursor
             //
@@ -410,7 +410,7 @@
             this.plotSnappingCursor.TabIndex = 2;
             this.plotSnappingCursor.Text = "Show Snapping Cursor";
             this.plotSnappingCursor.UseVisualStyleBackColor = true;
-            this.plotSnappingCursor.CheckedChanged += new System.EventHandler(this.plotSnappingCursor_CheckedChanged);
+            this.plotSnappingCursor.CheckedChanged += new System.EventHandler(this.PlotSnappingCursor_CheckedChanged);
             //
             // plotShowLegend
             //
@@ -421,7 +421,7 @@
             this.plotShowLegend.TabIndex = 0;
             this.plotShowLegend.Text = "Show Legend";
             this.plotShowLegend.UseVisualStyleBackColor = true;
-            this.plotShowLegend.CheckedChanged += new System.EventHandler(this.plotShowLegend_CheckedChanged);
+            this.plotShowLegend.CheckedChanged += new System.EventHandler(this.PlotShowLegend_CheckedChanged);
             //
             // optionTabsPage
             //
@@ -679,7 +679,7 @@
         private System.Windows.Forms.GroupBox plotAnnotationOptionsGroup;
         private System.Windows.Forms.Button plotChangeColorOpenButton;
         private System.Windows.Forms.Panel plotAnnotationColor;
-        private System.Windows.Forms.Label plotAnnotatioColorLabel;
+        private System.Windows.Forms.Label plotAnnotationColorLabel;
         private System.Windows.Forms.TextBox plotTextSize;
         private System.Windows.Forms.Label plotAnnotationTextSizeLabel;
         private System.Windows.Forms.Label plotAnnotationPercentLabel2;

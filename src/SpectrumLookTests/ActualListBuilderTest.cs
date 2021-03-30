@@ -23,7 +23,7 @@ namespace SpectrumLookTests
         public void ActualListBuilderConstructorTest()
         {
             var scanNumber = 0; // TODO: Initialize to an appropriate value
-            IExperimentParser experimentParser = new MzParser("..\\..\\..\\TestData\\QC_Standards_Excerpt.mzXML"); // TODO: Initialize to an appropriate value
+            IExperimentParser experimentParser = new MzXMLParser("..\\..\\..\\TestData\\QC_Standards_Excerpt.mzXML"); // TODO: Initialize to an appropriate value
             var target = new ActualListBuilder(scanNumber, experimentParser);
             Assert.Inconclusive("TODO: Implement code to verify target");
         }

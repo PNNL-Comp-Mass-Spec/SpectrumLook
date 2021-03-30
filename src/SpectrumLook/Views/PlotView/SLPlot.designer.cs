@@ -149,7 +149,7 @@
             this.trackBarAnnotationPercent.Name = "trackBarAnnotationPercent";
             this.trackBarAnnotationPercent.Size = new System.Drawing.Size(191, 56);
             this.trackBarAnnotationPercent.TabIndex = 0;
-            this.trackBarAnnotationPercent.Scroll += new System.EventHandler(this.trackBarAnnotationPercent_Scroll);
+            this.trackBarAnnotationPercent.Scroll += new System.EventHandler(this.TrackBarAnnotationPercent_Scroll);
             //
             // buttonHidePlotOptions
             //
@@ -160,7 +160,7 @@
             this.buttonHidePlotOptions.Size = new System.Drawing.Size(64, 23);
             this.buttonHidePlotOptions.TabIndex = 0;
             this.buttonHidePlotOptions.UseVisualStyleBackColor = true;
-            this.buttonHidePlotOptions.Click += new System.EventHandler(this.buttonHidePlotOptions_Click);
+            this.buttonHidePlotOptions.Click += new System.EventHandler(this.ButtonHidePlotOptions_Click);
             //
             // buttonDetachPlot
             //
@@ -172,7 +172,7 @@
             this.buttonDetachPlot.TabIndex = 11;
             this.buttonDetachPlot.Text = "Detach Plot";
             this.buttonDetachPlot.UseVisualStyleBackColor = true;
-            this.buttonDetachPlot.Click += new System.EventHandler(this.buttonDetachPlot_Click);
+            this.buttonDetachPlot.Click += new System.EventHandler(this.ButtonDetachPlot_Click);
             //
             // buttonPlotOptions
             //
@@ -184,7 +184,7 @@
             this.buttonPlotOptions.TabIndex = 12;
             this.buttonPlotOptions.Text = "Plot Options";
             this.buttonPlotOptions.UseVisualStyleBackColor = true;
-            this.buttonPlotOptions.Click += new System.EventHandler(this.buttonPlotOptions_Click);
+            this.buttonPlotOptions.Click += new System.EventHandler(this.ButtonPlotOptions_Click);
             //
             // numberOfPlots
             //
@@ -194,7 +194,7 @@
             this.numberOfPlots.Name = "numberOfPlots";
             this.numberOfPlots.Size = new System.Drawing.Size(63, 22);
             this.numberOfPlots.TabIndex = 13;
-            this.numberOfPlots.TextChanged += new System.EventHandler(this.numberOfPlots_TextChanged);
+            this.numberOfPlots.TextChanged += new System.EventHandler(this.NumberOfPlots_TextChanged);
             //
             // label1
             //
@@ -224,7 +224,7 @@
             this.msPlot.ScrollMinY2 = 0D;
             this.msPlot.Size = new System.Drawing.Size(752, 291);
             this.msPlot.TabIndex = 3;
-            this.msPlot.DoubleClick += new System.EventHandler(this.msPlot_DoubleClick);
+            this.msPlot.DoubleClick += new System.EventHandler(this.MsPlot_DoubleClick);
             //
             // SLPlot
             //

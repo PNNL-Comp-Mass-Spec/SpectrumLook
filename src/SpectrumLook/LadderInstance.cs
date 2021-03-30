@@ -8,9 +8,9 @@ namespace SpectrumLook
     /// </summary>
     public struct Annotation
     {
-        public string m_text;
-        public int m_showHideAuto;
-        public PointPair m_point;
+        public string mText;
+        public int mShowHideAuto;
+        public PointPair mPoint;
     }
 
     /// <summary>

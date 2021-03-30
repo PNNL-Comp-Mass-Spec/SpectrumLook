@@ -2,7 +2,6 @@
 
 namespace SpectrumLook.Builders
 {
-    // TODO : Add info on who wrote this. Patrick
     /// <summary>
     /// This interface class defined what functions will be called in spectrumLook to read
     /// The current experiment File (i.e. mzXML, mzML, etc.)
@@ -20,7 +19,7 @@ namespace SpectrumLook.Builders
         /// <returns></returns>
         List<Element> GetExperimentDataByScanNumber(int scanNum);
 
-        string Filename
+        string FilePath
         {
             get;
             set;

@@ -92,7 +92,7 @@
             this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
             this.openToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
             this.openToolStripMenuItem.Text = "&Open";
-            this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
+            this.openToolStripMenuItem.Click += new System.EventHandler(this.OpenToolStripMenuItem_Click);
             //
             // toolStripSeparator1
             //
@@ -105,7 +105,7 @@
             this.saveWorkStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
             this.saveWorkStripMenuItem.Size = new System.Drawing.Size(200, 22);
             this.saveWorkStripMenuItem.Text = "&Save Work File";
-            this.saveWorkStripMenuItem.Click += new System.EventHandler(this.saveWorkStripMenuItem_Click);
+            this.saveWorkStripMenuItem.Click += new System.EventHandler(this.SaveWorkStripMenuItem_Click);
             //
             // openWorkStripMenuItem
             //
@@ -140,7 +140,7 @@
             this.exitToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.X)));
             this.exitToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
             this.exitToolStripMenuItem.Text = "E&xit";
-            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItem_Click);
             //
             // optionsToolStripMenuItem
             //
@@ -157,21 +157,21 @@
             this.optionsToolStripMenuItem1.Name = "optionsToolStripMenuItem1";
             this.optionsToolStripMenuItem1.Size = new System.Drawing.Size(209, 22);
             this.optionsToolStripMenuItem1.Text = "&General Options";
-            this.optionsToolStripMenuItem1.Click += new System.EventHandler(this.optionsToolStripMenuItem1_Click);
+            this.optionsToolStripMenuItem1.Click += new System.EventHandler(this.OptionsToolStripMenuItem1_Click);
             //
             // fragLadderStripMenuItem
             //
             this.fragLadderStripMenuItem.Name = "fragLadderStripMenuItem";
             this.fragLadderStripMenuItem.Size = new System.Drawing.Size(209, 22);
             this.fragLadderStripMenuItem.Text = "Fragment &Ladder Options";
-            this.fragLadderStripMenuItem.Click += new System.EventHandler(this.fragmentLadderToolStripMenuItem1_Click);
+            this.fragLadderStripMenuItem.Click += new System.EventHandler(this.FragmentLadderToolStripMenuItem1_Click);
             //
             // plotStripMenuItem
             //
             this.plotStripMenuItem.Name = "plotStripMenuItem";
             this.plotStripMenuItem.Size = new System.Drawing.Size(209, 22);
             this.plotStripMenuItem.Text = "&Plot Options";
-            this.plotStripMenuItem.Click += new System.EventHandler(this.plottingToolStripMenuItem_Click);
+            this.plotStripMenuItem.Click += new System.EventHandler(this.PlottingToolStripMenuItem_Click);
             //
             // openDlg
             //
@@ -194,7 +194,7 @@
             this.splitContainer1.Size = new System.Drawing.Size(1104, 603);
             this.splitContainer1.SplitterDistance = 218;
             this.splitContainer1.TabIndex = 4;
-            this.splitContainer1.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.splitContainer1_SplitterMoved);
+            this.splitContainer1.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.SplitContainer1_SplitterMoved);
             //
             // panelDataView
             //
@@ -223,7 +223,7 @@
             this.splitContainer2.Size = new System.Drawing.Size(1104, 381);
             this.splitContainer2.SplitterDistance = 495;
             this.splitContainer2.TabIndex = 0;
-            this.splitContainer2.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.splitContainer2_SplitterMoved);
+            this.splitContainer2.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.SplitContainer2_SplitterMoved);
             //
             // panelFragmentLadder
             //
@@ -244,7 +244,7 @@
             this.cmdShowHideFragmentIons.TabIndex = 3;
             this.cmdShowHideFragmentIons.Text = "<<";
             this.cmdShowHideFragmentIons.UseVisualStyleBackColor = true;
-            this.cmdShowHideFragmentIons.Click += new System.EventHandler(this.button1_Click);
+            this.cmdShowHideFragmentIons.Click += new System.EventHandler(this.Button1_Click);
             //
             // panelPlot
             //

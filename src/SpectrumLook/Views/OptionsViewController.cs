@@ -16,51 +16,66 @@ namespace SpectrumLook.Views
         //16-17         Frag Ladder
         //18            Main lower Tolerance Value
         // TODO: THIS DOESN'T WORK FOR ANYTHING BUT PRIMITIVES (MAYBE FOR PRIMITIVES)
-        private object[] m_valuesForCancel;
+        private object[] mValuesForCancel;
 
-        private readonly PlotOptions m_plotOptions;
+        private readonly PlotOptions mPlotOptions;
 
-        private readonly MainFormOptions m_mainFormOptions;
+        private readonly MainFormOptions mMainFormOptions;
 
-        private readonly Options.FragmentLadderOptions m_fragLadderOptions;
+        private readonly Options.FragmentLadderOptions mFragmentationLadderOptions;
 
-        private readonly SpectrumLook.Views.FragmentLadderView.FragmentLadderView m_fragLadder;
+        private readonly SpectrumLook.Views.FragmentLadderView.FragmentLadderView mFragmentationLadder;
 
         private Color Unmatched;
 
         private Color Matched;
 
-        private bool m_createProfile;
+        private bool mCreateProfile;
 
-        private string m_profileLocation;
+        private string mProfileFilePath;
 
-        private const int m_numCancelOptions = 19;
+        private const int mNumCancelOptions = 19;
 
-        // m_options = new OptionsViewController(m_plot.m_options, m_mainForm.m_currentOptions, m_fragLadder.fragmentLadderOptions ,System.IO.Directory.GetCurrentDirectory() + "\\UserProfile.spuf", createFileFlag);
-        public OptionsViewController(PlotOptions referencePlotOptions, MainFormOptions referenceMainFormOptions, Options.FragmentLadderOptions fragmentLadderOptions, string profileLocation, bool createProfile, Views.FragmentLadderView.FragmentLadderView m_fragmentLadder)
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="referencePlotOptions"></param>
+        /// <param name="referenceMainFormOptions"></param>
+        /// <param name="fragmentLadderOptions"></param>
+        /// <param name="profileFilePath"></param>
+        /// <param name="createProfile"></param>
+        /// <param name="fragmentLadder"></param>
+        public OptionsViewController(
+            PlotOptions referencePlotOptions,
+            MainFormOptions referenceMainFormOptions,
+            Options.FragmentLadderOptions
+            fragmentLadderOptions,
+            string profileFilePath,
+            bool createProfile,
+            FragmentLadderView.FragmentLadderView fragmentLadder)
         {
             InitializeComponent();
 
-            m_valuesForCancel = new object[m_numCancelOptions];
+            mValuesForCancel = new object[mNumCancelOptions];
 
-            for (var i = 0; i < m_numCancelOptions; ++i)
+            for (var i = 0; i < mNumCancelOptions; ++i)
             {
-                m_valuesForCancel[i] = null;
+                mValuesForCancel[i] = null;
             }
 
-            m_plotOptions = referencePlotOptions;
-            m_mainFormOptions = referenceMainFormOptions;
-            m_fragLadderOptions = fragmentLadderOptions;
-            m_fragLadder = m_fragmentLadder;
-            Matched = m_plotOptions.matchedColor;
-            Unmatched = m_plotOptions.unmatchedColor;
+            mPlotOptions = referencePlotOptions;
+            mMainFormOptions = referenceMainFormOptions;
+            mFragmentationLadderOptions = fragmentLadderOptions;
+            mFragmentationLadder = fragmentLadder;
+            Matched = mPlotOptions.MatchedColor;
+            Unmatched = mPlotOptions.UnmatchedColor;
 
             FillKeyOptions();
             SaveValuesForCancel();
-            m_createProfile = createProfile;
-            m_profileLocation = profileLocation;
+            mCreateProfile = createProfile;
+            mProfileFilePath = profileFilePath;
 
-            mainProfileFileLocationBox.Text = m_profileLocation;
+            mainProfileFileLocationBox.Text = mProfileFilePath;
 
             dataGridViewModList.Columns.Add("symbol", "Symbol");
             dataGridViewModList.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
@@ -76,20 +91,20 @@ namespace SpectrumLook.Views
         {
             base.OnClosing(e);
             e.Cancel = true;
-            if (m_profileLocation != "")
+            if (mProfileFilePath != "")
             {
-                if (m_createProfile)
+                if (mCreateProfile)
                 {
-                    var writer = new FileStream(m_profileLocation, FileMode.Create, FileAccess.Write);
+                    var writer = new FileStream(mProfileFilePath, FileMode.Create, FileAccess.Write);
 
                     try
                     {
                         var binaryFormatter = new BinaryFormatter();
-                        var tmpPlotOptions = new PlotOptions(m_plotOptions);
+                        var tmpPlotOptions = new PlotOptions(mPlotOptions);
                         binaryFormatter.Serialize(writer, tmpPlotOptions);
-                        var tmpMainOptions = new MainFormOptions(m_mainFormOptions);
+                        var tmpMainOptions = new MainFormOptions(mMainFormOptions);
                         binaryFormatter.Serialize(writer, tmpMainOptions);
-                        var tmpFragLadder = new Options.FragmentLadderOptions(m_fragLadderOptions);
+                        var tmpFragLadder = new Options.FragmentLadderOptions(mFragmentationLadderOptions);
                         binaryFormatter.Serialize(writer, tmpFragLadder);
                     }
                     finally
@@ -130,24 +145,24 @@ namespace SpectrumLook.Views
         private void UpdateOptions()
         {
             // PLOT UPDATING
-            plotSnappingCursor.Checked = m_plotOptions.showSnappingCursor;
-            plotShowLegend.Checked = m_plotOptions.showLegend;
-            plotHideUnmatchedData.Checked = m_plotOptions.hideUnmatched;
-            plotHorizontalZoom.Checked = m_plotOptions.zoomHorizontal;
-            plotBoxZoom.Checked = (!(m_plotOptions.zoomHorizontal));
-            plotUnzoomKeyComboBox.SelectedItem = m_plotOptions.unzoomKey;
-            plotAnnotationColor.BackColor = m_plotOptions.annotationColor;
-            plotTextSize.Text = m_plotOptions.annotationTextSize.ToString();
-            plotAnnotationPercentBox.Text = m_plotOptions.annotationPercent.ToString();
-            plotRightClickUnzoom.Checked = m_plotOptions.rightClickUnzoom;
-            plotNumberOfPlotsTextBox.Text = m_plotOptions.numberOfPlots.ToString();
+            plotSnappingCursor.Checked = mPlotOptions.ShowSnappingCursor;
+            plotShowLegend.Checked = mPlotOptions.ShowLegend;
+            plotHideUnmatchedData.Checked = mPlotOptions.HideUnmatched;
+            plotHorizontalZoom.Checked = mPlotOptions.ZoomHorizontal;
+            plotBoxZoom.Checked = (!(mPlotOptions.ZoomHorizontal));
+            plotUnzoomKeyComboBox.SelectedItem = mPlotOptions.UnzoomKey;
+            plotAnnotationColor.BackColor = mPlotOptions.AnnotationColor;
+            plotTextSize.Text = mPlotOptions.AnnotationTextSize.ToString();
+            plotAnnotationPercentBox.Text = mPlotOptions.AnnotationPercent.ToString();
+            plotRightClickUnzoom.Checked = mPlotOptions.RightClickUnzoom;
+            plotNumberOfPlotsTextBox.Text = mPlotOptions.NumberOfPlots.ToString();
 
             // MAIN UPDATING
-            mainDetachPlotCheckBox.Checked = !(m_mainFormOptions.isPlotInMainForm);
-            mainMatchedColorSample.BackColor = m_plotOptions.matchedColor;
-            mainUnmatchedColorSample.BackColor = m_plotOptions.unmatchedColor;
-            lowerMatchingToleranceBox.Text = m_mainFormOptions.lowerToleranceValue.ToString();
-            mainMatchingToleranceBox.Text = m_mainFormOptions.toleranceValue.ToString();
+            mainDetachPlotCheckBox.Checked = !(mMainFormOptions.IsPlotInMainForm);
+            mainMatchedColorSample.BackColor = mPlotOptions.MatchedColor;
+            mainUnmatchedColorSample.BackColor = mPlotOptions.UnmatchedColor;
+            lowerMatchingToleranceBox.Text = mMainFormOptions.LowerToleranceValue.ToString();
+            mainMatchingToleranceBox.Text = mMainFormOptions.ToleranceValue.ToString();
 
             // DATA VIEW
 
@@ -158,7 +173,7 @@ namespace SpectrumLook.Views
         public void UpdateModList()
         {
             dataGridViewModList.Rows.Clear();
-            foreach (var modPair in m_fragLadderOptions.modificationList)
+            foreach (var modPair in mFragmentationLadderOptions.ModificationList)
             {
                 dataGridViewModList.Rows.Add(new object[] { modPair.Key, modPair.Value });
             }
@@ -180,69 +195,69 @@ namespace SpectrumLook.Views
             }
         }
 
-        private void mainDetachPlotCheckBox_CheckedChanged_1(object sender, EventArgs e)
+        private void MainDetachPlotCheckBox_CheckedChanged_1(object sender, EventArgs e)
         {
-            m_mainFormOptions.isPlotInMainForm = !(mainDetachPlotCheckBox.Checked);
+            mMainFormOptions.IsPlotInMainForm = !(mainDetachPlotCheckBox.Checked);
         }
 
-        private void plotSnappingCursor_CheckedChanged(object sender, EventArgs e)
+        private void PlotSnappingCursor_CheckedChanged(object sender, EventArgs e)
         {
-            m_plotOptions.showSnappingCursor = plotSnappingCursor.Checked;
+            mPlotOptions.ShowSnappingCursor = plotSnappingCursor.Checked;
         }
 
-        private void plotShowLegend_CheckedChanged(object sender, EventArgs e)
+        private void PlotShowLegend_CheckedChanged(object sender, EventArgs e)
         {
-            m_plotOptions.showLegend = plotShowLegend.Checked;
+            mPlotOptions.ShowLegend = plotShowLegend.Checked;
         }
 
-        private void plotHideUnmatchedData_CheckedChanged(object sender, EventArgs e)
+        private void PlotHideUnmatchedData_CheckedChanged(object sender, EventArgs e)
         {
-            m_plotOptions.hideUnmatched = plotHideUnmatchedData.Checked;
+            mPlotOptions.HideUnmatched = plotHideUnmatchedData.Checked;
         }
 
         private void checkBoxRightClickUnzoom_CheckedChanged(object sender, EventArgs e)
         {
-            m_plotOptions.rightClickUnzoom = plotRightClickUnzoom.Checked;
+            mPlotOptions.RightClickUnzoom = plotRightClickUnzoom.Checked;
         }
 
-        private void checkBoxHidePlotTools_CheckedChanged(object sender, EventArgs e)
+        private void CheckBoxHidePlotTools_CheckedChanged(object sender, EventArgs e)
         {
-            m_plotOptions.hidePlotTools = plotHidePlotTools.Checked;
+            mPlotOptions.HidePlotTools = plotHidePlotTools.Checked;
         }
 
-        private void plotHorizontalZoom_CheckedChanged(object sender, EventArgs e)
+        private void PlotHorizontalZoom_CheckedChanged(object sender, EventArgs e)
         {
             if (plotHorizontalZoom.Checked)
             {
-                m_plotOptions.zoomHorizontal = true;
+                mPlotOptions.ZoomHorizontal = true;
                 plotBoxZoom.Checked = false;
             }
         }
 
-        private void plotBoxZoom_CheckedChanged(object sender, EventArgs e)
+        private void PlotBoxZoom_CheckedChanged(object sender, EventArgs e)
         {
             if (plotBoxZoom.Checked)
             {
-                m_plotOptions.zoomHorizontal = false;
+                mPlotOptions.ZoomHorizontal = false;
                 plotHorizontalZoom.Checked = false;
             }
         }
 
-        private void plotUnzoomKeyComboBox_Leave(object sender, EventArgs e)
+        private void PlotUnzoomKeyComboBox_Leave(object sender, EventArgs e)
         {
             Keys key;
             try
             {
                 key = (Keys)plotUnzoomKeyComboBox.SelectedItem;
-                m_plotOptions.unzoomKey = key;
+                mPlotOptions.UnzoomKey = key;
             }
             catch
             {
-                plotUnzoomKeyComboBox.SelectedItem = m_plotOptions.unzoomKey;
+                plotUnzoomKeyComboBox.SelectedItem = mPlotOptions.UnzoomKey;
             }
         }
 
-        private void plotFragLadderSelectBox_TextChanged(object sender, EventArgs e)
+        private void PlotFragLadderSelectBox_TextChanged(object sender, EventArgs e)
         {
             if (!int.TryParse(plotFragLadderSelectBox.Text, out var outputValue))
             {
@@ -252,7 +267,7 @@ namespace SpectrumLook.Views
             {
                 if (outputValue > 0)
                 {
-                    m_plotOptions.focusOffset = outputValue;
+                    mPlotOptions.FocusOffset = outputValue;
                 }
                 else
                 {
@@ -261,7 +276,7 @@ namespace SpectrumLook.Views
             }
         }
 
-        private void plotAnnotationPercentBox_TextChanged(object sender, EventArgs e)
+        private void PlotAnnotationPercentBox_TextChanged(object sender, EventArgs e)
         {
             try
             {
@@ -270,15 +285,15 @@ namespace SpectrumLook.Views
                 {
                     throw new Exception();
                 }
-                m_plotOptions.annotationPercent = newPercent;
+                mPlotOptions.AnnotationPercent = newPercent;
             }
             catch
             {
-                plotAnnotationPercentBox.Text = m_plotOptions.annotationPercent.ToString();
+                plotAnnotationPercentBox.Text = mPlotOptions.AnnotationPercent.ToString();
             }
         }
 
-        private void plotTextSize_TextChanged(object sender, EventArgs e)
+        private void PlotTextSize_TextChanged(object sender, EventArgs e)
         {
             try
             {
@@ -287,21 +302,21 @@ namespace SpectrumLook.Views
                 {
                     throw new Exception();
                 }
-                m_plotOptions.annotationTextSize = newSize;
+                mPlotOptions.AnnotationTextSize = newSize;
             }
             catch
             {
-                plotTextSize.Text = m_plotOptions.annotationTextSize.ToString();
+                plotTextSize.Text = mPlotOptions.AnnotationTextSize.ToString();
             }
         }
 
-        private void plotChangeColorOpenButton_Click(object sender, EventArgs e)
+        private void PlotChangeColorOpenButton_Click(object sender, EventArgs e)
         {
             var outputResult = colorDialog.ShowDialog();
             if (outputResult == DialogResult.OK)
             {
-                m_plotOptions.annotationColor = colorDialog.Color;
-                plotAnnotationColor.BackColor = m_plotOptions.annotationColor;
+                mPlotOptions.AnnotationColor = colorDialog.Color;
+                plotAnnotationColor.BackColor = mPlotOptions.AnnotationColor;
             }
         }
 
@@ -314,12 +329,12 @@ namespace SpectrumLook.Views
                 {
                     throw new Exception();
                 }
-                m_plotOptions.replot = true;
-                m_plotOptions.numberOfPlots = newAmmount;
+                mPlotOptions.Replot = true;
+                mPlotOptions.NumberOfPlots = newAmmount;
             }
             catch
             {
-                plotNumberOfPlotsTextBox.Text = m_plotOptions.numberOfPlots.ToString();
+                plotNumberOfPlotsTextBox.Text = mPlotOptions.NumberOfPlots.ToString();
             }
         }
 
@@ -329,7 +344,7 @@ namespace SpectrumLook.Views
             if (outputResult == DialogResult.OK)
             {
                 Matched = colorDialog.Color;
-                // m_plotOptions.matchedColor = colorDialog.Color;
+                // mPlotOptions.MatchedColor = colorDialog.Color;
                 mainMatchedColorSample.BackColor = Matched;
             }
         }
@@ -340,7 +355,7 @@ namespace SpectrumLook.Views
             if (outputResult == DialogResult.OK)
             {
                 Unmatched = colorDialog.Color;
-                // m_plotOptions.unmatchedColor = colorDialog.Color;
+                // mPlotOptions.UnmatchedColor = colorDialog.Color;
                 mainUnmatchedColorSample.BackColor = Unmatched;
             }
         }
@@ -363,7 +378,7 @@ namespace SpectrumLook.Views
                     return;
                 }
 
-                m_mainFormOptions.toleranceValue = outputValue;
+                mMainFormOptions.ToleranceValue = outputValue;
             }
         }
 
@@ -385,7 +400,7 @@ namespace SpectrumLook.Views
                     return;
                 }
 
-                m_mainFormOptions.lowerToleranceValue = outputValue;
+                mMainFormOptions.LowerToleranceValue = outputValue;
             }
         }
 
@@ -435,115 +450,115 @@ namespace SpectrumLook.Views
         // TODO: This should be easily accomplished by populating all data accordingly when the dialog is opened, and then ONLY storing the data if/when "OK" is clicked.
         private void applyButton_Click(object sender, EventArgs e)
         {
-            m_valuesForCancel = new object[m_numCancelOptions];
+            mValuesForCancel = new object[mNumCancelOptions];
             int i;
-            for (i = 0; i < m_numCancelOptions; ++i)
+            for (i = 0; i < mNumCancelOptions; ++i)
             {
-                m_valuesForCancel[i] = null;
+                mValuesForCancel[i] = null;
             }
 
             // Finally modify the modification list.
-            m_fragLadderOptions.modificationList.Clear();
+            mFragmentationLadderOptions.ModificationList.Clear();
             foreach (DataGridViewRow row in dataGridViewModList.Rows)
             {
                 if (row.Cells[0].Value != null)
                 {
-                    m_fragLadderOptions.modificationList.Add((char)(row.Cells[0].Value), double.Parse(row.Cells[1].Value.ToString()));
+                    mFragmentationLadderOptions.ModificationList.Add((char)(row.Cells[0].Value), double.Parse(row.Cells[1].Value.ToString()));
                 }
             }
             // update fragment ladder so color changes will take effect
-            m_fragLadder.regenerateLadderFromSelection();
-            m_fragLadder.setMatchedLabel(Matched);
-            m_fragLadder.setUnmatchedLabel(Unmatched);
+            mFragmentationLadder.RegenerateLadderFromSelection();
+            mFragmentationLadder.SetMatchedLabel(Matched);
+            mFragmentationLadder.SetUnmatchedLabel(Unmatched);
 
             // Update Plot options for Color
-            m_plotOptions.unmatchedColor = Unmatched;
-            m_plotOptions.matchedColor = Matched;
+            mPlotOptions.UnmatchedColor = Unmatched;
+            mPlotOptions.MatchedColor = Matched;
             Close();
         }
 
         private void cancelButton_Click(object sender, EventArgs e)
         {
             // PLOT UPDATING
-            if (m_valuesForCancel[0] != null)
+            if (mValuesForCancel[0] != null)
             {
-                m_plotOptions.showSnappingCursor = (bool)m_valuesForCancel[0];
+                mPlotOptions.ShowSnappingCursor = (bool)mValuesForCancel[0];
             }
-            if (m_valuesForCancel[1] != null)
+            if (mValuesForCancel[1] != null)
             {
-                m_plotOptions.showLegend = (bool)m_valuesForCancel[1];
+                mPlotOptions.ShowLegend = (bool)mValuesForCancel[1];
             }
-            if (m_valuesForCancel[2] != null)
+            if (mValuesForCancel[2] != null)
             {
-                m_plotOptions.hideUnmatched = (bool)m_valuesForCancel[2];
+                mPlotOptions.HideUnmatched = (bool)mValuesForCancel[2];
             }
-            if (m_valuesForCancel[3] != null)
+            if (mValuesForCancel[3] != null)
             {
-                m_plotOptions.zoomHorizontal = (bool)m_valuesForCancel[3];
+                mPlotOptions.ZoomHorizontal = (bool)mValuesForCancel[3];
             }
-            if (m_valuesForCancel[4] != null)
+            if (mValuesForCancel[4] != null)
             {
-                m_plotOptions.unzoomKey = (Keys)m_valuesForCancel[4];
+                mPlotOptions.UnzoomKey = (Keys)mValuesForCancel[4];
             }
-            if (m_valuesForCancel[5] != null)
+            if (mValuesForCancel[5] != null)
             {
-                m_plotOptions.focusOffset = (int)m_valuesForCancel[5];
+                mPlotOptions.FocusOffset = (int)mValuesForCancel[5];
             }
-            if (m_valuesForCancel[6] != null)
+            if (mValuesForCancel[6] != null)
             {
-                m_plotOptions.annotationPercent = (int)m_valuesForCancel[6];
+                mPlotOptions.AnnotationPercent = (int)mValuesForCancel[6];
             }
-            if (m_valuesForCancel[7] != null)
+            if (mValuesForCancel[7] != null)
             {
-                m_plotOptions.annotationTextSize = (int)m_valuesForCancel[7];
+                mPlotOptions.AnnotationTextSize = (int)mValuesForCancel[7];
             }
-            if (m_valuesForCancel[8] != null)
+            if (mValuesForCancel[8] != null)
             {
-                m_plotOptions.annotationColor = (Color)m_valuesForCancel[8];
+                mPlotOptions.AnnotationColor = (Color)mValuesForCancel[8];
             }
-            if (m_valuesForCancel[9] != null)
+            if (mValuesForCancel[9] != null)
             {
-                m_plotOptions.matchedColor = (Color)m_valuesForCancel[9];
+                mPlotOptions.MatchedColor = (Color)mValuesForCancel[9];
             }
-            if (m_valuesForCancel[10] != null)
+            if (mValuesForCancel[10] != null)
             {
-                m_plotOptions.unmatchedColor = (Color)m_valuesForCancel[10];
+                mPlotOptions.UnmatchedColor = (Color)mValuesForCancel[10];
             }
-            if (m_valuesForCancel[13] != null)
+            if (mValuesForCancel[13] != null)
             {
-                m_plotOptions.rightClickUnzoom = (bool)m_valuesForCancel[13];
+                mPlotOptions.RightClickUnzoom = (bool)mValuesForCancel[13];
             }
-            if (m_valuesForCancel[14] != null)
+            if (mValuesForCancel[14] != null)
             {
-                m_plotOptions.hidePlotTools = (bool)m_valuesForCancel[14];
+                mPlotOptions.HidePlotTools = (bool)mValuesForCancel[14];
             }
-            if (m_valuesForCancel[15] != null)
+            if (mValuesForCancel[15] != null)
             {
-                m_plotOptions.replot = true;
-                m_plotOptions.numberOfPlots = (int)m_valuesForCancel[15];
+                mPlotOptions.Replot = true;
+                mPlotOptions.NumberOfPlots = (int)mValuesForCancel[15];
             }
 
             // MAIN UPDATING
-            if (m_valuesForCancel[11] != null)
+            if (mValuesForCancel[11] != null)
             {
-                m_mainFormOptions.isPlotInMainForm = (bool)m_valuesForCancel[11];
+                mMainFormOptions.IsPlotInMainForm = (bool)mValuesForCancel[11];
             }
-            if (m_valuesForCancel[12] != null)
+            if (mValuesForCancel[12] != null)
             {
-                m_mainFormOptions.toleranceValue = (double)m_valuesForCancel[12];
+                mMainFormOptions.ToleranceValue = (double)mValuesForCancel[12];
             }
-            if (m_valuesForCancel[18] != null)
+            if (mValuesForCancel[18] != null)
             {
-                m_mainFormOptions.lowerToleranceValue = (double)m_valuesForCancel[18];
+                mMainFormOptions.LowerToleranceValue = (double)mValuesForCancel[18];
             }
 
             // DATA VIEW
 
             // FRAGMENT LADDER
 
-            if (m_valuesForCancel[17] != null)
+            if (mValuesForCancel[17] != null)
             {
-                m_fragLadderOptions.checkedHeaders = (List<string>)m_valuesForCancel[17];
+                mFragmentationLadderOptions.CheckedHeaders = (List<string>)mValuesForCancel[17];
             }
 
             Close();
@@ -552,49 +567,49 @@ namespace SpectrumLook.Views
         private void SaveValuesForCancel()
         {
             // PLOT
-            m_valuesForCancel[0] = m_plotOptions.showSnappingCursor;
-            m_valuesForCancel[1] = m_plotOptions.showLegend;
-            m_valuesForCancel[2] = m_plotOptions.hideUnmatched;
-            m_valuesForCancel[3] = m_plotOptions.zoomHorizontal;
-            m_valuesForCancel[4] = m_plotOptions.unzoomKey;
-            m_valuesForCancel[5] = m_plotOptions.focusOffset;
-            m_valuesForCancel[6] = m_plotOptions.annotationPercent;
-            m_valuesForCancel[7] = m_plotOptions.annotationTextSize;
-            m_valuesForCancel[8] = m_plotOptions.annotationColor;
-            m_valuesForCancel[9] = m_plotOptions.matchedColor;
-            m_valuesForCancel[10] = m_plotOptions.unmatchedColor;
-            m_valuesForCancel[13] = m_plotOptions.rightClickUnzoom;
-            m_valuesForCancel[14] = m_plotOptions.hidePlotTools;
-            m_valuesForCancel[15] = m_plotOptions.numberOfPlots;
+            mValuesForCancel[0] = mPlotOptions.ShowSnappingCursor;
+            mValuesForCancel[1] = mPlotOptions.ShowLegend;
+            mValuesForCancel[2] = mPlotOptions.HideUnmatched;
+            mValuesForCancel[3] = mPlotOptions.ZoomHorizontal;
+            mValuesForCancel[4] = mPlotOptions.UnzoomKey;
+            mValuesForCancel[5] = mPlotOptions.FocusOffset;
+            mValuesForCancel[6] = mPlotOptions.AnnotationPercent;
+            mValuesForCancel[7] = mPlotOptions.AnnotationTextSize;
+            mValuesForCancel[8] = mPlotOptions.AnnotationColor;
+            mValuesForCancel[9] = mPlotOptions.MatchedColor;
+            mValuesForCancel[10] = mPlotOptions.UnmatchedColor;
+            mValuesForCancel[13] = mPlotOptions.RightClickUnzoom;
+            mValuesForCancel[14] = mPlotOptions.HidePlotTools;
+            mValuesForCancel[15] = mPlotOptions.NumberOfPlots;
 
             // MAIN
-            m_valuesForCancel[11] = m_mainFormOptions.isPlotInMainForm;
-            m_valuesForCancel[12] = m_mainFormOptions.toleranceValue;
-            m_valuesForCancel[18] = m_mainFormOptions.lowerToleranceValue;
+            mValuesForCancel[11] = mMainFormOptions.IsPlotInMainForm;
+            mValuesForCancel[12] = mMainFormOptions.ToleranceValue;
+            mValuesForCancel[18] = mMainFormOptions.LowerToleranceValue;
 
             // DATA VIEW
 
             // FRAGMENT LADDER
-            m_valuesForCancel[17] = m_fragLadderOptions.checkedHeaders;
+            mValuesForCancel[17] = mFragmentationLadderOptions.CheckedHeaders;
         }
 
         private void OptionsViewController_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (m_profileLocation != "")
+            if (mProfileFilePath != "")
             {
-                if (m_createProfile)
+                if (mCreateProfile)
                 {
                     // Lets Save the Profile data.
-                    var writer = new FileStream(m_profileLocation, FileMode.Create, FileAccess.Write);
+                    var writer = new FileStream(mProfileFilePath, FileMode.Create, FileAccess.Write);
 
                     try
                     {
                         var binaryFormatter = new BinaryFormatter();
-                        var tmpPlotOptions = new PlotOptions(m_plotOptions);
+                        var tmpPlotOptions = new PlotOptions(mPlotOptions);
                         binaryFormatter.Serialize(writer, tmpPlotOptions);
-                        var tmpMainOptions = new MainFormOptions(m_mainFormOptions);
+                        var tmpMainOptions = new MainFormOptions(mMainFormOptions);
                         binaryFormatter.Serialize(writer, tmpMainOptions);
-                        var tmpFragmentLadderOptions = new Options.FragmentLadderOptions(m_fragLadderOptions);
+                        var tmpFragmentLadderOptions = new Options.FragmentLadderOptions(mFragmentationLadderOptions);
                         binaryFormatter.Serialize(writer, tmpFragmentLadderOptions);
                     }
                     finally
@@ -639,8 +654,8 @@ namespace SpectrumLook.Views
 
             if (openResult != DialogResult.Cancel)
             {
-                m_createProfile = true;
-                m_profileLocation = openFileDialog.FileName;
+                mCreateProfile = true;
+                mProfileFilePath = openFileDialog.FileName;
             }
         }
 
@@ -648,33 +663,33 @@ namespace SpectrumLook.Views
         {
             if (optionTabsPage.SelectedTab.Text == "Plot Options")
             {
-                m_valuesForCancel[0] = m_plotOptions.showSnappingCursor;
-                m_valuesForCancel[1] = m_plotOptions.showLegend;
-                m_valuesForCancel[2] = m_plotOptions.hideUnmatched;
-                m_valuesForCancel[3] = m_plotOptions.zoomHorizontal;
-                m_valuesForCancel[4] = m_plotOptions.unzoomKey;
-                m_valuesForCancel[5] = m_plotOptions.focusOffset;
-                m_valuesForCancel[6] = m_plotOptions.annotationPercent;
-                m_valuesForCancel[7] = m_plotOptions.annotationTextSize;
-                m_valuesForCancel[8] = m_plotOptions.annotationColor;
-                m_valuesForCancel[9] = m_plotOptions.matchedColor;
-                m_valuesForCancel[10] = m_plotOptions.unmatchedColor;
-                m_valuesForCancel[13] = m_plotOptions.rightClickUnzoom;
-                m_valuesForCancel[14] = m_plotOptions.hidePlotTools;
-                m_valuesForCancel[15] = m_plotOptions.numberOfPlots;
-                // fixed issue 10 here
-                m_plotOptions.numberOfPlots = 1;
-                m_plotOptions.replot = true;
+                mValuesForCancel[0] = mPlotOptions.ShowSnappingCursor;
+                mValuesForCancel[1] = mPlotOptions.ShowLegend;
+                mValuesForCancel[2] = mPlotOptions.HideUnmatched;
+                mValuesForCancel[3] = mPlotOptions.ZoomHorizontal;
+                mValuesForCancel[4] = mPlotOptions.UnzoomKey;
+                mValuesForCancel[5] = mPlotOptions.FocusOffset;
+                mValuesForCancel[6] = mPlotOptions.AnnotationPercent;
+                mValuesForCancel[7] = mPlotOptions.AnnotationTextSize;
+                mValuesForCancel[8] = mPlotOptions.AnnotationColor;
+                mValuesForCancel[9] = mPlotOptions.MatchedColor;
+                mValuesForCancel[10] = mPlotOptions.UnmatchedColor;
+                mValuesForCancel[13] = mPlotOptions.RightClickUnzoom;
+                mValuesForCancel[14] = mPlotOptions.HidePlotTools;
+                mValuesForCancel[15] = mPlotOptions.NumberOfPlots;
 
-                m_plotOptions.CopyOptions(new PlotOptions());
+                mPlotOptions.NumberOfPlots = 1;
+                mPlotOptions.Replot = true;
+
+                mPlotOptions.SetOptions(new PlotOptions());
             }
             else if (optionTabsPage.SelectedTab.Text == "General Options")
             {
-                m_valuesForCancel[11] = m_mainFormOptions.isPlotInMainForm;
-                m_valuesForCancel[12] = m_mainFormOptions.toleranceValue;
-                m_valuesForCancel[18] = m_mainFormOptions.lowerToleranceValue;
+                mValuesForCancel[11] = mMainFormOptions.IsPlotInMainForm;
+                mValuesForCancel[12] = mMainFormOptions.ToleranceValue;
+                mValuesForCancel[18] = mMainFormOptions.LowerToleranceValue;
 
-                m_mainFormOptions.CopyOptions(new MainFormOptions());
+                mMainFormOptions.SetOptions(new MainFormOptions());
             }
         }
 

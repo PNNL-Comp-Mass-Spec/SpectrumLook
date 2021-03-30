@@ -13,8 +13,7 @@ namespace SpectrumLook.Views
     // TODO : Need to inherit from IObserver and override the Update function! Otherwise the options will not update properly.
     public partial class DataView : Form
     {
-        //////// private DataViewOptions m_dataViewOptions;
-        private readonly Manager m_manager;
+        private readonly Manager mManager;
 
         private readonly DataViewSearch mViewSearch;
 
@@ -36,7 +35,7 @@ namespace SpectrumLook.Views
         public DataView(Manager manager)
         {
             InitializeComponent();
-            m_manager = manager;
+            mManager = manager;
             DataTableForDisplay = new DataTable();
             mViewSearch = new DataViewSearch(DataGridTable);
 
@@ -66,16 +65,16 @@ namespace SpectrumLook.Views
 
                 if (!string.IsNullOrWhiteSpace(dataset))
                 {
-                    m_manager.DataFileName = dataset;
+                    mManager.DataFileName = dataset;
                 }
 
-                m_manager.PrecursorMZ = precursorMzValue;
+                mManager.PrecursorMZ = precursorMzValue;
 
                 PeptideCleavageStateCalculator.SplitPrefixAndSuffixFromSequence(peptide, out var sequence, out _, out _);
 
-                m_manager.HandleSelectScanAndPeptide(scanNumber, sequence);
-                m_manager.FocusOnControl(DataGridTable);
-                m_manager.CallComboBox();
+                mManager.HandleSelectScanAndPeptide(scanNumber, sequence);
+                mManager.FocusOnControl(DataGridTable);
+                mManager.CallComboBox();
             }
         }
 
@@ -485,7 +484,7 @@ namespace SpectrumLook.Views
 
         private void DataGridTable_SelectionChanged(object sender, EventArgs e)
         {
-            if (m_manager.DataLoaded)
+            if (mManager.DataLoaded)
             {
                 HandleRowSelection();
             }
@@ -493,7 +492,7 @@ namespace SpectrumLook.Views
 
         private void DataGridTable_Click(object sender, EventArgs e)
         {
-            if (!m_manager.DataLoaded)
+            if (!mManager.DataLoaded)
             {
                 HandleRowSelection();
             }

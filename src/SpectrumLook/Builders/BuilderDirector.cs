@@ -5,10 +5,10 @@ namespace SpectrumLook.Builders
 {
     internal class BuilderDirector
     {
-        private ActualListBuilder m_actualBuilder;
-        private ComparedListBuilder m_comparedBuilder;
-        private TheoryListBuilder m_theoryBuilder;
-        private IExperimentParser m_parser;
+        private ActualListBuilder mActualBuilder;
+        private ComparedListBuilder mComparedBuilder;
+        private TheoryListBuilder mTheoryBuilder;
+        private IExperimentParser mParser;
 
         public List<Element> BuildActualList(int scanNumber, string fileLocation)       // Idea is to check the extension, call the right parser based on extension of file name.
         {
@@ -47,21 +47,21 @@ namespace SpectrumLook.Builders
                     }
                 }
 
-                m_actualBuilder.SetScanNumber(scanNumber);
+                mActualBuilder.SetScanNumber(scanNumber);
             }
 
-            m_actualBuilder.BuildList();
+            mActualBuilder.BuildList();
 
-            return m_actualBuilder.ElementList;
+            return mActualBuilder.ElementList;
         }
 
         public List<Element> GetActualList()
         {
             var actualList = new List<Element>();
 
-            if (m_actualBuilder != null)
+            if (mActualBuilder != null)
             {
-                actualList = m_actualBuilder.ElementList;
+                actualList = mActualBuilder.ElementList;
             }
 
             return actualList;
@@ -73,25 +73,25 @@ namespace SpectrumLook.Builders
 
             for (var i = 0; i < copyOfActualElementList.Count; ++i)
             {
-                copyOfActualElementList[i].Annotation = "";
+                copyOfActualElementList[i].Annotation = string.Empty;
                 copyOfActualElementList[i].Matched = false;
             }
 
             // Need to add the lowerBoundPossibleError into the function call below.
-            m_comparedBuilder = new ComparedListBuilder(possibleError, lowerBoundPossibleError, copyOfActualElementList, precursor, ref theoryElementList);
+            mComparedBuilder = new ComparedListBuilder(possibleError, lowerBoundPossibleError, copyOfActualElementList, precursor, ref theoryElementList);
 
-            m_comparedBuilder.BuildList();
+            mComparedBuilder.BuildList();
 
-            return m_comparedBuilder.ElementList;
+            return mComparedBuilder.ElementList;
         }
 
         public List<Element> GetComparedList()
         {
             var comparedList = new List<Element>();
 
-            if (m_comparedBuilder != null)
+            if (mComparedBuilder != null)
             {
-                comparedList = m_comparedBuilder.ElementList;
+                comparedList = mComparedBuilder.ElementList;
             }
 
             return comparedList;
@@ -99,20 +99,20 @@ namespace SpectrumLook.Builders
 
         public List<Element> BuildTheoryList(string peptide, bool fragmentationModeETD, Dictionary<char, double> modificationList)
         {
-            m_theoryBuilder = new TheoryListBuilder(peptide, fragmentationModeETD, new MolecularWeightUtility(modificationList));
+            mTheoryBuilder = new TheoryListBuilder(peptide, fragmentationModeETD, new MolecularWeightUtility(modificationList));
 
-            m_theoryBuilder.BuildList();
+            mTheoryBuilder.BuildList();
 
-            return m_theoryBuilder.ElementList;
+            return mTheoryBuilder.ElementList;
         }
 
         public List<Element> GetTheoryList()
         {
             var theoryList = new List<Element>();
 
-            if (m_theoryBuilder != null)
+            if (mTheoryBuilder != null)
             {
-                theoryList = m_theoryBuilder.ElementList;
+                theoryList = mTheoryBuilder.ElementList;
             }
 
             return theoryList;

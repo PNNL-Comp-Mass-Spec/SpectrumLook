@@ -69,7 +69,7 @@
             this.peptideEditorTextBox.Name = "peptideEditorTextBox";
             this.peptideEditorTextBox.Size = new System.Drawing.Size(287, 20);
             this.peptideEditorTextBox.TabIndex = 3;
-            this.peptideEditorTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.peptideEditorTextBox_KeyDown_1);
+            this.peptideEditorTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.PeptideEditorTextBox_KeyDown_1);
             //
             // recalculateMatchesButton
             //
@@ -80,7 +80,7 @@
             this.recalculateMatchesButton.TabIndex = 4;
             this.recalculateMatchesButton.Text = "Calculate";
             this.recalculateMatchesButton.UseVisualStyleBackColor = true;
-            this.recalculateMatchesButton.Click += new System.EventHandler(this.generateLadderFromPeptideInput);
+            this.recalculateMatchesButton.Click += new System.EventHandler(this.GenerateLadderFromPeptideInput);
             //
             // parentMZLabel
             //
@@ -308,8 +308,8 @@
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(387, 307);
             this.tabControl1.TabIndex = 7;
-            this.tabControl1.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.changeTab);
-            this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.changeTab);
+            this.tabControl1.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.ChangeTab);
+            this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.ChangeTab);
             //
             // tabPage1
             //
@@ -334,7 +334,7 @@
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(102, 21);
             this.comboBox1.TabIndex = 19;
-            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.changeFragmentLadderMode);
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.ChangeFragmentLadderMode);
             //
             // columnButton
             //

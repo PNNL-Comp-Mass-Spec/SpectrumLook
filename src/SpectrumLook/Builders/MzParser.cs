@@ -10,19 +10,19 @@ namespace SpectrumLook.Builders
     /// to define the GetExperimentDataByScanNumber method.
     /// By Patrick Tobin
     /// </summary>
-    public class MzParser : IExperimentParser
+    public class MzXMLParser : IExperimentParser
     {
-        private readonly clsMSDataFileReaderBaseClass m_fileToRead;
+        private readonly clsMSDataFileReaderBaseClass mFileReader;
 
-        string IExperimentParser.Filename
+        string IExperimentParser.FilePath
         {
-            get => currentFileLocation;
-            set => currentFileLocation = value;
+            get => CurrentFilePath;
+            set => CurrentFilePath = value;
         }
 
-        public string currentFileLocation { get; internal set; }
+        public string CurrentFilePath { get; internal set; }
 
-        public bool isFileOpened { get; internal set; }
+        public bool IsFileOpened { get; internal set; }
 
         /// <summary>
         /// The constructor of this parser will attempt to open any files that
@@ -30,23 +30,23 @@ namespace SpectrumLook.Builders
         /// a string without a ".mzXML" or ".mzData" file extension then an exception
         /// will be thrown.
         /// </summary>
-        /// <param name="fileLocation">This must be a file Location to a ".mzXML" or ".mzData" file.</param>
-        public MzParser(string fileLocation)
+        /// <param name="filePath">This must be a file Location to a ".mzXML" or ".mzData" file.</param>
+        public MzXMLParser(string filePath)
         {
-            currentFileLocation = fileLocation;
-            if (currentFileLocation != null)
+            CurrentFilePath = filePath;
+            if (CurrentFilePath != null)
             {
-                if (currentFileLocation.EndsWith(".mzXML", StringComparison.OrdinalIgnoreCase) ||
-                    currentFileLocation.EndsWith(".mzData", StringComparison.OrdinalIgnoreCase))
+                if (CurrentFilePath.EndsWith(".mzXML", StringComparison.OrdinalIgnoreCase) ||
+                    CurrentFilePath.EndsWith(".mzData", StringComparison.OrdinalIgnoreCase))
                 {
-                    m_fileToRead = new clsMzXMLFileAccessor();
-                    isFileOpened = m_fileToRead.OpenFile(currentFileLocation);
+                    mFileReader = new clsMzXMLFileAccessor();
+                    IsFileOpened = mFileReader.OpenFile(CurrentFilePath);
                 }
                 else
                 {
                     throw new InvalidProgramException("Invalid File Type, must be .mzXML or .mzData");
                 }
-                m_fileToRead.ReadAndCacheEntireFile();
+                mFileReader.ReadAndCacheEntireFile();
             }
             else
             {
@@ -64,12 +64,12 @@ namespace SpectrumLook.Builders
         /// <returns></returns>
         List<Element> IExperimentParser.GetExperimentDataByScanNumber(int scanNum)
         {
-            if (isFileOpened)
+            if (IsFileOpened)
             {
                 // Load the entire file into memory.
-                // m_fileToRead.ReadAndCacheEntireFile();
+                // mFileReader.ReadAndCacheEntireFile();
 
-                m_fileToRead.GetSpectrumByScanNumber(scanNum, out var currentSpectrum);
+                mFileReader.GetSpectrumByScanNumber(scanNum, out var currentSpectrum);
 
                 if (currentSpectrum == null)
                     return null;
@@ -80,8 +80,7 @@ namespace SpectrumLook.Builders
                     var element = new Element
                     {
                         Mz = currentMzValue,
-                        Intensity = Convert.ToDouble(currentSpectrum.LookupIonIntensityByMZ(currentMzValue, (float)0.0, (float)0.04)),
-                        Matched = false
+                        Intensity = Convert.ToDouble(currentSpectrum.LookupIonIntensityByMZ(currentMzValue, (float)0.0, (float)0.04))
                     };
                     elements.Add(element);
                 }

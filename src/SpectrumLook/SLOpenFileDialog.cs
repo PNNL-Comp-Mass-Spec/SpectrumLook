@@ -5,23 +5,23 @@ namespace SpectrumLook
 {
     public partial class SLOpenFileDialog : Form
     {
-        public string m_synopsisPath;
-        public string m_dataPath;
+        public string mSynopsisPath;
+        public string mDataPath;
 
         public SLOpenFileDialog(string currentSynopsisPath, string currentDataPath)
         {
             InitializeComponent();
 
-            m_synopsisPath = currentSynopsisPath;
+            mSynopsisPath = currentSynopsisPath;
             textBoxSynopsis.Text = currentSynopsisPath;
-            m_dataPath = currentDataPath;
+            mDataPath = currentDataPath;
             textBoxData.Text = currentDataPath;
         }
 
         private void buttonOpen_Click(object sender, EventArgs e)
         {
-            m_synopsisPath = textBoxSynopsis.Text;
-            m_dataPath = textBoxData.Text;
+            mSynopsisPath = textBoxSynopsis.Text;
+            mDataPath = textBoxData.Text;
             DialogResult = DialogResult.OK;
             Close();
         }
