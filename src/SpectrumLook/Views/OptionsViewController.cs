@@ -11,12 +11,42 @@ namespace SpectrumLook.Views
 {
     public partial class OptionsViewController : Form, IObserver
     {
-        // 0-10, 13-15  Plot
-        //11-12         Main
-        //16-17         Frag Ladder
-        //18            Main lower Tolerance Value
-        // TODO: THIS DOESN'T WORK FOR ANYTHING BUT PRIMITIVES (MAYBE FOR PRIMITIVES)
-        private object[] mValuesForCancel;
+        private enum OptionField
+        {
+            // Plot options
+            ShowSnappingCursor = 0,
+            ShowLegend = 1,
+            HideUnmatched = 2,
+            ZoomHorizontal = 3,
+            UnzoomKey = 4,
+            FocusOffset = 5,
+            AnnotationPercent = 6,
+            AnnotationTextSize = 7,
+            AnnotationColor = 8,
+            MatchedColor = 9,
+            UnmatchedColor = 10,
+            RightClickUnzoom = 13,
+            HidePlotTools = 14,
+            NumberOfPlots = 15,
+
+            // Main form options
+            IsPlotInMainForm = 11,
+            ToleranceValue = 12,
+            LowerToleranceValue = 18,
+
+            // FragmentationLadderOptions
+            CheckedHeaders = 17
+        }
+
+        /// <summary>
+        /// This array holds settings in place when the options window is shown
+        /// If the user clicks cancel, the original values are restored
+        /// </summary>
+        /// <remarks>
+        /// Only works with primitives (bool, int, double, Color, etc.)
+        /// Values are initially set to null
+        /// </remarks>
+        private readonly Dictionary<OptionField, object> mSavedOptions;
 
         private readonly PlotOptions mPlotOptions;
 
@@ -56,11 +86,11 @@ namespace SpectrumLook.Views
         {
             InitializeComponent();
 
-            mValuesForCancel = new object[mNumCancelOptions];
+            mSavedOptions = new Dictionary<OptionField, object>();
 
-            for (var i = 0; i < mNumCancelOptions; ++i)
+            foreach (OptionField optionField in Enum.GetValues(typeof(OptionField)))
             {
-                mValuesForCancel[i] = null;
+                mSavedOptions.Add(optionField, null);
             }
 
             mPlotOptions = referencePlotOptions;
@@ -71,7 +101,7 @@ namespace SpectrumLook.Views
             Unmatched = mPlotOptions.UnmatchedColor;
 
             FillKeyOptions();
-            SaveValuesForCancel();
+            CacheCurrentOptions();
             mCreateProfile = createProfile;
             mProfileFilePath = profileFilePath;
 
@@ -121,7 +151,7 @@ namespace SpectrumLook.Views
             base.OnVisibleChanged(e);
             if (Visible)
             {
-                SaveValuesForCancel();
+                CacheCurrentOptions();
             }
         }
 
@@ -450,11 +480,9 @@ namespace SpectrumLook.Views
         // TODO: This should be easily accomplished by populating all data accordingly when the dialog is opened, and then ONLY storing the data if/when "OK" is clicked.
         private void applyButton_Click(object sender, EventArgs e)
         {
-            mValuesForCancel = new object[mNumCancelOptions];
-            int i;
-            for (i = 0; i < mNumCancelOptions; ++i)
+            foreach (var keyName in mSavedOptions.Keys.ToList())
             {
-                mValuesForCancel[i] = null;
+                mSavedOptions[keyName] = null;
             }
 
             // Finally modify the modification list.
@@ -477,120 +505,80 @@ namespace SpectrumLook.Views
             Close();
         }
 
-        private void cancelButton_Click(object sender, EventArgs e)
+        private void CancelButton_Click(object sender, EventArgs e)
         {
-            // PLOT UPDATING
-            if (mValuesForCancel[0] != null)
-            {
-                mPlotOptions.ShowSnappingCursor = (bool)mValuesForCancel[0];
-            }
-            if (mValuesForCancel[1] != null)
-            {
-                mPlotOptions.ShowLegend = (bool)mValuesForCancel[1];
-            }
-            if (mValuesForCancel[2] != null)
-            {
-                mPlotOptions.HideUnmatched = (bool)mValuesForCancel[2];
-            }
-            if (mValuesForCancel[3] != null)
-            {
-                mPlotOptions.ZoomHorizontal = (bool)mValuesForCancel[3];
-            }
-            if (mValuesForCancel[4] != null)
-            {
-                mPlotOptions.UnzoomKey = (Keys)mValuesForCancel[4];
-            }
-            if (mValuesForCancel[5] != null)
-            {
-                mPlotOptions.FocusOffset = (int)mValuesForCancel[5];
-            }
-            if (mValuesForCancel[6] != null)
-            {
-                mPlotOptions.AnnotationPercent = (int)mValuesForCancel[6];
-            }
-            if (mValuesForCancel[7] != null)
-            {
-                mPlotOptions.AnnotationTextSize = (int)mValuesForCancel[7];
-            }
-            if (mValuesForCancel[8] != null)
-            {
-                mPlotOptions.AnnotationColor = (Color)mValuesForCancel[8];
-            }
-            if (mValuesForCancel[9] != null)
-            {
-                mPlotOptions.MatchedColor = (Color)mValuesForCancel[9];
-            }
-            if (mValuesForCancel[10] != null)
-            {
-                mPlotOptions.UnmatchedColor = (Color)mValuesForCancel[10];
-            }
-            if (mValuesForCancel[13] != null)
-            {
-                mPlotOptions.RightClickUnzoom = (bool)mValuesForCancel[13];
-            }
-            if (mValuesForCancel[14] != null)
-            {
-                mPlotOptions.HidePlotTools = (bool)mValuesForCancel[14];
-            }
-            if (mValuesForCancel[15] != null)
+            // Plot options
+
+            mPlotOptions.ShowSnappingCursor = GetSavedValue(OptionField.ShowSnappingCursor, mPlotOptions.ShowSnappingCursor);
+
+            mPlotOptions.ShowLegend = GetSavedValue(OptionField.ShowLegend, mPlotOptions.ShowLegend);
+            mPlotOptions.HideUnmatched = GetSavedValue(OptionField.HideUnmatched, mPlotOptions.HideUnmatched);
+            mPlotOptions.ZoomHorizontal = GetSavedValue(OptionField.ZoomHorizontal, mPlotOptions.ZoomHorizontal);
+            mPlotOptions.UnzoomKey = GetSavedValue( OptionField.UnzoomKey, mPlotOptions.UnzoomKey);
+            mPlotOptions.FocusOffset = GetSavedValue(OptionField.FocusOffset, mPlotOptions.FocusOffset);
+            mPlotOptions.AnnotationPercent = GetSavedValue(OptionField.AnnotationPercent, mPlotOptions.AnnotationPercent);
+            mPlotOptions.AnnotationTextSize = GetSavedValue(OptionField.AnnotationTextSize, mPlotOptions.AnnotationTextSize);
+            mPlotOptions.AnnotationColor = GetSavedValue(OptionField.AnnotationColor, mPlotOptions.AnnotationColor);
+            mPlotOptions.MatchedColor = GetSavedValue(OptionField.MatchedColor, mPlotOptions.MatchedColor);
+            mPlotOptions.UnmatchedColor = GetSavedValue(OptionField.UnmatchedColor, mPlotOptions.UnmatchedColor);
+            mPlotOptions.RightClickUnzoom = GetSavedValue(OptionField.RightClickUnzoom, mPlotOptions.RightClickUnzoom);
+            mPlotOptions.HidePlotTools = GetSavedValue(OptionField.HidePlotTools, mPlotOptions.HidePlotTools);
+
+            if (mSavedOptions[OptionField.NumberOfPlots] != null)
             {
                 mPlotOptions.Replot = true;
-                mPlotOptions.NumberOfPlots = (int)mValuesForCancel[15];
+                mPlotOptions.NumberOfPlots = GetSavedValue(OptionField.NumberOfPlots, mPlotOptions.NumberOfPlots);
             }
 
-            // MAIN UPDATING
-            if (mValuesForCancel[11] != null)
-            {
-                mMainFormOptions.IsPlotInMainForm = (bool)mValuesForCancel[11];
-            }
-            if (mValuesForCancel[12] != null)
-            {
-                mMainFormOptions.ToleranceValue = (double)mValuesForCancel[12];
-            }
-            if (mValuesForCancel[18] != null)
-            {
-                mMainFormOptions.LowerToleranceValue = (double)mValuesForCancel[18];
-            }
+            // Main Form
 
-            // DATA VIEW
+            mMainFormOptions.IsPlotInMainForm = GetSavedValue(OptionField.IsPlotInMainForm, mMainFormOptions.IsPlotInMainForm);
+            mMainFormOptions.ToleranceValue = GetSavedValue(OptionField.ToleranceValue, mMainFormOptions.ToleranceValue);
+            mMainFormOptions.LowerToleranceValue = GetSavedValue(OptionField.LowerToleranceValue, mMainFormOptions.LowerToleranceValue);
 
-            // FRAGMENT LADDER
+            // Fragmentation Ladder
 
-            if (mValuesForCancel[17] != null)
-            {
-                mFragmentationLadderOptions.CheckedHeaders = (List<string>)mValuesForCancel[17];
-            }
+            mFragmentationLadderOptions.CheckedHeaders = GetSavedValue(OptionField.CheckedHeaders, mFragmentationLadderOptions.CheckedHeaders);
 
             Close();
         }
 
-        private void SaveValuesForCancel()
+        private T GetSavedValue<T>(OptionField optionField, T currentValue)
         {
-            // PLOT
-            mValuesForCancel[0] = mPlotOptions.ShowSnappingCursor;
-            mValuesForCancel[1] = mPlotOptions.ShowLegend;
-            mValuesForCancel[2] = mPlotOptions.HideUnmatched;
-            mValuesForCancel[3] = mPlotOptions.ZoomHorizontal;
-            mValuesForCancel[4] = mPlotOptions.UnzoomKey;
-            mValuesForCancel[5] = mPlotOptions.FocusOffset;
-            mValuesForCancel[6] = mPlotOptions.AnnotationPercent;
-            mValuesForCancel[7] = mPlotOptions.AnnotationTextSize;
-            mValuesForCancel[8] = mPlotOptions.AnnotationColor;
-            mValuesForCancel[9] = mPlotOptions.MatchedColor;
-            mValuesForCancel[10] = mPlotOptions.UnmatchedColor;
-            mValuesForCancel[13] = mPlotOptions.RightClickUnzoom;
-            mValuesForCancel[14] = mPlotOptions.HidePlotTools;
-            mValuesForCancel[15] = mPlotOptions.NumberOfPlots;
+            var originalValue = mSavedOptions[optionField];
+            if (originalValue != null)
+            {
+                return (T)originalValue;
+            }
 
-            // MAIN
-            mValuesForCancel[11] = mMainFormOptions.IsPlotInMainForm;
-            mValuesForCancel[12] = mMainFormOptions.ToleranceValue;
-            mValuesForCancel[18] = mMainFormOptions.LowerToleranceValue;
+            return currentValue;
+        }
 
-            // DATA VIEW
+        private void CacheCurrentOptions()
+        {
+            // Plot options
+            mSavedOptions[OptionField.ShowSnappingCursor] = mPlotOptions.ShowSnappingCursor;
+            mSavedOptions[OptionField.ShowLegend] = mPlotOptions.ShowLegend;
+            mSavedOptions[OptionField.HideUnmatched] = mPlotOptions.HideUnmatched;
+            mSavedOptions[OptionField.ZoomHorizontal] = mPlotOptions.ZoomHorizontal;
+            mSavedOptions[OptionField.UnzoomKey] = mPlotOptions.UnzoomKey;
+            mSavedOptions[OptionField.FocusOffset] = mPlotOptions.FocusOffset;
+            mSavedOptions[OptionField.AnnotationPercent] = mPlotOptions.AnnotationPercent;
+            mSavedOptions[OptionField.AnnotationTextSize] = mPlotOptions.AnnotationTextSize;
+            mSavedOptions[OptionField.AnnotationColor] = mPlotOptions.AnnotationColor;
+            mSavedOptions[OptionField.MatchedColor] = mPlotOptions.MatchedColor;
+            mSavedOptions[OptionField.UnmatchedColor] = mPlotOptions.UnmatchedColor;
+            mSavedOptions[OptionField.RightClickUnzoom] = mPlotOptions.RightClickUnzoom;
+            mSavedOptions[OptionField.HidePlotTools] = mPlotOptions.HidePlotTools;
+            mSavedOptions[OptionField.NumberOfPlots] = mPlotOptions.NumberOfPlots;
 
-            // FRAGMENT LADDER
-            mValuesForCancel[17] = mFragmentationLadderOptions.CheckedHeaders;
+            // Main form
+            mSavedOptions[OptionField.IsPlotInMainForm] = mMainFormOptions.IsPlotInMainForm;
+            mSavedOptions[OptionField.ToleranceValue] = mMainFormOptions.ToleranceValue;
+            mSavedOptions[OptionField.LowerToleranceValue] = mMainFormOptions.LowerToleranceValue;
+
+            // Fragmentation Ladder
+            mSavedOptions[OptionField.CheckedHeaders] = mFragmentationLadderOptions.CheckedHeaders;
         }
 
         private void OptionsViewController_FormClosing(object sender, FormClosingEventArgs e)
@@ -651,24 +639,24 @@ namespace SpectrumLook.Views
             }
         }
 
-        private void defaultButton_Click(object sender, EventArgs e)
+        private void DefaultButton_Click(object sender, EventArgs e)
         {
             if (optionTabsPage.SelectedTab.Text == "Plot Options")
             {
-                mValuesForCancel[0] = mPlotOptions.ShowSnappingCursor;
-                mValuesForCancel[1] = mPlotOptions.ShowLegend;
-                mValuesForCancel[2] = mPlotOptions.HideUnmatched;
-                mValuesForCancel[3] = mPlotOptions.ZoomHorizontal;
-                mValuesForCancel[4] = mPlotOptions.UnzoomKey;
-                mValuesForCancel[5] = mPlotOptions.FocusOffset;
-                mValuesForCancel[6] = mPlotOptions.AnnotationPercent;
-                mValuesForCancel[7] = mPlotOptions.AnnotationTextSize;
-                mValuesForCancel[8] = mPlotOptions.AnnotationColor;
-                mValuesForCancel[9] = mPlotOptions.MatchedColor;
-                mValuesForCancel[10] = mPlotOptions.UnmatchedColor;
-                mValuesForCancel[13] = mPlotOptions.RightClickUnzoom;
-                mValuesForCancel[14] = mPlotOptions.HidePlotTools;
-                mValuesForCancel[15] = mPlotOptions.NumberOfPlots;
+                mSavedOptions[OptionField.ShowSnappingCursor] = mPlotOptions.ShowSnappingCursor;
+                mSavedOptions[OptionField.ShowLegend] = mPlotOptions.ShowLegend;
+                mSavedOptions[OptionField.HideUnmatched] = mPlotOptions.HideUnmatched;
+                mSavedOptions[OptionField.ZoomHorizontal] = mPlotOptions.ZoomHorizontal;
+                mSavedOptions[OptionField.UnzoomKey] = mPlotOptions.UnzoomKey;
+                mSavedOptions[OptionField.FocusOffset] = mPlotOptions.FocusOffset;
+                mSavedOptions[OptionField.AnnotationPercent] = mPlotOptions.AnnotationPercent;
+                mSavedOptions[OptionField.AnnotationTextSize] = mPlotOptions.AnnotationTextSize;
+                mSavedOptions[OptionField.AnnotationColor] = mPlotOptions.AnnotationColor;
+                mSavedOptions[OptionField.MatchedColor] = mPlotOptions.MatchedColor;
+                mSavedOptions[OptionField.UnmatchedColor] = mPlotOptions.UnmatchedColor;
+                mSavedOptions[OptionField.RightClickUnzoom] = mPlotOptions.RightClickUnzoom;
+                mSavedOptions[OptionField.HidePlotTools] = mPlotOptions.HidePlotTools;
+                mSavedOptions[OptionField.NumberOfPlots] = mPlotOptions.NumberOfPlots;
 
                 mPlotOptions.NumberOfPlots = 1;
                 mPlotOptions.Replot = true;
@@ -677,9 +665,9 @@ namespace SpectrumLook.Views
             }
             else if (optionTabsPage.SelectedTab.Text == "General Options")
             {
-                mValuesForCancel[11] = mMainFormOptions.IsPlotInMainForm;
-                mValuesForCancel[12] = mMainFormOptions.ToleranceValue;
-                mValuesForCancel[18] = mMainFormOptions.LowerToleranceValue;
+                mSavedOptions[OptionField.IsPlotInMainForm] = mMainFormOptions.IsPlotInMainForm;
+                mSavedOptions[OptionField.ToleranceValue] = mMainFormOptions.ToleranceValue;
+                mSavedOptions[OptionField.LowerToleranceValue] = mMainFormOptions.LowerToleranceValue;
 
                 mMainFormOptions.SetOptions(new MainFormOptions());
             }
