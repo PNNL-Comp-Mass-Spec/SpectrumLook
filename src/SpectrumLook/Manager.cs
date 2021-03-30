@@ -103,7 +103,7 @@ namespace SpectrumLook
                 try
                 {
                     var binaryFormatter = new BinaryFormatter();
-                    mPlot.mOptions = new PlotOptions((PlotOptions)binaryFormatter.Deserialize(reader));
+                    mPlot.Options = new PlotOptions((PlotOptions)binaryFormatter.Deserialize(reader));
                     mMainForm.mCurrentOptions = new MainFormOptions((MainFormOptions)binaryFormatter.Deserialize(reader));
                     mFragmentationLadder.FragmentLadderOptions = new Views.Options.FragmentLadderOptions((Views.Options.FragmentLadderOptions)binaryFormatter.Deserialize(reader));
                 }
@@ -120,19 +120,19 @@ namespace SpectrumLook
             var userProfileFilePath = Path.Combine(Directory.GetCurrentDirectory() + "UserProfile.spuf");
 
             // Options
-            mOptions = new OptionsViewController(mPlot.mOptions, mMainForm.mCurrentOptions, mFragmentationLadder.FragmentLadderOptions, userProfileFilePath, createFileFlag, mFragmentationLadder);
+            mOptions = new OptionsViewController(mPlot.Options, mMainForm.mCurrentOptions, mFragmentationLadder.FragmentLadderOptions, userProfileFilePath, createFileFlag, mFragmentationLadder);
             mMainForm.mCurrentOptions.ToleranceValue = 0.7;
 
             // attach all of the observers to the subjects
             var tempObserver = mPlot as IObserver;
-            mPlot.mOptions.Attach(ref tempObserver);
+            mPlot.Options.Attach(ref tempObserver);
 
             tempObserver = mMainForm as IObserver;
             mMainForm.mCurrentOptions.Attach(ref tempObserver);
 
             tempObserver = mOptions as IObserver;
             mMainForm.mCurrentOptions.Attach(ref tempObserver);
-            mPlot.mOptions.Attach(ref tempObserver);// This is because the plot window depends on the mainFormOptions.
+            mPlot.Options.Attach(ref tempObserver);// This is because the plot window depends on the mainFormOptions.
 
             tempObserver = mFragmentationLadder as IObserver;
             // Add pre-defined symbols to modifications list
@@ -151,7 +151,7 @@ namespace SpectrumLook
                 mFragmentationLadder.FragmentLadderOptions.ModificationList.Add('`', 450.274);
             }
 
-            mPlot.mOptions.SetOptions(mPlot.mOptions);
+            mPlot.Options.SetOptions(mPlot.Options);
             mOptions.Hide();
         }
 
@@ -167,7 +167,7 @@ namespace SpectrumLook
             // handle ZoomOut
             if (e.Control)
             {
-                if (e.KeyCode == mPlot.mOptions.UnzoomKey)
+                if (e.KeyCode == mPlot.Options.UnzoomKey)
                 {
                     mPlot.HandleZoomOut();
                     e.Handled = true;
@@ -183,7 +183,7 @@ namespace SpectrumLook
 
         private string mDataDirectoryPath = string.Empty;
 
-        private string mDataFilePath
+        private string DataFilePath
         {
             get => Path.Combine(mDataDirectoryPath, DataFileName);
             set
@@ -205,16 +205,16 @@ namespace SpectrumLook
         /// </summary>
         public void RunOpenDialog()
         {
-            var openDialog = new SLOpenFileDialog(mSynopsisFilePath, mDataFilePath);
+            var openDialog = new SLOpenFileDialog(mSynopsisFilePath, DataFilePath);
             var result = openDialog.ShowDialog();
 
             if (result == DialogResult.OK)
             {
-                if (mDataFilePath == openDialog.mDataPath && mSynopsisFilePath == openDialog.mSynopsisPath)
+                if (DataFilePath == openDialog.mDataPath && mSynopsisFilePath == openDialog.mSynopsisPath)
                 {
                     return;
                 }
-                mDataFilePath = openDialog.mDataPath;
+                DataFilePath = openDialog.mDataPath;
                 mSynopsisFilePath = openDialog.mSynopsisPath;
 
                 if (mSynopsisFilePath != string.Empty)
@@ -386,7 +386,7 @@ namespace SpectrumLook
                 mCurrentPeptide = peptide;
                 // use the builder director to crunch all the data
                 var theoreticalList = mBuilderDirector.BuildTheoryList(peptide, mIsETD, mFragmentationLadder.FragmentLadderOptions.ModificationList);
-                mExperimentalList = mBuilderDirector.BuildActualList(Convert.ToInt32(scanNumber), mDataFilePath);
+                mExperimentalList = mBuilderDirector.BuildActualList(Convert.ToInt32(scanNumber), DataFilePath);
                 var comparedList = mBuilderDirector.BuildComparedList(mMainForm.mCurrentOptions.ToleranceValue, mMainForm.mCurrentOptions.LowerToleranceValue, mExperimentalList, PrecursorMZ, ref theoreticalList);
 
                 // now give the data to the views to display
@@ -459,7 +459,7 @@ namespace SpectrumLook
                 // Give experimental List the original Peptide.
                 // WARNING : ASSUMING THE SCAN NUMBER KEY IS AN INTEGER
                 // THIS MAY NOT BE THE CASE IF PARSER CHANGES
-                var experimentalList = mBuilderDirector.BuildActualList(int.Parse(currentLadderInstances.ScanNumberString), mDataFilePath);
+                var experimentalList = mBuilderDirector.BuildActualList(int.Parse(currentLadderInstances.ScanNumberString), DataFilePath);
 
                 // build the compared list
                 var comparedList = mBuilderDirector.BuildComparedList(mMainForm.mCurrentOptions.ToleranceValue, mMainForm.mCurrentOptions.LowerToleranceValue, experimentalList, PrecursorMZ, ref theoreticalList);
@@ -514,7 +514,7 @@ namespace SpectrumLook
                     // Give experimental List the original Peptide.
                     // WARNING : ASSUMING THE SCAN NUMBER KEY IS AN INTEGER
                     // THIS MAY NOT BE THE CASE IF PARSER CHANGES
-                    var experimentalList = mBuilderDirector.BuildActualList(int.Parse(currentInstance.ScanNumberString), mDataFilePath);
+                    var experimentalList = mBuilderDirector.BuildActualList(int.Parse(currentInstance.ScanNumberString), DataFilePath);
                     // build the compared list
                     var comparedList = mBuilderDirector.BuildComparedList(mMainForm.mCurrentOptions.ToleranceValue, mMainForm.mCurrentOptions.LowerToleranceValue, experimentalList, PrecursorMZ, ref theoreticalList);
 

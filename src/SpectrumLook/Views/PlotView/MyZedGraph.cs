@@ -261,29 +261,29 @@ namespace SpectrumLook.Views
                 var text = new TextObj();
 
                 // look for if the user has defined a custom annotation if they have we deal with that instead of making a new one
-                for (var j = 0; j < currentInstance.annotations.Count; j++)
+                for (var j = 0; j < currentInstance.Annotations.Count; j++)
                 {
-                    if (currentInstance.annotations[j].mPoint.X == pointsList[i].X &&
-                        currentInstance.annotations[j].mPoint.Y == pointsList[i].Y)
+                    if (Math.Abs(currentInstance.Annotations[j].Point.X - pointsList[i].X) < 0.001 &&
+                        Math.Abs(currentInstance.Annotations[j].Point.Y - pointsList[i].Y) < 0.001)
                     {
                         usingCustomAnnotation = true;
-                        var customAnnotation = currentInstance.annotations[j];
+                        var customAnnotation = currentInstance.Annotations[j];
                         var pt = pointsList[i];
 
                         // Create a text label from the Y data value
-                        text = new TextObj(customAnnotation.mText, pt.X, pt.Y + offset, CoordType.AxisXYScale, AlignH.Left, AlignV.Center)
+                        text = new TextObj(customAnnotation.Text, pt.X, pt.Y + offset, CoordType.AxisXYScale, AlignH.Left, AlignV.Center)
                         {
                             Tag = (object)pt
                         };
 
                         // Store the point into the text object's tag
 
-                        if (customAnnotation.mShowHideAuto > 0)
+                        if (customAnnotation.ShowHideAuto > 0)
                         {
                             // Always show this annotation
                             text.IsVisible = true;
                         }
-                        else if (customAnnotation.mShowHideAuto < 0)
+                        else if (customAnnotation.ShowHideAuto < 0)
                         {
                             // Always hide this annotation
                             text.IsVisible = false;
@@ -385,22 +385,22 @@ namespace SpectrumLook.Views
                         var pt = (PointPair)text.Tag;
                         var customAnnotation = new Annotation();
 
-                        foreach (var annotation in mManager.GetCurrentInstance().annotations)
+                        foreach (var annotation in mManager.GetCurrentInstance().Annotations)
                         {
-                            if (annotation.mPoint.X == pt.X &&
-                             annotation.mPoint.Y == pt.Y)
+                            if (annotation.Point.X == pt.X &&
+                             annotation.Point.Y == pt.Y)
                             {
                                 customAnnotation = annotation;
                                 break;
                             }
                         }
 
-                        if (customAnnotation.mShowHideAuto > 0)
+                        if (customAnnotation.ShowHideAuto > 0)
                         {
                             // Always show this annotation
                             text.IsVisible = true;
                         }
-                        else if (customAnnotation.mShowHideAuto < 0)
+                        else if (customAnnotation.ShowHideAuto < 0)
                         {
                             // Always hide this annotation
                             text.IsVisible = false;

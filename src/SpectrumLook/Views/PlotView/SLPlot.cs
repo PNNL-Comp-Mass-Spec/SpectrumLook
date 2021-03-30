@@ -14,7 +14,8 @@ namespace SpectrumLook.Views
     public partial class SLPlot : Form, IObserver
     {
         private readonly Manager mManager;
-        public PlotOptions mOptions
+
+        public PlotOptions Options
         {
             get => msPlot.mOptions;
             set => msPlot.mOptions = value;
@@ -29,7 +30,7 @@ namespace SpectrumLook.Views
             mManager = manager;
             msPlot.mManager = manager;
 
-            mOptions = new PlotOptions();
+            Options = new PlotOptions();
 
             // Setup the parts of the form not involving ZedGraph
             msPlot.mUpdateCursorCallback = UpdateSnapPoint;
@@ -143,13 +144,13 @@ namespace SpectrumLook.Views
 
         private void ToggleHidePlotTools()
         {
-            if (mOptions.HidePlotTools)
+            if (Options.HidePlotTools)
             {
-                mOptions.HidePlotTools = false;
+                Options.HidePlotTools = false;
             }
             else
             {
-                mOptions.HidePlotTools = true;
+                Options.HidePlotTools = true;
             }
         }
 
@@ -191,43 +192,43 @@ namespace SpectrumLook.Views
             // see if we have a custom annotation for this annotation we selected
             var currentInstance = mManager.GetCurrentInstance();
             var selectedAnnotation = new Annotation();
-            foreach (var annotation in currentInstance.annotations)
+            foreach (var annotation in currentInstance.Annotations)
             {
-                if (annotation.mPoint == (PointPair)selectedTextObj.Tag)
+                if (annotation.Point == (PointPair)selectedTextObj.Tag)
                 {
                     usingCustomAnnotation = true;
                     selectedAnnotation = annotation;
-                    currentInstance.annotations.Remove(annotation);
+                    currentInstance.Annotations.Remove(annotation);
                     break;
                 }
             }
-            if (selectedAnnotation.mPoint == null && selectedAnnotation.mText == null)
+            if (selectedAnnotation.Point == null && selectedAnnotation.Text == null)
             {
-                selectedAnnotation.mShowHideAuto = 0;
-                selectedAnnotation.mText = selectedTextObj.Text;
-                selectedAnnotation.mPoint = (PointPair)selectedTextObj.Tag;
+                selectedAnnotation.ShowHideAuto = 0;
+                selectedAnnotation.Text = selectedTextObj.Text;
+                selectedAnnotation.Point = (PointPair)selectedTextObj.Tag;
             }
 
             // Open the AnnotationEdit form
             var editForm = new PlotView.AnnotationEdit(selectedAnnotation);
             if (editForm.ShowDialog() == DialogResult.OK)
             {
-                if (editForm.mAnnotation.mShowHideAuto < 0)
+                if (editForm.Annotation.ShowHideAuto < 0)
                 {
                     selectedTextObj.IsVisible = false;
                 }
-                else if (editForm.mAnnotation.mShowHideAuto > 0)
+                else if (editForm.Annotation.ShowHideAuto > 0)
                 {
                     selectedTextObj.IsVisible = true;
                 }
-                selectedTextObj.Text = editForm.mAnnotation.mText;
+                selectedTextObj.Text = editForm.Annotation.Text;
 
-                currentInstance.annotations.Add(editForm.mAnnotation);
+                currentInstance.Annotations.Add(editForm.Annotation);
             }
             else if (usingCustomAnnotation)
             {
                 // recreate the annotation we thought we were replacing
-                currentInstance.annotations.Add(selectedAnnotation);
+                currentInstance.Annotations.Add(selectedAnnotation);
             }
 
             msPlot.ReevaluateAnnotations();

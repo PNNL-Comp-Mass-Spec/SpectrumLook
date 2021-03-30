@@ -512,10 +512,9 @@ namespace SpectrumLook.Views
         {
             if (e.KeyCode == Keys.Enter)
             {
-                var SearchSubString = SearchBox.Text;
                 if (DataGridTable != null)
                 {
-                    mViewSearch.SimpleSearch(SearchSubString);
+                    mViewSearch.SimpleSearch(SearchBox.Text);
                 }
                 else
                 {

@@ -8,9 +8,9 @@ namespace SpectrumLook
     /// </summary>
     public struct Annotation
     {
-        public string mText;
-        public int mShowHideAuto;
-        public PointPair mPoint;
+        public string Text;
+        public int ShowHideAuto;
+        public PointPair Point;
     }
 
     /// <summary>
@@ -59,17 +59,17 @@ namespace SpectrumLook
             }
         }
 
-        public string currentMode { get; set; }
+        public string CurrentMode { get; set; }
 
-        public List<Annotation> annotations { get; set; }
+        public List<Annotation> Annotations { get; set; }
 
         public LadderInstance()
         {
-            currentMode = "";
-            ScanAndPeptide = "";
+            CurrentMode = string.Empty;
+            ScanAndPeptide = string.Empty;
             MzValueHeaders = new List<string>();
             MzValue = new List<string[]>();
-            annotations = new List<Annotation>();
+            Annotations = new List<Annotation>();
         }
     }
 }

@@ -20,7 +20,7 @@ namespace SpectrumLook.Builders
         /// This starts are zero and goes to N-1. Where N is the number of rows in
         /// the current sequest file.
         /// </summary>
-        public int currentRowCount { get; internal set; }
+        public int CurrentRowCount { get; internal set; }
 
         /// <summary>
         /// The constructor will attempt to open the given file location
@@ -31,7 +31,7 @@ namespace SpectrumLook.Builders
         /// <param name="filePath">The location of the sequest file. (.txt format)</param>
         public SequestParser(string filePath)
         {
-            currentRowCount = 0;
+            CurrentRowCount = 0;
 
             if (filePath != null)
             {
@@ -72,7 +72,7 @@ namespace SpectrumLook.Builders
                     splicedRow[1] = splicedRow[1] + "_s";
                     splicedRow[10] = splicedRow[10] + "_p";
                 }*/
-                ++currentRowCount;
+                ++CurrentRowCount;
                 return splicedRow;
             }
             return null;

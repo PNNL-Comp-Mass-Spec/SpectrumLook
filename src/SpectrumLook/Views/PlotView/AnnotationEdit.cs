@@ -5,7 +5,7 @@ namespace SpectrumLook.Views.PlotView
 {
     public partial class AnnotationEdit : Form
     {
-        public Annotation mAnnotation
+        public Annotation Annotation
         {
             get;
             set;
@@ -21,12 +21,12 @@ namespace SpectrumLook.Views.PlotView
             mOriginalAnnotation = annotation;
             mModifiedAnnotation = annotation;
 
-            textBox1.Text = mOriginalAnnotation.mText;
-            if (mModifiedAnnotation.mShowHideAuto > 0)
+            textBox1.Text = mOriginalAnnotation.Text;
+            if (mModifiedAnnotation.ShowHideAuto > 0)
             {
                 radioButtonVisibleAlways.Checked = true;
             }
-            else if (mModifiedAnnotation.mShowHideAuto < 0)
+            else if (mModifiedAnnotation.ShowHideAuto < 0)
             {
                 radioButtonVisibleNever.Checked = true;
             }
@@ -42,11 +42,11 @@ namespace SpectrumLook.Views.PlotView
         {
             if (DialogResult == DialogResult.OK)
             {
-                mAnnotation = mModifiedAnnotation;
+                Annotation = mModifiedAnnotation;
             }
             else
             {
-                mAnnotation = mOriginalAnnotation;
+                Annotation = mOriginalAnnotation;
             }
         }
 
@@ -64,23 +64,23 @@ namespace SpectrumLook.Views.PlotView
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            mModifiedAnnotation.mText = textBox1.Text;
+            mModifiedAnnotation.Text = textBox1.Text;
         }
 
         private void checkBoxVisibleYes_CheckedChanged(object sender, EventArgs e)
         {
             if (radioButtonVisibleAlways.Checked)
             {
-                mModifiedAnnotation.mShowHideAuto = 1;
+                mModifiedAnnotation.ShowHideAuto = 1;
             }
             // if (checkBoxVisibleYes.Checked == true)
             //{
-            //    mModifiedAnnotation.mShowHideAuto = 1;
+            //    mModifiedAnnotation.ShowHideAuto = 1;
             //    checkBoxVisibleNo.Checked = false;
             //}
             // else if (checkBoxVisibleNo.Checked == false) // both checkboxes are false
             //{
-            //    mModifiedAnnotation.mShowHideAuto = 0;
+            //    mModifiedAnnotation.ShowHideAuto = 0;
             //}
         }
 
@@ -88,16 +88,16 @@ namespace SpectrumLook.Views.PlotView
         {
             if (radioButtonVisibleNever.Checked)
             {
-                mModifiedAnnotation.mShowHideAuto = -1;
+                mModifiedAnnotation.ShowHideAuto = -1;
             }
             // if (checkBoxVisibleNo.Checked == true)
             //{
-            //    mModifiedAnnotation.mShowHideAuto = -1;
+            //    mModifiedAnnotation.ShowHideAuto = -1;
             //    checkBoxVisibleYes.Checked = false;
             //}
             // else if (checkBoxVisibleYes.Checked == false) // both checkboxes are false
             //{
-            //    mModifiedAnnotation.mShowHideAuto = 0;
+            //    mModifiedAnnotation.ShowHideAuto = 0;
             //}
         }
 
@@ -105,15 +105,15 @@ namespace SpectrumLook.Views.PlotView
         {
             if (radioButtonVisibleAuto.Checked)
             {
-                mModifiedAnnotation.mShowHideAuto = 0;
+                mModifiedAnnotation.ShowHideAuto = 0;
             }
         }
 
         private void buttonResetAnnotation_Click(object sender, EventArgs e)
         {
-            if (mOriginalAnnotation.mPoint.Tag != null)
+            if (mOriginalAnnotation.Point.Tag != null)
             {
-                textBox1.Text = mOriginalAnnotation.mPoint.Tag.ToString();
+                textBox1.Text = mOriginalAnnotation.Point.Tag.ToString();
             }
             else
             {

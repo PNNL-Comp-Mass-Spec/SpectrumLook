@@ -523,8 +523,8 @@ namespace SpectrumLook.Views.FragmentLadderView
 
             var selected = (e.State & DrawItemState.Selected) == DrawItemState.Selected;
             var itemIndex = e.Index;
-            var matchedItem = new SolidBrush(mManager.mPlot.mOptions.MatchedColor);
-            var unmatchedItem = new SolidBrush(mManager.mPlot.mOptions.UnmatchedColor);
+            var matchedItem = new SolidBrush(mManager.mPlot.Options.MatchedColor);
+            var unmatchedItem = new SolidBrush(mManager.mPlot.Options.UnmatchedColor);
 
             var listBoxHandler = (ListBox)sender;
 
