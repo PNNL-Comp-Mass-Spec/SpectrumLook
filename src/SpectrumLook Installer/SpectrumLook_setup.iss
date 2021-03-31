@@ -33,8 +33,8 @@ Source: ..\SpectrumLook\SpectrumLookIcon.ico                                    
 
 Source: ..\..\README.md                                                                ; DestDir: {app}
 Source: ..\..\TestData\MSGFPlus\QC_Mam_19_01_excerpt.mzML                              ; DestDir: {app}
-Source: ..\..\TestData\MSGFPlus\MSGFPlus_Tryp_MetOx_StatCysAlk_20ppmParTol.txt         ; DestDir: {app}
-Source: ..\..\TestData\MSGFPlus\MSGFPlus_Tryp_MetOx_StatCysAlk_20ppmParTol_ModDefs.txt ; DestDir: {app}
+Source: ..\..\TestData\MSGFPlus\QC_Mam_19_01_excerpt_msgfplus_syn.txt                  ; DestDir: {app}
+Source: ..\..\TestData\MSGFPlus\QC_Mam_19_01_excerpt_msgfplus_syn_ModSummary.txt       ; DestDir: {app}
 
 [Dirs]
 Name: {commonappdata}\SpectrumLook; Flags: uninsalwaysuninstall
