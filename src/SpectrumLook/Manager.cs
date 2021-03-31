@@ -277,7 +277,7 @@ namespace SpectrumLook
             var modList = new string(mFragmentationLadder.FragmentLadderOptions.ModificationList.Keys.ToArray());
 
             // The automatic way, using .NET
-            var escapedModList = System.Text.RegularExpressions.Regex.Escape(modList);
+            var escapedModList = Regex.Escape(modList);
 
             // One or more characters, A-Z, which may be followed by a valid modification symbol, that does not end with a modification symbol be itself?
             // The escaping of all symbols is likely a problem.
@@ -293,10 +293,10 @@ namespace SpectrumLook
             // This test will always be evaluate to 'not false' whenever there are lowercase characters or symbols that are not in the modification list,
             // or if the peptide begins with a modification symbol.
 
-            if (!System.Text.RegularExpressions.Regex.IsMatch(peptide, "^" + validCharactersRegEx + "$"))
+            if (!Regex.IsMatch(peptide, "^" + validCharactersRegEx + "$"))
             {
                 // Get a string with all invalid characters by removing the valid characters
-                var invalidChars = System.Text.RegularExpressions.Regex.Replace(peptide, validCharactersRegEx, string.Empty);
+                var invalidChars = Regex.Replace(peptide, validCharactersRegEx, string.Empty);
                 if (modList.Contains(peptide[0]))
                 {
                     MessageBox.Show("The peptide string cannot start with a modification.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
@@ -304,7 +304,7 @@ namespace SpectrumLook
                 }
 
                 if (escapedModList.Length > 0 &&
-                    System.Text.RegularExpressions.Regex.Replace(invalidChars, "[" + escapedModList + "]", string.Empty).Length == 0)
+                    Regex.Replace(invalidChars, "[" + escapedModList + "]", string.Empty).Length == 0)
                 {
                     MessageBox.Show("Invalid peptide string: Too many modifications on a single amino acid.", "Error", MessageBoxButtons.OK,
                         MessageBoxIcon.Exclamation);
@@ -318,13 +318,15 @@ namespace SpectrumLook
                 return false;
             }
 
-            // check to see if peptide exists in the ladder instances table and don't add a modification if it does
-            var isSame = mLadderInstances[mCurrentScanNumber + mCurrentPeptide].Any(instance => instance.PeptideString == peptide);
+            // Check to see if peptide exists in the ladder instances table and don't add a modification if it does
+            var currentKey = mCurrentScanNumber + mCurrentPeptide;
 
-            if (!isSame)
+            var existingMatchFound = mLadderInstances[currentKey].Any(instance => instance.PeptideString == peptide);
+
+            if (!existingMatchFound)
             {
                 var ladderBuilder =
-                    new Views.FragmentLadderView.LadderInstanceBuilder();
+                    new LadderInstanceBuilder();
 
                 // use the builder director to crunch all the data
                 var theoreticalList = mBuilderDirector.BuildTheoryList(peptide, mIsETD,
@@ -335,14 +337,13 @@ namespace SpectrumLook
 
                 // now give the data to the views to display
                 // Send the FragmentLadder and the Plot the data to show
-                if (mLadderInstances.ContainsKey(mCurrentScanNumber.ToString() + mCurrentPeptide))
+                if (mLadderInstances.ContainsKey(currentKey))
                 {
-                    mCurrentInstance = ladderBuilder.GenerateInstance(theoreticalList, peptide,
-                        mFragmentationLadder.FragmentLadderOptions.ModificationList);
-                    mCurrentInstance.ScanAndPeptide = mCurrentScanNumber.ToString() + "|" + peptide;
-                    mLadderInstances[mCurrentScanNumber.ToString() + mCurrentPeptide].Add(mCurrentInstance);
-                    mCurrentInstance = mLadderInstances[mCurrentScanNumber.ToString() + mCurrentPeptide][0];
-                    mFragmentationLadder.GenerateLadderFromSelection(0.0, mLadderInstances[mCurrentScanNumber.ToString() + mCurrentPeptide]);
+                    mCurrentInstance = ladderBuilder.GenerateInstance(theoreticalList, peptide, mFragmentationLadder.FragmentLadderOptions.ModificationList);
+                    mCurrentInstance.ScanAndPeptide = mCurrentScanNumber + "|" + peptide;
+                    mLadderInstances[currentKey].Add(mCurrentInstance);
+                    mCurrentInstance = mLadderInstances[currentKey][0];
+                    mFragmentationLadder.GenerateLadderFromSelection(0.0, mLadderInstances[currentKey]);
                     mPlot.PlotData(comparedList, mCurrentScanNumber.ToString(), peptide);
                 }
                 else
@@ -362,8 +363,9 @@ namespace SpectrumLook
         /// <param name="index"></param>
         public void RemoveModificationFromList(int index)
         {
-            var x = mLadderInstances[mCurrentScanNumber.ToString() + mCurrentPeptide][index].PeptideString;
-            mLadderInstances[mCurrentScanNumber.ToString() + mCurrentPeptide].RemoveAt(index);
+            var currentKey = mCurrentScanNumber + mCurrentPeptide;
+            var x = mLadderInstances[currentKey][index].PeptideString;
+            mLadderInstances[currentKey].RemoveAt(index);
             // mLadderInstances.Remove(((List<LadderInstance>)mLadderInstances[mCurrentScanNumber.ToString() + mCurrentPeptide])[index]);
             mDataView.HandleRowSelection();
         }
@@ -391,10 +393,11 @@ namespace SpectrumLook
 
                 // now give the data to the views to display
                 // Send the FragmentLadder and the Plot the data to show
-                if (mLadderInstances.ContainsKey(scanNumber + peptide))
+                var currentKey = scanNumber + peptide;
+                if (mLadderInstances.ContainsKey(currentKey) && mLadderInstances[currentKey].Count > 0)
                 {
-                    mCurrentInstance = mLadderInstances[scanNumber + peptide][0];
-                    mFragmentationLadder.GenerateLadderFromSelection(0.0, mLadderInstances[scanNumber + peptide]);
+                    mCurrentInstance = mLadderInstances[currentKey][0];
+                    mFragmentationLadder.GenerateLadderFromSelection(0.0, mLadderInstances[currentKey]);
                 }
                 else
                 {
@@ -402,11 +405,12 @@ namespace SpectrumLook
                     var tempInstance = ladderBuilder.GenerateInstance(theoreticalList, peptide, mFragmentationLadder.FragmentLadderOptions.ModificationList);
                     tempInstance.ScanAndPeptide = scanNumber + "|" + peptide;
                     tempList.Add(tempInstance);
-                    mLadderInstances.Add(scanNumber + peptide, tempList);
+                    mLadderInstances.Add(currentKey, tempList);
 
-                    mCurrentInstance = mLadderInstances[scanNumber + peptide][0];
-                    mFragmentationLadder.GenerateLadderFromSelection(0.0, mLadderInstances[scanNumber + peptide]);
+                    mCurrentInstance = mLadderInstances[currentKey][0];
+                    mFragmentationLadder.GenerateLadderFromSelection(0.0, mLadderInstances[currentKey]);
                 }
+
                 mPlot.PlotData(comparedList, scanNumber, peptide);
                 // mExperimentalList.Clear();
                 // mExperimentalList = null;
@@ -443,13 +447,17 @@ namespace SpectrumLook
         {
             mIsETD = setMode;
 
-            var allKeyValues = mLadderInstances.Keys.ToArray();
-            var ladderBuilder = new Views.FragmentLadderView.LadderInstanceBuilder();
+            var allKeyValues = mLadderInstances.Keys.ToList();
+            var ladderBuilder = new LadderInstanceBuilder();
 
-            foreach (var currentKey in allKeyValues)
+            foreach (var keyToUpdate in allKeyValues)
             {
-                var currentLadderInstances = mLadderInstances[currentKey][0];
-                mLadderInstances.Remove(currentKey);
+                if (mLadderInstances[keyToUpdate].Count == 0)
+                    continue;
+
+                var currentLadderInstances = mLadderInstances[keyToUpdate][0];
+                mLadderInstances.Remove(keyToUpdate);
+
                 var newInstanceList = new List<LadderInstance>();
 
                 // Give Theoretical List the modified Peptide
@@ -473,21 +481,22 @@ namespace SpectrumLook
                 newInstanceList.Add(newLadder);
 
                 // Add List Of Instances to the HashTable.
-                mLadderInstances.Add(currentKey, newInstanceList);
+                mLadderInstances.Add(keyToUpdate, newInstanceList);
             }
 
             // Going to delete all the values and recalculate the original.
-            mLadderInstances.Remove(mCurrentScanNumber.ToString() + mCurrentPeptide);
+            mLadderInstances.Remove(mCurrentScanNumber + mCurrentPeptide);
+
             // We should just then call HandleSelectScanAndPeptide
             HandleSelectScanAndPeptide(mCurrentScanNumber.ToString(), mCurrentPeptide);
         }
 
         /// <summary>
-        /// This will be called when the fragment ladder is to clear ladder instances.
+        /// Clear cached fragmentation information for the current scan and peptide
         /// </summary>
         public void ClearLadderInstances()
         {
-            mLadderInstances.Remove(mCurrentScanNumber.ToString() + mCurrentPeptide);
+            mLadderInstances.Remove(mCurrentScanNumber + mCurrentPeptide);
             HandleSelectScanAndPeptide(mCurrentScanNumber.ToString(), mCurrentPeptide);
         }
 
@@ -498,23 +507,24 @@ namespace SpectrumLook
         public void HandleRecalculateAllInHashCode()
         {
             // Get all the Keys in the HashTable.
-            var allKeyValues = mLadderInstances.Keys.ToArray();
-            var ladderBuilder = new Views.FragmentLadderView.LadderInstanceBuilder();
+            var allKeyValues = mLadderInstances.Keys.ToList();
+            var ladderBuilder = new LadderInstanceBuilder();
 
-            foreach (var currentKey in allKeyValues)
+            foreach (var keyToUpdate in allKeyValues)
             {
-                var currentLadderInstances = mLadderInstances[currentKey];
-                mLadderInstances.Remove(currentKey);
+                var currentLadderInstances = mLadderInstances[keyToUpdate];
+                mLadderInstances.Remove(keyToUpdate);
+
                 var newInstanceList = new List<LadderInstance>();
                 foreach (var currentInstance in currentLadderInstances)
                 {
                     // Give Theoretical List the modified Peptide
-                    // Assuming The Frag ladder will add the PeptideString of the modified thing.
+                    // Assuming The Fragmentation ladder will add the PeptideString of the modified thing.
                     var theoreticalList = mBuilderDirector.BuildTheoryList(currentInstance.PeptideString, mIsETD, mFragmentationLadder.FragmentLadderOptions.ModificationList);
+
                     // Give experimental List the original Peptide.
-                    // WARNING : ASSUMING THE SCAN NUMBER KEY IS AN INTEGER
-                    // THIS MAY NOT BE THE CASE IF PARSER CHANGES
                     var experimentalList = mBuilderDirector.BuildActualList(int.Parse(currentInstance.ScanNumberString), DataFilePath);
+
                     // build the compared list
                     var comparedList = mBuilderDirector.BuildComparedList(mMainForm.mCurrentOptions.ToleranceValue, mMainForm.mCurrentOptions.LowerToleranceValue, experimentalList, PrecursorMZ, ref theoreticalList);
 
@@ -527,13 +537,20 @@ namespace SpectrumLook
                     newInstanceList.Add(newLadder);
                 }
                 // Add List Of Instances to the HashTable.
-                mLadderInstances.Add(currentKey, newInstanceList);
+                mLadderInstances.Add(keyToUpdate, newInstanceList);
             }
-            if (mLadderInstances.Count > 0)
+
+            var currentKey = mCurrentScanNumber + mCurrentPeptide;
+
+            if (mLadderInstances.Count == 0 ||
+                !mLadderInstances.ContainsKey(currentKey) ||
+                mLadderInstances[currentKey].Count == 0)
             {
-                mCurrentInstance = mLadderInstances[mCurrentScanNumber + mCurrentPeptide][0];
-                mFragmentationLadder.GenerateLadderFromSelection(0.0, mLadderInstances[mCurrentScanNumber + mCurrentPeptide]);
+                return;
             }
+
+            mCurrentInstance = mLadderInstances[currentKey][0];
+            mFragmentationLadder.GenerateLadderFromSelection(0.0, mLadderInstances[currentKey]);
         }
 
         /// <summary>
@@ -563,11 +580,18 @@ namespace SpectrumLook
         /// <param name="newInstanceIndex">The index in the current List of ladder instances.</param>
         public void UpdateCurrentInstance(int newInstanceIndex)
         {
-            mCurrentInstance = ((List<LadderInstance>)mLadderInstances[mCurrentScanNumber + mCurrentPeptide])[newInstanceIndex];
+            var currentKey = mCurrentScanNumber + mCurrentPeptide;
+
+            if (!mLadderInstances.ContainsKey(currentKey) || newInstanceIndex >= mLadderInstances[currentKey].Count)
+                return;
+
+            mCurrentInstance = mLadderInstances[currentKey][newInstanceIndex];
             mCurrentScanNumber = int.Parse(mCurrentInstance.ScanNumberString);
 
-            var theoreticalList = mBuilderDirector.BuildTheoryList(mCurrentInstance.PeptideString, mIsETD, mFragmentationLadder.FragmentLadderOptions.ModificationList);
-            var comparedList = mBuilderDirector.BuildComparedList(mMainForm.mCurrentOptions.ToleranceValue, mMainForm.mCurrentOptions.LowerToleranceValue, mExperimentalList, PrecursorMZ, ref theoreticalList);
+            var theoreticalList = mBuilderDirector.BuildTheoryList(mCurrentInstance.PeptideString, mIsETD,
+                mFragmentationLadder.FragmentLadderOptions.ModificationList);
+            var comparedList = mBuilderDirector.BuildComparedList(mMainForm.mCurrentOptions.ToleranceValue,
+                mMainForm.mCurrentOptions.LowerToleranceValue, mExperimentalList, PrecursorMZ, ref theoreticalList);
             var peptide = mCurrentInstance.PeptideString;
 
             mPlot.PlotData(comparedList, mCurrentScanNumber.ToString(), peptide);
