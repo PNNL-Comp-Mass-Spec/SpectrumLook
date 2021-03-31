@@ -473,6 +473,9 @@ namespace SpectrumLook.Views
                 dataGridViewModList.Rows[row].Cells[0].Value = dialogBox.ModificationString[0];
                 dataGridViewModList.Rows[row].Cells[1].Value = double.Parse(dialogBox.MassString);
             }
+
+            // Clear any cached ladder sequences to force new mod masses to be used
+            mFragmentationLadder.ClearCachedLadderInstances();
         }
 
         // TODO: Don't actually store any values to objects until this handler is called.

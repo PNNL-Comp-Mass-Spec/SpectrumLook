@@ -69,6 +69,11 @@ namespace SpectrumLook.Views.FragmentLadderView
             }
         }
 
+        public void ClearCachedLadderInstances()
+        {
+            mCurrentInstances?.Clear();
+        }
+
         public void RegenerateLadderFromSelection()
         {
             if (mCurrentInstances != null && mCurrentParentMZ > 0)
