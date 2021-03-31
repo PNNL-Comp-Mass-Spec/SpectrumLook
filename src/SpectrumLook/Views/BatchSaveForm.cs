@@ -45,7 +45,6 @@ namespace SpectrumLook
 
                 try
                 {
-
                     if (SaveCurrentRadioButton.Checked)
                     {
                         mManager.HandlePlotSave(startDirectory, baseName, saveType);
@@ -76,7 +75,6 @@ namespace SpectrumLook
                 {
                     MessageBox.Show("Cancelled saving", "Cancelled", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
-
             }
             else
             {

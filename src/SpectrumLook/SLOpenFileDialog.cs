@@ -26,7 +26,6 @@ namespace SpectrumLook
 
             try
             {
-
                 var synopsisFile = new FileInfo(mSynopsisPath);
                 if (synopsisFile.Directory != null && synopsisFile.Directory.Exists)
                     Environment.CurrentDirectory = synopsisFile.Directory.FullName;

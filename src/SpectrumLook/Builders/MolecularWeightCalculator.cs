@@ -10,7 +10,6 @@ namespace SpectrumLook.Builders
 {
     public class MolecularWeightUtility : ITheoryCalculator
     {
-
         /// <summary>
         /// Constructor
         /// </summary>

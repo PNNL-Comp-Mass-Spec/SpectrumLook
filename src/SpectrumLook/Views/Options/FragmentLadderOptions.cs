@@ -111,7 +111,6 @@ namespace SpectrumLook.Views.Options
             ModificationList.Add('%', 236.127);
             ModificationList.Add('~', 442.225);
             ModificationList.Add('`', 450.274);
-
         }
     }
 }

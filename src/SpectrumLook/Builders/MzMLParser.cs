@@ -91,7 +91,6 @@ namespace SpectrumLook.Builders
             }
 
             return elements;
-
         }
     }
 }
