@@ -199,42 +199,37 @@ namespace SpectrumLook
             var openDialog = new SLOpenFileDialog(mSynopsisFilePath, DataFilePath);
             var result = openDialog.ShowDialog();
 
-            if (result == DialogResult.OK)
+            if (result != DialogResult.OK)
+                return;
+
+            DataFilePath = openDialog.mDataPath;
+            mSynopsisFilePath = openDialog.mSynopsisPath;
+
+            if (string.IsNullOrWhiteSpace(mSynopsisFilePath))
+                return;
+
+            try
             {
-                if (DataFilePath == openDialog.mDataPath && mSynopsisFilePath == openDialog.mSynopsisPath)
-                {
-                    return;
-                }
-                DataFilePath = openDialog.mDataPath;
-                mSynopsisFilePath = openDialog.mSynopsisPath;
+                var reader = new PHRPReaderParser(mSynopsisFilePath, mFragmentationLadder.FragmentLadderOptions);
+                mDataView.SetDataTable(DataBuilder.GetDataTable(reader, out var synFileColumns));
 
-                if (mSynopsisFilePath != string.Empty)
-                {
-                    try
-                    {
-                        // New code, uses PHRPReader
-                        var reader = new PHRPReaderParser(mSynopsisFilePath, mFragmentationLadder.FragmentLadderOptions);
-                        mDataView.SetDataTable(DataBuilder.GetDataTable(reader, out var synFileColumns));
-
-                        mDataView.SetColumnIndices(synFileColumns);
-                        SynopsisLoaded = true;
-                    }
-                    catch (Exception ex)
-                    {
-                        SynopsisLoaded = false;
-
-                        var errorMsg = string.Format(
-                            "There was an error opening the Synopsis file, are you sure you picked the right file?\n\n{0}\n\nStack Trace:\n{1}",
-                            ex.Message,
-                            StackTraceFormatter.GetExceptionStackTraceMultiLine(ex));
-
-                        MessageBox.Show(errorMsg, "Error reading file", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-
-                    // Select the first row
-                    mDataView.HandleRowSelection();
-                }
+                mDataView.SetColumnIndices(synFileColumns);
+                SynopsisLoaded = true;
             }
+            catch (Exception ex)
+            {
+                SynopsisLoaded = false;
+
+                var errorMsg = string.Format(
+                    "There was an error opening the Synopsis file, are you sure you picked the right file?\n\n{0}\n\nStack Trace:\n{1}",
+                    ex.Message,
+                    StackTraceFormatter.GetExceptionStackTraceMultiLine(ex));
+
+                MessageBox.Show(errorMsg, "Error reading file", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            // Select the first row
+            mDataView.HandleRowSelection();
         }
 
         // This function simply calls the combo box function within mFragmentationLadder

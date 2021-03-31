@@ -121,28 +121,29 @@ namespace SpectrumLook.Views
         {
             base.OnClosing(e);
             e.Cancel = true;
-            if (mProfileFilePath != "")
+            if (string.IsNullOrWhiteSpace(mProfileFilePath) || !mCreateProfile)
             {
-                if (mCreateProfile)
-                {
-                    var writer = new FileStream(mProfileFilePath, FileMode.Create, FileAccess.Write);
-
-                    try
-                    {
-                        var binaryFormatter = new BinaryFormatter();
-                        var tmpPlotOptions = new PlotOptions(mPlotOptions);
-                        binaryFormatter.Serialize(writer, tmpPlotOptions);
-                        var tmpMainOptions = new MainFormOptions(mMainFormOptions);
-                        binaryFormatter.Serialize(writer, tmpMainOptions);
-                        var tmpFragLadder = new Options.FragmentLadderOptions(mFragmentationLadderOptions);
-                        binaryFormatter.Serialize(writer, tmpFragLadder);
-                    }
-                    finally
-                    {
-                        writer.Close();
-                    }
-                }
+                Hide();
+                return;
             }
+
+            var writer = new FileStream(mProfileFilePath, FileMode.Create, FileAccess.Write);
+
+            try
+            {
+                var binaryFormatter = new BinaryFormatter();
+                var tmpPlotOptions = new PlotOptions(mPlotOptions);
+                binaryFormatter.Serialize(writer, tmpPlotOptions);
+                var tmpMainOptions = new MainFormOptions(mMainFormOptions);
+                binaryFormatter.Serialize(writer, tmpMainOptions);
+                var tmpFragLadder = new Options.FragmentLadderOptions(mFragmentationLadderOptions);
+                binaryFormatter.Serialize(writer, tmpFragLadder);
+            }
+            finally
+            {
+                writer.Close();
+            }
+
             Hide();
         }
 
@@ -455,23 +456,23 @@ namespace SpectrumLook.Views
             var dialogBox = new EditAddModification(strSymbol, strMass, usedSymbols);
             var tmpResult = dialogBox.ShowDialog();
 
-            // Only if they click OK do we perform any updating of the DataGridView.
-            if (tmpResult == DialogResult.OK)
+            if (tmpResult != DialogResult.OK)
+                return;
+
+            // Update the data grid
+            if (row == dataGridViewModList.RowCount - 1)
             {
-                if (row == dataGridViewModList.RowCount - 1)
-                {
-                    dataGridViewModList.Rows.Add(new object[] { dialogBox.ModificationString[0], double.Parse(dialogBox.MassString) });
-                }
-                else if (string.IsNullOrWhiteSpace(dialogBox.ModificationString) ||
-                         string.IsNullOrWhiteSpace(dialogBox.MassString))
-                {
-                    dataGridViewModList.Rows.RemoveAt(row);
-                }
-                else
-                {
-                    dataGridViewModList.Rows[row].Cells[0].Value = dialogBox.ModificationString[0];
-                    dataGridViewModList.Rows[row].Cells[1].Value = double.Parse(dialogBox.MassString);
-                }
+                dataGridViewModList.Rows.Add(dialogBox.ModificationString[0], double.Parse(dialogBox.MassString));
+            }
+            else if (string.IsNullOrWhiteSpace(dialogBox.ModificationString) ||
+                     string.IsNullOrWhiteSpace(dialogBox.MassString))
+            {
+                dataGridViewModList.Rows.RemoveAt(row);
+            }
+            else
+            {
+                dataGridViewModList.Rows[row].Cells[0].Value = dialogBox.ModificationString[0];
+                dataGridViewModList.Rows[row].Cells[1].Value = double.Parse(dialogBox.MassString);
             }
         }
 
@@ -583,28 +584,25 @@ namespace SpectrumLook.Views
 
         private void OptionsViewController_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (mProfileFilePath != "")
-            {
-                if (mCreateProfile)
-                {
-                    // Lets Save the Profile data.
-                    var writer = new FileStream(mProfileFilePath, FileMode.Create, FileAccess.Write);
+            if (!mCreateProfile || string.IsNullOrWhiteSpace(mProfileFilePath))
+                return;
 
-                    try
-                    {
-                        var binaryFormatter = new BinaryFormatter();
-                        var tmpPlotOptions = new PlotOptions(mPlotOptions);
-                        binaryFormatter.Serialize(writer, tmpPlotOptions);
-                        var tmpMainOptions = new MainFormOptions(mMainFormOptions);
-                        binaryFormatter.Serialize(writer, tmpMainOptions);
-                        var tmpFragmentLadderOptions = new Options.FragmentLadderOptions(mFragmentationLadderOptions);
-                        binaryFormatter.Serialize(writer, tmpFragmentLadderOptions);
-                    }
-                    finally
-                    {
-                        writer.Close();
-                    }
-                }
+            // Save the Profile data.
+            var writer = new FileStream(mProfileFilePath, FileMode.Create, FileAccess.Write);
+
+            try
+            {
+                var binaryFormatter = new BinaryFormatter();
+                var tmpPlotOptions = new PlotOptions(mPlotOptions);
+                binaryFormatter.Serialize(writer, tmpPlotOptions);
+                var tmpMainOptions = new MainFormOptions(mMainFormOptions);
+                binaryFormatter.Serialize(writer, tmpMainOptions);
+                var tmpFragmentLadderOptions = new Options.FragmentLadderOptions(mFragmentationLadderOptions);
+                binaryFormatter.Serialize(writer, tmpFragmentLadderOptions);
+            }
+            finally
+            {
+                writer.Close();
             }
         }
 
