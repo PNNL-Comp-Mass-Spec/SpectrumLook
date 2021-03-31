@@ -670,6 +670,21 @@ namespace SpectrumLook.Views
 
                 mMainFormOptions.SetOptions(new MainFormOptions());
             }
+            else if (optionTabsPage.SelectedTab.Text == "Fragment Ladder Options")
+            {
+                var response = MessageBox.Show(
+                    "Reset modification masses to defaults?",
+                    "Reset",
+                    MessageBoxButtons.YesNoCancel,
+                    MessageBoxIcon.Question,
+                    MessageBoxDefaultButton.Button2);
+
+                if (response != DialogResult.Yes)
+                    return;
+
+                mFragmentationLadderOptions.ResetModificationsToDefault();
+                UpdateModList();
+            }
         }
 
         private void OptionsViewController_Load(object sender, EventArgs e)
