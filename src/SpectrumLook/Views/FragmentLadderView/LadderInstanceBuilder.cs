@@ -42,7 +42,7 @@ namespace SpectrumLook.Views.FragmentLadderView
                 var tempDoubleString = string.Format("{0:#.00}", currentElement.Mz);
                 try
                 {
-                    tempListHolder[i][unformatAnnotation(currentElement.Annotation) - 1] = tempDoubleString + "|" + currentElement.Matched.ToString();
+                    tempListHolder[i][unformatAnnotation(currentElement.Annotation) - 1] = tempDoubleString + "|" + currentElement.Matched;
                 }
                 catch { }
             }

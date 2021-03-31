@@ -111,7 +111,7 @@ namespace SpectrumLook
         {
             FolderBrowserDialog.ShowDialog();
             BaseFolderTextBox.Text = FolderBrowserDialog.SelectedPath;
-            if (BaseFolderTextBox.Text.ToString()?.Length == 0)
+            if (BaseFolderTextBox.Text?.Length == 0)
             {
                 BaseFolderTextBox.Text = baseFolderText;
             }

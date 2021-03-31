@@ -151,13 +151,13 @@ namespace SpectrumLook.Views.FragmentLadderView
                     var yListBoxPosition = 6;
 
                     if (i > 0)
-                        tabControl1.TabPages.Add("Modified" + i.ToString());
+                        tabControl1.TabPages.Add("Modified" + i);
 
                     // print all b or c ions that exist before the peptide sequence
                     for (var index = 0; index < indexOfFirstHalfEnd; index++)
                     {
                         // if (i == tabControl1.SelectedIndex)
-                        peptideEditorTextBox.Text = currentInstance.PeptideString.ToString();
+                        peptideEditorTextBox.Text = currentInstance.PeptideString;
                         var bcIonListBox = new ListBox
                         {
                             BackColor = SystemColors.Control,
@@ -391,7 +391,7 @@ namespace SpectrumLook.Views.FragmentLadderView
                     for (var index = indexOfFirstHalfEnd; index < columnCheckedListBox.CheckedItems.Count; index++)
                     {
                         // if (i == tabControl1.SelectedIndex)
-                        peptideEditorTextBox.Text = currentInstance.PeptideString.ToString();
+                        peptideEditorTextBox.Text = currentInstance.PeptideString;
                         var yzIonListBox = new ListBox();
                         yzIonListBox.BackColor = SystemColors.Control;
                         yzIonListBox.BorderStyle = BorderStyle.FixedSingle;

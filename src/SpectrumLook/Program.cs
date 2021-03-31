@@ -53,7 +53,7 @@ namespace SpectrumLook
                 var exeFolder = Path.GetDirectoryName(Application.ExecutablePath);
                 var sw = new StreamWriter(exeFolder + "\\buglog.txt", true);
                 sw.WriteLine("Bug Date: " + DateTime.Now);
-                sw.WriteLine(ex.ToString() + "\n\n");
+                sw.WriteLine(ex + "\n\n");
 
                 sw.Close();
                 result = ShowThreadExceptionDialog("Error", ex);
