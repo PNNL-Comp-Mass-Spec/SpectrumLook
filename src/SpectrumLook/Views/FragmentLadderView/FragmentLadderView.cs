@@ -69,6 +69,9 @@ namespace SpectrumLook.Views.FragmentLadderView
             }
         }
 
+        /// <summary>
+        /// Clear all cached ladder instances
+        /// </summary>
         public void ClearCachedLadderInstances()
         {
             mCurrentInstances?.Clear();
@@ -609,9 +612,9 @@ namespace SpectrumLook.Views.FragmentLadderView
             try
             {
                 if (comboBox1.Text == "CID")
-                    mManager.HandleFragmentLadderModeChange(false);
+                    mManager.HandleFragmentLadderModeChange(Builders.FragmentationMode.CID);
                 else
-                    mManager.HandleFragmentLadderModeChange(true);
+                    mManager.HandleFragmentLadderModeChange(Builders.FragmentationMode.ETD);
             }
             catch (Exception ex)
             {
@@ -703,7 +706,7 @@ namespace SpectrumLook.Views.FragmentLadderView
                 columnCheckedListBox.SetItemChecked(1, true);
                 columnCheckedListBox.SetItemChecked(9, true);
                 columnCheckedListBox.SetItemChecked(10, true);
-                mManager.HandleFragmentLadderModeChange(false);
+                mManager.HandleFragmentLadderModeChange(Builders.FragmentationMode.CID);
             }
             else
             {
@@ -731,7 +734,7 @@ namespace SpectrumLook.Views.FragmentLadderView
                 columnCheckedListBox.SetItemChecked(1, true);
                 columnCheckedListBox.SetItemChecked(9, true);
                 columnCheckedListBox.SetItemChecked(10, true);
-                mManager.HandleFragmentLadderModeChange(true);
+                mManager.HandleFragmentLadderModeChange(Builders.FragmentationMode.ETD);
             }
         }
 

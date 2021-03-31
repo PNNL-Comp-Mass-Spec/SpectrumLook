@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using MolecularWeightCalculator;
 using MolecularWeightCalculator.Formula;
@@ -9,6 +10,11 @@ namespace SpectrumLook.Builders
 {
     public class MolecularWeightUtility : ITheoryCalculator
     {
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="modificationList"></param>
         public MolecularWeightUtility(Dictionary<char, double> modificationList)
         {
             mModificationList = modificationList;
@@ -22,7 +28,7 @@ namespace SpectrumLook.Builders
         private Dictionary<char, double> mModificationList;
 
         /// <summary>
-        /// The deNovo Table values for b ions
+        /// The de novo Table values for b ions
         /// </summary>
         private Dictionary<char, double> mDeNovoTableB = new Dictionary<char, double>()
         {
@@ -52,9 +58,9 @@ namespace SpectrumLook.Builders
         /// This will take the input of a peptide sequence and a bool for the fragmentation mode (false = CID, true = ETD).
         /// </summary>
         /// <param name="peptide">This is the peptide sequence.</param>
-        /// <param name="fragmentationModeETD">True when the fragmentation mode is CID</param>
+        /// <param name="fragmentationMode">Fragmentation mode</param>
         /// <returns>List of theoretical ions as key/value pairs (key is ion abbreviation, value is m/z value)</returns>
-        public List<KeyValuePair<string, double>> GetTheoreticalDataByPeptideSequence(string peptide, bool fragmentationModeETD)
+        public List<KeyValuePair<string, double>> GetTheoreticalDataByPeptideSequence(string peptide, FragmentationMode fragmentationMode)
         {
             // Set the element mode
             mMolecularWeightTool.SetElementMode(ElementMassMode.Isotopic);
@@ -70,7 +76,7 @@ namespace SpectrumLook.Builders
 
             // Each label begins with "b", "y", "c", or "z"
             char modeString1;
-            if (fragmentationModeETD)
+            if (fragmentationMode == FragmentationMode.ETD)
             {
                 modeString1 = 'c';
                 fragSpectrumOptions.IonTypeOptions[(int)IonType.BIon].ShowIon = false;
@@ -79,7 +85,7 @@ namespace SpectrumLook.Builders
                 fragSpectrumOptions.IonTypeOptions[(int)IonType.ZIon].ShowIon = true;
                 fragSpectrumOptions.IonTypeOptions[(int)IonType.AIon].ShowIon = false;
             }
-            else
+            else if (fragmentationMode ==FragmentationMode.CID)
             {
                 modeString1 = 'b';
                 fragSpectrumOptions.IonTypeOptions[(int)IonType.BIon].ShowIon = true;
@@ -87,6 +93,10 @@ namespace SpectrumLook.Builders
                 fragSpectrumOptions.IonTypeOptions[(int)IonType.CIon].ShowIon = false;
                 fragSpectrumOptions.IonTypeOptions[(int)IonType.ZIon].ShowIon = false;
                 fragSpectrumOptions.IonTypeOptions[(int)IonType.AIon].ShowIon = false;
+            }
+            else
+            {
+                throw new InvalidEnumArgumentException(nameof(fragmentationMode));
             }
 
             // MolecularWeightTool allowed modification symbols.
@@ -178,14 +188,14 @@ namespace SpectrumLook.Builders
             }
 
             // Obtain the list of ions
-            var theoryList = GetTheoryList(cleanPeptide, fragmentationModeETD, modeString1, fragSpectrum);
+            var theoryList = GetTheoryList(cleanPeptide, fragmentationMode, modeString1, fragSpectrum);
 
             return theoryList;
         }
 
         private List<KeyValuePair<string, double>> GetTheoryList(
             string peptide,
-            bool fragmentationModeCID,
+            FragmentationMode fragmentationMode,
             char modeString1,
             IReadOnlyList<FragmentationSpectrumData> fragSpectrum)
         {
@@ -200,9 +210,9 @@ namespace SpectrumLook.Builders
             {
                 var ionDescription = modeString1 + "1";
                 if (charge > 1)
-                    ionDescription += new String('+', charge);
+                    ionDescription += new string('+', charge);
 
-                if (!fragmentationModeCID)
+                if (fragmentationMode == FragmentationMode.ETD)
                     theoryList.Add(new KeyValuePair<string, double>(ionDescription, nTerminusResidueMass / charge));
                 else
                     theoryList.Add(new KeyValuePair<string, double>(ionDescription, (nTerminusResidueMass + 18) / charge));
@@ -243,7 +253,7 @@ namespace SpectrumLook.Builders
                         {
                             var ionDescription = modeString1 + peptideResidueCount.ToString();
                             if (charge > 1)
-                                ionDescription += new String('+', charge);
+                                ionDescription += new string('+', charge);
 
                             theoryList.Add(new KeyValuePair<string, double>(ionDescription, cTerminusResidueMass / charge));
                         }

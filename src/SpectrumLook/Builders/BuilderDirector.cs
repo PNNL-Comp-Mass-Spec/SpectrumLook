@@ -88,9 +88,9 @@ namespace SpectrumLook.Builders
             return comparedList;
         }
 
-        public List<Element> BuildTheoryList(string peptide, bool fragmentationModeETD, Dictionary<char, double> modificationList)
+        public List<Element> BuildTheoryList(string peptide, Builders.FragmentationMode fragmentationMode, Dictionary<char, double> modificationList)
         {
-            mTheoryBuilder = new TheoryListBuilder(peptide, fragmentationModeETD, new MolecularWeightUtility(modificationList));
+            mTheoryBuilder = new TheoryListBuilder(peptide, fragmentationMode, new MolecularWeightUtility(modificationList));
 
             mTheoryBuilder.BuildList();
 
