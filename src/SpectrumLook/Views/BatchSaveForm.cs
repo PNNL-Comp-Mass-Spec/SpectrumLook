@@ -130,7 +130,7 @@ namespace SpectrumLook
 
             mBaseFolderText = BaseFolderTextBox.Text;
             BaseName.Text = "Spectrum_" + string.Format("{0:yyyy_MM_dd}", DateTime.Now);
-            SaveAllRadioButton.Checked = true;
+            SaveGridRadioButton.Checked = true;
             UsePeptideAndScanRadioButton.Checked = true;
             StatusLabel.Text = "";
             CloseButton.Visible = false;
