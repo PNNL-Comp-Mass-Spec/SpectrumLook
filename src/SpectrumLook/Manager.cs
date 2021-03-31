@@ -37,6 +37,8 @@ namespace SpectrumLook
 
         private readonly BuilderDirector mBuilderDirector;
 
+        private static SortedSet<char> mInvalidFilenameChars = new SortedSet<char>();
+
         private Dictionary<string, List<LadderInstance>> mLadderInstances = new();
 
         private LadderInstance mCurrentInstance;
@@ -713,14 +715,63 @@ namespace SpectrumLook
         /// <param name="usePeptideAndScanName"></param>
         /// <param name="peptide"></param>
         /// <param name="scanNumber"></param>
-        /// <returns></returns>
+        /// <returns>Auto-generated filename</returns>
         private static string CreateNextFileName(string baseName, bool usePeptideAndScanName, string peptide, string scanNumber)
         {
             var nextFileName = baseName;
 
             if (usePeptideAndScanName)
             {
-                nextFileName += "_" + peptide + "_" + scanNumber;
+                // Replace asterisks with underscores
+                peptide = peptide.Replace("*", "_");
+
+                // Check for any other invalid characters
+                bool updateRequired = false;
+
+                if (mInvalidFilenameChars.Count == 0)
+                {
+                    foreach (var character in Path.GetInvalidPathChars())
+                    {
+                        mInvalidFilenameChars.Add(character);
+                    }
+
+                    foreach (var character in Path.GetInvalidFileNameChars())
+                    {
+                        if (!mInvalidFilenameChars.Contains(character))
+                            mInvalidFilenameChars.Add(character);
+                    }
+                }
+
+                foreach (var invalidChar in mInvalidFilenameChars)
+                {
+                    if (peptide.Contains(invalidChar))
+                    {
+                        updateRequired = true;
+                        break;
+                    }
+                }
+
+                string cleanPeptide;
+                if (updateRequired)
+                {
+                    var residues = new System.Text.StringBuilder();
+
+                    foreach (var residue in peptide)
+                    {
+                        if (mInvalidFilenameChars.Contains(residue))
+                            residues.Append("_");
+                        else
+                            residues.Append(residue);
+                    }
+
+                    cleanPeptide = residues.ToString();
+                }
+                else
+                {
+                    cleanPeptide = peptide;
+                }
+
+                nextFileName += "_" + cleanPeptide + "_" + scanNumber;
             }
             else
             {
