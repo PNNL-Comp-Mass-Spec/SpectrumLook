@@ -19,7 +19,7 @@ namespace SpectrumLook
         /// <param name="peptide"></param>
         /// <param name="scanNumber"></param>
         /// <returns>Auto-generated filename</returns>
-        public static string CreateNextPlotFileName(string baseName, bool usePeptideAndScanName, string peptide, string scanNumber)
+        public static string CreateNextPlotFileName(string baseName, bool usePeptideAndScanName, string peptide, int scanNumber)
         {
             BatchSaveCounter++;
 
@@ -70,7 +70,7 @@ namespace SpectrumLook
                 cleanPeptide = peptide;
             }
 
-            return string.Format("{0}_{1}_{2}", baseName, cleanPeptide, scanNumber);
+            return string.Format("{0}_{1}_{2:00000}", baseName, cleanPeptide, scanNumber);
         }
     }
 }
