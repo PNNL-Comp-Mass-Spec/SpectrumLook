@@ -39,9 +39,10 @@ namespace SpectrumLook.Builders
                 {
                     mFileReader = File.OpenText(filePath);
                 }
-                catch (Exception e)
+                catch (Exception ex)
                 {
-                    throw e; // If the File can not be opened for some reason.
+                    Console.WriteLine("Exception opening the synopsis file: " + ex.Message);
+                    throw; // If the File can not be opened for some reason.
                 }
             }
             else

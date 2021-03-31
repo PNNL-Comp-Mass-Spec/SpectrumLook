@@ -618,6 +618,7 @@ namespace SpectrumLook.Views.FragmentLadderView
             }
             catch (Exception ex)
             {
+                Console.WriteLine("Exception calling HandleFragmentLadderModeChange: " + ex.Message);
             }
         }
 
@@ -638,6 +639,7 @@ namespace SpectrumLook.Views.FragmentLadderView
             }
             catch (Exception ex)
             {
+                Console.WriteLine("Exception clearing options in ColumnClearButton_Click: " + ex.Message);
             }
         }
 
