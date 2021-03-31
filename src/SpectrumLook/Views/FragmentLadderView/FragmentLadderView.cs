@@ -671,6 +671,14 @@ namespace SpectrumLook.Views.FragmentLadderView
                 peptideEditorTextBox.Text = peptideEditorTextBox.Text.ToUpper();
             }
 
+            UpdateCurrentFragmentIons();
+        }
+
+        /// <summary>
+        /// Recompute fragment ions and update the plot
+        /// </summary>
+        public void UpdateCurrentFragmentIons()
+        {
             var newTabIndex = tabControl1.TabCount;
             if (peptideEditorTextBox.Text?.Length == 0)
                 return;
