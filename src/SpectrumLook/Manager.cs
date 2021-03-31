@@ -37,8 +37,6 @@ namespace SpectrumLook
 
         private readonly BuilderDirector mBuilderDirector;
 
-        private static SortedSet<char> mInvalidFilenameChars = new SortedSet<char>();
-
         private Dictionary<string, List<LadderInstance>> mLadderInstances = new();
 
         private LadderInstance mCurrentInstance;
@@ -666,7 +664,8 @@ namespace SpectrumLook
             ref bool cancelSearch)
         {
             updateLabelCallback("Starting Batch Save...");
-            mBatchSaveCounter = 0;
+            Utilities.BatchSaveCounter = 0;
+
             var mostRecentFileName = string.Empty;
 
             foreach (var row in mDataView.GetPeptidesAndScansInGrid(useScansInGrid))
@@ -686,7 +685,10 @@ namespace SpectrumLook
 
                 PrecursorMZ = row.DblPrecursorMZ;
 
-                var plotFileName = CreateNextFileName(nextFileBase, usePeptideAndScanName, row.Peptide, row.ScanNumber) + plotFileExtension;
+                var nextFileNameBase = Utilities.CreateNextPlotFileName(nextFileBase, usePeptideAndScanName, row.Peptide, row.ScanNumber);
+
+                var plotFileName = nextFileNameBase + plotFileExtension;
+
                 updateLabelCallback(string.Format("Saving \"{0}\"", plotFileName));
 
                 HandleSelectScanAndPeptide(row.ScanNumber, row.Peptide);
@@ -710,17 +712,17 @@ namespace SpectrumLook
                 mostRecentFileName = plotFileName;
             }
 
-            if (mBatchSaveCounter == 0)
+            if (Utilities.BatchSaveCounter == 0)
             {
                 updateLabelCallback("Batch Save did not create any files, due to either an empty data grid or a program error");
             }
-            else if (mBatchSaveCounter == 1)
+            else if (Utilities.BatchSaveCounter == 1)
             {
                 updateLabelCallback(string.Format("Finished Batch Save; created {0}", Path.Combine(directory, mostRecentFileName)));
             }
             else
             {
-                updateLabelCallback(string.Format("Finished Batch Save; created {0} file(s) in {1}", mBatchSaveCounter, directory));
+                updateLabelCallback(string.Format("Finished Batch Save; created {0} file(s) in {1}", Utilities.BatchSaveCounter, directory));
             }
         }
 
@@ -744,83 +746,6 @@ namespace SpectrumLook
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Exclamation);
         }
-
-        /// <summary>
-        /// Generates a new filename to use based off of the users options and the information used in the plot
-        /// </summary>
-        /// <param name="baseName"></param>
-        /// <param name="usePeptideAndScanName"></param>
-        /// <param name="peptide"></param>
-        /// <param name="scanNumber"></param>
-        /// <returns>Auto-generated filename</returns>
-        private static string CreateNextFileName(string baseName, bool usePeptideAndScanName, string peptide, string scanNumber)
-        {
-            var nextFileName = baseName;
-
-            if (usePeptideAndScanName)
-            {
-                // Replace asterisks with underscores
-                peptide = peptide.Replace("*", "_");
-
-                // Check for any other invalid characters
-                bool updateRequired = false;
-
-                if (mInvalidFilenameChars.Count == 0)
-                {
-                    foreach (var character in Path.GetInvalidPathChars())
-                    {
-                        mInvalidFilenameChars.Add(character);
-                    }
-
-                    foreach (var character in Path.GetInvalidFileNameChars())
-                    {
-                        if (!mInvalidFilenameChars.Contains(character))
-                            mInvalidFilenameChars.Add(character);
-                    }
-                }
-
-                foreach (var invalidChar in mInvalidFilenameChars)
-                {
-                    if (peptide.Contains(invalidChar))
-                    {
-                        updateRequired = true;
-                        break;
-                    }
-                }
-
-                string cleanPeptide;
-                if (updateRequired)
-                {
-                    var residues = new System.Text.StringBuilder();
-
-                    foreach (var residue in peptide)
-                    {
-                        if (mInvalidFilenameChars.Contains(residue))
-                            residues.Append("_");
-                        else
-                            residues.Append(residue);
-                    }
-
-                    cleanPeptide = residues.ToString();
-                }
-                else
-                {
-                    cleanPeptide = peptide;
-                }
-
-                nextFileName += "_" + cleanPeptide + "_" + scanNumber;
-            }
-            else
-            {
-                // Attach a unique number to the saved file, since we are not guaranteed uniqueness from peptide or scan number alone.
-                nextFileName += "_" + string.Format("{0:0000}", mBatchSaveCounter);
-            }
-
-            mBatchSaveCounter++;
-            return nextFileName;
-        }
-
-        private static int mBatchSaveCounter;
 
         public delegate void UpdateLabelDelegate(string newText);
     }

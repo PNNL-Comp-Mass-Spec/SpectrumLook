@@ -100,6 +100,7 @@
     <Compile Include="Builders\ITheoryCalculator.cs" />
     <Compile Include="Builders\MzParser.cs" />
     <Compile Include="Builders\SequestParser.cs" />
+    <Compile Include="Utilities.cs" />
     <Compile Include="Views\BatchSaveForm.cs">
       <SubType>Form</SubType>
     </Compile>
