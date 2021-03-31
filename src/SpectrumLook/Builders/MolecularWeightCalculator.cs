@@ -227,41 +227,40 @@ namespace SpectrumLook.Builders
                 cTerminusResidueMass = mDeNovoTableB[peptide.Last()];
 
             // Generate every other ion except the last of the b or c ion series
-            for (var i = 0; i < fragSpectrum.Count; i++)
+            foreach (var item in fragSpectrum)
             {
                 try
                 {
-                    if (fragSpectrum[i].Symbol.StartsWith("Shoulder"))
+                    if (item.Symbol.StartsWith("Shoulder"))
                     {
                         // Shoulder ion; ignore it
                         continue;
                     }
-                    else
+
+                    theoryList.Add(new KeyValuePair<string, double>(item.Symbol, item.Mass));
+
+                    // Generate the last b or c ion, as 1+, 2+, and 3+
+                    // This code only works if peptide contains all capital letters
+
+                    if (item.Symbol != cTermModeSymbolFlag || cTermMassesAdded)
                     {
-                        theoryList.Add(new KeyValuePair<string, double>(fragSpectrum[i].Symbol, fragSpectrum[i].Mass));
+                        continue;
+                    }
 
-                        // Generate the last b or c ion, as 1+, 2+, and 3+
-                        // This code only works if peptide contains all capital letters
+                    cTermMassesAdded = true;
+                    for (var charge = 1; charge <= 3; charge++)
+                    {
+                        var ionDescription = modeString1 + peptideResidueCount.ToString();
+                        if (charge > 1)
+                            ionDescription += new string('+', charge);
 
-                        if (fragSpectrum[i].Symbol != cTermModeSymbolFlag || cTermMassesAdded)
-                        {
-                            continue;
-                        }
-
-                        cTermMassesAdded = true;
-                        for (var charge = 1; charge <= 3; charge++)
-                        {
-                            var ionDescription = modeString1 + peptideResidueCount.ToString();
-                            if (charge > 1)
-                                ionDescription += new string('+', charge);
-
-                            theoryList.Add(new KeyValuePair<string, double>(ionDescription, cTerminusResidueMass / charge));
-                        }
+                        theoryList.Add(new KeyValuePair<string, double>(ionDescription, cTerminusResidueMass / charge));
                     }
                 }
                 catch (Exception ex)
                 {
                     // Ignore errors here
+                    Console.WriteLine("Exception in GetTheoryList: " + ex.Message);
                 }
             }
 
