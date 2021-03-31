@@ -242,70 +242,63 @@ namespace SpectrumLook.Views
         /// <summary>
         /// Saves the Current Plot image as the file specified by the filename
         /// </summary>
-        /// <param name="fileName">The name of the output file that we will make.  If there is no Extension then it will be assumed as .png</param>
+        /// <param name="filePath">Output file path. If there is no Extension, it is assumed as .png</param>
+        /// <param name="errorMessage">Output: error message</param>
         /// <returns>true if the save was successful, false otherwise</returns>
-        public bool SavePlotImageAs(string fileName)
+        public bool SavePlotImageAs(string filePath, out string errorMessage)
         {
-            var success = true;
-
             try
             {
-                if (msPlot.MasterPane != null && !string.IsNullOrEmpty(fileName))
+                if (msPlot.MasterPane == null)
                 {
-                    var ext = Path.GetExtension(fileName).ToLower();
-
-                    using (Stream myStream = new FileStream(fileName, FileMode.Create))
-                    {
-                        if (myStream != null)
-                        {
-                            if (ext.EndsWith("emf"))
-                            {
-                                myStream.Close();
-                                SaveEmfFile(fileName);
-                            }
-                            else
-                            {
-                                var format = ImageFormat.Png;
-                                switch (ext)
-                                {
-                                    case "png":
-                                        format = ImageFormat.Png;
-                                        break;
-                                    case "gif":
-                                        format = ImageFormat.Gif;
-                                        break;
-                                    case "jpg":
-                                    case "jpeg":
-                                        format = ImageFormat.Jpeg;
-                                        break;
-                                    case "tiff":
-                                    case "tif":
-                                        format = ImageFormat.Tiff;
-                                        break;
-                                    case "bmp":
-                                        format = ImageFormat.Bmp;
-                                        break;
-                                    default:
-                                        format = ImageFormat.Png;
-                                        break;
-                                }
-
-                                msPlot.MasterPane.GetImage(msPlot.MasterPane.IsAntiAlias).Save(myStream, format);
-                                myStream.Close();
-                            }
-                        }
-                    }
+                    errorMessage = "msPlot.MasterPane is null";
+                    return false;
                 }
-            }
-            catch
-            {
-                success = false;
-            }
 
-            return success;
+                if (string.IsNullOrEmpty(filePath))
+                {
+                    errorMessage = "Plot file path is empty";
+                    return false;
+                }
+
+                var ext = Path.GetExtension(filePath).ToLower();
+
+                if (ext.EndsWith("emf"))
+                {
+                    return SaveEmfFile(filePath, out errorMessage);
+                }
+
+                using Stream myStream = new FileStream(filePath, FileMode.Create);
+
+                if (myStream == null)
+                {
+                    errorMessage = "Unable to create a file stream for " + filePath;
+                    return false;
+                }
+
+                ImageFormat format = ext switch
+                {
+                    "png" => ImageFormat.Png,
+                    "gif" => ImageFormat.Gif,
+                    "jpg" or "jpeg" => ImageFormat.Jpeg,
+                    "tiff" or "tif" => ImageFormat.Tiff,
+                    "bmp" => ImageFormat.Bmp,
+                    _ => ImageFormat.Png,
+                };
+
+                msPlot.MasterPane.GetImage(msPlot.MasterPane.IsAntiAlias).Save(myStream, format);
+
+                errorMessage = string.Empty;
+                return true;
+            }
+            catch (Exception ex)
+            {
+                errorMessage = ex.Message;
+                return false;
+            }
         }
 
-        // Dlls needed to save an EmfFile
+        // DLLs needed to save an EmfFile
 
         [DllImport("gdi32.dll")]
         static extern IntPtr CopyEnhMetaFile(IntPtr hemfSrc, StringBuilder hNULL);
@@ -315,31 +308,44 @@ namespace SpectrumLook.Views
         /// <summary>
         /// Save the current Graph to the specified filename in EMF (vector) format.
         /// </summary>
+        /// <param name="filePath">Plot file path</param>
+        /// <param name="errorMessage">Output: error message</param>
         /// <remarks>
         /// Note that this handler saves as an Emf format only.  The default handler is
         /// <see cref="SaveAs()" />, which allows for Bitmap or EMF formats.
         /// </remarks>
-        internal void SaveEmfFile(string fileName)
+        internal bool SaveEmfFile(string filePath, out string errorMessage)
         {
-            using (var g = CreateGraphics())
+            try
             {
-                var hdc = g.GetHdc();
-                var metaFile = new Metafile(hdc, EmfType.EmfPlusOnly);
-                using (var gMeta = Graphics.FromImage(metaFile))
+                using (var g = CreateGraphics())
                 {
-                    msPlot.MasterPane.Draw(gMeta);
+                    var hdc = g.GetHdc();
+                    var metaFile = new Metafile(hdc, EmfType.EmfPlusOnly);
+                    using (var gMeta = Graphics.FromImage(metaFile))
+                    {
+                        msPlot.MasterPane.Draw(gMeta);
+                    }
+
+                    IntPtr hEMF;
+                    hEMF = metaFile.GetHenhmetafile(); // invalidates mf
+                    if (!hEMF.Equals(new IntPtr(0)))
+                    {
+                        var tempName = new StringBuilder(filePath);
+                        CopyEnhMetaFile(hEMF, tempName);
+                        DeleteEnhMetaFile(hEMF);
+                    }
+
+                    g.ReleaseHdc(hdc);
                 }
 
-                IntPtr hEMF;
-                hEMF = metaFile.GetHenhmetafile(); // invalidates mf
-                if (!hEMF.Equals(new IntPtr(0)))
-                {
-                    var tempName = new StringBuilder(fileName);
-                    CopyEnhMetaFile(hEMF, tempName);
-                    DeleteEnhMetaFile(hEMF);
-                }
-
-                g.ReleaseHdc(hdc);
+                errorMessage = string.Empty;
+                return true;
+            }
+            catch (Exception ex)
+            {
+                errorMessage = ex.Message;
+                return false;
             }
         }
 

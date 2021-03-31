@@ -39,7 +39,7 @@ namespace SpectrumLook
 
                 var startDirectory = BaseFolderTextBox.Text;
                 var baseName = BaseName.Text;
-                var saveType = TypeComboBox.Text;
+                var plotFileExtension = TypeComboBox.Text;
 
                 CancelBatchSaveButton.DialogResult = DialogResult.None;
 
@@ -47,7 +47,7 @@ namespace SpectrumLook
                 {
                     if (SaveCurrentRadioButton.Checked)
                     {
-                        mManager.HandlePlotSave(startDirectory, baseName, saveType);
+                        mManager.HandlePlotSave(startDirectory, baseName, plotFileExtension);
                     }
                     else
                     {
@@ -57,7 +57,7 @@ namespace SpectrumLook
 
                         mManager.mMainForm.Visible = false;
 
-                        mManager.HandleBatchSave(startDirectory, baseName, saveType,
+                        mManager.HandleBatchSave(startDirectory, baseName, plotFileExtension,
                             saveOnlyInGrid, usePeptideAndScanName, addDatasetName, UpdateStatusLabel, ref mCancelSearch);
                     }
                 }

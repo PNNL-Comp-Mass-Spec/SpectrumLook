@@ -645,12 +645,20 @@ namespace SpectrumLook
         }
 
         /// <summary>
-        /// Handles A batch save
+        /// Handles saving multiple plots
         /// </summary>
+        /// <param name="directory"></param>
+        /// <param name="baseName"></param>
+        /// <param name="plotFileExtension"></param>
+        /// <param name="useScansInGrid"></param>
+        /// <param name="usePeptideAndScanName"></param>
+        /// <param name="addDatasetName"></param>
+        /// <param name="updateLabelCallback"></param>
+        /// <param name="cancelSearch"></param>
         public void HandleBatchSave(
             string directory,
             string baseName,
-            string saveType,
+            string plotFileExtension,
             bool useScansInGrid,
             bool usePeptideAndScanName,
             bool addDatasetName,
@@ -678,12 +686,28 @@ namespace SpectrumLook
 
                 PrecursorMZ = row.DblPrecursorMZ;
 
-                var nextFileName = CreateNextFileName(nextFileBase, usePeptideAndScanName, row.Peptide, row.ScanNumber) + saveType;
-                updateLabelCallback("Saving \"" + nextFileName + "\"");
+                var plotFileName = CreateNextFileName(nextFileBase, usePeptideAndScanName, row.Peptide, row.ScanNumber) + plotFileExtension;
+                updateLabelCallback(string.Format("Saving \"{0}\"", plotFileName));
 
                 HandleSelectScanAndPeptide(row.ScanNumber, row.Peptide);
-                mPlot.SavePlotImageAs(Path.Combine(directory, nextFileName));
-                mostRecentFileName = nextFileName;
+                var plotFilePath = Path.Combine(directory, plotFileName);
+
+                var success = mPlot.SavePlotImageAs(plotFilePath, out var errorMessage);
+                if (!success)
+                {
+                    var msg = string.Format("Error saving plot {0}: {1}", plotFileName, errorMessage);
+                    updateLabelCallback(msg);
+
+                    MessageBox.Show(
+                        msg,
+                        "Error",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Exclamation);
+
+                    return;
+                }
+
+                mostRecentFileName = plotFileName;
             }
 
             if (mBatchSaveCounter == 0)
@@ -701,11 +725,24 @@ namespace SpectrumLook
         }
 
         /// <summary>
-        /// Handles a plot save
+        /// Saves a plot
         /// </summary>
-        public void HandlePlotSave(string directory, string fileName, string saveType)
+        /// <param name="directory">Directory path</param>
+        /// <param name="baseName">Base file name</param>
+        /// <param name="plotFileExtension">File extension</param>
+        public void HandlePlotSave(string directory, string baseName, string plotFileExtension)
         {
-            mPlot.SavePlotImageAs(Path.Combine(directory, fileName + saveType));
+            var plotFileName = baseName + plotFileExtension;
+            var plotFilePath = Path.Combine(directory, plotFileName);
+            var success = mPlot.SavePlotImageAs(plotFilePath, out var errorMessage);
+            if (success)
+                return;
+
+            MessageBox.Show(
+                string.Format("Error saving plot {0}: {1}", plotFileName, errorMessage),
+                "Error",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Exclamation);
         }
 
         /// <summary>
