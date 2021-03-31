@@ -728,12 +728,6 @@ namespace SpectrumLook
                 nextFileName += "_" + string.Format("{0:0000}", mBatchSaveCounter);
             }
 
-            // Magic number 232, appears to be the max filename length in Windows.  For now, just truncate what they have.
-            if (nextFileName.Length > 232)
-            {
-                nextFileName = nextFileName.Remove(232);
-            }
-
             mBatchSaveCounter++;
             return nextFileName;
         }
