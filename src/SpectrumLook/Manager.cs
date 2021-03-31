@@ -685,7 +685,12 @@ namespace SpectrumLook
 
                 PrecursorMZ = row.DblPrecursorMZ;
 
-                var nextFileNameBase = Utilities.CreateNextPlotFileName(nextFileBase, usePeptideAndScanName, row.Peptide, row.ScanNumber);
+                if (!int.TryParse(row.ScanNumber, out var scanNumber))
+                {
+                    scanNumber = Utilities.BatchSaveCounter;
+                }
+
+                var nextFileNameBase = Utilities.CreateNextPlotFileName(nextFileBase, usePeptideAndScanName, row.Peptide, scanNumber);
 
                 var plotFileName = nextFileNameBase + plotFileExtension;
 
