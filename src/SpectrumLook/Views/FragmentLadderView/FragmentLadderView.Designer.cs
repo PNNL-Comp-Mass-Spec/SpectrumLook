@@ -244,7 +244,7 @@
             this.columnClearButton.Text = "Clear";
             this.columnClearButton.UseVisualStyleBackColor = true;
             this.columnClearButton.Visible = false;
-            this.columnClearButton.Click += new System.EventHandler(this.columnClearButton_Click);
+            this.columnClearButton.Click += new System.EventHandler(this.ColumnClearButton_Click);
             //
             // columnLabel
             //
@@ -255,7 +255,6 @@
             this.columnLabel.TabIndex = 3;
             this.columnLabel.Text = "Column Display";
             this.columnLabel.Visible = false;
-            this.columnLabel.Click += new System.EventHandler(this.columnLabel_Click);
             //
             // columnCheckedListBox
             //
@@ -295,7 +294,7 @@
             this.columnSaveButton.Text = "Apply";
             this.columnSaveButton.UseVisualStyleBackColor = true;
             this.columnSaveButton.Visible = false;
-            this.columnSaveButton.Click += new System.EventHandler(this.columnSaveButton_Click);
+            this.columnSaveButton.Click += new System.EventHandler(this.ColumnSaveButton_Click);
             //
             // tabControl1
             //
@@ -344,7 +343,7 @@
             this.columnButton.TabIndex = 2;
             this.columnButton.Text = "Ions";
             this.columnButton.UseVisualStyleBackColor = true;
-            this.columnButton.Click += new System.EventHandler(this.columnButton_Click);
+            this.columnButton.Click += new System.EventHandler(this.ColumnButton_Click);
             //
             // button1
             //

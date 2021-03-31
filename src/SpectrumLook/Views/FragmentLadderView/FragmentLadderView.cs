@@ -484,7 +484,7 @@ namespace SpectrumLook.Views.FragmentLadderView
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void tempListBox_DoubleClick(object sender, EventArgs e)
+        private void TempListBox_DoubleClick(object sender, EventArgs e)
         {
             var selectedBox = (ListBox)sender;
             double selectedValue = -1;
@@ -508,7 +508,7 @@ namespace SpectrumLook.Views.FragmentLadderView
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void tempListBox_Click(object sender, EventArgs e)
+        private void TempListBox_Click(object sender, EventArgs e)
         {
             var selectedBox = (ListBox)sender;
             var selectedIndex = selectedBox.SelectedIndex;
@@ -529,7 +529,7 @@ namespace SpectrumLook.Views.FragmentLadderView
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void tempListBox_DrawItem(object sender, DrawItemEventArgs e)
+        private void TempListBox_DrawItem(object sender, DrawItemEventArgs e)
         {
             e.DrawBackground();
 
@@ -577,7 +577,7 @@ namespace SpectrumLook.Views.FragmentLadderView
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void columnButton_Click(object sender, EventArgs e)
+        private void ColumnButton_Click(object sender, EventArgs e)
         {
             if (columnPanel.Visible)
             {
@@ -603,7 +603,7 @@ namespace SpectrumLook.Views.FragmentLadderView
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void columnSaveButton_Click(object sender, EventArgs e)
+        private void ColumnSaveButton_Click(object sender, EventArgs e)
         {
             columnPanel.Visible = false;
             columnLabel.Visible = false;
@@ -628,7 +628,7 @@ namespace SpectrumLook.Views.FragmentLadderView
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void columnClearButton_Click(object sender, EventArgs e)
+        private void ColumnClearButton_Click(object sender, EventArgs e)
         {
             try
             {

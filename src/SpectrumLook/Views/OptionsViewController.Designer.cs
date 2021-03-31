@@ -674,7 +674,7 @@
             this.mainUserBrowseButton.TabIndex = 2;
             this.mainUserBrowseButton.Text = "Browse";
             this.mainUserBrowseButton.UseVisualStyleBackColor = true;
-            this.mainUserBrowseButton.Click += new System.EventHandler(this.mainUserBrowseButton_Click);
+            this.mainUserBrowseButton.Click += new System.EventHandler(this.MainUserBrowseButton_Click);
             // 
             // mainProfileFileLocationBox
             // 

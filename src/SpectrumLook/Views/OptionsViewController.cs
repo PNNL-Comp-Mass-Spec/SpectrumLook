@@ -624,7 +624,7 @@ namespace SpectrumLook.Views
             return string.Join(Path.DirectorySeparatorChar.ToString(), pathParts.Take(pathParts.Count - 1).ToList());
         }
 
-        private void mainUserBrowseButton_Click(object sender, EventArgs e)
+        private void MainUserBrowseButton_Click(object sender, EventArgs e)
         {
             var parentDirectory = GetParentDirectory(mProfileFilePath);
             if (!string.IsNullOrWhiteSpace(parentDirectory))
