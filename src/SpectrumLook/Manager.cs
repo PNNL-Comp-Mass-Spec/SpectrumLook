@@ -134,7 +134,7 @@ namespace SpectrumLook
             mMainForm.mCurrentOptions.ToleranceValue = 0.7;
 
             // attach all of the observers to the subjects
-            var tempObserver = mPlot as IObserver;
+            var tempObserver = (IObserver)mPlot;
             mPlot.Options.Attach(ref tempObserver);
 
             tempObserver = mMainForm;
@@ -333,10 +333,10 @@ namespace SpectrumLook
                     peptide, mFragmentationMode, mFragmentationLadder.FragmentLadderOptions.ModificationList);
 
                 var comparedList = mBuilderDirector.BuildComparedList(
-                    mMainForm.mCurrentOptions.ToleranceValue, 
-                    mMainForm.mCurrentOptions.LowerToleranceValue, 
-                    mExperimentalList, 
-                    PrecursorMZ, 
+                    mMainForm.mCurrentOptions.ToleranceValue,
+                    mMainForm.mCurrentOptions.LowerToleranceValue,
+                    mExperimentalList,
+                    PrecursorMZ,
                     ref theoreticalList);
 
                 // now give the data to the views to display
@@ -409,7 +409,15 @@ namespace SpectrumLook
                     var tempInstance = ladderBuilder.GenerateInstance(theoreticalList, peptide, mFragmentationLadder.FragmentLadderOptions.ModificationList);
                     tempInstance.ScanAndPeptide = scanNumber + "|" + peptide;
                     tempList.Add(tempInstance);
-                    mLadderInstances.Add(currentKey, tempList);
+
+                    if (mLadderInstances.ContainsKey(currentKey))
+                    {
+                        mLadderInstances[currentKey] = tempList;
+                    }
+                    else
+                    {
+                        mLadderInstances.Add(currentKey, tempList);
+                    }
 
                     mCurrentInstance = mLadderInstances[currentKey][0];
                     mFragmentationLadder.GenerateLadderFromSelection(0.0, mLadderInstances[currentKey]);
