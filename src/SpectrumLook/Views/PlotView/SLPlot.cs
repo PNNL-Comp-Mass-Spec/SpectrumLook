@@ -301,9 +301,10 @@ namespace SpectrumLook.Views
         // DLLs needed to save an EmfFile
 
         [DllImport("gdi32.dll")]
-        static extern IntPtr CopyEnhMetaFile(IntPtr hemfSrc, StringBuilder hNULL);
+        private static extern IntPtr CopyEnhMetaFile(IntPtr hemfSrc, StringBuilder hNULL);
+
         [DllImport("gdi32.dll")]
-        static extern bool DeleteEnhMetaFile(IntPtr hemf);
+        private static extern bool DeleteEnhMetaFile(IntPtr hemf);
 
         /// <summary>
         /// Save the current Graph to the specified filename in EMF (vector) format.
@@ -311,8 +312,7 @@ namespace SpectrumLook.Views
         /// <param name="filePath">Plot file path</param>
         /// <param name="errorMessage">Output: error message</param>
         /// <remarks>
-        /// Note that this handler saves as an Emf format only.  The default handler is
-        /// <see cref="SaveAs()" />, which allows for Bitmap or EMF formats.
+        /// Note that this handler saves as an Emf format only.
         /// </remarks>
         internal bool SaveEmfFile(string filePath, out string errorMessage)
         {

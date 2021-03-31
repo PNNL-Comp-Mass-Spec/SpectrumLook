@@ -4,7 +4,7 @@ using System.Data;
 
 namespace SpectrumLook.Builders
 {
-    static class DataBuilder
+    internal static class DataBuilder
     {
         public static DataTable GetDataTable(
             ISynopsisParser synopsisParser,

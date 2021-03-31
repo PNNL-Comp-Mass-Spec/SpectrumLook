@@ -2,7 +2,7 @@
 
 namespace SpectrumLook.Builders
 {
-    class TheoryListBuilder : ElementListBuilder
+    internal class TheoryListBuilder : ElementListBuilder
     {
         /// <summary>
         /// the peptide that was passed into this builder that the theory set is calculated from

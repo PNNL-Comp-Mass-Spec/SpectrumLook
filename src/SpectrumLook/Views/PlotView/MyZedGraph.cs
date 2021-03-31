@@ -350,7 +350,7 @@ namespace SpectrumLook.Views
         /// <param name="sender"></param>
         /// <param name="oldState"></param>
         /// <param name="newState"></param>
-        void MyZedGraph_ZoomEvent(ZedGraphControl sender, ZoomState oldState, ZoomState newState)
+        private void MyZedGraph_ZoomEvent(ZedGraphControl sender, ZoomState oldState, ZoomState newState)
         {
             if (mManager.DataLoaded)
             {
@@ -731,7 +731,7 @@ namespace SpectrumLook.Views
         /// Converts a List of Point to the PointPairList that zedGraphUses
         /// </summary>
         /// <param name="points"></param>
-        PointPairList MakePointPairList(List<Element> points)
+        private PointPairList MakePointPairList(List<Element> points)
         {
             var newList = new PointPairList();
 
@@ -840,7 +840,7 @@ namespace SpectrumLook.Views
         /// <summary>
         /// Event that fires when the control is resized
         /// </summary>
-        void MyZedGraph_Resize(object sender, EventArgs e)
+        private void MyZedGraph_Resize(object sender, EventArgs e)
         {
             // mArrowShowing = false;
         }
@@ -885,7 +885,7 @@ namespace SpectrumLook.Views
         /// </summary>
         /// <param name="mousePt"></param>
         /// <returns></returns>
-        GraphPane FindNearestPane(PointF mousePt)
+        private GraphPane FindNearestPane(PointF mousePt)
         {
             var closestDistance = double.MaxValue;
             GraphPane closest = null;
