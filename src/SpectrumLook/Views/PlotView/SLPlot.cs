@@ -237,7 +237,7 @@ namespace SpectrumLook.Views
         }
 
         // The following is copied from ZedGraph... use this to figure out how to save an image File
-        public readonly List<string> SaveAsImageTypes = new List<string>() { ".emf", ".png", ".gif", ".jpg", ".tif", ".bmp" };
+        public readonly List<string> SaveAsImageTypes = new() { ".emf", ".png", ".gif", ".jpg", ".tif", ".bmp" };
 
         /// <summary>
         /// Saves the Current Plot image as the file specified by the filename

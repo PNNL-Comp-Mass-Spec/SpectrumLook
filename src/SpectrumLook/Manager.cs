@@ -37,7 +37,7 @@ namespace SpectrumLook
 
         private readonly BuilderDirector mBuilderDirector;
 
-        private Dictionary<string, List<LadderInstance>> mLadderInstances = new Dictionary<string, List<LadderInstance>>();
+        private Dictionary<string, List<LadderInstance>> mLadderInstances = new();
 
         private LadderInstance mCurrentInstance;
 

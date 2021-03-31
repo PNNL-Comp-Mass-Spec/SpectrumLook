@@ -23,15 +23,15 @@ namespace SpectrumLook.Views
 
         private volatile bool mShouldStop;
 
-        private readonly MolecularWeightTool mMolecularWeightTool = new MolecularWeightTool();
+        private readonly MolecularWeightTool mMolecularWeightTool = new();
 
         private int mColumnCount;
 
         private int mRowCount;
 
-        private readonly List<string> mHeaderList = new List<string>();
+        private readonly List<string> mHeaderList = new();
 
-        private readonly ContextMenu mContextMenu = new ContextMenu();
+        private readonly ContextMenu mContextMenu = new();
 
         private Manager.SynFileColumnIndices mSynFileColumns;
 

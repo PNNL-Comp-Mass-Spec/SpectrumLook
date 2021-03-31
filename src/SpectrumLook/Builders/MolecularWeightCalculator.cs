@@ -23,14 +23,14 @@ namespace SpectrumLook.Builders
         /// <summary>
         /// This is an instantiation of the Molecular Weight Calculator.
         /// </summary>
-        private readonly MolecularWeightTool mMolecularWeightTool = new MolecularWeightTool();
+        private readonly MolecularWeightTool mMolecularWeightTool = new();
 
         private Dictionary<char, double> mModificationList;
 
         /// <summary>
         /// The de novo Table values for b ions
         /// </summary>
-        private Dictionary<char, double> mDeNovoTableB = new Dictionary<char, double>()
+        private Dictionary<char, double> mDeNovoTableB = new()
         {
             {'G', 57.021464},
             {'A', 71.037114},
