@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Windows.Forms;
 
 namespace SpectrumLook
@@ -22,6 +23,20 @@ namespace SpectrumLook
         {
             mSynopsisPath = textBoxSynopsis.Text;
             mDataPath = textBoxData.Text;
+
+            try
+            {
+
+                var synopsisFile = new FileInfo(mSynopsisPath);
+                if (synopsisFile.Directory != null && synopsisFile.Directory.Exists)
+                    Environment.CurrentDirectory = synopsisFile.Directory.FullName;
+            }
+            catch (Exception ex)
+            {
+                // Ignore errors here
+                Console.WriteLine("Unable to update the working directory: " + ex.Message);
+            }
+
             DialogResult = DialogResult.OK;
             Close();
         }
