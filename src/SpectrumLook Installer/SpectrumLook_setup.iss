@@ -31,9 +31,10 @@ Source: ..\SpectrumLook\bin\Debug\ThermoRawFileReader.pdb                       
 Source: ..\SpectrumLook\bin\Debug\ZedGraph.dll                                         ; DestDir: {app}
 Source: ..\SpectrumLook\SpectrumLookIcon.ico                                           ; DestDir: {app}
 
-Source: ..\..\README.md                                  ; DestDir: {app}
-Source: ..\..\TestData\QC_Standards_Excerpt.mzML         ; DestDir: {app}
-Source: ..\..\TestData\QC_Standards_Excerpt_syn.txt      ; DestDir: {app}
+Source: ..\..\README.md                                                                ; DestDir: {app}
+Source: ..\..\TestData\MSGFPlus\QC_Mam_19_01_excerpt.mzML                              ; DestDir: {app}
+Source: ..\..\TestData\MSGFPlus\MSGFPlus_Tryp_MetOx_StatCysAlk_20ppmParTol.txt         ; DestDir: {app}
+Source: ..\..\TestData\MSGFPlus\MSGFPlus_Tryp_MetOx_StatCysAlk_20ppmParTol_ModDefs.txt ; DestDir: {app}
 
 [Dirs]
 Name: {commonappdata}\SpectrumLook; Flags: uninsalwaysuninstall
@@ -55,6 +56,8 @@ AppPublisher=Pacific Northwest National Laboratory
 AppPublisherURL=http://omics.pnl.gov/software
 AppSupportURL=http://omics.pnl.gov/software
 AppUpdatesURL=http://omics.pnl.gov/software
+ArchitecturesAllowed=x64 x86
+ArchitecturesInstallIn64BitMode=x64
 DefaultDirName={autopf}\SpectrumLook
 DefaultGroupName=PAST Toolkit
 AppCopyright=© PNNL
