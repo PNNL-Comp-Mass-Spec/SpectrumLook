@@ -85,12 +85,11 @@ namespace SpectrumLook.Views
 
         private void detachPlotFromMainForm()
         {
-            Point pointOnTheScreen;
             if (!mCurrentOptions.IsPlotInMainForm)
             {
                 if (panelPlot.Controls.Contains(mManager.mPlot))
                 {
-                    pointOnTheScreen = mManager.mPlot.PointToScreen(mManager.mPlot.Location);
+                    var pointOnTheScreen = mManager.mPlot.PointToScreen(mManager.mPlot.Location);
                     panelPlot.Controls.Remove(mManager.mPlot);
                     mManager.mPlot.Hide();
                     mManager.mPlot.FormBorderStyle = FormBorderStyle.SizableToolWindow;
@@ -306,7 +305,6 @@ namespace SpectrumLook.Views
 
         public void UpdateObserver()
         {
-
             detachPlotFromMainForm();
 
             mManager.mFragmentationLadder.RegenerateLadderFromSelection();

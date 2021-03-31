@@ -4,13 +4,16 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Windows.Forms;
 using System.IO;
+using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Text.RegularExpressions;
+using System.Windows.Forms;
 using PRISM;
-using SpectrumLook.Views;
 using SpectrumLook.Builders;
+using SpectrumLook.Views;
+using SpectrumLook.Views.FragmentLadderView;
+using SpectrumLook.Views.Options;
 
 namespace SpectrumLook
 {
@@ -32,7 +35,7 @@ namespace SpectrumLook
 
         public DataView mDataView;
 
-        public Views.FragmentLadderView.FragmentLadderView mFragmentationLadder;
+        public FragmentLadderView mFragmentationLadder;
 
         private readonly OptionsViewController mOptions;
 
@@ -68,7 +71,7 @@ namespace SpectrumLook
             };
 
             // Fragment Ladder
-            mFragmentationLadder = new Views.FragmentLadderView.FragmentLadderView(this)
+            mFragmentationLadder = new FragmentLadderView(this)
             {
                 TopLevel = false,
                 Visible = true,
@@ -105,7 +108,7 @@ namespace SpectrumLook
                     var binaryFormatter = new BinaryFormatter();
                     mPlot.Options = new PlotOptions((PlotOptions)binaryFormatter.Deserialize(reader));
                     mMainForm.mCurrentOptions = new MainFormOptions((MainFormOptions)binaryFormatter.Deserialize(reader));
-                    mFragmentationLadder.FragmentLadderOptions = new Views.Options.FragmentLadderOptions((Views.Options.FragmentLadderOptions)binaryFormatter.Deserialize(reader));
+                    mFragmentationLadder.FragmentLadderOptions = new FragmentLadderOptions((FragmentLadderOptions)binaryFormatter.Deserialize(reader));
                 }
                 catch { }
                 finally
@@ -120,21 +123,28 @@ namespace SpectrumLook
             var userProfileFilePath = Path.Combine(Directory.GetCurrentDirectory() + "UserProfile.spuf");
 
             // Options
-            mOptions = new OptionsViewController(mPlot.Options, mMainForm.mCurrentOptions, mFragmentationLadder.FragmentLadderOptions, userProfileFilePath, createFileFlag, mFragmentationLadder);
+            mOptions = new OptionsViewController(
+                mPlot.Options,
+                mMainForm.mCurrentOptions,
+                mFragmentationLadder.FragmentLadderOptions,
+                userProfileFilePath,
+                createFileFlag,
+                mFragmentationLadder);
+
             mMainForm.mCurrentOptions.ToleranceValue = 0.7;
 
             // attach all of the observers to the subjects
             var tempObserver = mPlot as IObserver;
             mPlot.Options.Attach(ref tempObserver);
 
-            tempObserver = mMainForm as IObserver;
+            tempObserver = mMainForm;
             mMainForm.mCurrentOptions.Attach(ref tempObserver);
 
-            tempObserver = mOptions as IObserver;
+            tempObserver = mOptions;
             mMainForm.mCurrentOptions.Attach(ref tempObserver);
             mPlot.Options.Attach(ref tempObserver);// This is because the plot window depends on the mainFormOptions.
 
-            tempObserver = mFragmentationLadder as IObserver;
+            tempObserver = mFragmentationLadder;
             // Add pre-defined symbols to modifications list
             mFragmentationLadder.FragmentLadderOptions.Attach(ref tempObserver);
             if (mFragmentationLadder.FragmentLadderOptions.ModificationList.Count == 0)
@@ -174,6 +184,9 @@ namespace SpectrumLook
 
         private string mDataDirectoryPath = string.Empty;
 
+        /// <summary>
+        /// Spectrum data file (.mzML, .mzXML, or .raw)
+        /// </summary>
         private string DataFilePath
         {
             get => Path.Combine(mDataDirectoryPath, DataFileName);
@@ -187,7 +200,7 @@ namespace SpectrumLook
         private int mCurrentScanNumber;
         private string mCurrentPeptide;
         private string mSynopsisFilePath;
-        private bool mIsETD = false;
+        private bool mIsETD;
         private List<Element> mExperimentalList;
 
         /// <summary>
@@ -366,10 +379,11 @@ namespace SpectrumLook
             DataLoaded = true;
             try
             {
-                var ladderBuilder = new Views.FragmentLadderView.LadderInstanceBuilder();
+                var ladderBuilder = new LadderInstanceBuilder();
 
                 mCurrentScanNumber = Convert.ToInt32(scanNumber);
                 mCurrentPeptide = peptide;
+
                 // use the builder director to crunch all the data
                 var theoreticalList = mBuilderDirector.BuildTheoryList(peptide, mIsETD, mFragmentationLadder.FragmentLadderOptions.ModificationList);
                 mExperimentalList = mBuilderDirector.BuildActualList(Convert.ToInt32(scanNumber), DataFilePath);
@@ -691,7 +705,7 @@ namespace SpectrumLook
             return nextFileName;
         }
 
-        private static int mBatchSaveCounter = 0;
+        private static int mBatchSaveCounter;
 
         public delegate void UpdateLabelDelegate(string newText);
     }
