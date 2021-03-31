@@ -1,7 +1,3 @@
-// TEST CHECKOUT
-
-// RYAN YOUR SOLUTION TO DISCUSS WITH THE GROUP IS IN FragmentLadderView.cs at the bottom
-
 using System;
 using System.Collections.Generic;
 using System.IO;

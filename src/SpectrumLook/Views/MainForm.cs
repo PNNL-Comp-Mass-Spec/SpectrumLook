@@ -7,13 +7,12 @@ namespace SpectrumLook.Views
     /// <summary>
     /// This is the top level form that contains all of the Views, with the exception of Plot View being detached
     /// </summary>
-    // TODO : Need to inherit from IObserver and override the Update function! Otherwise the options will not update properly.
     public partial class MainForm : Form, IObserver
     {
         private readonly Manager mManager;
 
         public MainFormOptions mCurrentOptions;
-        private const string PROGRAM_DATE = "March 30, 2021";
+        private const string PROGRAM_DATE = "March 31, 2021";
 
         public MainForm()
         {
@@ -54,6 +53,12 @@ namespace SpectrumLook.Views
 
             KeyDown += MainForm_KeyDown;
             KeyPreview = true; // set this true so we can get all the key events for child controls
+        }
+
+        public sealed override string Text
+        {
+            get => base.Text;
+            set => base.Text = value;
         }
 
         private static string GetAppVersion()
