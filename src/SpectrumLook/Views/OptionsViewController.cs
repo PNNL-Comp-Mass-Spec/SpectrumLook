@@ -64,8 +64,6 @@ namespace SpectrumLook.Views
 
         private string mProfileFilePath;
 
-        private const int mNumCancelOptions = 19;
-
         /// <summary>
         /// Constructor
         /// </summary>

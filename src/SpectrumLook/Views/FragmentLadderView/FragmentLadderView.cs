@@ -788,10 +788,6 @@ namespace SpectrumLook.Views.FragmentLadderView
             }
         }
 
-        private void columnLabel_Click(object sender, EventArgs e)
-        {
-        }
-
         private void PeptideEditorTextBox_KeyDown_1(object sender, KeyEventArgs e)
         {
             var newTabIndex = tabControl1.TabCount;
@@ -799,6 +795,7 @@ namespace SpectrumLook.Views.FragmentLadderView
             {
                 if (peptideEditorTextBox.Text?.Length == 0)
                     return;
+
                 var changeTab = mManager.HandleInputPeptide(peptideEditorTextBox.Text);
 
                 if (changeTab)
