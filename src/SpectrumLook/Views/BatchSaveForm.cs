@@ -10,8 +10,10 @@ namespace SpectrumLook
 
         private readonly Manager mManager;
         private readonly Manager.UpdateLabelDelegate mStatusLabelUpdate;
-        public bool cancelSearch;
-        public string baseFolderText;
+
+        private bool mCancelSearch;
+
+        private string mBaseFolderText;
 
         /// <summary>
         /// Constructor
@@ -32,7 +34,7 @@ namespace SpectrumLook
         {
             if (ValidateFields())
             {
-                cancelSearch = false;
+                mCancelSearch = false;
                 SaveButton.Enabled = false;
 
                 var startDirectory = BaseFolderTextBox.Text;
@@ -57,7 +59,7 @@ namespace SpectrumLook
                         mManager.mMainForm.Visible = false;
 
                         mManager.HandleBatchSave(startDirectory, baseName, saveType,
-                            saveOnlyInGrid, usePeptideAndScanName, addDatasetName, UpdateStatusLabel, ref cancelSearch);
+                            saveOnlyInGrid, usePeptideAndScanName, addDatasetName, UpdateStatusLabel, ref mCancelSearch);
                     }
                 }
                 catch (Exception ex)
@@ -70,7 +72,7 @@ namespace SpectrumLook
                 SaveButton.Enabled = true;
                 CloseButton.Visible = true;
 
-                if (cancelSearch)
+                if (mCancelSearch)
                 {
                     MessageBox.Show("Cancelled saving", "Cancelled", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
@@ -88,7 +90,7 @@ namespace SpectrumLook
         /// </summary>
         private void CancelButton_Click(object sender, EventArgs e)
         {
-            cancelSearch = true;
+            mCancelSearch = true;
             Application.DoEvents();
 
             if (CancelBatchSaveButton.DialogResult == DialogResult.Cancel)
@@ -100,7 +102,7 @@ namespace SpectrumLook
         /// </summary>
         private void BatchSaveForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            cancelSearch = true;
+            mCancelSearch = true;
             Application.DoEvents();
         }
 
@@ -113,7 +115,7 @@ namespace SpectrumLook
             BaseFolderTextBox.Text = FolderBrowserDialog.SelectedPath;
             if (BaseFolderTextBox.Text?.Length == 0)
             {
-                BaseFolderTextBox.Text = baseFolderText;
+                BaseFolderTextBox.Text = mBaseFolderText;
             }
         }
 
@@ -122,9 +124,13 @@ namespace SpectrumLook
         /// </summary>
         private void InitializeFields()
         {
-            cancelSearch = false;
-            BaseFolderTextBox.Text = Environment.CurrentDirectory;
-            baseFolderText = BaseFolderTextBox.Text;
+            mCancelSearch = false;
+
+            BaseFolderTextBox.Text = Environment.CurrentDirectory.StartsWith(@"C:\Program Files") ?
+                                         Path.GetTempPath() :
+                                         Environment.CurrentDirectory;
+
+            mBaseFolderText = BaseFolderTextBox.Text;
             BaseName.Text = "Spectrum_" + string.Format("{0:yyyy_MM_dd}", DateTime.Now);
             SaveAllRadioButton.Checked = true;
             UsePeptideAndScanRadioButton.Checked = true;
@@ -137,7 +143,8 @@ namespace SpectrumLook
                 TypeComboBox.Items.Add(imageType);
             }
 
-            TypeComboBox.SelectedIndex = 0;
+            // Default to .png
+            TypeComboBox.SelectedIndex = 1;
         }
 
         /// <summary>
