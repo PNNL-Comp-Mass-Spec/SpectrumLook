@@ -106,7 +106,7 @@
             this.defaultButton.TabIndex = 14;
             this.defaultButton.Text = "Default";
             this.defaultButton.UseVisualStyleBackColor = true;
-            this.defaultButton.Click += new System.EventHandler(this.defaultButton_Click);
+            this.defaultButton.Click += new System.EventHandler(this.DefaultButton_Click);
             // 
             // applyButton
             // 
@@ -118,7 +118,7 @@
             this.applyButton.TabIndex = 16;
             this.applyButton.Text = "Ok";
             this.applyButton.UseVisualStyleBackColor = true;
-            this.applyButton.Click += new System.EventHandler(this.applyButton_Click);
+            this.applyButton.Click += new System.EventHandler(this.ApplyButton_Click);
             // 
             // cancelButton
             // 
@@ -131,7 +131,7 @@
             this.cancelButton.TabIndex = 15;
             this.cancelButton.Text = "Cancel";
             this.cancelButton.UseVisualStyleBackColor = true;
-            this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
+            this.cancelButton.Click += new System.EventHandler(this.CancelButton_Click);
             // 
             // PlotOptionsView
             // 
@@ -203,7 +203,7 @@
             this.plotNumberOfPlotsTextBox.Name = "plotNumberOfPlotsTextBox";
             this.plotNumberOfPlotsTextBox.Size = new System.Drawing.Size(56, 22);
             this.plotNumberOfPlotsTextBox.TabIndex = 13;
-            this.plotNumberOfPlotsTextBox.Leave += new System.EventHandler(this.numberOfPlotsTextBox_Leave);
+            this.plotNumberOfPlotsTextBox.Leave += new System.EventHandler(this.NumberOfPlotsTextBox_Leave);
             // 
             // plotAnnotationOptionsGroup
             // 
@@ -330,7 +330,7 @@
             this.plotRightClickUnzoom.TabIndex = 6;
             this.plotRightClickUnzoom.Text = "Enable Right Click Unzooming";
             this.plotRightClickUnzoom.UseVisualStyleBackColor = true;
-            this.plotRightClickUnzoom.CheckedChanged += new System.EventHandler(this.checkBoxRightClickUnzoom_CheckedChanged);
+            this.plotRightClickUnzoom.CheckedChanged += new System.EventHandler(this.CheckBoxRightClickUnzoom_CheckedChanged);
             // 
             // plotFragLadderSelectBox
             // 
@@ -548,7 +548,7 @@
             this.mainUnmatchColorChangeButton.TabIndex = 7;
             this.mainUnmatchColorChangeButton.Text = "Change Color";
             this.mainUnmatchColorChangeButton.UseVisualStyleBackColor = true;
-            this.mainUnmatchColorChangeButton.Click += new System.EventHandler(this.mainUnmatchColorChangeButton_Click);
+            this.mainUnmatchColorChangeButton.Click += new System.EventHandler(this.MainUnmatchColorChangeButton_Click);
             // 
             // mainUnmatchedColorSample
             // 
@@ -578,7 +578,7 @@
             this.mainMatchColorChangeButton.TabIndex = 5;
             this.mainMatchColorChangeButton.Text = "Change Color";
             this.mainMatchColorChangeButton.UseVisualStyleBackColor = true;
-            this.mainMatchColorChangeButton.Click += new System.EventHandler(this.mainMatchColorChangeButton_Click);
+            this.mainMatchColorChangeButton.Click += new System.EventHandler(this.MainMatchColorChangeButton_Click);
             // 
             // mainMatchedColorSample
             // 
@@ -621,7 +621,7 @@
             this.lowerMatchingToleranceBox.Name = "lowerMatchingToleranceBox";
             this.lowerMatchingToleranceBox.Size = new System.Drawing.Size(132, 22);
             this.lowerMatchingToleranceBox.TabIndex = 10;
-            this.lowerMatchingToleranceBox.Leave += new System.EventHandler(this.lowerMatchingToleranceBox_TextChanged);
+            this.lowerMatchingToleranceBox.Leave += new System.EventHandler(this.LowerMatchingToleranceBox_TextChanged);
             // 
             // lowerMatchingToleranceLabel
             // 
@@ -640,7 +640,7 @@
             this.mainMatchingToleranceBox.Name = "mainMatchingToleranceBox";
             this.mainMatchingToleranceBox.Size = new System.Drawing.Size(132, 22);
             this.mainMatchingToleranceBox.TabIndex = 8;
-            this.mainMatchingToleranceBox.Leave += new System.EventHandler(this.mainMatchingToleranceBox_TextChanged);
+            this.mainMatchingToleranceBox.Leave += new System.EventHandler(this.MainMatchingToleranceBox_TextChanged);
             // 
             // mainMatchingToleranceLabel
             // 

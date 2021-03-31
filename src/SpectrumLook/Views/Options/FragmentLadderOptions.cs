@@ -68,6 +68,9 @@ namespace SpectrumLook.Views.Options
             }
         }
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public FragmentLadderOptions()
         {
             mModificationList = new Dictionary<char, double>();
@@ -82,6 +85,10 @@ namespace SpectrumLook.Views.Options
             ResetModificationsToDefault();
         }
 
+        /// <summary>
+        /// Constructor that takes an instance of this class to copy settings from
+        /// </summary>
+        /// <param name="rhsOptions"></param>
         public FragmentLadderOptions(FragmentLadderOptions rhsOptions)
         {
             mModificationList = rhsOptions.mModificationList;

@@ -20,6 +20,10 @@ namespace SpectrumLook.Views.FragmentLadderView
 
         public FragmentLadderOptions FragmentLadderOptions { get; set; }
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="manager"></param>
         public FragmentLadderView(Manager manager)
         {
             InitializeComponent();
@@ -45,7 +49,7 @@ namespace SpectrumLook.Views.FragmentLadderView
         /// This function will set the text field in the fragment
         /// </summary>
         /// <param name="peptide"></param>
-        public void setPeptideTextBox(string peptide)
+        public void SetPeptideTextBox(string peptide)
         {
             peptideEditorTextBox.Text = peptide.ToString();
         }
@@ -600,9 +604,9 @@ namespace SpectrumLook.Views.FragmentLadderView
             try
             {
                 if (comboBox1.Text == "CID")
-                    mManager.HandlefragmentLadderModeChange(false);
+                    mManager.HandleFragmentLadderModeChange(false);
                 else
-                    mManager.HandlefragmentLadderModeChange(true);
+                    mManager.HandleFragmentLadderModeChange(true);
             }
             catch (Exception ex)
             {
@@ -694,7 +698,7 @@ namespace SpectrumLook.Views.FragmentLadderView
                 columnCheckedListBox.SetItemChecked(1, true);
                 columnCheckedListBox.SetItemChecked(9, true);
                 columnCheckedListBox.SetItemChecked(10, true);
-                mManager.HandlefragmentLadderModeChange(false);
+                mManager.HandleFragmentLadderModeChange(false);
             }
             else
             {
@@ -722,7 +726,7 @@ namespace SpectrumLook.Views.FragmentLadderView
                 columnCheckedListBox.SetItemChecked(1, true);
                 columnCheckedListBox.SetItemChecked(9, true);
                 columnCheckedListBox.SetItemChecked(10, true);
-                mManager.HandlefragmentLadderModeChange(true);
+                mManager.HandleFragmentLadderModeChange(true);
             }
         }
 
@@ -753,6 +757,7 @@ namespace SpectrumLook.Views.FragmentLadderView
             {
                 mManager.RemoveModificationFromList(index);
             }
+
             if (index > 0)
             {
                 if (tabControl1.TabCount == index)

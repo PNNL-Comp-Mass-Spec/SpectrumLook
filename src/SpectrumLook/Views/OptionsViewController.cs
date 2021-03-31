@@ -54,11 +54,11 @@ namespace SpectrumLook.Views
 
         private readonly Options.FragmentLadderOptions mFragmentationLadderOptions;
 
-        private readonly SpectrumLook.Views.FragmentLadderView.FragmentLadderView mFragmentationLadder;
+        private readonly FragmentLadderView.FragmentLadderView mFragmentationLadder;
 
-        private Color Unmatched;
+        private Color mUnmatched;
 
-        private Color Matched;
+        private Color mMatched;
 
         private bool mCreateProfile;
 
@@ -97,8 +97,8 @@ namespace SpectrumLook.Views
             mMainFormOptions = referenceMainFormOptions;
             mFragmentationLadderOptions = fragmentLadderOptions;
             mFragmentationLadder = fragmentLadder;
-            Matched = mPlotOptions.MatchedColor;
-            Unmatched = mPlotOptions.UnmatchedColor;
+            mMatched = mPlotOptions.MatchedColor;
+            mUnmatched = mPlotOptions.UnmatchedColor;
 
             FillKeyOptions();
             CacheCurrentOptions();
@@ -111,7 +111,7 @@ namespace SpectrumLook.Views
             dataGridViewModList.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             dataGridViewModList.Columns.Add("mass", "Mass");
             dataGridViewModList.RowHeadersVisible = false;
-            dataGridViewModList.Click += dataGridViewModList_Click;
+            dataGridViewModList.Click += DataGridViewModList_Click;
             dataGridViewModList.EditMode = DataGridViewEditMode.EditProgrammatically; // Disable manual edit
 
             UpdateOptions();
@@ -206,7 +206,7 @@ namespace SpectrumLook.Views
             dataGridViewModList.Rows.Clear();
             foreach (var modPair in mFragmentationLadderOptions.ModificationList)
             {
-                dataGridViewModList.Rows.Add(new object[] { modPair.Key, modPair.Value });
+                dataGridViewModList.Rows.Add(modPair.Key, modPair.Value);
             }
         }
 
@@ -246,7 +246,7 @@ namespace SpectrumLook.Views
             mPlotOptions.HideUnmatched = plotHideUnmatchedData.Checked;
         }
 
-        private void checkBoxRightClickUnzoom_CheckedChanged(object sender, EventArgs e)
+        private void CheckBoxRightClickUnzoom_CheckedChanged(object sender, EventArgs e)
         {
             mPlotOptions.RightClickUnzoom = plotRightClickUnzoom.Checked;
         }
@@ -276,11 +276,9 @@ namespace SpectrumLook.Views
 
         private void PlotUnzoomKeyComboBox_Leave(object sender, EventArgs e)
         {
-            Keys key;
             try
             {
-                key = (Keys)plotUnzoomKeyComboBox.SelectedItem;
-                mPlotOptions.UnzoomKey = key;
+                mPlotOptions.UnzoomKey = (Keys)plotUnzoomKeyComboBox.SelectedItem;
             }
             catch
             {
@@ -351,17 +349,17 @@ namespace SpectrumLook.Views
             }
         }
 
-        private void numberOfPlotsTextBox_Leave(object sender, EventArgs e)
+        private void NumberOfPlotsTextBox_Leave(object sender, EventArgs e)
         {
             try
             {
-                var newAmmount = Convert.ToInt32(plotNumberOfPlotsTextBox.Text);
-                if (newAmmount > 100 || newAmmount < 1)
+                var newAmount = Convert.ToInt32(plotNumberOfPlotsTextBox.Text);
+                if (newAmount > 100 || newAmount < 1)
                 {
                     throw new Exception();
                 }
                 mPlotOptions.Replot = true;
-                mPlotOptions.NumberOfPlots = newAmmount;
+                mPlotOptions.NumberOfPlots = newAmount;
             }
             catch
             {
@@ -369,29 +367,29 @@ namespace SpectrumLook.Views
             }
         }
 
-        private void mainMatchColorChangeButton_Click(object sender, EventArgs e)
+        private void MainMatchColorChangeButton_Click(object sender, EventArgs e)
         {
             var outputResult = colorDialog.ShowDialog();
             if (outputResult == DialogResult.OK)
             {
-                Matched = colorDialog.Color;
+                mMatched = colorDialog.Color;
                 // mPlotOptions.MatchedColor = colorDialog.Color;
-                mainMatchedColorSample.BackColor = Matched;
+                mainMatchedColorSample.BackColor = mMatched;
             }
         }
 
-        private void mainUnmatchColorChangeButton_Click(object sender, EventArgs e)
+        private void MainUnmatchColorChangeButton_Click(object sender, EventArgs e)
         {
             var outputResult = colorDialog.ShowDialog();
             if (outputResult == DialogResult.OK)
             {
-                Unmatched = colorDialog.Color;
+                mUnmatched = colorDialog.Color;
                 // mPlotOptions.UnmatchedColor = colorDialog.Color;
-                mainUnmatchedColorSample.BackColor = Unmatched;
+                mainUnmatchedColorSample.BackColor = mUnmatched;
             }
         }
 
-        private void mainMatchingToleranceBox_TextChanged(object sender, EventArgs e)
+        private void MainMatchingToleranceBox_TextChanged(object sender, EventArgs e)
         {
             if (!double.TryParse(mainMatchingToleranceBox.Text, out var outputValue))
             {
@@ -413,7 +411,7 @@ namespace SpectrumLook.Views
             }
         }
 
-        private void lowerMatchingToleranceBox_TextChanged(object sender, EventArgs e)
+        private void LowerMatchingToleranceBox_TextChanged(object sender, EventArgs e)
         {
             if (!double.TryParse(lowerMatchingToleranceBox.Text, out var outputValue))
             {
@@ -435,7 +433,7 @@ namespace SpectrumLook.Views
             }
         }
 
-        private void dataGridViewModList_Click(object sender, EventArgs e)
+        private void DataGridViewModList_Click(object sender, EventArgs e)
         {
             var selectedCell = dataGridViewModList.CurrentCell;
             var row = selectedCell.RowIndex;
@@ -443,8 +441,9 @@ namespace SpectrumLook.Views
             var mass = (double?)dataGridViewModList.Rows[row].Cells[1].Value;
 
             // Configure values for and open a DialogBox for modifying modification data.
-            var strSymbol = symbol == null ? null : symbol.ToString();
-            var strMass = mass == null ? null : mass.ToString();
+            var symbolToShow = symbol?.ToString();
+            var massToShow = mass?.ToString();
+
             var usedSymbols = "";
             foreach (DataGridViewRow rowData in dataGridViewModList.Rows)
             {
@@ -453,7 +452,7 @@ namespace SpectrumLook.Views
                     usedSymbols += rowData.Cells[0].Value.ToString();
                 }
             }
-            var dialogBox = new EditAddModification(strSymbol, strMass, usedSymbols);
+            var dialogBox = new EditAddModification(symbolToShow, massToShow, usedSymbols);
             var tmpResult = dialogBox.ShowDialog();
 
             if (tmpResult != DialogResult.OK)
@@ -479,7 +478,7 @@ namespace SpectrumLook.Views
         // TODO: Don't actually store any values to objects until this handler is called.
         // TODO: This will remove all need for the "cancel button handler" "data restore" (that doesn't restore any data).
         // TODO: This should be easily accomplished by populating all data accordingly when the dialog is opened, and then ONLY storing the data if/when "OK" is clicked.
-        private void applyButton_Click(object sender, EventArgs e)
+        private void ApplyButton_Click(object sender, EventArgs e)
         {
             foreach (var keyName in mSavedOptions.Keys.ToList())
             {
@@ -488,6 +487,7 @@ namespace SpectrumLook.Views
 
             // Finally modify the modification list.
             mFragmentationLadderOptions.ModificationList.Clear();
+
             foreach (DataGridViewRow row in dataGridViewModList.Rows)
             {
                 if (row.Cells[0].Value != null)
@@ -495,14 +495,15 @@ namespace SpectrumLook.Views
                     mFragmentationLadderOptions.ModificationList.Add((char)row.Cells[0].Value, double.Parse(row.Cells[1].Value.ToString()));
                 }
             }
+
             // update fragment ladder so color changes will take effect
             mFragmentationLadder.RegenerateLadderFromSelection();
-            mFragmentationLadder.SetMatchedLabel(Matched);
-            mFragmentationLadder.SetUnmatchedLabel(Unmatched);
+            mFragmentationLadder.SetMatchedLabel(mMatched);
+            mFragmentationLadder.SetUnmatchedLabel(mUnmatched);
 
             // Update Plot options for Color
-            mPlotOptions.UnmatchedColor = Unmatched;
-            mPlotOptions.MatchedColor = Matched;
+            mPlotOptions.UnmatchedColor = mUnmatched;
+            mPlotOptions.MatchedColor = mMatched;
             Close();
         }
 

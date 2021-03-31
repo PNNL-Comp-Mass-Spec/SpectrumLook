@@ -346,8 +346,6 @@ namespace SpectrumLook.Views
         /// <summary>
         /// Extra event for the closing of the options form so that we can update the plot to the user's new options
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         public void UpdateObserver()
         {
             ResizeForm();

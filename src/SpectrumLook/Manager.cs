@@ -425,7 +425,7 @@ namespace SpectrumLook
         /// <summary>
         /// Handles re-plotting the data when the fragment ladder peptide has changed without selecting a new set of data
         /// </summary>
-        public void HandlefragmentLadderModeChange(bool setMode)
+        public void HandleFragmentLadderModeChange(bool setMode)
         {
             mIsETD = setMode;
 
@@ -558,7 +558,7 @@ namespace SpectrumLook
 
             mPlot.PlotData(comparedList, mCurrentScanNumber.ToString(), peptide);
 
-            mFragmentationLadder.setPeptideTextBox(peptide);
+            mFragmentationLadder.SetPeptideTextBox(peptide);
         }
 
         /// <summary>

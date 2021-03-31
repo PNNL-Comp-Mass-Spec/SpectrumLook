@@ -37,8 +37,7 @@ namespace SpectrumLook.Views
         }
 
         /// <summary>
-        /// This function goes through the list of observers and calls the update
-        /// function of thoughs observers.
+        /// This function goes through the list of observers and calls the update function on each
         /// </summary>
         public void Invoke()
         {
