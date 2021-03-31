@@ -38,6 +38,8 @@ namespace SpectrumLook.Views
             CheckedHeaders = 17
         }
 
+        private bool mModificationsUpdated;
+
         /// <summary>
         /// This array holds settings in place when the options window is shown
         /// If the user clicks cancel, the original values are restored
@@ -152,6 +154,14 @@ namespace SpectrumLook.Views
             {
                 CacheCurrentOptions();
             }
+        }
+
+        /// <summary>
+        /// Set the modifications updated flag to false
+        /// </summary>
+        public void ResetModificationUpdatedFlag()
+        {
+            mModificationsUpdated = false;
         }
 
         public void SelectTab(string newTab)
@@ -474,6 +484,7 @@ namespace SpectrumLook.Views
 
             // Clear any cached ladder sequences to force new mod masses to be used
             mFragmentationLadder.ClearCachedLadderInstances();
+            mModificationsUpdated = true;
         }
 
         // TODO: Don't actually store any values to objects until this handler is called.
@@ -505,6 +516,12 @@ namespace SpectrumLook.Views
             // Update Plot options for Color
             mPlotOptions.UnmatchedColor = mUnmatched;
             mPlotOptions.MatchedColor = mMatched;
+
+            if (mModificationsUpdated)
+            {
+                mFragmentationLadder.UpdateCurrentFragmentIons();
+                mModificationsUpdated = false;
+            }
             Close();
         }
 

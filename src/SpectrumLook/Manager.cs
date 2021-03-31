@@ -564,6 +564,7 @@ namespace SpectrumLook
         /// <param name="startingTab">The title of the desired starting tab.</param>
         public void OpenOptionsMenu(string startingTab)
         {
+            mOptions.ResetModificationUpdatedFlag();
             mOptions.SelectTab(startingTab);
             mOptions.Show();
             mOptions.BringToFront();
