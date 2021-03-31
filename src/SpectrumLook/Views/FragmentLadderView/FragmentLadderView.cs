@@ -51,7 +51,7 @@ namespace SpectrumLook.Views.FragmentLadderView
         /// <param name="peptide"></param>
         public void SetPeptideTextBox(string peptide)
         {
-            peptideEditorTextBox.Text = peptide.ToString();
+            peptideEditorTextBox.Text = peptide;
         }
 
         public void MarkIonSeriesHeaders()
@@ -664,15 +664,8 @@ namespace SpectrumLook.Views.FragmentLadderView
         /// <param name="e"></param>
         private void GenerateLadderFromPeptideInput(object sender, EventArgs e)
         {
-            var peptide_exists = false;
-            for (var i = 0; i < peptideEditorTextBox.Text.Length; i++)
-            {
-                if (char.IsUpper(peptideEditorTextBox.Text[i]))
-                {
-                    peptide_exists = true;
-                    break;
-                }
-            }
+            var peptide_exists = peptideEditorTextBox.Text.Any(char.IsUpper);
+
             if (!peptide_exists)
             {
                 peptideEditorTextBox.Text = peptideEditorTextBox.Text.ToUpper();
