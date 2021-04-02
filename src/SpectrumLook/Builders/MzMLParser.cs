@@ -8,8 +8,6 @@ namespace SpectrumLook.Builders
     {
         private readonly PSI_Interface.MSData.SimpleMzMLReader mFileReader;
 
-        private readonly SortedSet<int> mScanNumbers;
-
         string IExperimentParser.FilePath
         {
             get => CurrentFilePath;
@@ -32,32 +30,15 @@ namespace SpectrumLook.Builders
             }
 
             CurrentFilePath = filePath;
-            mScanNumbers = new SortedSet<int>();
 
             if (CurrentFilePath.EndsWith(".mzML", StringComparison.OrdinalIgnoreCase))
             {
                 mFileReader = new PSI_Interface.MSData.SimpleMzMLReader(filePath, true);
-                CacheScanNumbers();
                 IsFileOpened = true;
             }
             else
             {
                 throw new InvalidProgramException("Invalid File Type, must be .mzML");
-            }
-        }
-
-        private void CacheScanNumbers()
-        {
-            try
-            {
-                foreach (var spectrum in mFileReader.ReadAllSpectra(false))
-                {
-                    mScanNumbers.Add(spectrum.ScanNumber);
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error caching scan numbers in the .mzML file: " + ex.Message);
             }
         }
 
