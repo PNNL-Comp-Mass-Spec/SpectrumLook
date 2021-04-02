@@ -12,7 +12,7 @@ namespace SpectrumLook.Views
         private readonly Manager mManager;
 
         public MainFormOptions mCurrentOptions;
-        private const string PROGRAM_DATE = "March 31, 2021";
+        private const string PROGRAM_DATE = "April 2, 2021";
 
         public MainForm()
         {

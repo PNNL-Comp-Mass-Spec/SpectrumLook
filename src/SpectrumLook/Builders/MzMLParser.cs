@@ -53,12 +53,10 @@ namespace SpectrumLook.Builders
                 return null;
             }
 
-            if (!mScanNumbers.Contains(scanNumber))
-            {
-                return null;
-            }
+            var spectrum = mFileReader.GetSpectrumForScan(scanNumber, true);
 
-            var spectrum = mFileReader.ReadMassSpectrum(scanNumber, true);
+            if (spectrum == null)
+                return new List<Element>();
 
             var elements = new List<Element>();
             foreach (var peak in spectrum.Peaks)
